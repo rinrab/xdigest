@@ -41,7 +41,6 @@ sha = os.path.join(src, "sha")
 mkdir(sha)
 
 shutil.copy2(os.path.join(crypto, "sha/sha_local.h"), sha)
-shutil.copy2(os.path.join(crypto, "sha/sha1dgst.c"), sha)
 shutil.copy2(os.path.join(crypto, "sha/sha256.c"), sha)
 shutil.copy2(os.path.join(crypto, "sha/sha512.c"), sha)
 
