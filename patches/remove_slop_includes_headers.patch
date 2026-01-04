@@ -35,3 +35,15 @@ Index: include/internal/e_os.h
  # include <openssl/e_os2.h>
 -# include <openssl/crypto.h>
  # include "internal/numbers.h"   /* Ensure the definition of SIZE_MAX */
+Index: include/openssl/sha.h
+===================================================================
+--- include/openssl/sha.h
++++ include/openssl/sha.h
+@@ -11,7 +11,6 @@
+ # define OPENSSL_SHA_H
+ # pragma once
+ 
+-# include <openssl/macros.h>
+ # ifndef OPENSSL_NO_DEPRECATED_3_0
+ #  define HEADER_SHA_H
+ # endif
