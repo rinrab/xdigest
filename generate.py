@@ -98,5 +98,6 @@ shutil.copy2(os.path.join(include, "custom/configuration.h"),
 shutil.copy2(os.path.join(include, "custom/opensslv.h"),
              os.path.join(include, "openssl"))
 
-subprocess.call(["svn", "patch", "patches/remove_slop_includes.patch"])
+subprocess.call(["svn", "patch", "patches/remove_slop_includes_sources.patch"])
+subprocess.call(["svn", "patch", "patches/remove_slop_includes_headers.patch"])
 
