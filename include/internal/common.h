@@ -16,7 +16,6 @@
 # include "openssl/configuration.h"
 
 # include "internal/e_os.h" /* ossl_inline in many files */
-# include "internal/nelem.h"
 
 # if defined(__GNUC__) || defined(__clang__)
 #  define ossl_likely(x)     __builtin_expect(!!(x), 1)
