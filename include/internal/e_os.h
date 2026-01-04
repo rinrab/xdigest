@@ -11,10 +11,8 @@
 # define OSSL_E_OS_H
 
 # include <limits.h>
-# include <openssl/opensslconf.h>
 
 # include <openssl/e_os2.h>
-# include <openssl/crypto.h>
 # include "internal/numbers.h"   /* Ensure the definition of SIZE_MAX */
 
 /*
