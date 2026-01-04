@@ -1,7 +1,7 @@
 Index: include/crypto/md32_common.h
 ===================================================================
---- include/crypto/md32_common.h	(revision 6045)
-+++ include/crypto/md32_common.h	(working copy)
+--- include/crypto/md32_common.h
++++ include/crypto/md32_common.h
 @@ -67,7 +67,6 @@
  # define OSSL_CRYPTO_MD32_COMMON_H
  # pragma once
@@ -12,8 +12,8 @@ Index: include/crypto/md32_common.h
   */
 Index: include/internal/common.h
 ===================================================================
---- include/internal/common.h	(revision 6045)
-+++ include/internal/common.h	(working copy)
+--- include/internal/common.h
++++ include/internal/common.h
 @@ -16,7 +16,6 @@
  # include "openssl/configuration.h"
  
@@ -24,8 +24,8 @@ Index: include/internal/common.h
  #  define ossl_likely(x)     __builtin_expect(!!(x), 1)
 Index: include/internal/e_os.h
 ===================================================================
---- include/internal/e_os.h	(revision 6045)
-+++ include/internal/e_os.h	(working copy)
+--- include/internal/e_os.h
++++ include/internal/e_os.h
 @@ -11,10 +11,8 @@
  # define OSSL_E_OS_H
  
@@ -35,5 +35,3 @@ Index: include/internal/e_os.h
  # include <openssl/e_os2.h>
 -# include <openssl/crypto.h>
  # include "internal/numbers.h"   /* Ensure the definition of SIZE_MAX */
- 
- /*

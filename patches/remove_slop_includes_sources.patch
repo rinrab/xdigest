@@ -1,7 +1,7 @@
 Index: src/sha/sha256.c
 ===================================================================
---- src/sha/sha256.c	(revision 6040)
-+++ src/sha/sha256.c	(working copy)
+--- src/sha/sha256.c
++++ src/sha/sha256.c
 @@ -7,20 +7,10 @@
   * https://www.openssl.org/source/license.html
   */
@@ -25,8 +25,8 @@ Index: src/sha/sha256.c
  
 Index: src/sha/sha512.c
 ===================================================================
---- src/sha/sha512.c	(revision 6040)
-+++ src/sha/sha512.c	(working copy)
+--- src/sha/sha512.c
++++ src/sha/sha512.c
 @@ -11,10 +11,7 @@
   * SHA512 low level APIs are deprecated for public use, but still ok for
   * internal use.
@@ -52,8 +52,8 @@ Index: src/sha/sha512.c
  #if defined(__i386) || defined(__i386__) || defined(_M_IX86) || \
 Index: src/sha/sha_local.h
 ===================================================================
---- src/sha/sha_local.h	(revision 6040)
-+++ src/sha/sha_local.h	(working copy)
+--- src/sha/sha_local.h
++++ src/sha/sha_local.h
 @@ -10,7 +10,6 @@
  #include <stdlib.h>
  #include <string.h>
