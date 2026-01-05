@@ -27,8 +27,12 @@ def copy_fixup(input, output):
         data = file.read()
         data = data.replace("OPENSSL_", "xhash_")
 
-        data = re.sub(r"#include <openssl\/([^>]*)>",
-                      r"#include <xhash/\1>",
+        data = re.sub(r"include <openssl\/([^>]*)>",
+                      r"include <xhash/\1>",
+                      data, 0, re.MULTILINE)
+
+        data = re.sub(r"(SHA\d+_\w+\()",
+                      lambda match: f"xhash_{match[1].lower()}",
                       data, 0, re.MULTILINE)
 
     output.replace("openssl", "xhash")
@@ -109,4 +113,3 @@ patch("patches/inline_dummy_export.patch")
 patch("patches/sha_cleanup_header.patch")
 patch("patches/OPENSSL_IA32CAP_P_MAX_INDEXES.patch")
 patch("patches/include_stdlib_for_getenv.patch")
-

@@ -12,7 +12,7 @@
 
 # include <limits.h>
 
-# include <openssl/e_os2.h>
+# include <xhash/e_os2.h>
 # include "internal/numbers.h"   /* Ensure the definition of SIZE_MAX */
 
 /*

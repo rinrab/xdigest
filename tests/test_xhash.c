@@ -2,7 +2,15 @@
 #include <assert.h>
 #include <stdlib.h>
 
+#ifdef XHASH
+#include <xhash/sha.h>
+#else
 #include <openssl/sha.h>
+
+#define xhash_sha1_init SHA1_Init
+#define xhash_sha1_update SHA1_Update
+#define xhash_sha1_finish SHA1_Finish
+#endif
 
 #define BUFSIZE 1024 * 1024
 
