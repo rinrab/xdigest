@@ -16,10 +16,10 @@
 sha1_block_data_order:
 #if __ARM_MAX_ARCH__>=7
 Lsha1_block:
-	ldr	r12,LOPENSSL_armcap
+	ldr	r12,Lxhash_armcap
 # if !defined(_WIN32)
 	adr	r3,Lsha1_block
-	ldr	r12,[r3,r12]		@ OPENSSL_armcap_P
+	ldr	r12,[r3,r12]		@ xhash_armcap_P
 # endif
 # if defined(__APPLE__) || defined(_WIN32)
 	ldr	r12,[r12]
@@ -487,11 +487,11 @@ LK_20_39:.word	0x6ed9eba1
 LK_40_59:.word	0x8f1bbcdc
 LK_60_79:.word	0xca62c1d6
 #if __ARM_MAX_ARCH__>=7
-LOPENSSL_armcap:
+Lxhash_armcap:
 # ifdef	_WIN32
-.word	OPENSSL_armcap_P
+.word	xhash_armcap_P
 # else
-.word	OPENSSL_armcap_P-Lsha1_block
+.word	xhash_armcap_P-Lsha1_block
 # endif
 #endif
 .byte	83,72,65,49,32,98,108,111,99,107,32,116,114,97,110,115,102,111,114,109,32,102,111,114,32,65,82,77,118,52,47,78,69,79,78,47,65,82,77,118,56,44,32,67,82,89,80,84,79,71,65,77,83,32,98,121,32,60,104,116,116,112,115,58,47,47,103,105,116,104,117,98,46,99,111,109,47,100,111,116,45,97,115,109,62,0
@@ -1495,5 +1495,5 @@ Loop_v8:
 #endif
 #if __ARM_MAX_ARCH__>=7
 
-.hidden	OPENSSL_armcap_P
+.hidden	xhash_armcap_P
 #endif

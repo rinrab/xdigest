@@ -141,7 +141,7 @@ static const SHA_LONG K256[64] = {
 
 # ifndef PEDANTIC
 #  if defined(__GNUC__) && __GNUC__>=2 && \
-      !defined(OPENSSL_NO_ASM) && !defined(OPENSSL_NO_INLINE_ASM)
+      !defined(xhash_NO_ASM) && !defined(xhash_NO_INLINE_ASM)
 #   if defined(__riscv_zknh)
 #    define Sigma0(x) ({ MD32_REG_T ret;            \
                         asm ("sha256sum0 %0, %1"    \
@@ -197,7 +197,7 @@ static const SHA_LONG K256[64] = {
 #  define Maj(x,y,z)      (((x) & (y)) ^ ((x) & (z)) ^ ((y) & (z)))
 # endif
 
-# ifdef OPENSSL_SMALL_FOOTPRINT
+# ifdef xhash_SMALL_FOOTPRINT
 
 static void sha256_block_data_order(SHA256_CTX *ctx, const void *in,
                                     size_t num)

@@ -104,7 +104,7 @@
 
 #ifndef PEDANTIC
 # if defined(__GNUC__) && __GNUC__>=2 && \
-     !defined(OPENSSL_NO_ASM) && !defined(OPENSSL_NO_INLINE_ASM)
+     !defined(xhash_NO_ASM) && !defined(xhash_NO_INLINE_ASM)
 #  if defined(__riscv_zbb) || defined(__riscv_zbkb)
 #   if __riscv_xlen == 64
 #   undef ROTATE
@@ -183,8 +183,8 @@ int HASH_UPDATE(HASH_CTX *c, const void *data_, size_t len)
             len -= n;
             c->num = 0;
             /*
-             * We use memset rather than OPENSSL_cleanse() here deliberately.
-             * Using OPENSSL_cleanse() here could be a performance issue. It
+             * We use memset rather than xhash_cleanse() here deliberately.
+             * Using xhash_cleanse() here could be a performance issue. It
              * will get properly cleansed on finalisation so this isn't a
              * security problem.
              */

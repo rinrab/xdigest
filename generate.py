@@ -14,6 +14,21 @@ openssl_include = "openssl/include"
 asm = "asm"
 src = "src"
 
+mkdir(os.path.join(src, "sha"))
+include_path = "include"
+mkdir(include_path)
+mkdir(os.path.join(include_path, "openssl"))
+mkdir(os.path.join(include_path, "internal"))
+mkdir(os.path.join(include_path, "crypto"))
+
+def copy_fixup(input, output):
+    with open(input, 'r') as file:
+        data = file.read()
+        data = data.replace("OPENSSL_", "xhash_")
+
+    with open(output, 'w') as file:
+        file.write(data)
+
 def perlasm(config, file):
     input = os.path.join(crypto, file + ".pl")
     output = os.path.join(asm, config, file + ".S")
@@ -21,6 +36,23 @@ def perlasm(config, file):
     mkdir(os.path.dirname(output))
 
     subprocess.call(["perl", input, config, output])
+    copy_fixup(output, output)
+
+def source(path):
+    input = os.path.join(crypto, path)
+    output = os.path.join(src, path)
+
+    copy_fixup(input, output)
+
+def include(path):
+    input = os.path.join(openssl_include, path)
+    output = os.path.join(include_path, path)
+
+    copy_fixup(input, output)
+
+def patch(patchfile):
+    print(f"Patching {patchfile}")
+    code = subprocess.call(["svn", "patch", patchfile])
 
 os.environ["CC"] = "gcc"
 
@@ -42,51 +74,30 @@ perlasm("elf", "sha/asm/sha512-x86_64")
 perlasm("elf", "x86cpuid")
 perlasm("elf", "x86_64cpuid")
 
-sha = os.path.join(src, "sha")
-mkdir(sha)
+source("sha/sha_local.h")
+source("sha/sha256.c")
+source("sha/sha512.c")
+source("cpuid.c")
+source("ctype.c")
+source("ebcdic.c")
 
-shutil.copy2(os.path.join(crypto, "sha/sha_local.h"), sha)
-shutil.copy2(os.path.join(crypto, "sha/sha256.c"), sha)
-shutil.copy2(os.path.join(crypto, "sha/sha512.c"), sha)
-shutil.copy2(os.path.join(crypto, "cpuid.c"), src)
-shutil.copy2(os.path.join(crypto, "ctype.c"), src)
-shutil.copy2(os.path.join(crypto, "ebcdic.c"), src)
+include("openssl/sha.h")
+include("openssl/e_os2.h")
+include("openssl/ebcdic.h")
+include("internal/endian.h")
+include("internal/common.h")
+include("internal/e_os.h")
+include("internal/numbers.h")
+include("crypto/md32_common.h")
+include("crypto/sha.h")
+include("crypto/ctype.h")
 
-include = "include"
-mkdir(include)
-mkdir(os.path.join(include, "openssl"))
-mkdir(os.path.join(include, "internal"))
-mkdir(os.path.join(include, "crypto"))
-
-shutil.copy2(os.path.join(openssl_include, "openssl/sha.h"),
-             os.path.join(include, "openssl"))
-shutil.copy2(os.path.join(openssl_include, "openssl/e_os2.h"),
-             os.path.join(include, "openssl"))
-shutil.copy2(os.path.join(openssl_include, "openssl/ebcdic.h"),
-             os.path.join(include, "openssl"))
-
-shutil.copy2(os.path.join(openssl_include, "internal/endian.h"),
-             os.path.join(include, "internal"))
-shutil.copy2(os.path.join(openssl_include, "internal/common.h"),
-             os.path.join(include, "internal"))
-shutil.copy2(os.path.join(openssl_include, "internal/e_os.h"),
-             os.path.join(include, "internal"))
-shutil.copy2(os.path.join(openssl_include, "internal/numbers.h"),
-             os.path.join(include, "internal"))
-
-shutil.copy2(os.path.join(openssl_include, "crypto/md32_common.h"),
-             os.path.join(include, "crypto"))
-shutil.copy2(os.path.join(openssl_include, "crypto/sha.h"),
-             os.path.join(include, "crypto"))
-shutil.copy2(os.path.join(openssl_include, "crypto/ctype.h"),
-             os.path.join(include, "crypto"))
-
-subprocess.call(["svn", "patch", "patches/remove_slop_includes_sources.patch"])
-subprocess.call(["svn", "patch", "patches/remove_slop_includes_headers.patch"])
-subprocess.call(["svn", "patch", "patches/remove_assert.patch"])
-subprocess.call(["svn", "patch", "patches/inline_cleanse.patch"])
-subprocess.call(["svn", "patch", "patches/inline_dummy_export.patch"])
-subprocess.call(["svn", "patch", "patches/sha_cleanup_header.patch"])
-subprocess.call(["svn", "patch", "patches/OPENSSL_IA32CAP_P_MAX_INDEXES.patch"])
-subprocess.call(["svn", "patch", "patches/include_stdlib_for_getenv.patch"])
+patch("patches/remove_slop_includes_sources.patch")
+patch("patches/remove_slop_includes_headers.patch")
+patch("patches/remove_assert.patch")
+patch("patches/inline_cleanse.patch")
+patch("patches/inline_dummy_export.patch")
+patch("patches/sha_cleanup_header.patch")
+patch("patches/OPENSSL_IA32CAP_P_MAX_INDEXES.patch")
+patch("patches/include_stdlib_for_getenv.patch")
 

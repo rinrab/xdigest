@@ -41,13 +41,13 @@
 #define CHECK_AND_SKIP_PREFIX(str, pre) \
     (HAS_PREFIX(str, pre) ? ((str) += sizeof(pre) - 1, 1) : 0)
 /* Check if the string literal |p| is a case-insensitive prefix of |s| */
-#define HAS_CASE_PREFIX(s, p) (OPENSSL_strncasecmp(s, p "", sizeof(p) - 1) == 0)
+#define HAS_CASE_PREFIX(s, p) (xhash_strncasecmp(s, p "", sizeof(p) - 1) == 0)
 /* As before, and if check succeeds, advance |str| past the prefix |pre| */
 #define CHECK_AND_SKIP_CASE_PREFIX(str, pre) \
     (HAS_CASE_PREFIX(str, pre) ? ((str) += sizeof(pre) - 1, 1) : 0)
 /* Check if the string literal |suffix| is a case-insensitive suffix of |str| */
 #define HAS_CASE_SUFFIX(str, suffix) (strlen(str) < sizeof(suffix) - 1 ? 0 : \
-    OPENSSL_strcasecmp(str + strlen(str) - sizeof(suffix) + 1, suffix "") == 0)
+    xhash_strcasecmp(str + strlen(str) - sizeof(suffix) + 1, suffix "") == 0)
 
 /*
  * Use this inside a union with the field that needs to be aligned to a
@@ -59,9 +59,9 @@
     ossl_uintmax_t align_int;   \
     void *align_ptr
 
-# define OPENSSL_CONF             "openssl.cnf"
+# define xhash_CONF             "openssl.cnf"
 
-# ifndef OPENSSL_SYS_VMS
+# ifndef xhash_SYS_VMS
 #  define X509_CERT_AREA          OPENSSLDIR
 #  define X509_CERT_DIR           OPENSSLDIR "/certs"
 #  define X509_CERT_FILE          OPENSSLDIR "/cert.pem"

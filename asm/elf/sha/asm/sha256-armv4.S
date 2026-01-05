@@ -83,11 +83,11 @@ K256:
 
 .word	0				@ terminator
 #if __ARM_MAX_ARCH__>=7 && !defined(__KERNEL__)
-LOPENSSL_armcap:
+Lxhash_armcap:
 # ifdef	_WIN32
-.word	OPENSSL_armcap_P
+.word	xhash_armcap_P
 # else
-.word	OPENSSL_armcap_P-Lsha256_block_data_order
+.word	xhash_armcap_P-Lsha256_block_data_order
 # endif
 #endif
 .align	5
@@ -102,9 +102,9 @@ Lsha256_block_data_order:
 	adr	r3,Lsha256_block_data_order
 #endif
 #if __ARM_MAX_ARCH__>=7 && !defined(__KERNEL__)
-	ldr	r12,LOPENSSL_armcap
+	ldr	r12,Lxhash_armcap
 # if !defined(_WIN32)
-	ldr	r12,[r3,r12]		@ OPENSSL_armcap_P
+	ldr	r12,[r3,r12]		@ xhash_armcap_P
 # endif
 # if defined(__APPLE__) || defined(_WIN32)
 	ldr	r12,[r12]
@@ -2819,5 +2819,5 @@ Loop_v8:
 .align	2
 #if __ARM_MAX_ARCH__>=7 && !defined(__KERNEL__)
 
-.hidden	OPENSSL_armcap_P
+.hidden	xhash_armcap_P
 #endif
