@@ -61,4 +61,15 @@ Index: src/sha/sha_local.h
 -#include <openssl/opensslconf.h>
  #include <openssl/sha.h>
  #include "internal/endian.h"
+Index: src/cpuid.c
+===================================================================
+--- src/cpuid.c
++++ src/cpuid.c
+@@ -8,7 +8,6 @@
+  */
  
+ #include "internal/e_os.h"
+-#include "crypto/cryptlib.h"
+ 
+ #if     defined(__i386)   || defined(__i386__)   || defined(_M_IX86) || \
+         defined(__x86_64) || defined(__x86_64__) || \
