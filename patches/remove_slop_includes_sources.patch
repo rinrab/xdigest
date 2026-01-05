@@ -61,10 +61,10 @@ Index: src/sha/sha_local.h
 -#include <xhash/opensslconf.h>
  #include <xhash/sha.h>
  #include "internal/endian.h"
-Index: src/cpuid.c
+Index: src/core/cpuid.c
 ===================================================================
---- src/cpuid.c
-+++ src/cpuid.c
+--- src/core/cpuid.c
++++ src/core/cpuid.c
 @@ -8,7 +8,6 @@
   */
  
