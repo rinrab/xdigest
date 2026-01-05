@@ -29,4 +29,10 @@ target_compile_definitions(xhash PRIVATE
 
 add_executable(test_xhash tests/test_xhash.c)
 target_link_libraries(test_xhash xhash)
+target_compile_definitions(test_xhash PRIVATE XHASH)
+
+find_package(OpenSSL REQUIRED)
+add_executable(test_openssl tests/test_xhash.c)
+target_link_libraries(test_openssl OpenSSL::Crypto)
+target_compile_definitions(test_xhash PRIVATE OPENSSL_SUPPRESS_DEPRECATED)
 
