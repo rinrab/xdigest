@@ -22,6 +22,14 @@ Index: include/internal/common.h
  
  # if defined(__GNUC__) || defined(__clang__)
  #  define ossl_likely(x)     __builtin_expect(!!(x), 1)
+@@ -13,7 +13,6 @@
+ 
+ # include <stdlib.h>
+ # include <string.h>
+-# include "openssl/configuration.h"
+ 
+ # include "internal/e_os.h" /* ossl_inline in many files */
+ 
 Index: include/internal/e_os.h
 ===================================================================
 --- include/internal/e_os.h
