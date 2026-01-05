@@ -60,25 +60,7 @@ mkdir(os.path.join(include, "crypto"))
 
 shutil.copy2(os.path.join(openssl_include, "openssl/sha.h"),
              os.path.join(include, "openssl"))
-shutil.copy2(os.path.join(openssl_include, "openssl/macros.h"),
-             os.path.join(include, "openssl"))
 shutil.copy2(os.path.join(openssl_include, "openssl/e_os2.h"),
-             os.path.join(include, "openssl"))
-shutil.copy2(os.path.join(openssl_include, "openssl/opensslconf.h"),
-             os.path.join(include, "openssl"))
-shutil.copy2(os.path.join(openssl_include, "openssl/types.h"),
-             os.path.join(include, "openssl"))
-shutil.copy2(os.path.join(openssl_include, "openssl/symhacks.h"),
-             os.path.join(include, "openssl"))
-shutil.copy2(os.path.join(openssl_include, "openssl/cryptoerr.h"),
-             os.path.join(include, "openssl"))
-shutil.copy2(os.path.join(openssl_include, "openssl/cryptoerr_legacy.h"),
-             os.path.join(include, "openssl"))
-shutil.copy2(os.path.join(openssl_include, "openssl/core.h"),
-             os.path.join(include, "openssl"))
-shutil.copy2(os.path.join(openssl_include, "openssl/stack.h"),
-             os.path.join(include, "openssl"))
-shutil.copy2(os.path.join(openssl_include, "openssl/safestack.h"),
              os.path.join(include, "openssl"))
 shutil.copy2(os.path.join(openssl_include, "openssl/ebcdic.h"),
              os.path.join(include, "openssl"))
