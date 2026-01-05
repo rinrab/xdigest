@@ -44,6 +44,7 @@ static variant_char *ossl_getenv(const char *name)
     return (len > 0 && len < OPENSSL_IA32CAP_P_MAX_CHAR_SIZE) ? value : NULL;
 }
 #  else
+#   include <stdlib.h>
 typedef char variant_char;
 #   define ossl_getenv getenv
 #  endif
