@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <openssl/sha.h>
+#include <xhash/sha.h>
 #include "internal/endian.h"
 
 #define DATA_ORDER_IS_BIG_ENDIAN

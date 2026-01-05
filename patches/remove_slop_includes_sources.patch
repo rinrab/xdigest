@@ -12,14 +12,14 @@ Index: src/sha/sha256.c
 - */
 -#include "internal/deprecated.h"
 -
--#include <openssl/opensslconf.h>
+-#include <xhash/opensslconf.h>
 -
  #include <stdlib.h>
  #include <string.h>
  
--#include <openssl/crypto.h>
- #include <openssl/sha.h>
--#include <openssl/opensslv.h>
+-#include <xhash/crypto.h>
+ #include <xhash/sha.h>
+-#include <xhash/opensslv.h>
  #include "internal/endian.h"
  #include "crypto/sha.h"
  
@@ -34,7 +34,7 @@ Index: src/sha/sha512.c
 -#include "internal/deprecated.h"
 -
  #include <stdio.h>
--#include <openssl/opensslconf.h>
+-#include <xhash/opensslconf.h>
  /*-
   * IMPLEMENTATION NOTES.
   *
@@ -42,9 +42,9 @@ Index: src/sha/sha512.c
  #include <stdlib.h>
  #include <string.h>
  
--#include <openssl/crypto.h>
- #include <openssl/sha.h>
--#include <openssl/opensslv.h>
+-#include <xhash/crypto.h>
+ #include <xhash/sha.h>
+-#include <xhash/opensslv.h>
  
 -#include "internal/cryptlib.h"
  #include "crypto/sha.h"
@@ -58,8 +58,8 @@ Index: src/sha/sha_local.h
  #include <stdlib.h>
  #include <string.h>
  
--#include <openssl/opensslconf.h>
- #include <openssl/sha.h>
+-#include <xhash/opensslconf.h>
+ #include <xhash/sha.h>
  #include "internal/endian.h"
 Index: src/cpuid.c
 ===================================================================
