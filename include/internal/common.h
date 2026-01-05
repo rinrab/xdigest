@@ -13,7 +13,6 @@
 
 # include <stdlib.h>
 # include <string.h>
-# include "openssl/configuration.h"
 
 # include "internal/e_os.h" /* ossl_inline in many files */
 
