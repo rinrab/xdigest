@@ -16,6 +16,7 @@ asm = "asm"
 src = "src"
 
 mkdir(os.path.join(src, "sha"))
+mkdir(os.path.join(src, "core"))
 include_path = "include"
 mkdir(include_path)
 mkdir(os.path.join(include_path, "xhash"))
@@ -49,9 +50,9 @@ def perlasm(config, file):
     subprocess.call(["perl", input, config, output])
     copy_fixup(output, output)
 
-def source(path):
+def source(path, outdir = ""):
     input = os.path.join(crypto, path)
-    output = os.path.join(src, path)
+    output = os.path.join(src, outdir, path)
 
     copy_fixup(input, output)
 
@@ -90,9 +91,9 @@ perlasm("elf", "x86_64cpuid")
 source("sha/sha_local.h")
 source("sha/sha256.c")
 source("sha/sha512.c")
-source("cpuid.c")
-source("ctype.c")
-source("ebcdic.c")
+source("cpuid.c", "core")
+source("ctype.c", "core")
+source("ebcdic.c", "core")
 
 include("openssl/sha.h")
 include("openssl/e_os2.h")
