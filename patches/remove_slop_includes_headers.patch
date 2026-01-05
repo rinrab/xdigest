@@ -6,7 +6,7 @@ Index: include/crypto/md32_common.h
  # define OSSL_CRYPTO_MD32_COMMON_H
  # pragma once
  
--# include <openssl/crypto.h>
+-# include <xhash/crypto.h>
  /*
   * For ossl_(un)likely
   */
@@ -33,50 +33,50 @@ Index: include/internal/e_os.h
  # define OSSL_E_OS_H
  
  # include <limits.h>
--# include <openssl/opensslconf.h>
+-# include <xhash/opensslconf.h>
  
- # include <openssl/e_os2.h>
--# include <openssl/crypto.h>
+ # include <xhash/e_os2.h>
+-# include <xhash/crypto.h>
  # include "internal/numbers.h"   /* Ensure the definition of SIZE_MAX */
-Index: include/openssl/sha.h
+Index: include/xhash/sha.h
 ===================================================================
---- include/openssl/sha.h
-+++ include/openssl/sha.h
+--- include/xhash/sha.h
++++ include/xhash/sha.h
 @@ -11,7 +11,6 @@
  # define xhash_SHA_H
  # pragma once
  
--# include <openssl/macros.h>
+-# include <xhash/macros.h>
  # ifndef xhash_NO_DEPRECATED_3_0
  #  define HEADER_SHA_H
  # endif
-Index: include/openssl/e_os2.h
+Index: include/xhash/e_os2.h
 ===================================================================
---- include/openssl/e_os2.h
-+++ include/openssl/e_os2.h
+--- include/xhash/e_os2.h
++++ include/xhash/e_os2.h
 @@ -11,13 +11,10 @@
  # define xhash_E_OS2_H
  # pragma once
  
--# include <openssl/macros.h>
+-# include <xhash/macros.h>
  # ifndef xhash_NO_DEPRECATED_3_0
  #  define HEADER_E_OS2_H
  # endif
  
--# include <openssl/opensslconf.h>
+-# include <xhash/opensslconf.h>
 -
  #ifdef  __cplusplus
  extern "C" {
  #endif
-Index: include/openssl/ebcdic.h
+Index: include/xhash/ebcdic.h
 ===================================================================
---- include/openssl/ebcdic.h
-+++ include/openssl/ebcdic.h
+--- include/xhash/ebcdic.h
++++ include/xhash/ebcdic.h
 @@ -11,7 +11,6 @@
  # define xhash_EBCDIC_H
  # pragma once
  
--# include <openssl/macros.h>
+-# include <xhash/macros.h>
  # ifndef xhash_NO_DEPRECATED_3_0
  #  define HEADER_EBCDIC_H
  # endif
