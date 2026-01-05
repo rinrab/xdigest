@@ -7,12 +7,12 @@
  * https://www.openssl.org/source/license.html
  */
 
-# include <openssl/e_os2.h>
+# include <xhash/e_os2.h>
 #ifndef CHARSET_EBCDIC
 static void *dummy = &dummy;
 #else
 
-# include <openssl/ebcdic.h>
+# include <xhash/ebcdic.h>
 
 # ifdef CHARSET_EBCDIC_TEST
 /*

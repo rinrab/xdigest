@@ -15,7 +15,7 @@
 #  define HEADER_SHA_H
 # endif
 
-# include <openssl/e_os2.h>
+# include <xhash/e_os2.h>
 # include <stddef.h>
 
 # ifdef  __cplusplus
@@ -45,10 +45,10 @@ typedef struct SHAstate_st {
     unsigned int num;
 } SHA_CTX;
 
-int SHA1_Init(SHA_CTX *c);
-int SHA1_Update(SHA_CTX *c, const void *data, size_t len);
-int SHA1_Final(unsigned char *md, SHA_CTX *c);
-void SHA1_Transform(SHA_CTX *c, const unsigned char *data);
+int xhash_sha1_init(SHA_CTX *c);
+int xhash_sha1_update(SHA_CTX *c, const void *data, size_t len);
+int xhash_sha1_final(unsigned char *md, SHA_CTX *c);
+void xhash_sha1_transform(SHA_CTX *c, const unsigned char *data);
 # endif
 
 unsigned char *SHA1(const unsigned char *d, size_t n, unsigned char *md);
@@ -65,13 +65,13 @@ typedef struct SHA256state_st {
     unsigned int num, md_len;
 } SHA256_CTX;
 
-int SHA224_Init(SHA256_CTX *c);
-int SHA224_Update(SHA256_CTX *c, const void *data, size_t len);
-int SHA224_Final(unsigned char *md, SHA256_CTX *c);
-int SHA256_Init(SHA256_CTX *c);
-int SHA256_Update(SHA256_CTX *c, const void *data, size_t len);
-int SHA256_Final(unsigned char *md, SHA256_CTX *c);
-void SHA256_Transform(SHA256_CTX *c, const unsigned char *data);
+int xhash_sha224_init(SHA256_CTX *c);
+int xhash_sha224_update(SHA256_CTX *c, const void *data, size_t len);
+int xhash_sha224_final(unsigned char *md, SHA256_CTX *c);
+int xhash_sha256_init(SHA256_CTX *c);
+int xhash_sha256_update(SHA256_CTX *c, const void *data, size_t len);
+int xhash_sha256_final(unsigned char *md, SHA256_CTX *c);
+void xhash_sha256_transform(SHA256_CTX *c, const unsigned char *data);
 # endif
 
 unsigned char *SHA224(const unsigned char *d, size_t n, unsigned char *md);
@@ -113,13 +113,13 @@ typedef struct SHA512state_st {
     unsigned int num, md_len;
 } SHA512_CTX;
 
-int SHA384_Init(SHA512_CTX *c);
-int SHA384_Update(SHA512_CTX *c, const void *data, size_t len);
-int SHA384_Final(unsigned char *md, SHA512_CTX *c);
-int SHA512_Init(SHA512_CTX *c);
-int SHA512_Update(SHA512_CTX *c, const void *data, size_t len);
-int SHA512_Final(unsigned char *md, SHA512_CTX *c);
-void SHA512_Transform(SHA512_CTX *c, const unsigned char *data);
+int xhash_sha384_init(SHA512_CTX *c);
+int xhash_sha384_update(SHA512_CTX *c, const void *data, size_t len);
+int xhash_sha384_final(unsigned char *md, SHA512_CTX *c);
+int xhash_sha512_init(SHA512_CTX *c);
+int xhash_sha512_update(SHA512_CTX *c, const void *data, size_t len);
+int xhash_sha512_final(unsigned char *md, SHA512_CTX *c);
+void xhash_sha512_transform(SHA512_CTX *c, const unsigned char *data);
 # endif
 
 unsigned char *SHA384(const unsigned char *d, size_t n, unsigned char *md);

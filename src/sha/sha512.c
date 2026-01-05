@@ -105,7 +105,7 @@ int sha512_256_init(SHA512_CTX *c)
     return 1;
 }
 
-int SHA384_Init(SHA512_CTX *c)
+int xhash_sha384_init(SHA512_CTX *c)
 {
     c->h[0] = U64(0xcbbb9d5dc1059ed8);
     c->h[1] = U64(0x629a292a367cd507);
@@ -123,7 +123,7 @@ int SHA384_Init(SHA512_CTX *c)
     return 1;
 }
 
-int SHA512_Init(SHA512_CTX *c)
+int xhash_sha512_init(SHA512_CTX *c)
 {
     c->h[0] = U64(0x6a09e667f3bcc908);
     c->h[1] = U64(0xbb67ae8584caa73b);
@@ -150,7 +150,7 @@ void sha512_block_data_order_c(SHA512_CTX *ctx, const void *in, size_t num);
 #endif
 void sha512_block_data_order(SHA512_CTX *ctx, const void *in, size_t num);
 
-int SHA512_Final(unsigned char *md, SHA512_CTX *c)
+int xhash_sha512_final(unsigned char *md, SHA512_CTX *c)
 {
     unsigned char *p = (unsigned char *)c->u.p;
     size_t n = c->num;
@@ -269,12 +269,12 @@ int SHA512_Final(unsigned char *md, SHA512_CTX *c)
     return 1;
 }
 
-int SHA384_Final(unsigned char *md, SHA512_CTX *c)
+int xhash_sha384_final(unsigned char *md, SHA512_CTX *c)
 {
-    return SHA512_Final(md, c);
+    return xhash_sha512_final(md, c);
 }
 
-int SHA512_Update(SHA512_CTX *c, const void *_data, size_t len)
+int xhash_sha512_update(SHA512_CTX *c, const void *_data, size_t len)
 {
     SHA_LONG64 l;
     unsigned char *p = c->u.p;
@@ -322,12 +322,12 @@ int SHA512_Update(SHA512_CTX *c, const void *_data, size_t len)
     return 1;
 }
 
-int SHA384_Update(SHA512_CTX *c, const void *data, size_t len)
+int xhash_sha384_update(SHA512_CTX *c, const void *data, size_t len)
 {
-    return SHA512_Update(c, data, len);
+    return xhash_sha512_update(c, data, len);
 }
 
-void SHA512_Transform(SHA512_CTX *c, const unsigned char *data)
+void xhash_sha512_transform(SHA512_CTX *c, const unsigned char *data)
 {
 #ifndef SHA512_BLOCK_CAN_MANAGE_UNALIGNED_DATA
     if ((size_t)data % sizeof(c->u.d[0]) != 0)

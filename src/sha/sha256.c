@@ -14,7 +14,7 @@
 #include "internal/endian.h"
 #include "crypto/sha.h"
 
-int SHA224_Init(SHA256_CTX *c)
+int xhash_sha224_init(SHA256_CTX *c)
 {
     memset(c, 0, sizeof(*c));
     c->h[0] = 0xc1059ed8UL;
@@ -29,7 +29,7 @@ int SHA224_Init(SHA256_CTX *c)
     return 1;
 }
 
-int SHA256_Init(SHA256_CTX *c)
+int xhash_sha256_init(SHA256_CTX *c)
 {
     memset(c, 0, sizeof(*c));
     c->h[0] = 0x6a09e667UL;
@@ -46,19 +46,19 @@ int SHA256_Init(SHA256_CTX *c)
 
 int ossl_sha256_192_init(SHA256_CTX *c)
 {
-    SHA256_Init(c);
+    xhash_sha256_init(c);
     c->md_len = SHA256_192_DIGEST_LENGTH;
     return 1;
 }
 
-int SHA224_Update(SHA256_CTX *c, const void *data, size_t len)
+int xhash_sha224_update(SHA256_CTX *c, const void *data, size_t len)
 {
-    return SHA256_Update(c, data, len);
+    return xhash_sha256_update(c, data, len);
 }
 
-int SHA224_Final(unsigned char *md, SHA256_CTX *c)
+int xhash_sha224_final(unsigned char *md, SHA256_CTX *c)
 {
-    return SHA256_Final(md, c);
+    return xhash_sha256_final(md, c);
 }
 
 #define DATA_ORDER_IS_BIG_ENDIAN
