@@ -51,7 +51,7 @@ int xhash_sha1_final(unsigned char *md, SHA_CTX *c);
 void xhash_sha1_transform(SHA_CTX *c, const unsigned char *data);
 # endif
 
-unsigned char *SHA1(const unsigned char *d, size_t n, unsigned char *md);
+unsigned char *xhash_sha1(const unsigned char *d, size_t n, unsigned char *md);
 
 # ifndef xhash_NO_DEPRECATED_3_0
 #  define SHA256_CBLOCK   (SHA_LBLOCK*4)/* SHA-256 treats input data as a
@@ -74,8 +74,8 @@ int xhash_sha256_final(unsigned char *md, SHA256_CTX *c);
 void xhash_sha256_transform(SHA256_CTX *c, const unsigned char *data);
 # endif
 
-unsigned char *SHA224(const unsigned char *d, size_t n, unsigned char *md);
-unsigned char *SHA256(const unsigned char *d, size_t n, unsigned char *md);
+unsigned char *xhash_sha224(const unsigned char *d, size_t n, unsigned char *md);
+unsigned char *xhash_sha256(const unsigned char *d, size_t n, unsigned char *md);
 
 # define SHA256_192_DIGEST_LENGTH 24
 # define SHA224_DIGEST_LENGTH    28
@@ -122,8 +122,8 @@ int xhash_sha512_final(unsigned char *md, SHA512_CTX *c);
 void xhash_sha512_transform(SHA512_CTX *c, const unsigned char *data);
 # endif
 
-unsigned char *SHA384(const unsigned char *d, size_t n, unsigned char *md);
-unsigned char *SHA512(const unsigned char *d, size_t n, unsigned char *md);
+unsigned char *xhash_sha384(const unsigned char *d, size_t n, unsigned char *md);
+unsigned char *xhash_sha512(const unsigned char *d, size_t n, unsigned char *md);
 
 # ifdef  __cplusplus
 }
