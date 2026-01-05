@@ -16,7 +16,7 @@
 #define DATA_ORDER_IS_BIG_ENDIAN
 
 #define HASH_LONG               SHA_LONG
-#define HASH_CTX                SHA_CTX
+#define HASH_CTX                xhash_sha1_ctx_t
 #define HASH_CBLOCK             SHA_CBLOCK
 #define HASH_MAKE_STRING(c,s)   do {    \
         unsigned long ll;               \
@@ -37,9 +37,9 @@
                                         )
 
 #ifndef SHA1_ASM
-static void sha1_block_data_order(SHA_CTX *c, const void *p, size_t num);
+static void sha1_block_data_order(xhash_sha1_ctx_t *c, const void *p, size_t num);
 #else
-void sha1_block_data_order(SHA_CTX *c, const void *p, size_t num);
+void sha1_block_data_order(xhash_sha1_ctx_t *c, const void *p, size_t num);
 #endif
 
 #include "crypto/md32_common.h"
@@ -50,7 +50,7 @@ void sha1_block_data_order(SHA_CTX *c, const void *p, size_t num);
 #define INIT_DATA_h3 0x10325476UL
 #define INIT_DATA_h4 0xc3d2e1f0UL
 
-int HASH_INIT(SHA_CTX *c)
+int HASH_INIT(xhash_sha1_ctx_t *c)
 {
     memset(c, 0, sizeof(*c));
     c->h0 = INIT_DATA_h0;
@@ -133,7 +133,7 @@ int HASH_INIT(SHA_CTX *c)
 # endif
 
 # if !defined(SHA1_ASM)
-static void HASH_BLOCK_DATA_ORDER(SHA_CTX *c, const void *p, size_t num)
+static void HASH_BLOCK_DATA_ORDER(xhash_sha1_ctx_t *c, const void *p, size_t num)
 {
     const unsigned char *data = p;
     register unsigned MD32_REG_T A, B, C, D, E, T, l;
@@ -362,7 +362,7 @@ static void HASH_BLOCK_DATA_ORDER(SHA_CTX *c, const void *p, size_t num)
         A=ROTATE(A,5)+T+xa;         } while(0)
 
 # if !defined(SHA1_ASM)
-static void HASH_BLOCK_DATA_ORDER(SHA_CTX *c, const void *p, size_t num)
+static void HASH_BLOCK_DATA_ORDER(xhash_sha1_ctx_t *c, const void *p, size_t num)
 {
     const unsigned char *data = p;
     register unsigned MD32_REG_T A, B, C, D, E, T, l;

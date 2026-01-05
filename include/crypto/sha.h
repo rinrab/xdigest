@@ -14,10 +14,10 @@
 
 # include <xhash/sha.h>
 
-int ossl_sha256_192_init(SHA256_CTX *c);
-int sha512_224_init(SHA512_CTX *);
-int sha512_256_init(SHA512_CTX *);
-int ossl_sha1_ctrl(SHA_CTX *ctx, int cmd, int mslen, void *ms);
+int ossl_sha256_192_init(xhash_sha256_ctx_t *c);
+int sha512_224_init(xhash_sha512_ctx_t *);
+int sha512_256_init(xhash_sha512_ctx_t *);
+int ossl_sha1_ctrl(xhash_sha1_ctx_t *ctx, int cmd, int mslen, void *ms);
 unsigned char *ossl_sha1(const unsigned char *d, size_t n, unsigned char *md);
 
 #endif

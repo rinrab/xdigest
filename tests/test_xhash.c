@@ -7,6 +7,7 @@
 #else
 #include <openssl/sha.h>
 
+#define xhash_sha1_ctx_t SHA_CTX
 #define xhash_sha1_init SHA1_Init
 #define xhash_sha1_update SHA1_Update
 #define xhash_sha1_final SHA1_Final
@@ -48,7 +49,7 @@ double time__diff(time__t start, time__t end)
 
 int main()
 {
-    SHA_CTX ctx = { 0 };
+    xhash_sha1_ctx_t ctx = { 0 };
 
     unsigned char digest[SHA_DIGEST_LENGTH];
     unsigned char *buf;
