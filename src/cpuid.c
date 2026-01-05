@@ -13,6 +13,8 @@
         defined(__x86_64) || defined(__x86_64__) || \
         defined(_M_AMD64) || defined(_M_X64)
 
+#define OPENSSL_IA32CAP_P_MAX_INDEXES 10
+
 extern unsigned int OPENSSL_ia32cap_P[OPENSSL_IA32CAP_P_MAX_INDEXES];
 
 # if defined(OPENSSL_CPUID_OBJ)
