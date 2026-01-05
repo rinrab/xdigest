@@ -1,7 +1,7 @@
 Index: include/xhash/sha.h
 ===================================================================
---- include/xhash/sha.h	(revision 6050)
-+++ include/xhash/sha.h	(working copy)
+--- include/xhash/sha.h
++++ include/xhash/sha.h
 @@ -45,10 +45,10 @@ typedef struct SHAstate_st {
      unsigned int num;
  } SHA_CTX;
