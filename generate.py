@@ -26,7 +26,9 @@ mkdir(os.path.join(include_path, "crypto"))
 def copy_fixup(input, output):
     with open(input, 'r') as file:
         data = file.read()
+
         data = data.replace("OPENSSL_", "xhash_")
+        data = data.replace("CRYPTO_", "xhash_")
 
         data = re.sub(r"include <openssl\/([^>]*)>",
                       r"include <xhash/\1>",

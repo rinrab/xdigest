@@ -318,11 +318,11 @@ xhash_cleanse:
 	jne	.L016little
 	ret
 .size	xhash_cleanse,.-.L_xhash_cleanse_begin
-.globl	CRYPTO_memcmp
-.type	CRYPTO_memcmp,@function
+.globl	xhash_memcmp
+.type	xhash_memcmp,@function
 .align	16
-CRYPTO_memcmp:
-.L_CRYPTO_memcmp_begin:
+xhash_memcmp:
+.L_xhash_memcmp_begin:
 	#ifdef __CET__
 
 .byte	243,15,30,251
@@ -351,7 +351,7 @@ CRYPTO_memcmp:
 	popl	%edi
 	popl	%esi
 	ret
-.size	CRYPTO_memcmp,.-.L_CRYPTO_memcmp_begin
+.size	xhash_memcmp,.-.L_xhash_memcmp_begin
 .globl	xhash_instrument_bus
 .type	xhash_instrument_bus,@function
 .align	16

@@ -8,8 +8,8 @@
  * https://www.openssl.org/source/license.html
  */
 
-#ifndef OSSL_CRYPTO_SHA_H
-# define OSSL_CRYPTO_SHA_H
+#ifndef OSSL_xhash_SHA_H
+# define OSSL_xhash_SHA_H
 # pragma once
 
 # include <xhash/sha.h>

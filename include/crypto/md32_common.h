@@ -63,8 +63,8 @@
  *      #define HASH_BLOCK_DATA_ORDER   md5_block_data_order
  */
 
-#ifndef OSSL_CRYPTO_MD32_COMMON_H
-# define OSSL_CRYPTO_MD32_COMMON_H
+#ifndef OSSL_xhash_MD32_COMMON_H
+# define OSSL_xhash_MD32_COMMON_H
 # pragma once
 
 /*

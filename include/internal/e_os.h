@@ -314,7 +314,7 @@ inline int nssgetpid(void);
 # endif
 
 # ifdef FUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION
-#  define CRYPTO_memcmp memcmp
+#  define xhash_memcmp memcmp
 # endif
 
 # ifndef xhash_NO_SECURE_MEMORY
