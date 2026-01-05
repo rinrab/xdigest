@@ -85,17 +85,11 @@ shutil.copy2(os.path.join(openssl_include, "openssl/ebcdic.h"),
 
 shutil.copy2(os.path.join(openssl_include, "internal/endian.h"),
              os.path.join(include, "internal"))
-shutil.copy2(os.path.join(openssl_include, "internal/deprecated.h"),
-             os.path.join(include, "internal"))
 shutil.copy2(os.path.join(openssl_include, "internal/common.h"),
-             os.path.join(include, "internal"))
-shutil.copy2(os.path.join(openssl_include, "internal/cryptlib.h"),
              os.path.join(include, "internal"))
 shutil.copy2(os.path.join(openssl_include, "internal/e_os.h"),
              os.path.join(include, "internal"))
 shutil.copy2(os.path.join(openssl_include, "internal/numbers.h"),
-             os.path.join(include, "internal"))
-shutil.copy2(os.path.join(openssl_include, "internal/nelem.h"),
              os.path.join(include, "internal"))
 
 shutil.copy2(os.path.join(openssl_include, "crypto/md32_common.h"),
@@ -104,11 +98,6 @@ shutil.copy2(os.path.join(openssl_include, "crypto/sha.h"),
              os.path.join(include, "crypto"))
 shutil.copy2(os.path.join(openssl_include, "crypto/ctype.h"),
              os.path.join(include, "crypto"))
-
-shutil.copy2(os.path.join(include, "custom/configuration.h"),
-             os.path.join(include, "openssl"))
-shutil.copy2(os.path.join(include, "custom/opensslv.h"),
-             os.path.join(include, "openssl"))
 
 subprocess.call(["svn", "patch", "patches/remove_slop_includes_sources.patch"])
 subprocess.call(["svn", "patch", "patches/remove_slop_includes_headers.patch"])
