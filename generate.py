@@ -88,4 +88,5 @@ subprocess.call(["svn", "patch", "patches/inline_cleanse.patch"])
 subprocess.call(["svn", "patch", "patches/inline_dummy_export.patch"])
 subprocess.call(["svn", "patch", "patches/sha_cleanup_header.patch"])
 subprocess.call(["svn", "patch", "patches/OPENSSL_IA32CAP_P_MAX_INDEXES.patch"])
+subprocess.call(["svn", "patch", "patches/include_stdlib_for_getenv.patch"])
 
