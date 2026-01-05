@@ -50,6 +50,7 @@ shutil.copy2(os.path.join(crypto, "sha/sha256.c"), sha)
 shutil.copy2(os.path.join(crypto, "sha/sha512.c"), sha)
 shutil.copy2(os.path.join(crypto, "cpuid.c"), src)
 shutil.copy2(os.path.join(crypto, "ctype.c"), src)
+shutil.copy2(os.path.join(crypto, "ebcdic.c"), src)
 
 include = "include"
 mkdir(include)
@@ -78,6 +79,8 @@ shutil.copy2(os.path.join(openssl_include, "openssl/core.h"),
 shutil.copy2(os.path.join(openssl_include, "openssl/stack.h"),
              os.path.join(include, "openssl"))
 shutil.copy2(os.path.join(openssl_include, "openssl/safestack.h"),
+             os.path.join(include, "openssl"))
+shutil.copy2(os.path.join(openssl_include, "openssl/ebcdic.h"),
              os.path.join(include, "openssl"))
 
 shutil.copy2(os.path.join(openssl_include, "internal/endian.h"),
