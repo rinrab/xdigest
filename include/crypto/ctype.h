@@ -18,8 +18,8 @@
  * throughout the rest of the source code.  Refer to issue #4154 for
  * details.
  */
-#ifndef OSSL_CRYPTO_CTYPE_H
-# define OSSL_CRYPTO_CTYPE_H
+#ifndef OSSL_xhash_CTYPE_H
+# define OSSL_xhash_CTYPE_H
 # pragma once
 
 # include <xhash/e_os2.h>

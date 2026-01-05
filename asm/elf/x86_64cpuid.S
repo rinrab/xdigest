@@ -269,10 +269,10 @@ xhash_cleanse:
 .cfi_endproc	
 .size	xhash_cleanse,.-xhash_cleanse
 
-.globl	CRYPTO_memcmp
-.type	CRYPTO_memcmp,@function
+.globl	xhash_memcmp
+.type	xhash_memcmp,@function
 .align	16
-CRYPTO_memcmp:
+xhash_memcmp:
 .cfi_startproc	
 .byte	243,15,30,250
 	xorq	%rax,%rax
@@ -304,7 +304,7 @@ CRYPTO_memcmp:
 .Lno_data:
 	.byte	0xf3,0xc3
 .cfi_endproc	
-.size	CRYPTO_memcmp,.-CRYPTO_memcmp
+.size	xhash_memcmp,.-xhash_memcmp
 .globl	xhash_instrument_bus
 .type	xhash_instrument_bus,@function
 .align	16
