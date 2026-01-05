@@ -44,6 +44,21 @@ int xhash_sha256_init(xhash_sha256_ctx_t *c)
     return 1;
 }
 
+unsigned char *xhash_sha256(const unsigned char *d, size_t n, unsigned char *md)
+{
+    static unsigned char m[SHA256_DIGEST_LENGTH];
+    xhash_sha256_ctx_t ctx;
+
+    if (md == NULL)
+        md = m;
+
+    xhash_sha256_init(&ctx);
+    xhash_sha256_update(&ctx, d, n);
+    xhash_sha256_final(md, &ctx);
+
+    return md;
+}
+
 int ossl_sha256_192_init(xhash_sha256_ctx_t *c)
 {
     xhash_sha256_init(c);
@@ -59,6 +74,21 @@ int xhash_sha224_update(xhash_sha256_ctx_t *c, const void *data, size_t len)
 int xhash_sha224_final(unsigned char *md, xhash_sha256_ctx_t *c)
 {
     return xhash_sha256_final(md, c);
+}
+
+unsigned char *xhash_sha224(const unsigned char *d, size_t n, unsigned char *md)
+{
+    static unsigned char m[SHA224_DIGEST_LENGTH];
+    xhash_sha256_ctx_t ctx;
+
+    if (md == NULL)
+        md = m;
+
+    xhash_sha224_init(&ctx);
+    xhash_sha224_update(&ctx, d, n);
+    xhash_sha224_final(md, &ctx);
+
+    return md;
 }
 
 #define DATA_ORDER_IS_BIG_ENDIAN
