@@ -9,7 +9,7 @@
 
 #define xhash_sha1_init SHA1_Init
 #define xhash_sha1_update SHA1_Update
-#define xhash_sha1_finish SHA1_Finish
+#define xhash_sha1_final SHA1_Final
 #endif
 
 #define BUFSIZE 1024 * 1024
@@ -69,17 +69,17 @@ int main()
     }
 
     start = time__get();
-    SHA1_Init(&ctx);
+    xhash_sha1_init(&ctx);
 
     do
     {
-        SHA1_Update(&ctx, buf, BUFSIZE);
+        xhash_sha1_update(&ctx, buf, BUFSIZE);
         end = time__get();
         iter++;
     }
     while (time__diff(start, end) < 1.0);
 
-    SHA1_Final(digest, &ctx);
+    xhash_sha1_final(digest, &ctx);
 
     printf("Processed %.2f GB in %.2f seconds.\n",
            ((double)BUFSIZE * iter) / (1024 * 1024 * 1024),

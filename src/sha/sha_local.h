@@ -27,10 +27,10 @@
         ll=(c)->h4; (void)HOST_l2c(ll,(s));     \
         } while (0)
 
-#define HASH_UPDATE                     SHA1_Update
-#define HASH_TRANSFORM                  SHA1_Transform
-#define HASH_FINAL                      SHA1_Final
-#define HASH_INIT                       SHA1_Init
+#define HASH_UPDATE                     xhash_sha1_update
+#define HASH_TRANSFORM                  xhash_sha1_transform
+#define HASH_FINAL                      xhash_sha1_final
+#define HASH_INIT                       xhash_sha1_init
 #define HASH_BLOCK_DATA_ORDER           sha1_block_data_order
 #define Xupdate(a,ix,ia,ib,ic,id)       ( (a)=(ia^ib^ic^id),    \
                                           ix=(a)=ROTATE((a),1)  \
