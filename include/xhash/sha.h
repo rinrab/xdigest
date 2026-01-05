@@ -43,12 +43,12 @@ typedef struct SHAstate_st {
     SHA_LONG Nl, Nh;
     SHA_LONG data[SHA_LBLOCK];
     unsigned int num;
-} SHA_CTX;
+} xhash_sha1_ctx_t;
 
-int xhash_sha1_init(SHA_CTX *c);
-int xhash_sha1_update(SHA_CTX *c, const void *data, size_t len);
-int xhash_sha1_final(unsigned char *md, SHA_CTX *c);
-void xhash_sha1_transform(SHA_CTX *c, const unsigned char *data);
+int xhash_sha1_init(xhash_sha1_ctx_t *c);
+int xhash_sha1_update(xhash_sha1_ctx_t *c, const void *data, size_t len);
+int xhash_sha1_final(unsigned char *md, xhash_sha1_ctx_t *c);
+void xhash_sha1_transform(xhash_sha1_ctx_t *c, const unsigned char *data);
 # endif
 
 unsigned char *xhash_sha1(const unsigned char *d, size_t n, unsigned char *md);
@@ -63,15 +63,15 @@ typedef struct SHA256state_st {
     SHA_LONG Nl, Nh;
     SHA_LONG data[SHA_LBLOCK];
     unsigned int num, md_len;
-} SHA256_CTX;
+} xhash_sha256_ctx_t;
 
-int xhash_sha224_init(SHA256_CTX *c);
-int xhash_sha224_update(SHA256_CTX *c, const void *data, size_t len);
-int xhash_sha224_final(unsigned char *md, SHA256_CTX *c);
-int xhash_sha256_init(SHA256_CTX *c);
-int xhash_sha256_update(SHA256_CTX *c, const void *data, size_t len);
-int xhash_sha256_final(unsigned char *md, SHA256_CTX *c);
-void xhash_sha256_transform(SHA256_CTX *c, const unsigned char *data);
+int xhash_sha224_init(xhash_sha256_ctx_t *c);
+int xhash_sha224_update(xhash_sha256_ctx_t *c, const void *data, size_t len);
+int xhash_sha224_final(unsigned char *md, xhash_sha256_ctx_t *c);
+int xhash_sha256_init(xhash_sha256_ctx_t *c);
+int xhash_sha256_update(xhash_sha256_ctx_t *c, const void *data, size_t len);
+int xhash_sha256_final(unsigned char *md, xhash_sha256_ctx_t *c);
+void xhash_sha256_transform(xhash_sha256_ctx_t *c, const unsigned char *data);
 # endif
 
 unsigned char *xhash_sha224(const unsigned char *d, size_t n, unsigned char *md);
@@ -111,15 +111,15 @@ typedef struct SHA512state_st {
         unsigned char p[SHA512_CBLOCK];
     } u;
     unsigned int num, md_len;
-} SHA512_CTX;
+} xhash_sha512_ctx_t;
 
-int xhash_sha384_init(SHA512_CTX *c);
-int xhash_sha384_update(SHA512_CTX *c, const void *data, size_t len);
-int xhash_sha384_final(unsigned char *md, SHA512_CTX *c);
-int xhash_sha512_init(SHA512_CTX *c);
-int xhash_sha512_update(SHA512_CTX *c, const void *data, size_t len);
-int xhash_sha512_final(unsigned char *md, SHA512_CTX *c);
-void xhash_sha512_transform(SHA512_CTX *c, const unsigned char *data);
+int xhash_sha384_init(xhash_sha512_ctx_t *c);
+int xhash_sha384_update(xhash_sha512_ctx_t *c, const void *data, size_t len);
+int xhash_sha384_final(unsigned char *md, xhash_sha512_ctx_t *c);
+int xhash_sha512_init(xhash_sha512_ctx_t *c);
+int xhash_sha512_update(xhash_sha512_ctx_t *c, const void *data, size_t len);
+int xhash_sha512_final(unsigned char *md, xhash_sha512_ctx_t *c);
+void xhash_sha512_transform(xhash_sha512_ctx_t *c, const unsigned char *data);
 # endif
 
 unsigned char *xhash_sha384(const unsigned char *d, size_t n, unsigned char *md);

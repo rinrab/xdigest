@@ -38,6 +38,15 @@ def copy_fixup(input, output):
                       lambda match: f"xhash_{match[1].lower()}",
                       data, 0, re.MULTILINE)
 
+        def convert_ctx_name(match):
+            name = match[1]
+            name = name.replace('SHA_CTX', 'SHA1_CTX')
+            name = name.lower()
+            return f"xhash_{name}_t"
+
+        data = re.sub(r"(SHA\d*_CTX)", convert_ctx_name,
+                      data, 0, re.MULTILINE)
+
     output.replace("openssl", "xhash")
 
     with open(output, 'w') as file:

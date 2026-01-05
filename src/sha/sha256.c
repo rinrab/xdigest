@@ -14,7 +14,7 @@
 #include "internal/endian.h"
 #include "crypto/sha.h"
 
-int xhash_sha224_init(SHA256_CTX *c)
+int xhash_sha224_init(xhash_sha256_ctx_t *c)
 {
     memset(c, 0, sizeof(*c));
     c->h[0] = 0xc1059ed8UL;
@@ -29,7 +29,7 @@ int xhash_sha224_init(SHA256_CTX *c)
     return 1;
 }
 
-int xhash_sha256_init(SHA256_CTX *c)
+int xhash_sha256_init(xhash_sha256_ctx_t *c)
 {
     memset(c, 0, sizeof(*c));
     c->h[0] = 0x6a09e667UL;
@@ -44,19 +44,19 @@ int xhash_sha256_init(SHA256_CTX *c)
     return 1;
 }
 
-int ossl_sha256_192_init(SHA256_CTX *c)
+int ossl_sha256_192_init(xhash_sha256_ctx_t *c)
 {
     xhash_sha256_init(c);
     c->md_len = SHA256_192_DIGEST_LENGTH;
     return 1;
 }
 
-int xhash_sha224_update(SHA256_CTX *c, const void *data, size_t len)
+int xhash_sha224_update(xhash_sha256_ctx_t *c, const void *data, size_t len)
 {
     return xhash_sha256_update(c, data, len);
 }
 
-int xhash_sha224_final(unsigned char *md, SHA256_CTX *c)
+int xhash_sha224_final(unsigned char *md, xhash_sha256_ctx_t *c)
 {
     return xhash_sha256_final(md, c);
 }
@@ -64,7 +64,7 @@ int xhash_sha224_final(unsigned char *md, SHA256_CTX *c)
 #define DATA_ORDER_IS_BIG_ENDIAN
 
 #define HASH_LONG               SHA_LONG
-#define HASH_CTX                SHA256_CTX
+#define HASH_CTX                xhash_sha256_ctx_t
 #define HASH_CBLOCK             SHA_CBLOCK
 
 /*
@@ -112,10 +112,10 @@ int xhash_sha224_final(unsigned char *md, SHA256_CTX *c)
 static
 #else
 # ifdef INCLUDE_C_SHA256
-void sha256_block_data_order_c(SHA256_CTX *ctx, const void *in, size_t num);
+void sha256_block_data_order_c(xhash_sha256_ctx_t *ctx, const void *in, size_t num);
 # endif /* INCLUDE_C_SHA256 */
 #endif /* SHA256_ASM */
-void sha256_block_data_order(SHA256_CTX *ctx, const void *in, size_t num);
+void sha256_block_data_order(xhash_sha256_ctx_t *ctx, const void *in, size_t num);
 
 #include "crypto/md32_common.h"
 
@@ -199,7 +199,7 @@ static const SHA_LONG K256[64] = {
 
 # ifdef xhash_SMALL_FOOTPRINT
 
-static void sha256_block_data_order(SHA256_CTX *ctx, const void *in,
+static void sha256_block_data_order(xhash_sha256_ctx_t *ctx, const void *in,
                                     size_t num)
 {
     unsigned MD32_REG_T a, b, c, d, e, f, g, h, s0, s1, T1, T2;
@@ -278,9 +278,9 @@ static void sha256_block_data_order(SHA256_CTX *ctx, const void *in,
         ROUND_00_15(i,a,b,c,d,e,f,g,h);         } while (0)
 
 #ifdef INCLUDE_C_SHA256
-void sha256_block_data_order_c(SHA256_CTX *ctx, const void *in, size_t num)
+void sha256_block_data_order_c(xhash_sha256_ctx_t *ctx, const void *in, size_t num)
 #else
-static void sha256_block_data_order(SHA256_CTX *ctx, const void *in,
+static void sha256_block_data_order(xhash_sha256_ctx_t *ctx, const void *in,
                                     size_t num)
 #endif
 {

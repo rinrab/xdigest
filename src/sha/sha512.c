@@ -69,7 +69,7 @@
 # define U64(C)     C##ULL
 #endif
 
-int sha512_224_init(SHA512_CTX *c)
+int sha512_224_init(xhash_sha512_ctx_t *c)
 {
     c->h[0] = U64(0x8c3d37c819544da2);
     c->h[1] = U64(0x73e1996689dcd4d6);
@@ -87,7 +87,7 @@ int sha512_224_init(SHA512_CTX *c)
     return 1;
 }
 
-int sha512_256_init(SHA512_CTX *c)
+int sha512_256_init(xhash_sha512_ctx_t *c)
 {
     c->h[0] = U64(0x22312194fc2bf72c);
     c->h[1] = U64(0x9f555fa3c84c64c2);
@@ -105,7 +105,7 @@ int sha512_256_init(SHA512_CTX *c)
     return 1;
 }
 
-int xhash_sha384_init(SHA512_CTX *c)
+int xhash_sha384_init(xhash_sha512_ctx_t *c)
 {
     c->h[0] = U64(0xcbbb9d5dc1059ed8);
     c->h[1] = U64(0x629a292a367cd507);
@@ -123,7 +123,7 @@ int xhash_sha384_init(SHA512_CTX *c)
     return 1;
 }
 
-int xhash_sha512_init(SHA512_CTX *c)
+int xhash_sha512_init(xhash_sha512_ctx_t *c)
 {
     c->h[0] = U64(0x6a09e667f3bcc908);
     c->h[1] = U64(0xbb67ae8584caa73b);
@@ -145,12 +145,12 @@ int xhash_sha512_init(SHA512_CTX *c)
 static
 #else
 # ifdef INCLUDE_C_SHA512
-void sha512_block_data_order_c(SHA512_CTX *ctx, const void *in, size_t num);
+void sha512_block_data_order_c(xhash_sha512_ctx_t *ctx, const void *in, size_t num);
 # endif
 #endif
-void sha512_block_data_order(SHA512_CTX *ctx, const void *in, size_t num);
+void sha512_block_data_order(xhash_sha512_ctx_t *ctx, const void *in, size_t num);
 
-int xhash_sha512_final(unsigned char *md, SHA512_CTX *c)
+int xhash_sha512_final(unsigned char *md, xhash_sha512_ctx_t *c)
 {
     unsigned char *p = (unsigned char *)c->u.p;
     size_t n = c->num;
@@ -269,12 +269,12 @@ int xhash_sha512_final(unsigned char *md, SHA512_CTX *c)
     return 1;
 }
 
-int xhash_sha384_final(unsigned char *md, SHA512_CTX *c)
+int xhash_sha384_final(unsigned char *md, xhash_sha512_ctx_t *c)
 {
     return xhash_sha512_final(md, c);
 }
 
-int xhash_sha512_update(SHA512_CTX *c, const void *_data, size_t len)
+int xhash_sha512_update(xhash_sha512_ctx_t *c, const void *_data, size_t len)
 {
     SHA_LONG64 l;
     unsigned char *p = c->u.p;
@@ -322,12 +322,12 @@ int xhash_sha512_update(SHA512_CTX *c, const void *_data, size_t len)
     return 1;
 }
 
-int xhash_sha384_update(SHA512_CTX *c, const void *data, size_t len)
+int xhash_sha384_update(xhash_sha512_ctx_t *c, const void *data, size_t len)
 {
     return xhash_sha512_update(c, data, len);
 }
 
-void xhash_sha512_transform(SHA512_CTX *c, const unsigned char *data)
+void xhash_sha512_transform(xhash_sha512_ctx_t *c, const unsigned char *data)
 {
 #ifndef SHA512_BLOCK_CAN_MANAGE_UNALIGNED_DATA
     if ((size_t)data % sizeof(c->u.d[0]) != 0)
@@ -592,7 +592,7 @@ static SHA_LONG64 __fastcall __pull64be(const void *x)
  * ~24 registers, both size and performance wise...
  */
 
-static void sha512_block_data_order(SHA512_CTX *ctx, const void *in,
+static void sha512_block_data_order(xhash_sha512_ctx_t *ctx, const void *in,
                                     size_t num)
 {
     const SHA_LONG64 *W = in;
@@ -654,7 +654,7 @@ static void sha512_block_data_order(SHA512_CTX *ctx, const void *in,
 
 # elif defined(xhash_SMALL_FOOTPRINT)
 
-static void sha512_block_data_order(SHA512_CTX *ctx, const void *in,
+static void sha512_block_data_order(xhash_sha512_ctx_t *ctx, const void *in,
                                     size_t num)
 {
     const SHA_LONG64 *W = in;
@@ -736,9 +736,9 @@ static void sha512_block_data_order(SHA512_CTX *ctx, const void *in,
         ROUND_00_15(i+j,a,b,c,d,e,f,g,h);               } while (0)
 
 #ifdef INCLUDE_C_SHA512
-void sha512_block_data_order_c(SHA512_CTX *ctx, const void *in, size_t num)
+void sha512_block_data_order_c(xhash_sha512_ctx_t *ctx, const void *in, size_t num)
 #else
-static void sha512_block_data_order(SHA512_CTX *ctx, const void *in,
+static void sha512_block_data_order(xhash_sha512_ctx_t *ctx, const void *in,
                                     size_t num)
 #endif
 {
