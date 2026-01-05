@@ -6,7 +6,7 @@
 .align	16
 sha512_block_data_order:
 .cfi_startproc	
-	leaq	OPENSSL_ia32cap_P(%rip),%r10
+	leaq	xhash_ia32cap_P(%rip),%r10
 	movq	0(%r10),%r9
 	movl	8(%r10),%r11d
 	movl	20(%r10),%r10d

@@ -1,9 +1,9 @@
 .text
-.globl	OPENSSL_ia32_cpuid
-.type	OPENSSL_ia32_cpuid,@function
+.globl	xhash_ia32_cpuid
+.type	xhash_ia32_cpuid,@function
 .align	16
-OPENSSL_ia32_cpuid:
-.L_OPENSSL_ia32_cpuid_begin:
+xhash_ia32_cpuid:
+.L_xhash_ia32_cpuid_begin:
 	#ifdef __CET__
 
 .byte	243,15,30,251
@@ -166,12 +166,12 @@ OPENSSL_ia32_cpuid:
 	popl	%ebx
 	popl	%ebp
 	ret
-.size	OPENSSL_ia32_cpuid,.-.L_OPENSSL_ia32_cpuid_begin
-.globl	OPENSSL_rdtsc
-.type	OPENSSL_rdtsc,@function
+.size	xhash_ia32_cpuid,.-.L_xhash_ia32_cpuid_begin
+.globl	xhash_rdtsc
+.type	xhash_rdtsc,@function
 .align	16
-OPENSSL_rdtsc:
-.L_OPENSSL_rdtsc_begin:
+xhash_rdtsc:
+.L_xhash_rdtsc_begin:
 	#ifdef __CET__
 
 .byte	243,15,30,251
@@ -179,24 +179,24 @@ OPENSSL_rdtsc:
 
 	xorl	%eax,%eax
 	xorl	%edx,%edx
-	leal	OPENSSL_ia32cap_P,%ecx
+	leal	xhash_ia32cap_P,%ecx
 	btl	$4,(%ecx)
 	jnc	.L009notsc
 	.byte	0x0f,0x31
 .L009notsc:
 	ret
-.size	OPENSSL_rdtsc,.-.L_OPENSSL_rdtsc_begin
-.globl	OPENSSL_instrument_halt
-.type	OPENSSL_instrument_halt,@function
+.size	xhash_rdtsc,.-.L_xhash_rdtsc_begin
+.globl	xhash_instrument_halt
+.type	xhash_instrument_halt,@function
 .align	16
-OPENSSL_instrument_halt:
-.L_OPENSSL_instrument_halt_begin:
+xhash_instrument_halt:
+.L_xhash_instrument_halt_begin:
 	#ifdef __CET__
 
 .byte	243,15,30,251
 	#endif
 
-	leal	OPENSSL_ia32cap_P,%ecx
+	leal	xhash_ia32cap_P,%ecx
 	btl	$4,(%ecx)
 	jnc	.L010nohalt
 .long	2421723150
@@ -219,12 +219,12 @@ OPENSSL_instrument_halt:
 	xorl	%eax,%eax
 	xorl	%edx,%edx
 	ret
-.size	OPENSSL_instrument_halt,.-.L_OPENSSL_instrument_halt_begin
-.globl	OPENSSL_far_spin
-.type	OPENSSL_far_spin,@function
+.size	xhash_instrument_halt,.-.L_xhash_instrument_halt_begin
+.globl	xhash_far_spin
+.type	xhash_far_spin,@function
 .align	16
-OPENSSL_far_spin:
-.L_OPENSSL_far_spin_begin:
+xhash_far_spin:
+.L_xhash_far_spin_begin:
 	#ifdef __CET__
 
 .byte	243,15,30,251
@@ -251,12 +251,12 @@ OPENSSL_far_spin:
 	xorl	%eax,%eax
 	xorl	%edx,%edx
 	ret
-.size	OPENSSL_far_spin,.-.L_OPENSSL_far_spin_begin
-.globl	OPENSSL_atomic_add
-.type	OPENSSL_atomic_add,@function
+.size	xhash_far_spin,.-.L_xhash_far_spin_begin
+.globl	xhash_atomic_add
+.type	xhash_atomic_add,@function
 .align	16
-OPENSSL_atomic_add:
-.L_OPENSSL_atomic_add_begin:
+xhash_atomic_add:
+.L_xhash_atomic_add_begin:
 	#ifdef __CET__
 
 .byte	243,15,30,251
@@ -275,12 +275,12 @@ OPENSSL_atomic_add:
 	movl	%ebx,%eax
 	popl	%ebx
 	ret
-.size	OPENSSL_atomic_add,.-.L_OPENSSL_atomic_add_begin
-.globl	OPENSSL_cleanse
-.type	OPENSSL_cleanse,@function
+.size	xhash_atomic_add,.-.L_xhash_atomic_add_begin
+.globl	xhash_cleanse
+.type	xhash_cleanse,@function
 .align	16
-OPENSSL_cleanse:
-.L_OPENSSL_cleanse_begin:
+xhash_cleanse:
+.L_xhash_cleanse_begin:
 	#ifdef __CET__
 
 .byte	243,15,30,251
@@ -317,7 +317,7 @@ OPENSSL_cleanse:
 	cmpl	$0,%ecx
 	jne	.L016little
 	ret
-.size	OPENSSL_cleanse,.-.L_OPENSSL_cleanse_begin
+.size	xhash_cleanse,.-.L_xhash_cleanse_begin
 .globl	CRYPTO_memcmp
 .type	CRYPTO_memcmp,@function
 .align	16
@@ -352,11 +352,11 @@ CRYPTO_memcmp:
 	popl	%esi
 	ret
 .size	CRYPTO_memcmp,.-.L_CRYPTO_memcmp_begin
-.globl	OPENSSL_instrument_bus
-.type	OPENSSL_instrument_bus,@function
+.globl	xhash_instrument_bus
+.type	xhash_instrument_bus,@function
 .align	16
-OPENSSL_instrument_bus:
-.L_OPENSSL_instrument_bus_begin:
+xhash_instrument_bus:
+.L_xhash_instrument_bus_begin:
 	#ifdef __CET__
 
 .byte	243,15,30,251
@@ -372,12 +372,12 @@ OPENSSL_instrument_bus:
 	popl	%ebx
 	popl	%ebp
 	ret
-.size	OPENSSL_instrument_bus,.-.L_OPENSSL_instrument_bus_begin
-.globl	OPENSSL_instrument_bus2
-.type	OPENSSL_instrument_bus2,@function
+.size	xhash_instrument_bus,.-.L_xhash_instrument_bus_begin
+.globl	xhash_instrument_bus2
+.type	xhash_instrument_bus2,@function
 .align	16
-OPENSSL_instrument_bus2:
-.L_OPENSSL_instrument_bus2_begin:
+xhash_instrument_bus2:
+.L_xhash_instrument_bus2_begin:
 	#ifdef __CET__
 
 .byte	243,15,30,251
@@ -393,12 +393,12 @@ OPENSSL_instrument_bus2:
 	popl	%ebx
 	popl	%ebp
 	ret
-.size	OPENSSL_instrument_bus2,.-.L_OPENSSL_instrument_bus2_begin
-.globl	OPENSSL_ia32_rdrand_bytes
-.type	OPENSSL_ia32_rdrand_bytes,@function
+.size	xhash_instrument_bus2,.-.L_xhash_instrument_bus2_begin
+.globl	xhash_ia32_rdrand_bytes
+.type	xhash_ia32_rdrand_bytes,@function
 .align	16
-OPENSSL_ia32_rdrand_bytes:
-.L_OPENSSL_ia32_rdrand_bytes_begin:
+xhash_ia32_rdrand_bytes:
+.L_xhash_ia32_rdrand_bytes_begin:
 	#ifdef __CET__
 
 .byte	243,15,30,251
@@ -441,12 +441,12 @@ OPENSSL_ia32_rdrand_bytes:
 	popl	%ebx
 	popl	%edi
 	ret
-.size	OPENSSL_ia32_rdrand_bytes,.-.L_OPENSSL_ia32_rdrand_bytes_begin
-.globl	OPENSSL_ia32_rdseed_bytes
-.type	OPENSSL_ia32_rdseed_bytes,@function
+.size	xhash_ia32_rdrand_bytes,.-.L_xhash_ia32_rdrand_bytes_begin
+.globl	xhash_ia32_rdseed_bytes
+.type	xhash_ia32_rdseed_bytes,@function
 .align	16
-OPENSSL_ia32_rdseed_bytes:
-.L_OPENSSL_ia32_rdseed_bytes_begin:
+xhash_ia32_rdseed_bytes:
+.L_xhash_ia32_rdseed_bytes_begin:
 	#ifdef __CET__
 
 .byte	243,15,30,251
@@ -489,10 +489,10 @@ OPENSSL_ia32_rdseed_bytes:
 	popl	%ebx
 	popl	%edi
 	ret
-.size	OPENSSL_ia32_rdseed_bytes,.-.L_OPENSSL_ia32_rdseed_bytes_begin
-.hidden	OPENSSL_cpuid_setup
-.hidden	OPENSSL_ia32cap_P
-.comm	OPENSSL_ia32cap_P,40,4
+.size	xhash_ia32_rdseed_bytes,.-.L_xhash_ia32_rdseed_bytes_begin
+.hidden	xhash_cpuid_setup
+.hidden	xhash_ia32cap_P
+.comm	xhash_ia32cap_P,40,4
 
 	.section ".note.gnu.property", "a"
 	.p2align 2

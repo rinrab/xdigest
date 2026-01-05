@@ -24,7 +24,7 @@ target_compile_definitions(xhash PRIVATE
   SHA1_ASM
   SHA256_ASM
   SHA512_ASM
-  OPENSSL_CPUID_OBJ
+  xhash_CPUID_OBJ
 )
 
 add_executable(test_xhash tests/test_xhash.c)

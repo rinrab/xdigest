@@ -43,11 +43,11 @@ Index: include/openssl/sha.h
 --- include/openssl/sha.h
 +++ include/openssl/sha.h
 @@ -11,7 +11,6 @@
- # define OPENSSL_SHA_H
+ # define xhash_SHA_H
  # pragma once
  
 -# include <openssl/macros.h>
- # ifndef OPENSSL_NO_DEPRECATED_3_0
+ # ifndef xhash_NO_DEPRECATED_3_0
  #  define HEADER_SHA_H
  # endif
 Index: include/openssl/e_os2.h
@@ -55,11 +55,11 @@ Index: include/openssl/e_os2.h
 --- include/openssl/e_os2.h
 +++ include/openssl/e_os2.h
 @@ -11,13 +11,10 @@
- # define OPENSSL_E_OS2_H
+ # define xhash_E_OS2_H
  # pragma once
  
 -# include <openssl/macros.h>
- # ifndef OPENSSL_NO_DEPRECATED_3_0
+ # ifndef xhash_NO_DEPRECATED_3_0
  #  define HEADER_E_OS2_H
  # endif
  
@@ -73,10 +73,10 @@ Index: include/openssl/ebcdic.h
 --- include/openssl/ebcdic.h
 +++ include/openssl/ebcdic.h
 @@ -11,7 +11,6 @@
- # define OPENSSL_EBCDIC_H
+ # define xhash_EBCDIC_H
  # pragma once
  
 -# include <openssl/macros.h>
- # ifndef OPENSSL_NO_DEPRECATED_3_0
+ # ifndef xhash_NO_DEPRECATED_3_0
  #  define HEADER_EBCDIC_H
  # endif

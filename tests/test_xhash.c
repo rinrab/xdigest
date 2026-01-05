@@ -50,7 +50,7 @@ int main()
     uint32_t seed = 67;
 
 #ifdef XHASH
-    OPENSSL_cpuid_setup();
+    xhash_cpuid_setup();
 #endif
 
     buf = malloc(BUFSIZE);

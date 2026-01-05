@@ -79,7 +79,7 @@ int HASH_INIT(SHA_CTX *c)
 #define F_40_59(b,c,d)  (((b) & (c)) | (((b)|(c)) & (d)))
 #define F_60_79(b,c,d)  F_20_39(b,c,d)
 
-#ifndef OPENSSL_SMALL_FOOTPRINT
+#ifndef xhash_SMALL_FOOTPRINT
 
 # define BODY_00_15(i,a,b,c,d,e,f,xi) \
         (f)=xi+(e)+K_00_19+ROTATE((a),5)+F_00_19((b),(c),(d)); \
@@ -330,7 +330,7 @@ static void HASH_BLOCK_DATA_ORDER(SHA_CTX *c, const void *p, size_t num)
 }
 # endif
 
-#else                           /* OPENSSL_SMALL_FOOTPRINT */
+#else                           /* xhash_SMALL_FOOTPRINT */
 
 # define BODY_00_15(xi)           do {   \
         T=E+K_00_19+F_00_19(B,C,D);     \

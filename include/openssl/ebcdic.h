@@ -7,11 +7,11 @@
  * https://www.openssl.org/source/license.html
  */
 
-#ifndef OPENSSL_EBCDIC_H
-# define OPENSSL_EBCDIC_H
+#ifndef xhash_EBCDIC_H
+# define xhash_EBCDIC_H
 # pragma once
 
-# ifndef OPENSSL_NO_DEPRECATED_3_0
+# ifndef xhash_NO_DEPRECATED_3_0
 #  define HEADER_EBCDIC_H
 # endif
 

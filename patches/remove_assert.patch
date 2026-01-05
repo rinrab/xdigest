@@ -13,7 +13,7 @@ Index: include/internal/common.h
 -                                              const char *file, int line)
 -{
 -    if (!expr)
--        OPENSSL_die(exprstr, file, line);
+-        xhash_die(exprstr, file, line);
 -
 -    return expr;
 -}

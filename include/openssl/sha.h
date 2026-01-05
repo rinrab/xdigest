@@ -7,11 +7,11 @@
  * https://www.openssl.org/source/license.html
  */
 
-#ifndef OPENSSL_SHA_H
-# define OPENSSL_SHA_H
+#ifndef xhash_SHA_H
+# define xhash_SHA_H
 # pragma once
 
-# ifndef OPENSSL_NO_DEPRECATED_3_0
+# ifndef xhash_NO_DEPRECATED_3_0
 #  define HEADER_SHA_H
 # endif
 
@@ -24,7 +24,7 @@ extern "C" {
 
 # define SHA_DIGEST_LENGTH 20
 
-# ifndef OPENSSL_NO_DEPRECATED_3_0
+# ifndef xhash_NO_DEPRECATED_3_0
 /*-
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  * ! SHA_LONG has to be at least 32 bits wide.                    !
@@ -53,7 +53,7 @@ void SHA1_Transform(SHA_CTX *c, const unsigned char *data);
 
 unsigned char *SHA1(const unsigned char *d, size_t n, unsigned char *md);
 
-# ifndef OPENSSL_NO_DEPRECATED_3_0
+# ifndef xhash_NO_DEPRECATED_3_0
 #  define SHA256_CBLOCK   (SHA_LBLOCK*4)/* SHA-256 treats input data as a
                                         * contiguous array of 32 bit wide
                                         * big-endian values. */
@@ -83,7 +83,7 @@ unsigned char *SHA256(const unsigned char *d, size_t n, unsigned char *md);
 # define SHA384_DIGEST_LENGTH    48
 # define SHA512_DIGEST_LENGTH    64
 
-# ifndef OPENSSL_NO_DEPRECATED_3_0
+# ifndef xhash_NO_DEPRECATED_3_0
 /*
  * Unlike 32-bit digest algorithms, SHA-512 *relies* on SHA_LONG64
  * being exactly 64-bit wide. See Implementation Notes in sha512.c

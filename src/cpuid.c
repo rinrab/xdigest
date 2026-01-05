@@ -13,16 +13,16 @@
         defined(__x86_64) || defined(__x86_64__) || \
         defined(_M_AMD64) || defined(_M_X64)
 
-#define OPENSSL_IA32CAP_P_MAX_INDEXES 10
+#define xhash_IA32CAP_P_MAX_INDEXES 10
 
-extern unsigned int OPENSSL_ia32cap_P[OPENSSL_IA32CAP_P_MAX_INDEXES];
+extern unsigned int xhash_ia32cap_P[xhash_IA32CAP_P_MAX_INDEXES];
 
-# if defined(OPENSSL_CPUID_OBJ)
+# if defined(xhash_CPUID_OBJ)
 
 /*
  * Purpose of these minimalistic and character-type-agnostic subroutines
  * is to break dependency on MSVCRT (on Windows) and locale. This makes
- * OPENSSL_cpuid_setup safe to use as "constructor". "Character-type-
+ * xhash_cpuid_setup safe to use as "constructor". "Character-type-
  * agnostic" means that they work with either wide or 8-bit characters,
  * exploiting the fact that first 127 characters can be simply casted
  * between the sets, while the rest would be simply rejected by ossl_is*
@@ -30,7 +30,7 @@ extern unsigned int OPENSSL_ia32cap_P[OPENSSL_IA32CAP_P_MAX_INDEXES];
  */
 #  ifdef _WIN32
 typedef WCHAR variant_char;
-#   define OPENSSL_IA32CAP_P_MAX_CHAR_SIZE 256
+#   define xhash_IA32CAP_P_MAX_CHAR_SIZE 256
 static variant_char *ossl_getenv(const char *name)
 {
     /*
@@ -38,10 +38,10 @@ static variant_char *ossl_getenv(const char *name)
      * just ignore |name| and use equivalent wide-char L-literal.
      * As well as to ignore excessively long values...
      */
-    static WCHAR value[OPENSSL_IA32CAP_P_MAX_CHAR_SIZE];
-    DWORD len = GetEnvironmentVariableW(L"OPENSSL_ia32cap", value, OPENSSL_IA32CAP_P_MAX_CHAR_SIZE);
+    static WCHAR value[xhash_IA32CAP_P_MAX_CHAR_SIZE];
+    DWORD len = GetEnvironmentVariableW(L"xhash_ia32cap", value, xhash_IA32CAP_P_MAX_CHAR_SIZE);
 
-    return (len > 0 && len < OPENSSL_IA32CAP_P_MAX_CHAR_SIZE) ? value : NULL;
+    return (len > 0 && len < xhash_IA32CAP_P_MAX_CHAR_SIZE) ? value : NULL;
 }
 #  else
 #   include <stdlib.h>
@@ -91,13 +91,13 @@ static variant_char *ossl_strchr(const variant_char *str, char srch)
     return NULL;
 }
 
-#  define OPENSSL_CPUID_SETUP
+#  define xhash_CPUID_SETUP
 typedef uint64_t IA32CAP;
 
-void OPENSSL_cpuid_setup(void)
+void xhash_cpuid_setup(void)
 {
     static int trigger = 0;
-    IA32CAP OPENSSL_ia32_cpuid(unsigned int *);
+    IA32CAP xhash_ia32_cpuid(unsigned int *);
     IA32CAP vec;
     const variant_char *env;
     int index = 2;
@@ -106,14 +106,14 @@ void OPENSSL_cpuid_setup(void)
         return;
 
     trigger = 1;
-    if ((env = ossl_getenv("OPENSSL_ia32cap")) != NULL) {
+    if ((env = ossl_getenv("xhash_ia32cap")) != NULL) {
         int off = (env[0] == '~') ? 1 : 0;
 
         vec = ossl_strtouint64(env + off);
 
         if (off) {
             IA32CAP mask = vec;
-            vec = OPENSSL_ia32_cpuid(OPENSSL_ia32cap_P) & ~mask;
+            vec = xhash_ia32_cpuid(xhash_ia32cap_P) & ~mask;
             if (mask & (1<<24)) {
                 /*
                  * User disables FXSR bit, mask even other capabilities
@@ -126,13 +126,13 @@ void OPENSSL_cpuid_setup(void)
                 vec &= ~((IA32CAP)(1<<1|1<<11|1<<25|1<<28) << 32);
             }
         } else if (env[0] == ':') {
-            vec = OPENSSL_ia32_cpuid(OPENSSL_ia32cap_P);
+            vec = xhash_ia32_cpuid(xhash_ia32cap_P);
         }
 
         /* Processed indexes 0, 1 */
         if ((env = ossl_strchr(env, ':')) != NULL)
             env++;
-        for (; index < OPENSSL_IA32CAP_P_MAX_INDEXES; index += 2) {
+        for (; index < xhash_IA32CAP_P_MAX_INDEXES; index += 2) {
             if ((env != NULL) && (env[0] != '\0')) {
                 /* if env[0] == ':' current index is skipped */
                 if (env[0] != ':') {
@@ -141,27 +141,27 @@ void OPENSSL_cpuid_setup(void)
                     off = (env[0] == '~') ? 1 : 0;
                     vecx = ossl_strtouint64(env + off);
                     if (off) {
-                        OPENSSL_ia32cap_P[index] &= ~(unsigned int)vecx;
-                        OPENSSL_ia32cap_P[index + 1] &= ~(unsigned int)(vecx >> 32);
+                        xhash_ia32cap_P[index] &= ~(unsigned int)vecx;
+                        xhash_ia32cap_P[index + 1] &= ~(unsigned int)(vecx >> 32);
                     } else {
-                        OPENSSL_ia32cap_P[index] = (unsigned int)vecx;
-                        OPENSSL_ia32cap_P[index + 1] = (unsigned int)(vecx >> 32);
+                        xhash_ia32cap_P[index] = (unsigned int)vecx;
+                        xhash_ia32cap_P[index + 1] = (unsigned int)(vecx >> 32);
                     }
                 }
                 /* skip delimeter */
                 if ((env = ossl_strchr(env, ':')) != NULL)
                     env++;
             } else { /* zeroize the next two indexes */
-                OPENSSL_ia32cap_P[index] = 0;
-                OPENSSL_ia32cap_P[index + 1] = 0;
+                xhash_ia32cap_P[index] = 0;
+                xhash_ia32cap_P[index + 1] = 0;
             }
         }
 
         /* If AVX10 is disabled, zero out its detailed cap bits */
-        if (!(OPENSSL_ia32cap_P[6] & (1 << 19)))
-            OPENSSL_ia32cap_P[9] = 0;
+        if (!(xhash_ia32cap_P[6] & (1 << 19)))
+            xhash_ia32cap_P[9] = 0;
     } else {
-        vec = OPENSSL_ia32_cpuid(OPENSSL_ia32cap_P);
+        vec = xhash_ia32_cpuid(xhash_ia32cap_P);
     }
 
     /*
@@ -169,17 +169,17 @@ void OPENSSL_cpuid_setup(void)
      * was initialized already... This is to avoid interference
      * with cpuid snippets in ELF .init segment.
      */
-    OPENSSL_ia32cap_P[0] = (unsigned int)vec | (1 << 10);
-    OPENSSL_ia32cap_P[1] = (unsigned int)(vec >> 32);
+    xhash_ia32cap_P[0] = (unsigned int)vec | (1 << 10);
+    xhash_ia32cap_P[1] = (unsigned int)(vec >> 32);
 }
 # else
-unsigned int OPENSSL_ia32cap_P[OPENSSL_IA32CAP_P_MAX_INDEXES];
+unsigned int xhash_ia32cap_P[xhash_IA32CAP_P_MAX_INDEXES];
 # endif
 #endif
 
-#ifndef OPENSSL_CPUID_OBJ
-# ifndef OPENSSL_CPUID_SETUP
-void OPENSSL_cpuid_setup(void)
+#ifndef xhash_CPUID_OBJ
+# ifndef xhash_CPUID_SETUP
+void xhash_cpuid_setup(void)
 {
 }
 # endif
@@ -214,17 +214,17 @@ int CRYPTO_memcmp(const void *in_a, const void *in_b, size_t len)
 /*
  * For systems that don't provide an instruction counter register or equivalent.
  */
-uint32_t OPENSSL_rdtsc(void)
+uint32_t xhash_rdtsc(void)
 {
     return 0;
 }
 
-size_t OPENSSL_instrument_bus(unsigned int *out, size_t cnt)
+size_t xhash_instrument_bus(unsigned int *out, size_t cnt)
 {
     return 0;
 }
 
-size_t OPENSSL_instrument_bus2(unsigned int *out, size_t cnt, size_t max)
+size_t xhash_instrument_bus2(unsigned int *out, size_t cnt, size_t max)
 {
     return 0;
 }
