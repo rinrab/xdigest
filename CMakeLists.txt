@@ -14,9 +14,9 @@ add_library(xhash
   # asm/elf/sha/asm/sha256-x86_64.S
   asm/elf/sha/asm/sha512-x86_64.S
   asm/elf/x86_64cpuid.S
-  src/cpuid.c
-  src/ctype.c
-  src/ebcdic.c
+  src/core/cpuid.c
+  src/core/ctype.c
+  src/core/ebcdic.c
 )
 
 target_include_directories(xhash PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
