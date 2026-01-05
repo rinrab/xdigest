@@ -17,7 +17,12 @@ add_library(xhash
 )
 
 target_include_directories(xhash PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
-target_compile_definitions(xhash PRIVATE SHA1_ASM SHA256_ASM SHA512_ASM)
+target_compile_definitions(xhash PRIVATE
+  SHA1_ASM
+  SHA256_ASM
+  SHA512_ASM
+  OPENSSL_CPUID_OBJ
+)
 
 add_executable(test_xhash tests/test_xhash.c)
 target_link_libraries(test_xhash xhash)
