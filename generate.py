@@ -28,8 +28,10 @@ perlasm("elf", "sha/asm/sha1-586")
 perlasm("elf", "sha/asm/sha1-armv4-large")
 perlasm("elf", "sha/asm/sha1-armv8")
 perlasm("elf", "sha/asm/sha1-x86_64")
+
 perlasm("elf", "sha/asm/sha256-586")
 perlasm("elf", "sha/asm/sha256-armv4")
+
 perlasm("elf", "sha/asm/sha512-armv8")
 perlasm("elf", "sha/asm/sha512-x86_64")
 perlasm("elf", "sha/asm/sha512-586")
@@ -37,12 +39,17 @@ perlasm("elf", "sha/asm/sha512-armv4")
 perlasm("elf", "sha/asm/sha512-armv8")
 perlasm("elf", "sha/asm/sha512-x86_64")
 
+perlasm("elf", "x86cpuid")
+perlasm("elf", "x86_64cpuid")
+
 sha = os.path.join(src, "sha")
 mkdir(sha)
 
 shutil.copy2(os.path.join(crypto, "sha/sha_local.h"), sha)
 shutil.copy2(os.path.join(crypto, "sha/sha256.c"), sha)
 shutil.copy2(os.path.join(crypto, "sha/sha512.c"), sha)
+shutil.copy2(os.path.join(crypto, "cpuid.c"), src)
+shutil.copy2(os.path.join(crypto, "ctype.c"), src)
 
 include = "include"
 mkdir(include)
@@ -91,6 +98,8 @@ shutil.copy2(os.path.join(openssl_include, "internal/nelem.h"),
 shutil.copy2(os.path.join(openssl_include, "crypto/md32_common.h"),
              os.path.join(include, "crypto"))
 shutil.copy2(os.path.join(openssl_include, "crypto/sha.h"),
+             os.path.join(include, "crypto"))
+shutil.copy2(os.path.join(openssl_include, "crypto/ctype.h"),
              os.path.join(include, "crypto"))
 
 shutil.copy2(os.path.join(include, "custom/configuration.h"),
