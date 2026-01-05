@@ -1,4 +1,5 @@
 import os
+import re
 import shutil
 import subprocess
 
@@ -17,7 +18,7 @@ src = "src"
 mkdir(os.path.join(src, "sha"))
 include_path = "include"
 mkdir(include_path)
-mkdir(os.path.join(include_path, "openssl"))
+mkdir(os.path.join(include_path, "xhash"))
 mkdir(os.path.join(include_path, "internal"))
 mkdir(os.path.join(include_path, "crypto"))
 
@@ -25,6 +26,12 @@ def copy_fixup(input, output):
     with open(input, 'r') as file:
         data = file.read()
         data = data.replace("OPENSSL_", "xhash_")
+
+        data = re.sub(r"#include <openssl\/([^>]*)>",
+                      r"#include <xhash/\1>",
+                      data, 0, re.MULTILINE)
+
+    output.replace("openssl", "xhash")
 
     with open(output, 'w') as file:
         file.write(data)
@@ -47,6 +54,8 @@ def source(path):
 def include(path):
     input = os.path.join(openssl_include, path)
     output = os.path.join(include_path, path)
+
+    output = output.replace("openssl", "xhash")
 
     copy_fixup(input, output)
 

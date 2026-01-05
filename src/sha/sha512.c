@@ -49,7 +49,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <openssl/sha.h>
+#include <xhash/sha.h>
 
 #include "crypto/sha.h"
 
