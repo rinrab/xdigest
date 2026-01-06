@@ -56,7 +56,7 @@ def perlasm(config, file, outputname = None):
     input = os.path.join(crypto, file + ".pl")
 
     if (outputname == None):
-        output = os.path.join(asm, config, file + ".S")
+        output = os.path.join(asm, config, file.replace("asm/", "") + ".S")
     else:
         output = os.path.join(asm, config, outputname + ".S")
 
@@ -95,13 +95,13 @@ perlasm("elf", "sha/asm/sha256-armv4")
 perlasm("elf", "sha/asm/sha256-mb-x86_64")
 
 perlasm("elf", "sha/asm/sha512-armv8")
-perlasm("elf", "sha/asm/sha512-armv8", "sha/asm/sha256-armv8")
+perlasm("elf", "sha/asm/sha512-armv8", "sha/sha256-armv8")
 perlasm("elf", "sha/asm/sha512-x86_64")
-perlasm("elf", "sha/asm/sha512-x86_64", "sha/asm/sha256-x86_64")
+perlasm("elf", "sha/asm/sha512-x86_64", "sha/sha256-x86_64")
 perlasm("elf", "sha/asm/sha512-586")
 perlasm("elf", "sha/asm/sha512-armv4")
 perlasm("elf", "sha/asm/sha512-ia64")
-perlasm("elf", "sha/asm/sha512-ia64", "sha/asm/sha256-ia64")
+perlasm("elf", "sha/asm/sha512-ia64", "sha/sha256-ia64")
 
 perlasm("elf", "x86cpuid")
 perlasm("elf", "x86_64cpuid")
