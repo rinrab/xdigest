@@ -12,9 +12,9 @@ add_library(xhash
   src/sha/sha1.c
   src/sha/sha256.c
   src/sha/sha512.c
-  asm/elf/sha/asm/sha1-x86_64.S
-  asm/elf/sha/asm/sha256-x86_64.S
-  asm/elf/sha/asm/sha512-x86_64.S
+  asm/elf/sha/sha1-x86_64.S
+  asm/elf/sha/sha256-x86_64.S
+  asm/elf/sha/sha512-x86_64.S
   asm/elf/x86_64cpuid.S
   src/core/cpuid.c
   src/core/ctype.c

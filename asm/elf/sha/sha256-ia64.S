@@ -1,4 +1,4 @@
-.ident  "asm/elf/sha/asm/sha256-ia64.S, version 2.0"
+.ident  "asm/elf/sha/sha256-ia64.S, version 2.0"
 .ident  "IA-64 ISA artwork by Andy Polyakov <https://github.com/dot-asm>"
 .explicit
 .text
