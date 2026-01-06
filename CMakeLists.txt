@@ -13,7 +13,7 @@ add_library(xhash
   src/sha/sha256.c
   src/sha/sha512.c
   asm/elf/sha/asm/sha1-x86_64.S
-  # asm/elf/sha/asm/sha256-x86_64.S
+  asm/elf/sha/asm/sha256-x86_64.S
   asm/elf/sha/asm/sha512-x86_64.S
   asm/elf/x86_64cpuid.S
   src/core/cpuid.c
@@ -29,12 +29,18 @@ target_compile_definitions(xhash PRIVATE
   xhash_CPUID_OBJ
 )
 
-add_executable(test_xhash tests/test_xhash.c)
+add_executable(test_xhash
+    tests/test_xhash.c
+    tests/sha_test.c
+)
 target_link_libraries(test_xhash xhash)
 target_compile_definitions(test_xhash PRIVATE XHASH)
 
 find_package(OpenSSL REQUIRED)
-add_executable(test_openssl tests/test_xhash.c)
+add_executable(test_openssl
+    tests/test_xhash.c
+    tests/sha_test.c
+)
 target_link_libraries(test_openssl OpenSSL::Crypto)
 target_compile_definitions(test_xhash PRIVATE OPENSSL_SUPPRESS_DEPRECATED)
 

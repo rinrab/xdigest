@@ -8,7 +8,27 @@
  */
 
 #include <string.h>
-#include "testutil.h"
+#include <assert.h>
+#include <stdio.h>
+
+#ifdef XHASH
+#include <xhash/sha.h>
+#else
+#include <openssl/sha.h>
+
+#define xhash_sha1 SHA1
+#define xhash_sha224 SHA224
+#define xhash_sha256 SHA256
+#define xhash_sha384 SHA384
+#define xhash_sha512 SHA512
+#endif
+
+#define TEST_ASSERT(expr) do { \
+    int __r = (expr); \
+    if (!__r) { \
+        printf("test assertion failed: %s\n", #expr); \
+        return 0; \
+    } } while (0);
 
 static int test_static_sha_common(const char *input, size_t length,
                                   const unsigned char *out,
@@ -16,20 +36,20 @@ static int test_static_sha_common(const char *input, size_t length,
                                                        size_t n,
                                                        unsigned char *md))
 {
-    unsigned char buf[EVP_MAX_MD_SIZE], *sbuf;
+    unsigned char buf[1024], *sbuf;
     const unsigned char *in = (unsigned char *)input;
     const size_t in_len = strlen(input);
 
     sbuf = (*md)(in, in_len, buf);
-    if (!TEST_ptr(sbuf)
-            || !TEST_ptr_eq(sbuf, buf)
-            || !TEST_mem_eq(sbuf, length, out, length))
-        return 0;
+    TEST_ASSERT(sbuf != NULL);
+    TEST_ASSERT(sbuf == buf);
+    TEST_ASSERT(memcmp(sbuf, out, length) == 0);
+
     sbuf = (*md)(in, in_len, NULL);
-    if (!TEST_ptr(sbuf)
-            || !TEST_ptr_ne(sbuf, buf)
-            || !TEST_mem_eq(sbuf, length, out, length))
-        return 0;
+    TEST_ASSERT(sbuf != NULL);
+    TEST_ASSERT(sbuf != buf);
+    TEST_ASSERT(memcmp(sbuf, out, length) == 0);
+
     return 1;
 }
 
@@ -41,7 +61,7 @@ static int test_static_sha1(void)
         0x9c, 0xd0, 0xd8, 0x9d
     };
 
-    return test_static_sha_common("abc", SHA_DIGEST_LENGTH, output, &SHA1);
+    return test_static_sha_common("abc", SHA_DIGEST_LENGTH, output, &xhash_sha1);
 }
 
 static int test_static_sha224(void)
@@ -53,7 +73,7 @@ static int test_static_sha224(void)
         0xe3, 0x6c, 0x9d, 0xa7
     };
 
-    return test_static_sha_common("abc", SHA224_DIGEST_LENGTH, output, &SHA224);
+    return test_static_sha_common("abc", SHA224_DIGEST_LENGTH, output, &xhash_sha224);
 }
 
 static int test_static_sha256(void)
@@ -65,7 +85,7 @@ static int test_static_sha256(void)
         0xb4, 0x10, 0xff, 0x61, 0xf2, 0x00, 0x15, 0xad
     };
 
-    return test_static_sha_common("abc", SHA256_DIGEST_LENGTH, output, &SHA256);
+    return test_static_sha_common("abc", SHA256_DIGEST_LENGTH, output, &xhash_sha256);
 }
 
 static int test_static_sha384(void)
@@ -79,7 +99,7 @@ static int test_static_sha384(void)
         0x58, 0xba, 0xec, 0xa1, 0x34, 0xc8, 0x25, 0xa7
     };
 
-    return test_static_sha_common("abc", SHA384_DIGEST_LENGTH, output, &SHA384);
+    return test_static_sha_common("abc", SHA384_DIGEST_LENGTH, output, &xhash_sha384);
 }
 
 static int test_static_sha512(void)
@@ -95,8 +115,16 @@ static int test_static_sha512(void)
         0x2a, 0x9a, 0xc9, 0x4f, 0xa5, 0x4c, 0xa4, 0x9f
     };
 
-    return test_static_sha_common("abc", SHA512_DIGEST_LENGTH, output, &SHA512);
+    return test_static_sha_common("abc", SHA512_DIGEST_LENGTH, output, &xhash_sha512);
 }
+
+#define ADD_TEST(func) do { \
+    if (func()) { \
+        printf("PASS %s\n", #func); \
+    } else { \
+        printf("FAIL %s\n", #func); \
+    } \
+} while (0);
 
 int setup_tests(void)
 {
