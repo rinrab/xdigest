@@ -47,6 +47,8 @@ double time__diff(time__t start, time__t end)
 }
 #endif
 
+int setup_tests(void);
+
 int main()
 {
     xhash_sha1_ctx_t ctx = { 0 };
@@ -87,6 +89,9 @@ int main()
            time__diff(start, end));
 
     free(buf);
+
+    setup_tests();
+
     return 0;
 }
 
