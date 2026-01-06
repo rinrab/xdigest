@@ -52,9 +52,13 @@ def copy_fixup(input, output):
     with open(output, 'w') as file:
         file.write(data)
 
-def perlasm(config, file):
+def perlasm(config, file, outputname = None):
     input = os.path.join(crypto, file + ".pl")
-    output = os.path.join(asm, config, file + ".S")
+
+    if (outputname == None):
+        output = os.path.join(asm, config, file + ".S")
+    else:
+        output = os.path.join(asm, config, outputname + ".S")
 
     mkdir(os.path.dirname(output))
 
@@ -88,13 +92,16 @@ perlasm("elf", "sha/asm/sha1-x86_64")
 
 perlasm("elf", "sha/asm/sha256-586")
 perlasm("elf", "sha/asm/sha256-armv4")
+perlasm("elf", "sha/asm/sha256-mb-x86_64")
 
 perlasm("elf", "sha/asm/sha512-armv8")
+perlasm("elf", "sha/asm/sha512-armv8", "sha/asm/sha256-armv8")
 perlasm("elf", "sha/asm/sha512-x86_64")
+perlasm("elf", "sha/asm/sha512-x86_64", "sha/asm/sha256-x86_64")
 perlasm("elf", "sha/asm/sha512-586")
 perlasm("elf", "sha/asm/sha512-armv4")
-perlasm("elf", "sha/asm/sha512-armv8")
-perlasm("elf", "sha/asm/sha512-x86_64")
+perlasm("elf", "sha/asm/sha512-ia64")
+perlasm("elf", "sha/asm/sha512-ia64", "sha/asm/sha256-ia64")
 
 perlasm("elf", "x86cpuid")
 perlasm("elf", "x86_64cpuid")
