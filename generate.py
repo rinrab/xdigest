@@ -3,6 +3,15 @@ import re
 import shutil
 import subprocess
 
+# https://github.com/openssl/openssl/blob/master/Configurations/10-main.conf
+linux_x86_64 = ("elf", ".S", "gcc")
+linux_x86 = ("elf", ".S", "gcc")
+win32 = ("win32n", ".asm", "cl")
+win64 = ("nasm", ".asm", "cl")
+
+configs_x86_64 = [linux_x86_64, win64]
+configs_x86 = [linux_x86, win32]
+
 def mkdir(path):
     try:
         os.makedirs(path)
@@ -52,18 +61,23 @@ def copy_fixup(input, output):
     with open(output, 'w') as file:
         file.write(data)
 
-def perlasm(config, file, outputname = None):
-    input = os.path.join(crypto, file + ".pl")
+def perlasm(configs, file, outputname = None):
+    for config, ext, compiler in configs:
+        if (outputname == None):
+            output = os.path.join(asm, config, file.replace("asm/", "") + ext)
+        else:
+            output = os.path.join(asm, config, outputname + ext)
 
-    if (outputname == None):
-        output = os.path.join(asm, config, file.replace("asm/", "") + ".S")
-    else:
-        output = os.path.join(asm, config, outputname + ".S")
+        print(f"Building {file}.pl -> {output} ({config}, {compiler})")
 
-    mkdir(os.path.dirname(output))
+        os.environ["CC"] = compiler
 
-    subprocess.call(["perl", input, config, output])
-    copy_fixup(output, output)
+        input = os.path.join(crypto, file + ".pl")
+
+        mkdir(os.path.dirname(output))
+
+        subprocess.call(["perl", input, config, output])
+        copy_fixup(output, output)
 
 def source(path, outdir = ""):
     input = os.path.join(crypto, path)
@@ -83,28 +97,27 @@ def patch(patchfile):
     print(f"Patching {patchfile}")
     code = subprocess.call(["svn", "patch", patchfile])
 
-os.environ["CC"] = "gcc"
+# perlasm("sha/asm/sha1-armv4-large")
+# perlasm("sha/asm/sha1-armv8")
+perlasm(configs_x86_64, "sha/asm/sha1-x86_64")
+perlasm(configs_x86, "sha/asm/sha1-586")
 
-perlasm("elf", "sha/asm/sha1-586")
-perlasm("elf", "sha/asm/sha1-armv4-large")
-perlasm("elf", "sha/asm/sha1-armv8")
-perlasm("elf", "sha/asm/sha1-x86_64")
+# perlasm("sha/asm/sha256-586")
+# perlasm("sha/asm/sha256-armv4")
+# perlasm(configs_x86_64, "sha/asm/sha256-mb-x86_64")
 
-perlasm("elf", "sha/asm/sha256-586")
-perlasm("elf", "sha/asm/sha256-armv4")
-perlasm("elf", "sha/asm/sha256-mb-x86_64")
+# perlasm("sha/asm/sha512-armv8")
+# perlasm("sha/asm/sha512-armv8", "sha/sha256-armv8")
+perlasm(configs_x86_64, "sha/asm/sha512-x86_64")
+perlasm(configs_x86_64, "sha/asm/sha512-x86_64", "sha/sha256-x86_64")
+perlasm(configs_x86, "sha/asm/sha512-586")
+perlasm(configs_x86, "sha/asm/sha512-586")
+# perlasm("sha/asm/sha512-armv4")
+# perlasm("sha/asm/sha512-ia64")
+# perlasm("sha/asm/sha512-ia64", "sha/sha256-ia64")
 
-perlasm("elf", "sha/asm/sha512-armv8")
-perlasm("elf", "sha/asm/sha512-armv8", "sha/sha256-armv8")
-perlasm("elf", "sha/asm/sha512-x86_64")
-perlasm("elf", "sha/asm/sha512-x86_64", "sha/sha256-x86_64")
-perlasm("elf", "sha/asm/sha512-586")
-perlasm("elf", "sha/asm/sha512-armv4")
-perlasm("elf", "sha/asm/sha512-ia64")
-perlasm("elf", "sha/asm/sha512-ia64", "sha/sha256-ia64")
-
-perlasm("elf", "x86cpuid")
-perlasm("elf", "x86_64cpuid")
+perlasm(configs_x86_64, "x86_64cpuid")
+perlasm(configs_x86, "x86cpuid")
 
 source("sha/sha_local.h")
 source("sha/sha256.c")
