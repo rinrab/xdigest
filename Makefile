@@ -44,10 +44,7 @@ install: all
 	install -m 644 libxhash.so $(DESTDIR)$(PREFIX)/lib/
 	install -d $(DESTDIR)$(PREFIX)/include/
 	install -d $(DESTDIR)$(PREFIX)/include/xhash
-	install -m 644 include/xhash/core.h $(DESTDIR)$(PREFIX)/include/xhash
-	install -m 644 include/xhash/e_os2.h $(DESTDIR)$(PREFIX)/include/xhash
-	install -m 644 include/xhash/ebcdic.h $(DESTDIR)$(PREFIX)/include/xhash
-	install -m 644 include/xhash/sha.h $(DESTDIR)$(PREFIX)/include/xhash
+	install -m 644 include/xhash/*.h $(DESTDIR)$(PREFIX)/include/xhash
 
 rebuild: clean all
 
