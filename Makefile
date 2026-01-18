@@ -1,5 +1,8 @@
 out = out
-prefix = /usr/local
+
+ifeq ($(PREFIX),)
+    PREFIX := /usr/local
+endif
 
 asm_objects = asm/elf/x86_64cpuid.o asm/elf/sha/sha1-x86_64.o \
 	asm/elf/sha/sha256-x86_64.o asm/elf/sha/sha512-x86_64.o
@@ -35,6 +38,16 @@ test: test_xhash
 
 clean:
 	rm -f $(objects) libxhash.so test_xhash
+
+install: all
+	install -d $(DESTDIR)$(PREFIX)/lib/
+	install -m 644 libxhash.so $(DESTDIR)$(PREFIX)/lib/
+	install -d $(DESTDIR)$(PREFIX)/include/
+	install -d $(DESTDIR)$(PREFIX)/include/xhash
+	install -m 644 include/xhash/core.h $(DESTDIR)$(PREFIX)/include/xhash
+	install -m 644 include/xhash/e_os2.h $(DESTDIR)$(PREFIX)/include/xhash
+	install -m 644 include/xhash/ebcdic.h $(DESTDIR)$(PREFIX)/include/xhash
+	install -m 644 include/xhash/sha.h $(DESTDIR)$(PREFIX)/include/xhash
 
 rebuild: clean all
 
