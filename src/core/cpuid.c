@@ -8,6 +8,7 @@
  */
 
 #include "internal/e_os.h"
+#include "core/e_os.h"
 
 #if     defined(__i386)   || defined(__i386__)   || defined(_M_IX86) || \
         defined(__x86_64) || defined(__x86_64__) || \
@@ -171,3 +172,9 @@ size_t xhash_instrument_bus2(unsigned int *out, size_t cnt, size_t max)
     return 0;
 }
 #endif
+
+/* Public interface. */
+void xhash_init()
+{
+    xhash_cpuid_setup();
+}
