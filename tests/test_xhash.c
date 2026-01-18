@@ -13,6 +13,8 @@
 #define xhash_sha1_final SHA1_Final
 #endif
 
+void xhash_cpuid_setup();
+
 #define BUFSIZE 1024 * 1024
 
 #if WIN32
