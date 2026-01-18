@@ -150,5 +150,7 @@ patch("patches/sha256_adjust_export_names.patch")
 patch("patches/sha256_hash_data.patch")
 patch("patches/sha512_hash_data.patch")
 
+patch("patches/export_init_func.patch")
+
 # patch("patches/include_stdlib_for_getenv.patch")
 patch("patches/remove_getenv.patch")
