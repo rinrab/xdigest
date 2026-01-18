@@ -41,11 +41,11 @@ def copy_fixup(input, output):
 
         data = re.sub(r"include <openssl\/([^>]*)>",
                       r"include <xhash/\1>",
-                      data, 0, re.MULTILINE)
+                      data, flags=re.MULTILINE)
 
         data = re.sub(r"(SHA\d+_?\w*\()",
                       lambda match: f"xhash_{match[1].lower()}",
-                      data, 0, re.MULTILINE)
+                      data, flags=re.MULTILINE)
 
         def convert_ctx_name(match):
             name = match[1]
@@ -54,7 +54,7 @@ def copy_fixup(input, output):
             return f"xhash_{name}_t"
 
         data = re.sub(r"(SHA\d*_CTX)", convert_ctx_name,
-                      data, 0, re.MULTILINE)
+                      data, flags=re.MULTILINE)
 
     output.replace("openssl", "xhash")
 
