@@ -23,6 +23,8 @@
 #define xhash_sha512 SHA512
 #endif
 
+void xhash_cpuid_setup();
+
 #define TEST_ASSERT(expr) do { \
     int __r = (expr); \
     if (!__r) { \
