@@ -2,15 +2,6 @@ Index: src/core/cpuid.c
 ===================================================================
 --- src/core/cpuid.c	(revision 6109)
 +++ src/core/cpuid.c	(working copy)
-@@ -17,7 +17,7 @@
- 
- extern unsigned int xhash_ia32cap_P[xhash_IA32CAP_P_MAX_INDEXES];
- 
--# if defined(xhash_CPUID_OBJ)
-+# if defined(xhash_OPENSSL_SETUP)
- 
- /*
-  * Purpose of these minimalistic and character-type-agnostic subroutines
 @@ -99,71 +99,14 @@ void xhash_cpuid_setup(void)
      static int trigger = 0;
      IA32CAP xhash_ia32_cpuid(unsigned int *);
