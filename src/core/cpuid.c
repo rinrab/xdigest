@@ -17,7 +17,7 @@
 
 extern unsigned int xhash_ia32cap_P[xhash_IA32CAP_P_MAX_INDEXES];
 
-# if defined(xhash_CPUID_OBJ)
+# if defined(xhash_OPENSSL_SETUP)
 
 /*
  * Purpose of these minimalistic and character-type-agnostic subroutines
@@ -44,7 +44,6 @@ static variant_char *ossl_getenv(const char *name)
     return (len > 0 && len < xhash_IA32CAP_P_MAX_CHAR_SIZE) ? value : NULL;
 }
 #  else
-#   include <stdlib.h>
 typedef char variant_char;
 #   define ossl_getenv getenv
 #  endif
@@ -99,70 +98,13 @@ void xhash_cpuid_setup(void)
     static int trigger = 0;
     IA32CAP xhash_ia32_cpuid(unsigned int *);
     IA32CAP vec;
-    const variant_char *env;
-    int index = 2;
 
     if (trigger)
         return;
 
     trigger = 1;
-    if ((env = ossl_getenv("xhash_ia32cap")) != NULL) {
-        int off = (env[0] == '~') ? 1 : 0;
 
-        vec = ossl_strtouint64(env + off);
-
-        if (off) {
-            IA32CAP mask = vec;
-            vec = xhash_ia32_cpuid(xhash_ia32cap_P) & ~mask;
-            if (mask & (1<<24)) {
-                /*
-                 * User disables FXSR bit, mask even other capabilities
-                 * that operate exclusively on XMM, so we don't have to
-                 * double-check all the time. We mask PCLMULQDQ, AMD XOP,
-                 * AES-NI and AVX. Formally speaking we don't have to
-                 * do it in x86_64 case, but we can safely assume that
-                 * x86_64 users won't actually flip this flag.
-                 */
-                vec &= ~((IA32CAP)(1<<1|1<<11|1<<25|1<<28) << 32);
-            }
-        } else if (env[0] == ':') {
-            vec = xhash_ia32_cpuid(xhash_ia32cap_P);
-        }
-
-        /* Processed indexes 0, 1 */
-        if ((env = ossl_strchr(env, ':')) != NULL)
-            env++;
-        for (; index < xhash_IA32CAP_P_MAX_INDEXES; index += 2) {
-            if ((env != NULL) && (env[0] != '\0')) {
-                /* if env[0] == ':' current index is skipped */
-                if (env[0] != ':') {
-                    IA32CAP vecx;
-
-                    off = (env[0] == '~') ? 1 : 0;
-                    vecx = ossl_strtouint64(env + off);
-                    if (off) {
-                        xhash_ia32cap_P[index] &= ~(unsigned int)vecx;
-                        xhash_ia32cap_P[index + 1] &= ~(unsigned int)(vecx >> 32);
-                    } else {
-                        xhash_ia32cap_P[index] = (unsigned int)vecx;
-                        xhash_ia32cap_P[index + 1] = (unsigned int)(vecx >> 32);
-                    }
-                }
-                /* skip delimeter */
-                if ((env = ossl_strchr(env, ':')) != NULL)
-                    env++;
-            } else { /* zeroize the next two indexes */
-                xhash_ia32cap_P[index] = 0;
-                xhash_ia32cap_P[index + 1] = 0;
-            }
-        }
-
-        /* If AVX10 is disabled, zero out its detailed cap bits */
-        if (!(xhash_ia32cap_P[6] & (1 << 19)))
-            xhash_ia32cap_P[9] = 0;
-    } else {
-        vec = xhash_ia32_cpuid(xhash_ia32cap_P);
-    }
+    vec = xhash_ia32_cpuid(xhash_ia32cap_P);
 
     /*
      * |(1<<10) sets a reserved bit to signal that variable
