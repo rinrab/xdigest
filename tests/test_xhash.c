@@ -4,6 +4,7 @@
 
 #ifdef XHASH
 #include <xhash/sha.h>
+#include <xhash/core.h>
 #else
 #include <openssl/sha.h>
 
@@ -12,8 +13,6 @@
 #define xhash_sha1_update SHA1_Update
 #define xhash_sha1_final SHA1_Final
 #endif
-
-void xhash_cpuid_setup();
 
 #define BUFSIZE 1024 * 1024
 
@@ -63,7 +62,7 @@ int main()
     uint32_t seed = 67;
 
 #ifdef XHASH
-    xhash_cpuid_setup();
+    xhash_init();
 #endif
 
     buf = malloc(BUFSIZE);
