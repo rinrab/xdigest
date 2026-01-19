@@ -25,6 +25,7 @@ asm = "asm"
 src = "src"
 
 mkdir(os.path.join(src, "sha"))
+mkdir(os.path.join(src, "md5"))
 mkdir(os.path.join(src, "core"))
 include_path = "include"
 mkdir(include_path)
@@ -126,7 +127,12 @@ source("cpuid.c", "core")
 source("ctype.c", "core")
 source("ebcdic.c", "core")
 
+source("md5/md5_dgst.c")
+source("md5/md5_local.h")
+source("md5/md5_one.c")
+
 include("openssl/sha.h")
+include("openssl/md5.h")
 include("openssl/e_os2.h")
 include("openssl/ebcdic.h")
 include("internal/endian.h")
