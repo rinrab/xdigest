@@ -4,11 +4,14 @@ ifeq ($(PREFIX),)
     PREFIX := /usr/local
 endif
 
-asm_objects = asm/elf/x86_64cpuid.o asm/elf/sha/sha1-x86_64.o \
-	asm/elf/sha/sha256-x86_64.o asm/elf/sha/sha512-x86_64.o
+core_c_objects = src/core/cpuid.o src/core/ctype.o src/core/ebcdic.o
+core_asm_objects = asm/elf/x86_64cpuid.o asm/elf/sha/sha1-x86_64.o
 
-c_objects = src/core/cpuid.o src/core/ctype.o src/core/ebcdic.o src/sha/sha1.o \
-	src/sha/sha256.o src/sha/sha512.o
+sha_c_objects = src/sha/sha1.o src/sha/sha256.o src/sha/sha512.o
+sha_asm_objects = asm/elf/sha/sha256-x86_64.o asm/elf/sha/sha512-x86_64.o
+
+c_objects = $(core_c_objects) $(sha_c_objects)
+asm_objects = $(core_asm_objects) $(sha_asm_objects)
 
 objects = $(asm_objects) $(c_objects)
 
