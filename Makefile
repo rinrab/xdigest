@@ -24,8 +24,15 @@ ASMFLAGS = -Wa,--noexecstack
 all: libxhash.so
 .PHONY: all
 
-libxhash.so: $(objects)
-	mkdir -p $(@D) && $(CC) -shared $^ -o $@ $(CFLAGS)
+libxhash_core.a: $(core_c_objects) $(core_asm_objects)
+	mkdir -p $(@D) && ar rcs $@ $^
+
+libxhash_sha.a: $(sha_c_objects) $(sha_asm_objects)
+	mkdir -p $(@D) && ar rcs $@ $^
+
+libxhash.so: libxhash_core.a libxhash_sha.a
+	mkdir -p $(@D)
+	$(CC) $(CFLAGS) -shared -o $@ -L. -Wl,--whole-archive $^ -Wl,--no-whole-archive
 
 $(asm_objects): %.o: %.S
 	mkdir -p $(@D) && $(ASSEMBLER) -c $^ -o $@ $(CFLAGS) $(ASMFLAGS)
