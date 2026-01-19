@@ -48,3 +48,21 @@ install: all
 
 rebuild: clean all
 
+# TODO: checksum
+OPENSSL_VERSION = 3.6.0
+
+openssl-$(OPENSSL_VERSION).zip:
+	wget https://github.com/openssl/openssl/archive/refs/tags/openssl-$(OPENSSL_VERSION).zip
+
+openssl: openssl-$(OPENSSL_VERSION).zip
+	rm -rf openssl openssl-openssl-$(OPENSSL_VERSION)
+	unzip openssl-$(OPENSSL_VERSION).zip
+	mv openssl-openssl-$(OPENSSL_VERSION) openssl
+
+openssl-clean:
+	rm -f openssl-$(OPENSSL_VERSION)*.zip
+	rm -rf openssl
+	rm -rf openssl-$(OPENSSL_VERSION)
+
+generate: openssl
+	python3 generate.py
