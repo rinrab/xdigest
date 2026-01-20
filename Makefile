@@ -53,7 +53,10 @@ test: test_xhash
 	export "LD_LIBRARY_PATH=$(CURDIR):$(LD_LIBRARY_PATH)" && ./test_xhash
 
 clean:
-	rm -f $(objects) libxhash.so test_xhash
+	find . -type f -name '*.o' -delete
+	find . -type f -name '*.so' -delete
+	find . -type f -name '*.a' -delete
+	find . -type f -name '*.svnpatch.rej' -delete
 
 install: all
 	install -d $(DESTDIR)$(PREFIX)/lib/
