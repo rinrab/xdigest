@@ -23,3 +23,15 @@ Index: src/md5/md5_one.c
  
  #ifdef CHARSET_EBCDIC
  # include <xhash/ebcdic.h>
+Index: src/md4/md4_one.c
+===================================================================
+--- src/md4/md4_one.c
++++ src/md4/md4_one.c
+@@ -17,6 +17,7 @@
+ #include <string.h>
+ #include <xhash/md4.h>
+ /* ignored include 'openssl/crypto.h' */
++#include "internal/common.h"
+ 
+ #ifdef CHARSET_EBCDIC
+ # include <xhash/ebcdic.h>
