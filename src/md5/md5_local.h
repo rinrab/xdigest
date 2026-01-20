@@ -30,9 +30,9 @@ void md5_block_data_order(xhash_md5_ctx_t *c, const void *p, size_t num);
 
 #define DATA_ORDER_IS_LITTLE_ENDIAN
 
-#define HASH_LONG               MD5_LONG
+#define HASH_LONG               XHASH_MD5_LONG
 #define HASH_CTX                xhash_md5_ctx_t
-#define HASH_CBLOCK             MD5_CBLOCK
+#define HASH_CBLOCK             XHASH_MD5_CBLOCK
 #define HASH_UPDATE             MD5_Update
 #define HASH_TRANSFORM          MD5_Transform
 #define HASH_FINAL              MD5_Final

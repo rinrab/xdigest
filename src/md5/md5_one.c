@@ -25,7 +25,7 @@
 unsigned char *xhash_md5(const unsigned char *d, size_t n, unsigned char *md)
 {
     xhash_md5_ctx_t c;
-    static unsigned char m[MD5_DIGEST_LENGTH];
+    static unsigned char m[XHASH_MD5_DIGEST_LENGTH];
 
     if (md == NULL)
         md = m;

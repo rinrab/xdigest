@@ -4,7 +4,7 @@
 
 unsigned char *xhash_sha1(const unsigned char *d, size_t n, unsigned char *md)
 {
-    static unsigned char m[SHA_DIGEST_LENGTH];
+    static unsigned char m[XHASH_SHA_DIGEST_LENGTH];
     xhash_sha1_ctx_t ctx;
 
     if (md == NULL)

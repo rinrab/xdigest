@@ -16,9 +16,9 @@
 
 #define DATA_ORDER_IS_BIG_ENDIAN
 
-#define HASH_LONG               SHA_LONG
+#define HASH_LONG               XHASH_SHA_LONG
 #define HASH_CTX                xhash_sha1_ctx_t
-#define HASH_CBLOCK             SHA_CBLOCK
+#define HASH_CBLOCK             XHASH_SHA_CBLOCK
 #define HASH_MAKE_STRING(c,s)   do {    \
         unsigned long ll;               \
         ll=(c)->h0; (void)HOST_l2c(ll,(s));     \
@@ -142,7 +142,7 @@ static void HASH_BLOCK_DATA_ORDER(xhash_sha1_ctx_t *c, const void *p, size_t num
     unsigned MD32_REG_T XX0, XX1, XX2, XX3, XX4, XX5, XX6, XX7,
         XX8, XX9, XX10, XX11, XX12, XX13, XX14, XX15;
 #  else
-    SHA_LONG XX[16];
+    XHASH_SHA_LONG XX[16];
 #  endif
 
     A = c->h0;
@@ -154,9 +154,9 @@ static void HASH_BLOCK_DATA_ORDER(xhash_sha1_ctx_t *c, const void *p, size_t num
     for (;;) {
         DECLARE_IS_ENDIAN;
 
-        if (!IS_LITTLE_ENDIAN && sizeof(SHA_LONG) == 4
+        if (!IS_LITTLE_ENDIAN && sizeof(XHASH_SHA_LONG) == 4
             && ((size_t)p % 4) == 0) {
-            const SHA_LONG *W = (const SHA_LONG *)data;
+            const XHASH_SHA_LONG *W = (const XHASH_SHA_LONG *)data;
 
             X(0) = W[0];
             X(1) = W[1];
@@ -191,7 +191,7 @@ static void HASH_BLOCK_DATA_ORDER(xhash_sha1_ctx_t *c, const void *p, size_t num
             BODY_00_15(14, E, T, A, B, C, D, X(14));
             BODY_00_15(15, D, E, T, A, B, C, X(15));
 
-            data += SHA_CBLOCK;
+            data += XHASH_SHA_CBLOCK;
         } else {
             (void)HOST_c2l(data, l);
             X(0) = l;
@@ -368,7 +368,7 @@ static void HASH_BLOCK_DATA_ORDER(xhash_sha1_ctx_t *c, const void *p, size_t num
     const unsigned char *data = p;
     register unsigned MD32_REG_T A, B, C, D, E, T, l;
     int i;
-    SHA_LONG X[16];
+    XHASH_SHA_LONG X[16];
 
     A = c->h0;
     B = c->h1;

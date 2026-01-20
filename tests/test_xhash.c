@@ -54,7 +54,7 @@ int main()
 {
     xhash_sha1_ctx_t ctx = { 0 };
 
-    unsigned char digest[SHA_DIGEST_LENGTH];
+    unsigned char digest[XHASH_SHA_DIGEST_LENGTH];
     unsigned char *buf;
 
     time__t start, end;

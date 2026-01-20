@@ -54,9 +54,9 @@
  *
  *      #define DATA_ORDER_IS_LITTLE_ENDIAN
  *
- *      #define HASH_LONG               MD5_LONG
+ *      #define HASH_LONG               XHASH_MD5_LONG
  *      #define HASH_CTX                xhash_md5_ctx_t
- *      #define HASH_CBLOCK             MD5_CBLOCK
+ *      #define HASH_CBLOCK             XHASH_MD5_CBLOCK
  *      #define HASH_UPDATE             MD5_Update
  *      #define HASH_TRANSFORM          MD5_Transform
  *      #define HASH_FINAL              MD5_Final
@@ -264,7 +264,7 @@ int HASH_FINAL(unsigned char *md, HASH_CTX *c)
  * which is why it was moved to common header file.
  *
  * In case you wonder why A-D are declared as long and not
- * as MD5_LONG. Doing so results in slight performance
+ * as XHASH_MD5_LONG. Doing so results in slight performance
  * boost on LP64 architectures. The catch is we don't
  * really care if 32 MSBs of a 64-bit register get polluted
  * with eventual overflows as we *save* only 32 LSBs in
