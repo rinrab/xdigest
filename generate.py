@@ -88,7 +88,7 @@ def copy_fixup(input, output):
                       r"XHASH_\1",
                       data, flags=re.MULTILINE)
 
-        data = re.sub(r"^(#define HASH_\w+\s+)((SHA|MD\d*)_(Update|Final|Transform|Init))$",
+        data = re.sub(r"^(#define HASH_\w+\s+)((SHA|MD)(\d*)_(Update|Final|Transform|Init))$",
                       lambda match: f"{match[1]}{convert_func_name(match[2])}",
                       data, flags=re.MULTILINE)
 
@@ -182,8 +182,8 @@ patch("patches/remove_assert.patch")
 patch("patches/inline_cleanse.patch")
 patch("patches/inline_dummy_export.patch")
 patch("patches/OPENSSL_IA32CAP_P_MAX_INDEXES.patch")
-patch("patches/sha1_adjust_export_names.patch")
-patch("patches/sha256_adjust_export_names.patch")
+# patch("patches/sha1_adjust_export_names.patch")
+# patch("patches/sha256_adjust_export_names.patch")
 patch("patches/sha256_hash_data.patch")
 patch("patches/sha512_hash_data.patch")
 
