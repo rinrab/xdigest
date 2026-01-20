@@ -182,8 +182,6 @@ patch("patches/remove_assert.patch")
 patch("patches/inline_cleanse.patch")
 patch("patches/inline_dummy_export.patch")
 patch("patches/OPENSSL_IA32CAP_P_MAX_INDEXES.patch")
-# patch("patches/sha1_adjust_export_names.patch")
-# patch("patches/sha256_adjust_export_names.patch")
 patch("patches/sha256_hash_data.patch")
 patch("patches/sha512_hash_data.patch")
 
