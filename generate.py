@@ -79,6 +79,10 @@ def copy_fixup(input, output):
         data = re.sub(r"((SHA|MD)\d*_CTX)", convert_ctx_name,
                       data, flags=re.MULTILINE)
 
+        data = re.sub(r"((SHA|MD)([\w_]*)_(DIGEST_LENGTH|LBLOCK|CBLOCK|LONG|LAST_BLOCK))",
+                      r"XHASH_\1",
+                      data, flags=re.MULTILINE)
+
     output.replace("openssl", "xhash")
 
     with open(output, 'w') as file:

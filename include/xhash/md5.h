@@ -25,23 +25,23 @@
 extern "C" {
 #  endif
 
-#  define MD5_DIGEST_LENGTH 16
+#  define XHASH_MD5_DIGEST_LENGTH 16
 
 #  if !defined(xhash_NO_DEPRECATED_3_0)
 /*
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
- * ! MD5_LONG has to be at least 32 bits wide.                     !
+ * ! XHASH_MD5_LONG has to be at least 32 bits wide.                     !
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  */
-#   define MD5_LONG unsigned int
+#   define XHASH_MD5_LONG unsigned int
 
-#   define MD5_CBLOCK      64
-#   define MD5_LBLOCK      (MD5_CBLOCK/4)
+#   define XHASH_MD5_CBLOCK      64
+#   define XHASH_MD5_LBLOCK      (XHASH_MD5_CBLOCK/4)
 
 typedef struct MD5state_st {
-    MD5_LONG A, B, C, D;
-    MD5_LONG Nl, Nh;
-    MD5_LONG data[MD5_LBLOCK];
+    XHASH_MD5_LONG A, B, C, D;
+    XHASH_MD5_LONG Nl, Nh;
+    XHASH_MD5_LONG data[XHASH_MD5_LBLOCK];
     unsigned int num;
 } xhash_md5_ctx_t;
 #  endif

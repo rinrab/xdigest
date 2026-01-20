@@ -50,7 +50,7 @@ void md5_block_data_order(xhash_md5_ctx_t *c, const void *data_, size_t num)
         XX8, XX9, XX10, XX11, XX12, XX13, XX14, XX15;
 #  define X(i)   XX##i
 # else
-    MD5_LONG XX[MD5_LBLOCK];
+    XHASH_MD5_LONG XX[XHASH_MD5_LBLOCK];
 #  define X(i)   XX[i]
 # endif
 

@@ -35,7 +35,7 @@ int xhash_sha224_init(xhash_sha256_ctx_t *c)
     c->h[5] = 0x68581511UL;
     c->h[6] = 0x64f98fa7UL;
     c->h[7] = 0xbefa4fa4UL;
-    c->md_len = SHA224_DIGEST_LENGTH;
+    c->md_len = XHASH_SHA224_DIGEST_LENGTH;
     return 1;
 }
 
@@ -50,13 +50,13 @@ int xhash_sha256_init(xhash_sha256_ctx_t *c)
     c->h[5] = 0x9b05688cUL;
     c->h[6] = 0x1f83d9abUL;
     c->h[7] = 0x5be0cd19UL;
-    c->md_len = SHA256_DIGEST_LENGTH;
+    c->md_len = XHASH_SHA256_DIGEST_LENGTH;
     return 1;
 }
 
 unsigned char *xhash_sha256(const unsigned char *d, size_t n, unsigned char *md)
 {
-    static unsigned char m[SHA256_DIGEST_LENGTH];
+    static unsigned char m[XHASH_SHA256_DIGEST_LENGTH];
     xhash_sha256_ctx_t ctx;
 
     if (md == NULL)
@@ -72,7 +72,7 @@ unsigned char *xhash_sha256(const unsigned char *d, size_t n, unsigned char *md)
 int ossl_sha256_192_init(xhash_sha256_ctx_t *c)
 {
     xhash_sha256_init(c);
-    c->md_len = SHA256_192_DIGEST_LENGTH;
+    c->md_len = XHASH_SHA256_192_DIGEST_LENGTH;
     return 1;
 }
 
@@ -88,7 +88,7 @@ int xhash_sha224_final(unsigned char *md, xhash_sha256_ctx_t *c)
 
 unsigned char *xhash_sha224(const unsigned char *d, size_t n, unsigned char *md)
 {
-    static unsigned char m[SHA224_DIGEST_LENGTH];
+    static unsigned char m[XHASH_SHA224_DIGEST_LENGTH];
     xhash_sha256_ctx_t ctx;
 
     if (md == NULL)
@@ -103,9 +103,9 @@ unsigned char *xhash_sha224(const unsigned char *d, size_t n, unsigned char *md)
 
 #define DATA_ORDER_IS_BIG_ENDIAN
 
-#define HASH_LONG               SHA_LONG
+#define HASH_LONG               XHASH_SHA_LONG
 #define HASH_CTX                xhash_sha256_ctx_t
-#define HASH_CBLOCK             SHA_CBLOCK
+#define HASH_CBLOCK             XHASH_SHA_CBLOCK
 
 /*
  * Note that FIPS180-2 discusses "Truncation of the Hash Function Output."
@@ -119,23 +119,23 @@ unsigned char *xhash_sha224(const unsigned char *d, size_t n, unsigned char *md)
         unsigned long ll;               \
         unsigned int  nn;               \
         switch ((c)->md_len) {          \
-            case SHA256_192_DIGEST_LENGTH: \
-                for (nn=0;nn<SHA256_192_DIGEST_LENGTH/4;nn++) { \
+            case XHASH_SHA256_192_DIGEST_LENGTH: \
+                for (nn=0;nn<XHASH_SHA256_192_DIGEST_LENGTH/4;nn++) { \
                     ll=(c)->h[nn]; (void)HOST_l2c(ll,(s));      \
                 }                       \
                 break;                  \
-            case SHA224_DIGEST_LENGTH:  \
-                for (nn=0;nn<SHA224_DIGEST_LENGTH/4;nn++) {     \
+            case XHASH_SHA224_DIGEST_LENGTH:  \
+                for (nn=0;nn<XHASH_SHA224_DIGEST_LENGTH/4;nn++) {     \
                     ll=(c)->h[nn]; (void)HOST_l2c(ll,(s));      \
                 }                       \
                 break;                  \
-            case SHA256_DIGEST_LENGTH:  \
-                for (nn=0;nn<SHA256_DIGEST_LENGTH/4;nn++) {     \
+            case XHASH_SHA256_DIGEST_LENGTH:  \
+                for (nn=0;nn<XHASH_SHA256_DIGEST_LENGTH/4;nn++) {     \
                     ll=(c)->h[nn]; (void)HOST_l2c(ll,(s));      \
                 }                       \
                 break;                  \
             default:                    \
-                if ((c)->md_len > SHA256_DIGEST_LENGTH) \
+                if ((c)->md_len > XHASH_SHA256_DIGEST_LENGTH) \
                     return 0;                           \
                 for (nn=0;nn<(c)->md_len/4;nn++) {              \
                     ll=(c)->h[nn]; (void)HOST_l2c(ll,(s));      \
@@ -160,7 +160,7 @@ void sha256_block_data_order(xhash_sha256_ctx_t *ctx, const void *in, size_t num
 #include "crypto/md32_common.h"
 
 #if !defined(SHA256_ASM) || defined(INCLUDE_C_SHA256)
-static const SHA_LONG K256[64] = {
+static const XHASH_SHA_LONG K256[64] = {
     0x428a2f98UL, 0x71374491UL, 0xb5c0fbcfUL, 0xe9b5dba5UL,
     0x3956c25bUL, 0x59f111f1UL, 0x923f82a4UL, 0xab1c5ed5UL,
     0xd807aa98UL, 0x12835b01UL, 0x243185beUL, 0x550c7dc3UL,
@@ -243,7 +243,7 @@ static void sha256_block_data_order(xhash_sha256_ctx_t *ctx, const void *in,
                                     size_t num)
 {
     unsigned MD32_REG_T a, b, c, d, e, f, g, h, s0, s1, T1, T2;
-    SHA_LONG X[16], l;
+    XHASH_SHA_LONG X[16], l;
     int i;
     const unsigned char *data = in;
 
@@ -325,7 +325,7 @@ static void sha256_block_data_order(xhash_sha256_ctx_t *ctx, const void *in,
 #endif
 {
     unsigned MD32_REG_T a, b, c, d, e, f, g, h, s0, s1, T1;
-    SHA_LONG X[16];
+    XHASH_SHA_LONG X[16];
     int i;
     const unsigned char *data = in;
     DECLARE_IS_ENDIAN;
@@ -341,9 +341,9 @@ static void sha256_block_data_order(xhash_sha256_ctx_t *ctx, const void *in,
         g = ctx->h[6];
         h = ctx->h[7];
 
-        if (!IS_LITTLE_ENDIAN && sizeof(SHA_LONG) == 4
+        if (!IS_LITTLE_ENDIAN && sizeof(XHASH_SHA_LONG) == 4
             && ((size_t)in % 4) == 0) {
-            const SHA_LONG *W = (const SHA_LONG *)data;
+            const XHASH_SHA_LONG *W = (const XHASH_SHA_LONG *)data;
 
             T1 = X[0] = W[0];
             ROUND_00_15(0, a, b, c, d, e, f, g, h);
@@ -378,9 +378,9 @@ static void sha256_block_data_order(xhash_sha256_ctx_t *ctx, const void *in,
             T1 = X[15] = W[15];
             ROUND_00_15(15, b, c, d, e, f, g, h, a);
 
-            data += SHA256_CBLOCK;
+            data += XHASH_SHA256_CBLOCK;
         } else {
-            SHA_LONG l;
+            XHASH_SHA_LONG l;
 
             (void)HOST_c2l(data, l);
             T1 = X[0] = l;

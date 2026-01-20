@@ -8,7 +8,7 @@ Index: src/sha/sha512.c
  
 +unsigned char *xhash_sha384(const unsigned char *d, size_t n, unsigned char *md)
 +{
-+    static unsigned char m[SHA384_DIGEST_LENGTH];
++    static unsigned char m[XHASH_SHA384_DIGEST_LENGTH];
 +    xhash_sha512_ctx_t ctx;
 +
 +    if (md == NULL)
@@ -30,7 +30,7 @@ Index: src/sha/sha512.c
  
 +unsigned char *xhash_sha512(const unsigned char *d, size_t n, unsigned char *md)
 +{
-+    static unsigned char m[SHA512_DIGEST_LENGTH];
++    static unsigned char m[XHASH_SHA512_DIGEST_LENGTH];
 +    xhash_sha512_ctx_t ctx;
 +
 +    if (md == NULL)
