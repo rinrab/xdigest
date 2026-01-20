@@ -6,7 +6,6 @@ endif
 
 core_c_objects = \
 	src/core/cpuid.o \
-	src/core/ctype.o \
 	src/core/ebcdic.o
 core_asm_objects = \
 	asm/elf/x86_64cpuid.o
