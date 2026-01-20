@@ -17,7 +17,7 @@
 
 unsigned char *MD5(const unsigned char *d, size_t n, unsigned char *md)
 {
-    MD5_CTX c;
+    xhash_md5_ctx_t c;
     static unsigned char m[MD5_DIGEST_LENGTH];
 
     if (md == NULL)

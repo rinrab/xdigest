@@ -54,7 +54,7 @@ def copy_fixup(input, output):
             name = name.lower()
             return f"xhash_{name}_t"
 
-        data = re.sub(r"(SHA\d*_CTX)", convert_ctx_name,
+        data = re.sub(r"((SHA|MD5)\d*_CTX)", convert_ctx_name,
                       data, flags=re.MULTILINE)
 
     output.replace("openssl", "xhash")
