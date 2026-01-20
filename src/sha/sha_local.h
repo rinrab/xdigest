@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+/* ignored include 'openssl/opensslconf.h' */
 #include <xhash/sha.h>
 #include "internal/endian.h"
 

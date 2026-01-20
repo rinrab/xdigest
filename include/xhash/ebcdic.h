@@ -11,6 +11,7 @@
 # define xhash_EBCDIC_H
 # pragma once
 
+/* ignored include 'openssl/macros.h' */
 # ifndef xhash_NO_DEPRECATED_3_0
 #  define HEADER_EBCDIC_H
 # endif

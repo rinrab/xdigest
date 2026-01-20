@@ -11,6 +11,11 @@
 # define xhash_SHA_H
 # pragma once
 
+/* ignored include 'openssl/macros.h' */
+# ifndef xhash_NO_DEPRECATED_3_0
+#  define HEADER_SHA_H
+# endif
+
 # include <xhash/e_os2.h>
 # include <stddef.h>
 

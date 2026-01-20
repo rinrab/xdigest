@@ -67,6 +67,7 @@
 # define OSSL_xhash_MD32_COMMON_H
 # pragma once
 
+/* ignored include 'openssl/crypto.h' */
 /*
  * For ossl_(un)likely
  */

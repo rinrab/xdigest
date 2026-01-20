@@ -1,21 +1,5 @@
 Index: include/xhash/md5.h
 ===================================================================
---- include/xhash/md5.h
-+++ include/xhash/md5.h
-@@ -11,13 +11,6 @@
- # define xhash_MD5_H
- # pragma once
- 
--# include <xhash/macros.h>
--# ifndef xhash_NO_DEPRECATED_3_0
--#  define HEADER_MD5_H
--# endif
--
--# include <xhash/opensslconf.h>
--
- # ifndef xhash_NO_MD5
- #  include <xhash/e_os2.h>
- #  include <stddef.h>
 @@ -27,7 +20,6 @@ extern "C" {
  
  #  define MD5_DIGEST_LENGTH 16
