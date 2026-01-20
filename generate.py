@@ -99,7 +99,7 @@ def copy_fixup(input, output):
     with open(output, 'w') as file:
         file.write(data)
 
-    subprocess.run(["svn", "add", "--force", output])
+    subprocess.run(["svn", "add", "--force", "--parents", output])
 
 def perlasm(configs, file, outputname = None):
     for config, ext, compiler in configs:
