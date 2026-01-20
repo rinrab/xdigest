@@ -33,9 +33,9 @@ void md5_block_data_order(xhash_md5_ctx_t *c, const void *p, size_t num);
 #define HASH_LONG               XHASH_MD5_LONG
 #define HASH_CTX                xhash_md5_ctx_t
 #define HASH_CBLOCK             XHASH_MD5_CBLOCK
-#define HASH_UPDATE             MD5_Update
-#define HASH_TRANSFORM          MD5_Transform
-#define HASH_FINAL              MD5_Final
+#define HASH_UPDATE             xhash_md5_update
+#define HASH_TRANSFORM          xhash_md5_transform
+#define HASH_FINAL              xhash_md5_final
 #define HASH_MAKE_STRING(c,s)   do {    \
         unsigned long ll;               \
         ll=(c)->A; (void)HOST_l2c(ll,(s));      \
