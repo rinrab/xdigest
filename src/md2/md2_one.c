@@ -16,6 +16,7 @@
 #include <stdio.h>
 /* ignored include 'internal/cryptlib.h' */
 #include <xhash/md2.h>
+#include "internal/common.h"
 
 /*
  * This is a separate file so that #defines in cryptlib.h can map my MD

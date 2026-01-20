@@ -47,3 +47,15 @@ Index: src/md2/md2_dgst.c
  
  /*
   * Implemented from RFC1319 The MD2 Message-Digest Algorithm
+Index: src/md2/md2_one.c
+===================================================================
+--- src/md2/md2_one.c
++++ src/md2/md2_one.c
+@@ -16,6 +16,7 @@
+ #include <stdio.h>
+ /* ignored include 'internal/cryptlib.h' */
+ #include <xhash/md2.h>
++#include "internal/common.h"
+ 
+ /*
+  * This is a separate file so that #defines in cryptlib.h can map my MD
