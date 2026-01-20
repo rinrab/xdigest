@@ -26,7 +26,9 @@ src = "src"
 
 mkdir(os.path.join(src, "sha"))
 mkdir(os.path.join(src, "md5"))
+mkdir(os.path.join(src, "md4"))
 mkdir(os.path.join(src, "core"))
+
 include_path = "include"
 mkdir(include_path)
 mkdir(os.path.join(include_path, "xhash"))
@@ -165,14 +167,22 @@ source("md5/md5_dgst.c")
 source("md5/md5_local.h")
 source("md5/md5_one.c")
 
+source("md4/md4_dgst.c")
+source("md4/md4_local.h")
+source("md4/md4_one.c")
+
 include("openssl/sha.h")
 include("openssl/md5.h")
+include("openssl/md4.h")
+
 include("openssl/e_os2.h")
 include("openssl/ebcdic.h")
+
 include("internal/endian.h")
 include("internal/common.h")
 include("internal/e_os.h")
 include("internal/numbers.h")
+
 include("crypto/md32_common.h")
 include("crypto/sha.h")
 
