@@ -37,6 +37,23 @@
 #  define ALIGN64
 # endif
 
+# ifdef NDEBUG
+#  define ossl_assert(x) ossl_likely((x) != 0)
+# else
+__owur static ossl_inline int ossl_assert_int(int expr, const char *exprstr,
+                                              const char *file, int line)
+{
+    if (!expr)
+        xhash_die(exprstr, file, line);
+
+    return expr;
+}
+
+#  define ossl_assert(x) ossl_assert_int((x) != 0, "Assertion failed: "#x, \
+                                         __FILE__, __LINE__)
+
+# endif
+
 /* Check if |pre|, which must be a string literal, is a prefix of |str| */
 #define HAS_PREFIX(str, pre) (strncmp(str, pre "", sizeof(pre) - 1) == 0)
 /* As before, and if check succeeds, advance |str| past the prefix |pre| */
