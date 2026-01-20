@@ -4,26 +4,28 @@ ifeq ($(PREFIX),)
     PREFIX := /usr/local
 endif
 
+CONFIG = linux-x86-64
+
 core_c_objects = \
 	src/core/cpuid.o \
 	src/core/ebcdic.o
 core_asm_objects = \
-	asm/elf/x86_64cpuid.o
+	src/core/asm/$(CONFIG)/x86_64cpuid.o
 
 sha_c_objects = \
 	src/sha/sha1.o \
 	src/sha/sha256.o \
 	src/sha/sha512.o
 sha_asm_objects = \
-	asm/elf/sha/sha256-x86_64.o \
-	asm/elf/sha/sha512-x86_64.o \
-	asm/elf/sha/sha1-x86_64.o
+	src/sha/asm/$(CONFIG)/sha256-x86_64.o \
+	src/sha/asm/$(CONFIG)/sha512-x86_64.o \
+	src/sha/asm/$(CONFIG)/sha1-x86_64.o
 
 md5_c_objects = \
 	src/md5/md5_dgst.o \
 	src/md5/md5_one.o
 md5_asm_objects = \
-	asm/elf/md5/md5-x86_64.o
+	src/md5/asm/$(CONFIG)/md5-x86_64.o
 
 md4_c_objects = \
 	src/md4/md4_dgst.o \
