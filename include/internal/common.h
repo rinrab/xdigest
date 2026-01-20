@@ -63,6 +63,8 @@ __owur static ossl_inline int ossl_assert_int(int expr, const char *exprstr,
 
 # endif
 
+void xhash_cleanse(void *ptr, size_t len);
+
 /* Check if |pre|, which must be a string literal, is a prefix of |str| */
 #define HAS_PREFIX(str, pre) (strncmp(str, pre "", sizeof(pre) - 1) == 0)
 /* As before, and if check succeeds, advance |str| past the prefix |pre| */
