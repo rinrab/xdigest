@@ -25,6 +25,7 @@ extern "C" {
 
 # define SHA_DIGEST_LENGTH 20
 
+# ifndef xhash_NO_DEPRECATED_3_0
 /*-
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  * ! SHA_LONG has to be at least 32 bits wide.                    !
@@ -49,9 +50,11 @@ int xhash_sha1_init(xhash_sha1_ctx_t *c);
 int xhash_sha1_update(xhash_sha1_ctx_t *c, const void *data, size_t len);
 int xhash_sha1_final(unsigned char *md, xhash_sha1_ctx_t *c);
 void xhash_sha1_transform(xhash_sha1_ctx_t *c, const unsigned char *data);
+# endif
 
 unsigned char *xhash_sha1(const unsigned char *d, size_t n, unsigned char *md);
 
+# ifndef xhash_NO_DEPRECATED_3_0
 #  define SHA256_CBLOCK   (SHA_LBLOCK*4)/* SHA-256 treats input data as a
                                         * contiguous array of 32 bit wide
                                         * big-endian values. */
@@ -64,12 +67,16 @@ typedef struct SHA256state_st {
 } xhash_sha256_ctx_t;
 
 int xhash_sha224_init(xhash_sha256_ctx_t *c);
-int xhash_sha224_update(xhash_sha256_ctx_t *c, const void *data, size_t len);
+int xhash_sha224_update(xhash_sha256_ctx_t *c,
+                                        const void *data, size_t len);
 int xhash_sha224_final(unsigned char *md, xhash_sha256_ctx_t *c);
 int xhash_sha256_init(xhash_sha256_ctx_t *c);
-int xhash_sha256_update(xhash_sha256_ctx_t *c, const void *data, size_t len);
+int xhash_sha256_update(xhash_sha256_ctx_t *c,
+                                        const void *data, size_t len);
 int xhash_sha256_final(unsigned char *md, xhash_sha256_ctx_t *c);
-void xhash_sha256_transform(xhash_sha256_ctx_t *c, const unsigned char *data);
+void xhash_sha256_transform(xhash_sha256_ctx_t *c,
+                                            const unsigned char *data);
+# endif
 
 unsigned char *xhash_sha224(const unsigned char *d, size_t n, unsigned char *md);
 unsigned char *xhash_sha256(const unsigned char *d, size_t n, unsigned char *md);
@@ -80,6 +87,7 @@ unsigned char *xhash_sha256(const unsigned char *d, size_t n, unsigned char *md)
 # define SHA384_DIGEST_LENGTH    48
 # define SHA512_DIGEST_LENGTH    64
 
+# ifndef xhash_NO_DEPRECATED_3_0
 /*
  * Unlike 32-bit digest algorithms, SHA-512 *relies* on SHA_LONG64
  * being exactly 64-bit wide. See Implementation Notes in sha512.c
@@ -110,12 +118,15 @@ typedef struct SHA512state_st {
 } xhash_sha512_ctx_t;
 
 int xhash_sha384_init(xhash_sha512_ctx_t *c);
-int xhash_sha384_update(xhash_sha512_ctx_t *c, const void *data, size_t len);
+int xhash_sha384_update(xhash_sha512_ctx_t *c,
+                                        const void *data, size_t len);
 int xhash_sha384_final(unsigned char *md, xhash_sha512_ctx_t *c);
 int xhash_sha512_init(xhash_sha512_ctx_t *c);
-int xhash_sha512_update(xhash_sha512_ctx_t *c, const void *data, size_t len);
+int xhash_sha512_update(xhash_sha512_ctx_t *c,
+                                        const void *data, size_t len);
 int xhash_sha512_final(unsigned char *md, xhash_sha512_ctx_t *c);
-void xhash_sha512_transform(xhash_sha512_ctx_t *c, const unsigned char *data);
+void xhash_sha512_transform(xhash_sha512_ctx_t *c,
+                                            const unsigned char *data);
 # endif
 
 unsigned char *xhash_sha384(const unsigned char *d, size_t n, unsigned char *md);
@@ -124,3 +135,5 @@ unsigned char *xhash_sha512(const unsigned char *d, size_t n, unsigned char *md)
 # ifdef  __cplusplus
 }
 # endif
+
+#endif

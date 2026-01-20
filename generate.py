@@ -67,6 +67,9 @@ def copy_fixup(input, output):
                       lambda match: f"xhash_{match[1].lower()}",
                       data, flags=re.MULTILINE)
 
+        data = re.sub(r"OSSL_DEPRECATEDIN_3_0\s*", "",
+                      data, flags=re.MULTILINE)
+
         def convert_ctx_name(match):
             name = match[1]
             name = name.replace('SHA_CTX', 'SHA1_CTX')
@@ -165,15 +168,15 @@ include("crypto/ctype.h")
 patch("patches/remove_assert.patch")
 patch("patches/inline_cleanse.patch")
 patch("patches/inline_dummy_export.patch")
-patch("patches/sha_h_cleanup_header.patch")
-patch("patches/sha_h_undeprecate.patch")
 patch("patches/OPENSSL_IA32CAP_P_MAX_INDEXES.patch")
 patch("patches/sha1_adjust_export_names.patch")
 patch("patches/sha256_adjust_export_names.patch")
 patch("patches/sha256_hash_data.patch")
 patch("patches/sha512_hash_data.patch")
 
-patch("patches/md5_h_cleanup_header.patch")
+# patch("patches/md5_h_cleanup_header.patch")
+# patch("patches/sha_h_cleanup_header.patch")
+# patch("patches/sha_h_undeprecate.patch")
 
 patch("patches/export_init_func.patch")
 
