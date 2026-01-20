@@ -40,6 +40,15 @@
 # ifdef NDEBUG
 #  define ossl_assert(x) ossl_likely((x) != 0)
 # else
+#include <stdio.h>
+
+void static
+xhash_die(const char *message, const char *file, int line)
+{
+    fprintf(stderr, "%s:%d: OpenSSL internal error: %s\n", file, line, message);
+    abort();
+}
+
 __owur static ossl_inline int ossl_assert_int(int expr, const char *exprstr,
                                               const char *file, int line)
 {
