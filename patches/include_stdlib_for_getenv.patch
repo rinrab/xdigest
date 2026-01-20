@@ -1,3 +1,9 @@
+This patch is not used by default.
+
+Instead, we now disable whole getenv capability via 'remove_getenv.patch' file.
+It's too bloated for our needs and introduces inpredictability into the
+library.
+
 Index: src/core/cpuid.c
 ===================================================================
 --- src/core/cpuid.c
