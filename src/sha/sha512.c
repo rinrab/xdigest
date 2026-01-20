@@ -56,7 +56,7 @@
 #include <xhash/sha.h>
 /* ignored include 'openssl/opensslv.h' */
 
-#include "internal/cryptlib.h"
+/* ignored include 'internal/cryptlib.h' */
 #include "crypto/sha.h"
 
 #if defined(__i386) || defined(__i386__) || defined(_M_IX86) || \
