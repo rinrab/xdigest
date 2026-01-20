@@ -7,10 +7,20 @@
  * https://www.openssl.org/source/license.html
  */
 
+/*
+ * SHA256 low level APIs are deprecated for public use, but still ok for
+ * internal use.
+ */
+/* ignored include 'internal/deprecated.h' */
+
+/* ignored include 'openssl/opensslconf.h' */
+
 #include <stdlib.h>
 #include <string.h>
 
+/* ignored include 'openssl/crypto.h' */
 #include <xhash/sha.h>
+/* ignored include 'openssl/opensslv.h' */
 #include "internal/endian.h"
 #include "crypto/sha.h"
 

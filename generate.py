@@ -40,6 +40,24 @@ def copy_fixup(input, output):
         data = data.replace("OPENSSL_", "xhash_")
         data = data.replace("CRYPTO_", "xhash_")
 
+        remove_includes = [
+            "openssl/crypto.h",
+            "openssl/configuration.h",
+            "openssl/opensslconf.h",
+            "openssl/opensslv.h",
+            "openssl/macros.h",
+            "crypto/cryptlib.h",
+            "internal/nelem.h",
+            "internal/deprecated.h",
+        ]
+
+        for inc in remove_includes:
+            inc = re.escape(inc)
+
+            data = re.sub(rf"^#\s*include [<\"]({inc})[>\"]$",
+                          r"/* ignored include '\1' */",
+                          data, flags=re.MULTILINE)
+
         data = re.sub(r"include <openssl\/([^>]*)>",
                       r"include <xhash/\1>",
                       data, flags=re.MULTILINE)
@@ -143,8 +161,6 @@ include("crypto/md32_common.h")
 include("crypto/sha.h")
 include("crypto/ctype.h")
 
-patch("patches/remove_slop_includes_sources.patch")
-patch("patches/remove_slop_includes_headers.patch")
 patch("patches/remove_assert.patch")
 patch("patches/inline_cleanse.patch")
 patch("patches/inline_dummy_export.patch")
@@ -157,7 +173,6 @@ patch("patches/sha256_hash_data.patch")
 patch("patches/sha512_hash_data.patch")
 
 patch("patches/md5_h_cleanup_header.patch")
-patch("patches/md5_src_cleanup_includes.patch")
 
 patch("patches/export_init_func.patch")
 

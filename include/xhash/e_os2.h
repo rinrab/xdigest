@@ -11,9 +11,12 @@
 # define xhash_E_OS2_H
 # pragma once
 
+/* ignored include 'openssl/macros.h' */
 # ifndef xhash_NO_DEPRECATED_3_0
 #  define HEADER_E_OS2_H
 # endif
+
+/* ignored include 'openssl/opensslconf.h' */
 
 #ifdef  __cplusplus
 extern "C" {
