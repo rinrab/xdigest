@@ -4,10 +4,10 @@ import shutil
 import subprocess
 
 # https://github.com/openssl/openssl/blob/master/Configurations/10-main.conf
-linux_x86_64 = ("elf", ".S", "gcc")
-linux_x86 = ("elf", ".S", "gcc")
-win32 = ("win32n", ".asm", "cl")
-win64 = ("nasm", ".asm", "cl")
+linux_x86_64 = ("elf", ".S", "gcc", "linux-x86-64")
+linux_x86 = ("elf", ".S", "gcc", "linux-x86")
+win32 = ("win32n", ".asm", "cl", "win32")
+win64 = ("nasm", ".asm", "cl", "win64")
 
 configs_x86_64 = [linux_x86_64, win64]
 configs_x86 = [linux_x86, win32]
@@ -102,11 +102,11 @@ def copy_fixup(input, output):
     subprocess.run(["svn", "add", "--force", "--parents", output])
 
 def perlasm(configs, file, outputname = None):
-    for config, ext, compiler in configs:
+    for config, ext, compiler, name in configs:
         if (outputname == None):
-            output = os.path.join(asm, config, file.replace("asm/", "") + ext)
+            output = os.path.join(asm, name, file.replace("asm/", "") + ext)
         else:
-            output = os.path.join(asm, config, outputname + ext)
+            output = os.path.join(asm, name, outputname + ext)
 
         print(f"Building {file}.pl -> {output} ({config}, {compiler})")
 
