@@ -159,6 +159,9 @@ perlasm(configs_x86, "sha/asm/sha512-586")
 perlasm(configs_x86_64, "x86_64cpuid")
 perlasm(configs_x86, "x86cpuid")
 
+perlasm(configs_x86_64, "md5/asm/md5-x86_64")
+perlasm(configs_x86, "md5/asm/md5-586")
+
 source("sha/sha_local.h")
 source("sha/sha256.c")
 source("sha/sha512.c")
