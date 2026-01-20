@@ -17,6 +17,7 @@
 #include <string.h>
 #include <xhash/md4.h>
 /* ignored include 'openssl/crypto.h' */
+#include "internal/common.h"
 
 #ifdef CHARSET_EBCDIC
 # include <xhash/ebcdic.h>
