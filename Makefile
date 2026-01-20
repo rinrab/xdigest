@@ -24,8 +24,13 @@ md5_c_objects = \
 	src/md5/md5_one.o
 md5_asm_objects =
 
-c_objects = $(core_c_objects) $(sha_c_objects) $(md5_c_objects)
-asm_objects = $(core_asm_objects) $(sha_asm_objects) $(md5_asm_objects)
+md4_c_objects = \
+	src/md4/md4_dgst.o \
+	src/md4/md4_one.o
+md4_asm_objects =
+
+c_objects = $(core_c_objects) $(sha_c_objects) $(md5_c_objects) $(md4_c_objects)
+asm_objects = $(core_asm_objects) $(sha_asm_objects) $(md5_asm_objects) $(md4_asm_objects)
 
 objects = $(asm_objects) $(c_objects)
 
@@ -47,7 +52,10 @@ libxhash_sha.a: $(sha_c_objects) $(sha_asm_objects)
 libxhash_md5.a: $(md5_c_objects) $(md5_asm_objects)
 	mkdir -p $(@D) && ar rcs $@ $^
 
-libxhash.so: libxhash_core.a libxhash_sha.a libxhash_md5.a
+libxhash_md4.a: $(md4_c_objects) $(md4_asm_objects)
+	mkdir -p $(@D) && ar rcs $@ $^
+
+libxhash.so: libxhash_core.a libxhash_sha.a libxhash_md5.a libxhash_md4.a
 	mkdir -p $(@D)
 	$(CC) $(CFLAGS) -shared -o $@ -L. -Wl,--whole-archive $^ -Wl,--no-whole-archive
 
