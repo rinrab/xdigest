@@ -7,16 +7,9 @@
  * https://www.openssl.org/source/license.html
  */
 
-/*
- * MD5 low level APIs are deprecated for public use, but still ok for
- * internal use.
- */
-#include "internal/deprecated.h"
-
 #include <stdio.h>
 #include <string.h>
 #include <xhash/md5.h>
-#include <xhash/crypto.h>
 
 #ifdef CHARSET_EBCDIC
 # include <xhash/ebcdic.h>
@@ -48,6 +41,6 @@ unsigned char *MD5(const unsigned char *d, size_t n, unsigned char *md)
     }
 #endif
     MD5_Final(md, &c);
-    xhash_cleanse(&c, sizeof(c)); /* security consideration */
+    memset(&c, 0, sizeof(c)); /* security consideration */
     return md;
 }

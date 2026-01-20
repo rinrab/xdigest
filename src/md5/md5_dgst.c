@@ -7,15 +7,8 @@
  * https://www.openssl.org/source/license.html
  */
 
-/*
- * MD5 low level APIs are deprecated for public use, but still ok for
- * internal use.
- */
-#include "internal/deprecated.h"
-
 #include <stdio.h>
 #include "md5_local.h"
-#include <xhash/opensslv.h>
 
 /*
  * Implemented from RFC1321 The MD5 Message-Digest Algorithm

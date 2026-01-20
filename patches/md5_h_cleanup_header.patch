@@ -1,0 +1,79 @@
+Index: Makefile
+===================================================================
+--- Makefile
++++ Makefile
+@@ -10,9 +10,12 @@ core_asm_objects = asm/elf/x86_64cpuid.o asm/elf/s
+ sha_c_objects = src/sha/sha1.o src/sha/sha256.o src/sha/sha512.o
+ sha_asm_objects = asm/elf/sha/sha256-x86_64.o asm/elf/sha/sha512-x86_64.o
+ 
+-c_objects = $(core_c_objects) $(sha_c_objects)
+-asm_objects = $(core_asm_objects) $(sha_asm_objects)
++md5_c_objects = src/md5/md5_dgst.o src/md5/md5_one.o
++md5_asm_objects =
+ 
++c_objects = $(core_c_objects) $(sha_c_objects) $(md5_c_objects)
++asm_objects = $(core_asm_objects) $(sha_asm_objects) $(md5_asm_objects)
++
+ objects = $(asm_objects) $(c_objects)
+ 
+ CC = cc
+@@ -30,7 +33,10 @@ libxhash_core.a: $(core_c_objects) $(core_asm_obje
+ libxhash_sha.a: $(sha_c_objects) $(sha_asm_objects)
+ 	mkdir -p $(@D) && ar rcs $@ $^
+ 
+-libxhash.so: libxhash_core.a libxhash_sha.a
++libxhash_md5.a: $(md5_c_objects) $(md5_asm_objects)
++	mkdir -p $(@D) && ar rcs $@ $^
++
++libxhash.so: libxhash_core.a libxhash_sha.a libxhash_md5.a
+ 	mkdir -p $(@D)
+ 	$(CC) $(CFLAGS) -shared -o $@ -L. -Wl,--whole-archive $^ -Wl,--no-whole-archive
+ 
+Index: include/xhash/md5.h
+===================================================================
+--- include/xhash/md5.h
++++ include/xhash/md5.h
+@@ -11,13 +11,6 @@
+ # define xhash_MD5_H
+ # pragma once
+ 
+-# include <xhash/macros.h>
+-# ifndef xhash_NO_DEPRECATED_3_0
+-#  define HEADER_MD5_H
+-# endif
+-
+-# include <xhash/opensslconf.h>
+-
+ # ifndef xhash_NO_MD5
+ #  include <xhash/e_os2.h>
+ #  include <stddef.h>
+@@ -27,7 +20,6 @@ extern "C" {
+ 
+ #  define MD5_DIGEST_LENGTH 16
+ 
+-#  if !defined(xhash_NO_DEPRECATED_3_0)
+ /*
+  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  * ! MD5_LONG has to be at least 32 bits wide.                     !
+@@ -44,15 +36,13 @@ typedef struct MD5state_st {
+     MD5_LONG data[MD5_LBLOCK];
+     unsigned int num;
+ } MD5_CTX;
+-#  endif
+-#  ifndef xhash_NO_DEPRECATED_3_0
+-OSSL_DEPRECATEDIN_3_0 int MD5_Init(MD5_CTX *c);
+-OSSL_DEPRECATEDIN_3_0 int MD5_Update(MD5_CTX *c, const void *data, size_t len);
+-OSSL_DEPRECATEDIN_3_0 int MD5_Final(unsigned char *md, MD5_CTX *c);
+-OSSL_DEPRECATEDIN_3_0 unsigned char *MD5(const unsigned char *d, size_t n,
++
++int MD5_Init(MD5_CTX *c);
++int MD5_Update(MD5_CTX *c, const void *data, size_t len);
++int MD5_Final(unsigned char *md, MD5_CTX *c);
++unsigned char *MD5(const unsigned char *d, size_t n,
+                                          unsigned char *md);
+-OSSL_DEPRECATEDIN_3_0 void MD5_Transform(MD5_CTX *c, const unsigned char *b);
+-#  endif
++void MD5_Transform(MD5_CTX *c, const unsigned char *b);
+ 
+ #  ifdef  __cplusplus
+ }

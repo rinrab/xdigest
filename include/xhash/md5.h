@@ -11,13 +11,6 @@
 # define xhash_MD5_H
 # pragma once
 
-# include <xhash/macros.h>
-# ifndef xhash_NO_DEPRECATED_3_0
-#  define HEADER_MD5_H
-# endif
-
-# include <xhash/opensslconf.h>
-
 # ifndef xhash_NO_MD5
 #  include <xhash/e_os2.h>
 #  include <stddef.h>
@@ -27,7 +20,6 @@ extern "C" {
 
 #  define MD5_DIGEST_LENGTH 16
 
-#  if !defined(xhash_NO_DEPRECATED_3_0)
 /*
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  * ! MD5_LONG has to be at least 32 bits wide.                     !
@@ -44,15 +36,13 @@ typedef struct MD5state_st {
     MD5_LONG data[MD5_LBLOCK];
     unsigned int num;
 } MD5_CTX;
-#  endif
-#  ifndef xhash_NO_DEPRECATED_3_0
-OSSL_DEPRECATEDIN_3_0 int MD5_Init(MD5_CTX *c);
-OSSL_DEPRECATEDIN_3_0 int MD5_Update(MD5_CTX *c, const void *data, size_t len);
-OSSL_DEPRECATEDIN_3_0 int MD5_Final(unsigned char *md, MD5_CTX *c);
-OSSL_DEPRECATEDIN_3_0 unsigned char *MD5(const unsigned char *d, size_t n,
+
+int MD5_Init(MD5_CTX *c);
+int MD5_Update(MD5_CTX *c, const void *data, size_t len);
+int MD5_Final(unsigned char *md, MD5_CTX *c);
+unsigned char *MD5(const unsigned char *d, size_t n,
                                          unsigned char *md);
-OSSL_DEPRECATEDIN_3_0 void MD5_Transform(MD5_CTX *c, const unsigned char *b);
-#  endif
+void MD5_Transform(MD5_CTX *c, const unsigned char *b);
 
 #  ifdef  __cplusplus
 }
