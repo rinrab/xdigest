@@ -1,32 +1,64 @@
 Index: include/xhash/md5.h
 ===================================================================
+--- include/xhash/md5.h	(revision 6136)
++++ include/xhash/md5.h	(working copy)
+@@ -11,13 +11,6 @@
+ # define xhash_MD5_H
+ # pragma once
+ 
+-/* ignored include 'openssl/macros.h' */
+-# ifndef xhash_NO_DEPRECATED_3_0
+-#  define HEADER_MD5_H
+-# endif
+-
+-/* ignored include 'openssl/opensslconf.h' */
+-
+ # ifndef xhash_NO_MD5
+ #  include <xhash/e_os2.h>
+ #  include <stddef.h>
 @@ -27,7 +20,6 @@ extern "C" {
  
- #  define MD5_DIGEST_LENGTH 16
+ #  define XHASH_MD5_DIGEST_LENGTH 16
  
 -#  if !defined(xhash_NO_DEPRECATED_3_0)
  /*
   * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  * ! MD5_LONG has to be at least 32 bits wide.                     !
-@@ -44,15 +36,13 @@ typedef struct MD5state_st {
-     MD5_LONG data[MD5_LBLOCK];
+  * ! XHASH_MD5_LONG has to be at least 32 bits wide.                     !
+@@ -44,16 +36,28 @@ typedef struct MD5state_st {
+     XHASH_MD5_LONG data[XHASH_MD5_LBLOCK];
      unsigned int num;
  } xhash_md5_ctx_t;
 -#  endif
 -#  ifndef xhash_NO_DEPRECATED_3_0
--OSSL_DEPRECATEDIN_3_0 int MD5_Init(xhash_md5_ctx_t *c);
--OSSL_DEPRECATEDIN_3_0 int MD5_Update(xhash_md5_ctx_t *c, const void *data, size_t len);
--OSSL_DEPRECATEDIN_3_0 int MD5_Final(unsigned char *md, xhash_md5_ctx_t *c);
--OSSL_DEPRECATEDIN_3_0 unsigned char *MD5(const unsigned char *d, size_t n,
-+
-+int MD5_Init(xhash_md5_ctx_t *c);
-+int MD5_Update(xhash_md5_ctx_t *c, const void *data, size_t len);
-+int MD5_Final(unsigned char *md, xhash_md5_ctx_t *c);
-+unsigned char *MD5(const unsigned char *d, size_t n,
-                                          unsigned char *md);
--OSSL_DEPRECATEDIN_3_0 void MD5_Transform(xhash_md5_ctx_t *c, const unsigned char *b);
+-int xhash_md5_init(xhash_md5_ctx_t *c);
+-int xhash_md5_update(xhash_md5_ctx_t *c, const void *data, size_t len);
+-int xhash_md5_final(unsigned char *md, xhash_md5_ctx_t *c);
+-unsigned char *xhash_md5(const unsigned char *d, size_t n,
+-                                         unsigned char *md);
+-void xhash_md5_transform(xhash_md5_ctx_t *c, const unsigned char *b);
 -#  endif
-+void MD5_Transform(xhash_md5_ctx_t *c, const unsigned char *b);
  
++int
++xhash_md5_init(xhash_md5_ctx_t *c);
++
++int
++xhash_md5_update(xhash_md5_ctx_t *c,
++                 const void *data,
++                 size_t len);
++
++int
++xhash_md5_final(unsigned char *md,
++                xhash_md5_ctx_t *c);
++
++unsigned char *
++xhash_md5(const unsigned char *d,
++          size_t n,
++          unsigned char *md);
++
++void
++xhash_md5_transform(xhash_md5_ctx_t *c,
++                    const unsigned char *b);
++
  #  ifdef  __cplusplus
  }
+ #  endif

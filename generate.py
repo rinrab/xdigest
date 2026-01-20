@@ -187,8 +187,8 @@ patch("patches/OPENSSL_IA32CAP_P_MAX_INDEXES.patch")
 patch("patches/sha256_hash_data.patch")
 patch("patches/sha512_hash_data.patch")
 
-# patch("patches/md5_h_cleanup_header.patch")
-# patch("patches/sha_h_cleanup_header.patch")
+patch("patches/md5_h_cleanup_header.patch")
+patch("patches/sha_h_cleanup_header.patch")
 # patch("patches/sha_h_undeprecate.patch")
 
 patch("patches/export_init_func.patch")
