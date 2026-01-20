@@ -22,7 +22,8 @@ sha_asm_objects = \
 md5_c_objects = \
 	src/md5/md5_dgst.o \
 	src/md5/md5_one.o
-md5_asm_objects =
+md5_asm_objects = \
+	asm/elf/md5/md5-x86_64.o
 
 md4_c_objects = \
 	src/md4/md4_dgst.o \
@@ -37,7 +38,7 @@ objects = $(asm_objects) $(c_objects)
 CC = cc
 ASSEMBLER = $(CC)
 
-CFLAGS = -O3 -Wall -Iinclude -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM -Dxhash_CPUID_OBJ
+CFLAGS = -O3 -Wall -Iinclude -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM -Dxhash_CPUID_OBJ -DMD5_ASM
 ASMFLAGS = -Wa,--noexecstack
 
 all: libxhash.so
