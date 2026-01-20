@@ -36,15 +36,13 @@ typedef struct MD5state_st {
     MD5_LONG data[MD5_LBLOCK];
     unsigned int num;
 } xhash_md5_ctx_t;
-#  endif
-#  ifndef xhash_NO_DEPRECATED_3_0
-OSSL_DEPRECATEDIN_3_0 int MD5_Init(xhash_md5_ctx_t *c);
-OSSL_DEPRECATEDIN_3_0 int MD5_Update(xhash_md5_ctx_t *c, const void *data, size_t len);
-OSSL_DEPRECATEDIN_3_0 int MD5_Final(unsigned char *md, xhash_md5_ctx_t *c);
-OSSL_DEPRECATEDIN_3_0 unsigned char *MD5(const unsigned char *d, size_t n,
+
+int MD5_Init(xhash_md5_ctx_t *c);
+int MD5_Update(xhash_md5_ctx_t *c, const void *data, size_t len);
+int MD5_Final(unsigned char *md, xhash_md5_ctx_t *c);
+unsigned char *MD5(const unsigned char *d, size_t n,
                                          unsigned char *md);
-OSSL_DEPRECATEDIN_3_0 void MD5_Transform(xhash_md5_ctx_t *c, const unsigned char *b);
-#  endif
+void MD5_Transform(xhash_md5_ctx_t *c, const unsigned char *b);
 
 #  ifdef  __cplusplus
 }
