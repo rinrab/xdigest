@@ -26,12 +26,12 @@
 # endif
 #endif
 
-void md5_block_data_order(MD5_CTX *c, const void *p, size_t num);
+void md5_block_data_order(xhash_md5_ctx_t *c, const void *p, size_t num);
 
 #define DATA_ORDER_IS_LITTLE_ENDIAN
 
 #define HASH_LONG               MD5_LONG
-#define HASH_CTX                MD5_CTX
+#define HASH_CTX                xhash_md5_ctx_t
 #define HASH_CBLOCK             MD5_CBLOCK
 #define HASH_UPDATE             MD5_Update
 #define HASH_TRANSFORM          MD5_Transform
