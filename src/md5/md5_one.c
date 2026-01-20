@@ -22,17 +22,17 @@
 # include <xhash/ebcdic.h>
 #endif
 
-unsigned char *MD5(const unsigned char *d, size_t n, unsigned char *md)
+unsigned char *xhash_md5(const unsigned char *d, size_t n, unsigned char *md)
 {
     xhash_md5_ctx_t c;
     static unsigned char m[MD5_DIGEST_LENGTH];
 
     if (md == NULL)
         md = m;
-    if (!MD5_Init(&c))
+    if (!xhash_md5_init(&c))
         return NULL;
 #ifndef CHARSET_EBCDIC
-    MD5_Update(&c, d, n);
+    xhash_md5_update(&c, d, n);
 #else
     {
         char temp[1024];
@@ -41,13 +41,13 @@ unsigned char *MD5(const unsigned char *d, size_t n, unsigned char *md)
         while (n > 0) {
             chunk = (n > sizeof(temp)) ? sizeof(temp) : n;
             ebcdic2ascii(temp, d, chunk);
-            MD5_Update(&c, temp, chunk);
+            xhash_md5_update(&c, temp, chunk);
             n -= chunk;
             d += chunk;
         }
     }
 #endif
-    MD5_Final(md, &c);
+    xhash_md5_final(md, &c);
     memset(&c, 0, sizeof(c)); /* security consideration */
     return md;
 }

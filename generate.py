@@ -63,7 +63,7 @@ def copy_fixup(input, output):
                       r"include <xhash/\1>",
                       data, flags=re.MULTILINE)
 
-        data = re.sub(r"(SHA\d+_?\w*\()",
+        data = re.sub(r"((SHA|MD)\d+_?\w*\()",
                       lambda match: f"xhash_{match[1].lower()}",
                       data, flags=re.MULTILINE)
 

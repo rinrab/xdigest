@@ -18,7 +18,7 @@ Index: src/md5/md5_one.c
 @@ -48,6 +41,6 @@ unsigned char *MD5(const unsigned char *d, size_t
      }
  #endif
-     MD5_Final(md, &c);
+     xhash_md5_final(md, &c);
 -    xhash_cleanse(&c, sizeof(c)); /* security consideration */
 +    memset(&c, 0, sizeof(c)); /* security consideration */
      return md;
