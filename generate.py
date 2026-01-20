@@ -47,6 +47,7 @@ def copy_fixup(input, output):
             "openssl/opensslv.h",
             "openssl/macros.h",
             "crypto/cryptlib.h",
+            "internal/cryptlib.h",
             "internal/nelem.h",
             "internal/deprecated.h",
         ]
