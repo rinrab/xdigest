@@ -35,3 +35,15 @@ Index: src/md4/md4_one.c
  
  #ifdef CHARSET_EBCDIC
  # include <xhash/ebcdic.h>
+Index: src/md2/md2_dgst.c
+===================================================================
+--- src/md2/md2_dgst.c
++++ src/md2/md2_dgst.c
+@@ -19,6 +19,7 @@
+ #include <xhash/md2.h>
+ /* ignored include 'openssl/opensslv.h' */
+ /* ignored include 'openssl/crypto.h' */
++#include "internal/common.h"
+ 
+ /*
+  * Implemented from RFC1319 The MD2 Message-Digest Algorithm

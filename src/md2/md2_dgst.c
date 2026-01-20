@@ -19,6 +19,7 @@
 #include <xhash/md2.h>
 /* ignored include 'openssl/opensslv.h' */
 /* ignored include 'openssl/crypto.h' */
+#include "internal/common.h"
 
 /*
  * Implemented from RFC1319 The MD2 Message-Digest Algorithm
