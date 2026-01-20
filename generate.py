@@ -52,6 +52,17 @@ def copy_fixup(input, output):
             "internal/deprecated.h",
         ]
 
+        def convert_func_name(name):
+            # SHA1_Update -> xhash_sha1_update
+            name = name.lower()
+            return f"xhash_{name}"
+
+        def convert_ctx_name(match):
+            name = match[1]
+            name = name.replace('SHA_CTX', 'SHA1_CTX')
+            name = name.lower()
+            return f"xhash_{name}_t"
+
         for inc in remove_includes:
             inc = re.escape(inc)
 
@@ -64,23 +75,21 @@ def copy_fixup(input, output):
                       data, flags=re.MULTILINE)
 
         data = re.sub(r"((SHA|MD)\d+_?\w*\()",
-                      lambda match: f"xhash_{match[1].lower()}",
+                      lambda match: convert_func_name(match[1]),
                       data, flags=re.MULTILINE)
 
         data = re.sub(r"OSSL_DEPRECATEDIN_3_0\s*", "",
                       data, flags=re.MULTILINE)
-
-        def convert_ctx_name(match):
-            name = match[1]
-            name = name.replace('SHA_CTX', 'SHA1_CTX')
-            name = name.lower()
-            return f"xhash_{name}_t"
 
         data = re.sub(r"((SHA|MD)\d*_CTX)", convert_ctx_name,
                       data, flags=re.MULTILINE)
 
         data = re.sub(r"((SHA|MD)([\w_]*)_(DIGEST_LENGTH|LBLOCK|CBLOCK|LONG|LAST_BLOCK))",
                       r"XHASH_\1",
+                      data, flags=re.MULTILINE)
+
+        data = re.sub(r"^(#define HASH_\w+\s+)((SHA|MD\d*)_(Update|Final|Transform|Init))$",
+                      lambda match: f"{match[1]}{convert_func_name(match[2])}",
                       data, flags=re.MULTILINE)
 
     output.replace("openssl", "xhash")
