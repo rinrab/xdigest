@@ -1,7 +1,7 @@
 Index: include/crypto/md32_common.h
 ===================================================================
---- include/crypto/md32_common.h	(revision 6048)
-+++ include/crypto/md32_common.h	(working copy)
+--- include/crypto/md32_common.h
++++ include/crypto/md32_common.h
 @@ -243,7 +243,7 @@ int HASH_FINAL(unsigned char *md, HASH_CTX *c)
      p -= HASH_CBLOCK;
      HASH_BLOCK_DATA_ORDER(c, p, 1);
@@ -11,3 +11,15 @@ Index: include/crypto/md32_common.h
  
  # ifndef HASH_MAKE_STRING
  #  error "HASH_MAKE_STRING must be defined!"
+Index: src/md5/md5_one.c
+===================================================================
+--- src/md5/md5_one.c
++++ src/md5/md5_one.c
+@@ -48,6 +41,6 @@ unsigned char *MD5(const unsigned char *d, size_t
+     }
+ #endif
+     MD5_Final(md, &c);
+-    xhash_cleanse(&c, sizeof(c)); /* security consideration */
++    memset(&c, 0, sizeof(c)); /* security consideration */
+     return md;
+ }

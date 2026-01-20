@@ -10,8 +10,11 @@ core_asm_objects = asm/elf/x86_64cpuid.o asm/elf/sha/sha1-x86_64.o
 sha_c_objects = src/sha/sha1.o src/sha/sha256.o src/sha/sha512.o
 sha_asm_objects = asm/elf/sha/sha256-x86_64.o asm/elf/sha/sha512-x86_64.o
 
-c_objects = $(core_c_objects) $(sha_c_objects)
-asm_objects = $(core_asm_objects) $(sha_asm_objects)
+md5_c_objects = src/md5/md5_dgst.o src/md5/md5_one.o
+md5_asm_objects =
+
+c_objects = $(core_c_objects) $(sha_c_objects) $(md5_c_objects)
+asm_objects = $(core_asm_objects) $(sha_asm_objects) $(md5_asm_objects)
 
 objects = $(asm_objects) $(c_objects)
 
@@ -30,7 +33,10 @@ libxhash_core.a: $(core_c_objects) $(core_asm_objects)
 libxhash_sha.a: $(sha_c_objects) $(sha_asm_objects)
 	mkdir -p $(@D) && ar rcs $@ $^
 
-libxhash.so: libxhash_core.a libxhash_sha.a
+libxhash_md5.a: $(md5_c_objects) $(md5_asm_objects)
+	mkdir -p $(@D) && ar rcs $@ $^
+
+libxhash.so: libxhash_core.a libxhash_sha.a libxhash_md5.a
 	mkdir -p $(@D)
 	$(CC) $(CFLAGS) -shared -o $@ -L. -Wl,--whole-archive $^ -Wl,--no-whole-archive
 
