@@ -104,9 +104,11 @@ def copy_fixup(input, output):
 def perlasm(configs, file, outputname = None):
     for config, ext, compiler, name in configs:
         if (outputname == None):
-            output = os.path.join(asm, name, file.replace("asm/", "") + ext)
+            output = os.path.join("src", file + ext)
         else:
-            output = os.path.join(asm, name, outputname + ext)
+            output = os.path.join("src", outputname + ext)
+
+        output = output.replace("asm/", f"asm/{name}/")
 
         print(f"Building {file}.pl -> {output} ({config}, {compiler})")
 
@@ -149,15 +151,15 @@ perlasm(configs_x86, "sha/asm/sha1-586")
 # perlasm("sha/asm/sha512-armv8")
 # perlasm("sha/asm/sha512-armv8", "sha/sha256-armv8")
 perlasm(configs_x86_64, "sha/asm/sha512-x86_64")
-perlasm(configs_x86_64, "sha/asm/sha512-x86_64", "sha/sha256-x86_64")
+perlasm(configs_x86_64, "sha/asm/sha512-x86_64", "sha/asm/sha256-x86_64")
 perlasm(configs_x86, "sha/asm/sha512-586")
-perlasm(configs_x86, "sha/asm/sha512-586", "sha/sha256-586")
+perlasm(configs_x86, "sha/asm/sha512-586", "sha/asm/sha256-586")
 # perlasm("sha/asm/sha512-armv4")
 # perlasm("sha/asm/sha512-ia64")
 # perlasm("sha/asm/sha512-ia64", "sha/sha256-ia64")
 
-perlasm(configs_x86_64, "x86_64cpuid")
-perlasm(configs_x86, "x86cpuid")
+perlasm(configs_x86_64, "x86_64cpuid", "core/asm/x86_64cpuid")
+perlasm(configs_x86, "x86cpuid", "core/asm/x86cpuid")
 
 perlasm(configs_x86_64, "md5/asm/md5-x86_64")
 perlasm(configs_x86, "md5/asm/md5-586")
