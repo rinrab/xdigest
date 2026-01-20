@@ -48,6 +48,6 @@ unsigned char *xhash_md5(const unsigned char *d, size_t n, unsigned char *md)
     }
 #endif
     xhash_md5_final(md, &c);
-    memset(&c, 0, sizeof(c)); /* security consideration */
+    xhash_cleanse(&c, sizeof(c)); /* security consideration */
     return md;
 }

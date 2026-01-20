@@ -1,0 +1,33 @@
+Index: include/internal/common.h
+===================================================================
+--- include/internal/common.h   (revision 6146)
++++ include/internal/common.h   (working copy)
+@@ -63,6 +63,8 @@ __owur static ossl_inline int ossl_assert_int(int
+ 
+ # endif
+ 
++void xhash_cleanse(void *ptr, size_t len);
++
+ /* Check if |pre|, which must be a string literal, is a prefix of |str| */
+ #define HAS_PREFIX(str, pre) (strncmp(str, pre "", sizeof(pre) - 1) == 0)
+ /* As before, and if check succeeds, advance |str| past the prefix |pre| */
+Index: src/md5/md5_one.c
+===================================================================
+--- src/md5/md5_one.c   (revision 6136)
++++ src/md5/md5_one.c   (working copy)
+@@ -17,6 +17,7 @@
+ #include <string.h>
+ #include <xhash/md5.h>
+ /* ignored include 'openssl/crypto.h' */
++#include "internal/common.h"
+ 
+ #ifdef CHARSET_EBCDIC
+ # include <xhash/ebcdic.h>
+@@ -48,6 +49,6 @@ unsigned char *xhash_md5(const unsigned char *d, s
+     }
+ #endif
+     xhash_md5_final(md, &c);
+-    memset(&c, 0, sizeof(c)); /* security consideration */
++    xhash_cleanse(&c, sizeof(c)); /* security consideration */
+     return md;
+ }

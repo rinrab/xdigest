@@ -178,7 +178,7 @@ include("crypto/md32_common.h")
 include("crypto/sha.h")
 include("crypto/ctype.h")
 
-patch("patches/inline_cleanse.patch")
+patch("patches/xhash_cleanse.patch")
 patch("patches/inline_dummy_export.patch")
 patch("patches/OPENSSL_IA32CAP_P_MAX_INDEXES.patch")
 patch("patches/sha256_hash_data.patch")
