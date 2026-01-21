@@ -14,7 +14,21 @@ Index: src/core/cpuid.c
 @@ -171,3 +172,9 @@ size_t xhash_instrument_bus2(unsigned int *out, si
      return 0;
  }
++
++/* Public interface. */
++void xhash_init()
++{
++    xhash_cpuid_setup();
++}
  #endif
+Index: src/core/armcap.c
+===================================================================
+--- src/core/armcap.c
++++ src/core/armcap.c
+@@ -448,3 +448,9 @@ void xhash_cpuid_setup(void)
+ # endif
+ }
+ #endif /* _WIN32, __ARM_MAX_ARCH__ >= 7 */
 +
 +/* Public interface. */
 +void xhash_init()

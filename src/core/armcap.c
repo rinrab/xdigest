@@ -448,3 +448,9 @@ void xhash_cpuid_setup(void)
 # endif
 }
 #endif /* _WIN32, __ARM_MAX_ARCH__ >= 7 */
+
+/* Public interface. */
+void xhash_init()
+{
+    xhash_cpuid_setup();
+}
