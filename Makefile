@@ -47,6 +47,8 @@ core_c_objects += \
 ifneq ($(USE_ASM), 0)
     core_asm_objects = src/core/asm/cpuid-$(CONFIG).o
     CFLAGS += -Dxhash_CPUID_OBJ
+else
+    core_c_objects += src/core/mem_clr.o
 endif
 
 # SHA
