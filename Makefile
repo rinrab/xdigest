@@ -12,7 +12,7 @@ ifeq ($(USE_ASM),)
     USE_ASM = 1
 endif
 
-CFLAGS += -O3 -Wall -Iinclude
+CFLAGS += -O3 -Wall -Iinclude -Isrc/core
 ASMFLAGS = -Wa,--noexecstack
 
 ifeq ($(ARCH),)
@@ -22,12 +22,16 @@ endif
 ifeq ($(ARCH), x86_64)
     CONFIG = linux64
     CFLAGS += -m64
+    CPUID_C_OBJ = src/core/cpuid.o
 else ifeq ($(ARCH), x86)
     CONFIG = linux32
     CFLAGS += -m32
+    CPUID_C_OBJ = src/core/cpuid.o
 else ifeq ($(ARCH), aarch64)
     CONFIG = linuxaarch64
+    CFLAGS += -march=armv8-a+crypto
     CROSS_COMPILE ?= aarch64-linux-gnu-
+    CPUID_C_OBJ = src/core/armcap.o 
 else
     $(error invalid architecute: "$(ARCH)")
 endif
@@ -36,8 +40,8 @@ CC = $(CROSS_COMPILE)gcc
 ASSEMBLER = $(CC)
 
 # Core
-core_c_objects = \
-    src/core/cpuid.o \
+core_c_objects += \
+    $(CPUID_C_OBJ) \
     src/core/ebcdic.o
 
 ifneq ($(USE_ASM), 0)
