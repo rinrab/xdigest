@@ -179,6 +179,7 @@ source("arm_arch.h", "core")
 source("armcap.c", "core")
 source("cpuid.c", "core")
 source("ebcdic.c", "core")
+source("mem_clr.c", "core")
 
 source("sha/sha_local.h")
 source("sha/sha256.c")
