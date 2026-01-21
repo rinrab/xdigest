@@ -11,5 +11,5 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      run: make rebuild test ARCH=x86_64
-      run: make rebuild test ARCH=x86
+    - run: make rebuild test ARCH=x86_64
+    - run: make rebuild test ARCH=x86
