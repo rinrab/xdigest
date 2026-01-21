@@ -15,5 +15,7 @@ jobs:
 
     - run: sudo apt-get install gcc-multilib
 
-    - run: make rebuild install test PREFIX=install64 ARCH=x86_64
-    - run: make rebuild install test PREFIX=install32 ARCH=x86
+    - run: make rebuild install test PREFIX=install64 ARCH=x86_64 USE_ASM=1
+    - run: make rebuild install test PREFIX=install64 ARCH=x86_64 USE_ASM=0
+    - run: make rebuild install test PREFIX=install32 ARCH=x86 USE_ASM=1
+    - run: make rebuild install test PREFIX=install32 ARCH=x86 USE_ASM=0
