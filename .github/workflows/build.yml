@@ -22,5 +22,5 @@ jobs:
     - run: make rebuild install test PREFIX=install32 ARCH=x86 USE_ASM=0
 
     # it cannot be tested on x64
-    # assembly is not yet supported
+    - run: make rebuild install PREFIX=installaarch64 ARCH=aarch64 USE_ASM=1
     - run: make rebuild install PREFIX=installaarch64 ARCH=aarch64 USE_ASM=0
