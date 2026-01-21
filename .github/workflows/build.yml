@@ -13,5 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v6
 
+    - run: sudo apt-get install gcc-multilib
+
     - run: make rebuild test ARCH=x86_64
     - run: make rebuild test ARCH=x86
