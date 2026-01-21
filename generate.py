@@ -4,13 +4,13 @@ import shutil
 import subprocess
 
 # https://github.com/openssl/openssl/blob/master/Configurations/10-main.conf
-linux_x86_64 = ("elf", ".S", "gcc", "linux-x86-64")
-linux_x86 = ("elf", ".S", "gcc", "linux-x86")
+linux64 = ("elf", ".S", "gcc", "linux64")
+linux32 = ("elf", ".S", "gcc", "linux32")
 win32 = ("win32n", ".asm", "cl", "win32")
 win64 = ("nasm", ".asm", "cl", "win64")
 
-configs_x86_64 = [linux_x86_64, win64]
-configs_x86 = [linux_x86, win32]
+configs_x86_64 = [linux64, win64]
+configs_x86 = [linux32, win32]
 
 def mkdir(path):
     try:
