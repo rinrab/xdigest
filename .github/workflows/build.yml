@@ -13,7 +13,10 @@ jobs:
     steps:
     - uses: actions/checkout@v6
 
-    - run: sudo apt-get install gcc-multilib gcc-10-aarch64-linux-gnu
+    - run: |
+        sudo apt-get update
+        sudo apt-get upgrade
+        sudo apt-get install gcc-multilib gcc-10-aarch64-linux-gnu
 
     - run: make rebuild install test PREFIX=install64 ARCH=x86_64 USE_ASM=1
     - run: make rebuild install test PREFIX=install64 ARCH=x86_64 USE_ASM=0
