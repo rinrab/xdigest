@@ -100,10 +100,10 @@ size_t xhash_instrument_bus2(unsigned int *out, size_t cnt, size_t max)
 {
     return 0;
 }
-#endif
 
 /* Public interface. */
 void xhash_init()
 {
     xhash_cpuid_setup();
 }
+#endif
