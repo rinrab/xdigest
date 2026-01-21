@@ -6,11 +6,13 @@ import subprocess
 # https://github.com/openssl/openssl/blob/master/Configurations/10-main.conf
 linux64 = ("elf", ".S", "gcc", "linux64")
 linux32 = ("elf", ".S", "gcc", "linux32")
+linuxaarch64 = ("elf", ".S", "gcc", "linuxaarch64")
 win32 = ("win32n", ".asm", "cl", "win32")
 win64 = ("nasm", ".asm", "cl", "win64")
 
 configs_x86_64 = [linux64, win64]
 configs_x86 = [linux32, win32]
+configs_aarch64 = [linuxaarch64]
 
 def mkdir(path):
     try:
@@ -110,7 +112,7 @@ def perlasm(configs, file, outputname = None):
             output = os.path.join("src", outputname)
 
         # sha1-x86_64 -> sha1-linux-x86-64.S
-        output = re.sub(r"-?(x86_64|586|x86)", "", output)
+        output = re.sub(r"-?(x86_64|586|x86|armv8|armv4|aarch64|arm64)", "", output)
         output = f"{output}-{name}{ext}"
 
         print(f"Building {file}.pl -> {output} ({config}, {compiler})")
@@ -146,6 +148,7 @@ def patch(patchfile):
 # perlasm("sha/asm/sha1-armv8")
 perlasm(configs_x86_64, "sha/asm/sha1-x86_64")
 perlasm(configs_x86, "sha/asm/sha1-586")
+perlasm(configs_aarch64, "sha/asm/sha1-armv8")
 
 # perlasm("sha/asm/sha256-586")
 # perlasm("sha/asm/sha256-armv4")
@@ -155,17 +158,22 @@ perlasm(configs_x86, "sha/asm/sha1-586")
 # perlasm("sha/asm/sha512-armv8", "sha/sha256-armv8")
 perlasm(configs_x86_64, "sha/asm/sha512-x86_64")
 perlasm(configs_x86_64, "sha/asm/sha512-x86_64", "sha/asm/sha256-x86_64")
+perlasm(configs_aarch64, "sha/asm/sha512-armv8")
+
 perlasm(configs_x86, "sha/asm/sha512-586")
 perlasm(configs_x86, "sha/asm/sha256-586")
+perlasm(configs_aarch64, "sha/asm/sha512-armv8", "sha/asm/sha256-armv8")
 # perlasm("sha/asm/sha512-armv4")
 # perlasm("sha/asm/sha512-ia64")
 # perlasm("sha/asm/sha512-ia64", "sha/sha256-ia64")
 
 perlasm(configs_x86_64, "x86_64cpuid", "core/asm/x86_64cpuid")
 perlasm(configs_x86, "x86cpuid", "core/asm/x86cpuid")
+perlasm(configs_aarch64, "arm64cpuid")
 
 perlasm(configs_x86_64, "md5/asm/md5-x86_64")
 perlasm(configs_x86, "md5/asm/md5-586")
+perlasm(configs_aarch64, "md5/asm/md5-aarch64")
 
 source("sha/sha_local.h")
 source("sha/sha256.c")
