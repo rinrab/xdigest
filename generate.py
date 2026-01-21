@@ -6,7 +6,7 @@ import subprocess
 # https://github.com/openssl/openssl/blob/master/Configurations/10-main.conf
 linux64 = ("elf", ".S", "gcc", "linux64")
 linux32 = ("elf", ".S", "gcc", "linux32")
-linuxaarch64 = ("elf", ".S", "gcc", "linuxaarch64")
+linuxaarch64 = ("aarch64", ".S", "gcc", "linuxaarch64")
 win32 = ("win32n", ".asm", "cl", "win32")
 win64 = ("nasm", ".asm", "cl", "win64")
 
