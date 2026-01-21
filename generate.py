@@ -169,7 +169,7 @@ perlasm(configs_aarch64, "sha/asm/sha512-armv8", "sha/asm/sha256-armv8")
 
 perlasm(configs_x86_64, "x86_64cpuid", "core/asm/x86_64cpuid")
 perlasm(configs_x86, "x86cpuid", "core/asm/x86cpuid")
-perlasm(configs_aarch64, "arm64cpuid")
+perlasm(configs_aarch64, "arm64cpuid", "core/asm/arm64cpuid")
 
 perlasm(configs_x86_64, "md5/asm/md5-x86_64")
 perlasm(configs_x86, "md5/asm/md5-586")
