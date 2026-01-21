@@ -105,14 +105,16 @@ def copy_fixup(input, output):
 def perlasm(configs, file, outputname = None):
     for config, ext, compiler, name in configs:
         if (outputname == None):
-            output = os.path.join("src", file + ext)
+            output = os.path.join("src", file)
         else:
-            output = os.path.join("src", outputname + ext)
+            output = os.path.join("src", outputname)
 
-        output = output.replace("asm/", f"asm/{name}/")
+        # sha1-x86_64 -> sha1-linux-x86-64.S
+        output = re.sub(r"-?(x86_64|586|x86)", "", output)
+        output = f"{output}-{name}{ext}"
 
         print(f"Building {file}.pl -> {output} ({config}, {compiler})")
-
+ 
         os.environ["CC"] = compiler
 
         input = os.path.join(crypto, file + ".pl")
