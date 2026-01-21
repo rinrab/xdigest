@@ -154,3 +154,24 @@ Index: src/core/cpuid.c
      /*
       * |(1<<10) sets a reserved bit to signal that variable
       * was initialized already... This is to avoid interference
+@@ -47,7 +47,6 @@ void xhash_cpuid_setup(void)
+ # else
+ unsigned int xhash_ia32cap_P[xhash_IA32CAP_P_MAX_INDEXES];
+ # endif
+-#endif
+ 
+ #ifndef xhash_CPUID_OBJ
+ # ifndef xhash_CPUID_SETUP
+@@ -101,9 +100,12 @@ size_t xhash_instrument_bus2(unsigned int *out, si
+     return 0;
+ }
+ 
++#endif /* ! xhash_CPUID_OBJ */
++
+ /* Public interface. */
+ void xhash_init()
+ {
+     xhash_cpuid_setup();
+ }
++
+ #endif

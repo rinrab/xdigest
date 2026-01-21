@@ -47,7 +47,6 @@ void xhash_cpuid_setup(void)
 # else
 unsigned int xhash_ia32cap_P[xhash_IA32CAP_P_MAX_INDEXES];
 # endif
-#endif
 
 #ifndef xhash_CPUID_OBJ
 # ifndef xhash_CPUID_SETUP
@@ -101,9 +100,12 @@ size_t xhash_instrument_bus2(unsigned int *out, size_t cnt, size_t max)
     return 0;
 }
 
+#endif /* ! xhash_CPUID_OBJ */
+
 /* Public interface. */
 void xhash_init()
 {
     xhash_cpuid_setup();
 }
+
 #endif
