@@ -7,7 +7,9 @@ endif
 CC = cc
 ASSEMBLER = $(CC)
 
-CFLAGS = -O3 -Wall -Iinclude -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM -Dxhash_CPUID_OBJ -DMD5_ASM
+CFLAGS += -O3 -Wall -Iinclude
+CFLAGS += -Dxhash_CPUID_OBJ -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM -DMD5_ASM
+
 ASMFLAGS = -Wa,--noexecstack
 
 ifeq ($(ARCH),)
