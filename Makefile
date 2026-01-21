@@ -4,48 +4,67 @@ ifeq ($(PREFIX),)
     PREFIX := /usr/local
 endif
 
+# USE_ASM will enable assembly optimised hash implementations in the build.
+#
+# It is 'on' by default. Do disable capability, set it to zero -- every other
+# value means that it's enabled.
+ifeq ($(USE_ASM),)
+    USE_ASM = 1
+endif
+
 CC = cc
 ASSEMBLER = $(CC)
 
 CFLAGS += -O3 -Wall -Iinclude
-CFLAGS += -Dxhash_CPUID_OBJ -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM -DMD5_ASM
-
 ASMFLAGS = -Wa,--noexecstack
 
 ifeq ($(ARCH),)
-	ARCH = x86_64
+    ARCH = x86_64
 endif
 
 ifeq ($(ARCH), x86_64)
-CONFIG = linux64
-CFLAGS += -m64
+    CONFIG = linux64
+    CFLAGS += -m64
 else ifeq ($(ARCH), x86)
-CONFIG = linux32
-CFLAGS += -m32
+    CONFIG = linux32
+    CFLAGS += -m32
 else
-$(error invalid architecute: "$(ARCH)")
+    $(error invalid architecute: "$(ARCH)")
 endif
 
+# Core
 core_c_objects = \
-	src/core/cpuid.o \
-	src/core/ebcdic.o
-core_asm_objects = \
-	src/core/asm/cpuid-$(CONFIG).o
+    src/core/cpuid.o \
+    src/core/ebcdic.o
 
+ifneq ($(USE_ASM), 0)
+    core_asm_objects = src/core/asm/cpuid-$(CONFIG).o
+    CFLAGS += -Dxhash_CPUID_OBJ
+endif
+
+# SHA
 sha_c_objects = \
-	src/sha/sha1.o \
-	src/sha/sha256.o \
-	src/sha/sha512.o
-sha_asm_objects = \
-	src/sha/asm/sha256-$(CONFIG).o \
-	src/sha/asm/sha512-$(CONFIG).o \
-	src/sha/asm/sha1-$(CONFIG).o
+    src/sha/sha1.o \
+    src/sha/sha256.o \
+    src/sha/sha512.o
 
+ifneq ($(USE_ASM), 0)
+    sha_asm_objects = \
+        src/sha/asm/sha256-$(CONFIG).o \
+        src/sha/asm/sha512-$(CONFIG).o \
+        src/sha/asm/sha1-$(CONFIG).o
+    CFLAGS +=-DSHA1_ASM -DSHA256_ASM -DSHA512_ASM
+endif
+
+# MD5
 md5_c_objects = \
-	src/md5/md5_dgst.o \
-	src/md5/md5_one.o
-md5_asm_objects = \
-	src/md5/asm/md5-$(CONFIG).o
+    src/md5/md5_dgst.o \
+    src/md5/md5_one.o
+
+ifneq ($(USE_ASM), 0)
+    md5_asm_objects = src/md5/asm/md5-$(CONFIG).o
+    CFLAGS += -DMD5_ASM
+endif
 
 md4_c_objects = \
 	src/md4/md4_dgst.o \
