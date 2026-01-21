@@ -31,7 +31,7 @@ else ifeq ($(ARCH), aarch64)
     CONFIG = linuxaarch64
     CFLAGS += -march=armv8-a+crypto
     CROSS_COMPILE ?= aarch64-linux-gnu-
-    CPUID_C_OBJ = src/core/armcap.o 
+    CPUID_C_OBJ = src/core/armcap.o
 else
     $(error invalid architecute: "$(ARCH)")
 endif
