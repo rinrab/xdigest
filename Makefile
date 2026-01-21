@@ -4,7 +4,25 @@ ifeq ($(PREFIX),)
     PREFIX := /usr/local
 endif
 
+CC = cc
+ASSEMBLER = $(CC)
+
+CFLAGS = -O3 -Wall -Iinclude -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM -Dxhash_CPUID_OBJ -DMD5_ASM
+ASMFLAGS = -Wa,--noexecstack
+
+ifeq ($(ARCH),)
+	ARCH = x86_64
+endif
+
+ifeq ($(ARCH), x86_64)
 CONFIG = linux64
+CFLAGS += -m64
+else ifeq ($(ARCH), x86)
+CONFIG = linux32
+CFLAGS += -m32
+else
+$(error invalid architecute: "$(ARCH)")
+endif
 
 core_c_objects = \
 	src/core/cpuid.o \
@@ -59,12 +77,6 @@ libs = \
 	libxhash_md2.a
 
 objects = $(asm_objects) $(c_objects)
-
-CC = cc
-ASSEMBLER = $(CC)
-
-CFLAGS = -O3 -Wall -Iinclude -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM -Dxhash_CPUID_OBJ -DMD5_ASM
-ASMFLAGS = -Wa,--noexecstack
 
 all: libxhash.so
 .PHONY: all
