@@ -12,9 +12,6 @@ ifeq ($(USE_ASM),)
     USE_ASM = 1
 endif
 
-CC = cc
-ASSEMBLER = $(CC)
-
 CFLAGS += -O3 -Wall -Iinclude
 ASMFLAGS = -Wa,--noexecstack
 
@@ -28,9 +25,15 @@ ifeq ($(ARCH), x86_64)
 else ifeq ($(ARCH), x86)
     CONFIG = linux32
     CFLAGS += -m32
+else ifeq ($(ARCH), aarch64)
+    CONFIG = linuxaarch64
+    CROSS_COMPILE ?= aarch64-linux-gnu-
 else
     $(error invalid architecute: "$(ARCH)")
 endif
+
+CC = $(CROSS_COMPILE)gcc
+ASSEMBLER = $(CC)
 
 # Core
 core_c_objects = \
