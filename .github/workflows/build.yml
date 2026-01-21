@@ -11,5 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - uses: actions/checkout@v6
+
     - run: make rebuild test ARCH=x86_64
     - run: make rebuild test ARCH=x86
