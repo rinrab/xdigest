@@ -175,11 +175,14 @@ perlasm(configs_x86_64, "md5/asm/md5-x86_64")
 perlasm(configs_x86, "md5/asm/md5-586")
 perlasm(configs_aarch64, "md5/asm/md5-aarch64")
 
+source("arm_arch.h", "core")
+source("armcap.c", "core")
+source("cpuid.c", "core")
+source("ebcdic.c", "core")
+
 source("sha/sha_local.h")
 source("sha/sha256.c")
 source("sha/sha512.c")
-source("cpuid.c", "core")
-source("ebcdic.c", "core")
 
 source("md5/md5_dgst.c")
 source("md5/md5_local.h")
