@@ -158,7 +158,7 @@ test: test_xhash
 
 clean:
 	find . -type f -name '*.o' -delete
-	find . -type f -name '*.so' -delete
+	rm -f $(sofiles)
 	find . -type f -name '*.a' -delete
 	find . -type f -name '*.svnpatch.rej' -delete
 
