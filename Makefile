@@ -4,6 +4,8 @@ ifeq ($(PREFIX),)
     PREFIX := /usr/local
 endif
 
+include Version.inc
+
 # USE_ASM will enable assembly optimised hash implementations in the build.
 #
 # It is 'on' by default. Do disable capability, set it to zero -- every other
@@ -127,9 +129,15 @@ libxhash_md4.a: $(md4_c_objects) $(md4_asm_objects)
 libxhash_md2.a: $(md2_c_objects) $(md2_asm_objects)
 	mkdir -p $(@D) && ar rcs $@ $^
 
-libxhash.so: $(libs)
+libxhash.so.$(VERSION): $(libs)
 	mkdir -p $(@D)
 	$(CC) $(CFLAGS) -shared -o $@ -L. -Wl,--whole-archive $^ -Wl,--no-whole-archive
+
+libxhash.so.$(SONAME): libxhash.so.$(VERSION)
+	ln -s $^ $@
+
+libxhash.so: libxhash.so.$(SONAME)
+	ln -s $^ $@
 
 $(asm_objects): %.o: %.S
 	mkdir -p $(@D) && $(ASSEMBLER) -c $^ -o $@ $(CFLAGS) $(ASMFLAGS)
