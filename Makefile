@@ -24,16 +24,13 @@ endif
 ifeq ($(ARCH), x86_64)
     CONFIG = linux64
     CFLAGS += -m64
-    CPUID_C_OBJ = src/core/cpuid.o
 else ifeq ($(ARCH), x86)
     CONFIG = linux32
     CFLAGS += -m32
-    CPUID_C_OBJ = src/core/cpuid.o
 else ifeq ($(ARCH), aarch64)
     CONFIG = linuxaarch64
     CFLAGS += -march=armv8-a+crypto
     CROSS_COMPILE ?= aarch64-linux-gnu-
-    CPUID_C_OBJ = src/core/armcap.o
 else
     $(error invalid architecute: "$(ARCH)")
 endif
@@ -43,7 +40,8 @@ ASSEMBLER = $(CC)
 
 # Core
 core_c_objects += \
-    $(CPUID_C_OBJ) \
+    src/core/cpuid.o \
+    src/core/armcap.o \
     src/core/version.o \
     src/core/ebcdic.o
 
