@@ -105,7 +105,6 @@ clean:
 install: all
 	install -d $(DESTDIR)$(PREFIX)/lib/
 	install -m 644 $(sofiles) $(DESTDIR)$(PREFIX)/lib/
-	install -m 644 $(libs) $(DESTDIR)$(PREFIX)/lib/
 	install -d $(DESTDIR)$(PREFIX)/include/
 	install -d $(DESTDIR)$(PREFIX)/include/xhash
 	install -m 644 include/xhash/*.h $(DESTDIR)$(PREFIX)/include/xhash
