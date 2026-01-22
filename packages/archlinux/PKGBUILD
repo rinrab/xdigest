@@ -1,0 +1,32 @@
+# Maintainer: Timofei Zhakov
+
+pkgname=xhash
+epoch=1
+pkgver=1.0.0
+pkgrel=1
+pkgdesc='Fast digest algorithms'
+arch=('x86_64')
+url='https://github.com/rinrab/xhash'
+license=('Apache 2.0')
+makedepends=('git' 'make' 'ninja')
+depends=('glibc')
+provides=('libxhash.so')
+source=("git+https://github.com/rinrab/xhash")
+sha256sums=('SKIP')
+
+build() {
+  cd ${pkgname}
+  make -I $pkgname
+}
+
+check() {
+  cd ${pkgname}
+  make -I $pkgname test
+}
+
+package() {
+  cd ${pkgname}
+  make -I $pkgname install PREFIX=${pkgdir}/usr
+}
+
+# vim:set ts=2 sw=2 et:
