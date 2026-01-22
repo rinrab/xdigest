@@ -42,6 +42,7 @@ ASSEMBLER = $(CC)
 # Core
 core_c_objects += \
     $(CPUID_C_OBJ) \
+    src/core/version.o \
     src/core/ebcdic.o
 
 ifneq ($(USE_ASM), 0)
