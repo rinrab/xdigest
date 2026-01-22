@@ -7,6 +7,8 @@
  * https://www.openssl.org/source/license.html
  */
 
+#ifdef NO_ASM
+
 #include <string.h>
 /* ignored include 'openssl/crypto.h' */
 
@@ -14,3 +16,5 @@ void xhash_cleanse(void *ptr, size_t len)
 {
     memset(ptr, 0, len);
 }
+
+#endif /* NO_ASM */

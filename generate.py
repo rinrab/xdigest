@@ -213,12 +213,14 @@ include("crypto/md32_common.h")
 include("crypto/sha.h")
 
 patch("patches/xhash_cleanse.patch")
-patch("patches/mem_clr_remove_callback.patch")
 patch("patches/inline_dummy_export.patch")
 patch("patches/OPENSSL_IA32CAP_P_MAX_INDEXES.patch")
 patch("patches/sha256_hash_data.patch")
 patch("patches/sha512_hash_data.patch")
 patch("patches/die_and_assert.patch")
+
+patch("patches/mem_clr_remove_callback.patch")
+patch("patches/mem_clr_ifdef.patch")
 
 patch("patches/md5_h_cleanup_header.patch")
 patch("patches/sha_h_cleanup_header.patch")
