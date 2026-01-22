@@ -144,10 +144,10 @@ libxhash.so.$(SONAME): libxhash.so.$(VERSION)
 libxhash.so: libxhash.so.$(SONAME)
 	ln -s $^ $@
 
-$(asm_objects): %.o: %.S
+%.o: %.S
 	mkdir -p $(@D) && $(ASSEMBLER) -c $^ -o $@ $(CFLAGS) $(ASMFLAGS)
 
-$(c_objects): %.o: %.c
+%.o: %.c
 	mkdir -p $(@D) && $(CC) -c $^ -o $@ $(CFLAGS)
 
 test_xhash: tests/test_xhash.c tests/sha_test.c libxhash.so
