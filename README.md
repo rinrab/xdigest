@@ -5,7 +5,12 @@ implementation as a standalone package.
 
 ## Features
 
-Fast, small, and standalone.
+- Fast; Uses assembly optimisation of digest functions to get best perfomance
+  possible.
+- Small and lightweight; Only includes code needed for digest computation
+  itself. Nothing extra.
+- Standalone; No dependencies are needed and it's easy to compile/install.
+- Simple API; Just create a context and push data in it.
 
 ## Benchmarks
 
