@@ -112,7 +112,7 @@ int main() {
 }
 ```
 
-(this has not yet been tested)
+(this has not been tested yet)
 
 ## TODO checklist
 
