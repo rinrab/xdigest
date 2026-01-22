@@ -6,14 +6,6 @@ endif
 
 include Version.inc
 
-# USE_ASM will enable assembly optimised hash implementations in the build.
-#
-# It is 'on' by default. Do disable capability, set it to zero -- every other
-# value means that it's enabled.
-ifeq ($(USE_ASM),)
-    USE_ASM = 1
-endif
-
 CFLAGS += -O3 -Wall -Iinclude -Isrc/core
 ASMFLAGS = -Wa,--noexecstack
 
@@ -45,11 +37,11 @@ core_c_objects += \
     src/core/version.o \
     src/core/ebcdic.o
 
-ifneq ($(USE_ASM), 0)
+ifdef NO_ASM
+    core_c_objects += src/core/mem_clr.o
+else
     core_asm_objects = src/core/asm/cpuid-$(CONFIG).o
     CFLAGS += -Dxhash_CPUID_OBJ
-else
-    core_c_objects += src/core/mem_clr.o
 endif
 
 # SHA
@@ -58,7 +50,7 @@ sha_c_objects = \
     src/sha/sha256.o \
     src/sha/sha512.o
 
-ifneq ($(USE_ASM), 0)
+ifndef NO_ASM 
     sha_asm_objects = \
         src/sha/asm/sha256-$(CONFIG).o \
         src/sha/asm/sha512-$(CONFIG).o \
@@ -71,7 +63,7 @@ md5_c_objects = \
     src/md5/md5_dgst.o \
     src/md5/md5_one.o
 
-ifneq ($(USE_ASM), 0)
+ifndef NO_ASM
     md5_asm_objects = src/md5/asm/md5-$(CONFIG).o
     CFLAGS += -DMD5_ASM
 endif
