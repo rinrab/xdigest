@@ -261,11 +261,6 @@ void xhash_cpuid_setup(void)
 
     xhash_armcap_P = 0;
 
-    if ((e = getenv("xhash_armcap"))) {
-        xhash_armcap_P = (unsigned int)strtoul(e, NULL, 0);
-        return;
-    }
-
 # if defined(__APPLE__)
 #  if !defined(__aarch64__)
     /*
