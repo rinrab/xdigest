@@ -7,6 +7,8 @@
  * https://www.openssl.org/source/license.html
  */
 
+
+#if defined(__aarch64__) || defined(_M_ARM64)
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -454,3 +456,5 @@ void xhash_init()
 {
     xhash_cpuid_setup();
 }
+
+#endif /* arm */
