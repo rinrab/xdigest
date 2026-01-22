@@ -109,6 +109,11 @@ libs = \
 	libxhash_md4.a \
 	libxhash_md2.a
 
+sofiles = \
+	libxhash.so.$(VERSION) \
+	libxhash.so.$(SONAME) \
+	libxhash.so
+
 objects = $(asm_objects) $(c_objects)
 
 all: libxhash.so
@@ -159,7 +164,7 @@ clean:
 
 install: all
 	install -d $(DESTDIR)$(PREFIX)/lib/
-	install -m 644 libxhash.so $(DESTDIR)$(PREFIX)/lib/
+	install -m 644 $(sofiles) $(DESTDIR)$(PREFIX)/lib/
 	install -m 644 $(libs) $(DESTDIR)$(PREFIX)/lib/
 	install -d $(DESTDIR)$(PREFIX)/include/
 	install -d $(DESTDIR)$(PREFIX)/include/xhash
