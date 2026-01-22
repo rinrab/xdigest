@@ -31,7 +31,7 @@ CC = $(CROSS_COMPILE)gcc
 ASSEMBLER = $(CC)
 
 ifdef NO_ASM
-    CFLAGS += NO_ASM
+    CFLAGS += -DNO_ASM
 else
     CFLAGS += -Dxhash_CPUID_OBJ
     CFLAGS += -DMD5_ASM
