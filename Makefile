@@ -30,103 +30,53 @@ endif
 CC = $(CROSS_COMPILE)gcc
 ASSEMBLER = $(CC)
 
-# Core
-core_c_objects += \
+ifdef NO_ASM
+    CFLAGS += NO_ASM
+else
+    CFLAGS += -Dxhash_CPUID_OBJ
+    CFLAGS += -DMD5_ASM
+    CFLAGS += -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM
+endif
+
+c_objects = \
     src/core/cpuid.o \
     src/core/armcap.o \
     src/core/version.o \
-    src/core/ebcdic.o
-
-ifdef NO_ASM
-    core_c_objects += src/core/mem_clr.o
-else
-    core_asm_objects = src/core/asm/cpuid-$(CONFIG).o
-    CFLAGS += -Dxhash_CPUID_OBJ
-endif
-
-# SHA
-sha_c_objects = \
+    src/core/ebcdic.o \
+    src/core/mem_clr.o \
     src/sha/sha1.o \
     src/sha/sha256.o \
-    src/sha/sha512.o
-
-ifndef NO_ASM 
-    sha_asm_objects = \
-        src/sha/asm/sha256-$(CONFIG).o \
-        src/sha/asm/sha512-$(CONFIG).o \
-        src/sha/asm/sha1-$(CONFIG).o
-    CFLAGS +=-DSHA1_ASM -DSHA256_ASM -DSHA512_ASM
-endif
-
-# MD5
-md5_c_objects = \
+    src/sha/sha512.o \
     src/md5/md5_dgst.o \
-    src/md5/md5_one.o
-
-ifndef NO_ASM
-    md5_asm_objects = src/md5/asm/md5-$(CONFIG).o
-    CFLAGS += -DMD5_ASM
-endif
-
-md4_c_objects = \
-	src/md4/md4_dgst.o \
-	src/md4/md4_one.o
-md4_asm_objects =
-
-md2_c_objects = \
-	src/md2/md2_dgst.o \
-	src/md2/md2_one.o
-md2_asm_objects =
-
-c_objects = \
-	$(core_c_objects) \
-	$(sha_c_objects) \
-	$(md5_c_objects) \
-	$(md4_c_objects) \
-	$(md2_c_objects)
+    src/md5/md5_one.o \
+    src/md4/md4_dgst.o \
+    src/md4/md4_one.o \
+    src/md2/md2_dgst.o \
+    src/md2/md2_one.o
 
 asm_objects = \
-	$(core_asm_objects) \
-	$(sha_asm_objects) \
-	$(md5_asm_objects) \
-	$(md4_asm_objects) \
-	$(md2_asm_objects)
+    src/core/asm/cpuid-$(CONFIG).o \
+    src/sha/asm/sha256-$(CONFIG).o \
+    src/sha/asm/sha512-$(CONFIG).o \
+    src/sha/asm/sha1-$(CONFIG).o \
+    src/md5/asm/md5-$(CONFIG).o
 
-libs = \
-	libxhash_core.a \
-	libxhash_sha.a \
-	libxhash_md5.a \
-	libxhash_md4.a \
-	libxhash_md2.a
+objects = $(c_objects)
+ifndef NO_ASM
+    objects += $(asm_objects)
+endif
 
 sofiles = \
 	libxhash.so.$(VERSION) \
 	libxhash.so.$(SONAME) \
 	libxhash.so
 
-objects = $(asm_objects) $(c_objects)
-
 all: libxhash.so
 .PHONY: all
 
-libxhash_core.a: $(core_c_objects) $(core_asm_objects)
-	mkdir -p $(@D) && ar rcs $@ $^
-
-libxhash_sha.a: $(sha_c_objects) $(sha_asm_objects)
-	mkdir -p $(@D) && ar rcs $@ $^
-
-libxhash_md5.a: $(md5_c_objects) $(md5_asm_objects)
-	mkdir -p $(@D) && ar rcs $@ $^
-
-libxhash_md4.a: $(md4_c_objects) $(md4_asm_objects)
-	mkdir -p $(@D) && ar rcs $@ $^
-
-libxhash_md2.a: $(md2_c_objects) $(md2_asm_objects)
-	mkdir -p $(@D) && ar rcs $@ $^
-
-libxhash.so.$(VERSION): $(libs)
+libxhash.so.$(VERSION): $(objects)
 	mkdir -p $(@D)
-	$(CC) $(CFLAGS) -shared -o $@ -L. -Wl,--whole-archive $^ -Wl,--no-whole-archive
+	$(CC) $(CFLAGS) -shared -o $@ $^
 
 libxhash.so.$(SONAME): libxhash.so.$(VERSION)
 	ln -s $^ $@
