@@ -18,6 +18,102 @@ implementation as a standalone package.
 |-----------|-----------|
 | SHA1      | 1.50 GB/s |
 
+## Getting started
+
+### Getting source code
+
+Currenly, the only way to install the library is to compile it using 'make'
+from sources. It's simple anyway.
+
+First, get the sources. The sources are officially published here at GitHub.
+But it's important to know that the GitHub repository is actually a mirror of a
+Subversion repository because svn is the GOAT.
+
+```bash
+git clone https://github.com/rinrab/xhash.git
+cd xhash
+```
+
+### Install library via a package manager
+
+Work in progress. I hope we'll be in their distrubutions at some point.
+
+### Compile the library (Unix)
+
+Let's compile it. It shouldn't take more than 0.73 seconds. However, it might
+take 0.86 seconds in the worst case scenario. The process itself is also as
+straightforward as it sounds.
+
+```bash
+make
+```
+
+If you really want to, assembly-backed implementation can be disabled via
+NO_ASM option.
+
+```bash
+make [NO_ASM=1]
+```
+
+Now, we're ready to install it. Optionally, the install prefix could be changed
+via PREFIX variable.
+
+```
+sudo make install [PREFIX=/usr/local]
+```
+
+To cross compile, pass any of the following value to the ARCH variable while
+performing **all** operations.
+
+### Compile the library (Win32)
+
+The best talents of this world are currently working hard to get this done.
+
+### Use the library
+
+This package exports headers <INCLUDEDIR>/xhash/ and libxhash.so library
+object. Soon, we'll also add pkgconfig file.
+
+Keep in mind that the library needs to be initialized first before using any
+algorithms. It's important that initialization is done once per process. How
+exactly it's done is responsibily of calling side. Since in our example we
+don't really care about all that fancy multithreading stuff, we'll just invoke
+it on startup.
+
+For example, SHA related APIs are located in xhash/sha.h. We could use to
+create a context for processing SHA256 blocks.
+
+```c
+#include <assert.h>
+#include <string.h>
+
+#include <xhash/core.h>
+#include <xhash/sha.h>
+
+int main() {
+    xhash_sha256_ctx_t ctx = { 0 };
+    char digest1[XHASH_SHA256_DIGEST_LENGTH];
+    char digest2[XHASH_SHA256_DIGEST_LENGTH];
+
+    xhash_init();
+
+    xhash_sha256_init(&ctx);
+    xhash_sha256_update(&ctx, "abc", 3);
+    xhash_sha256_update(&ctx, "more things", sizeof("more things"));
+    xhash_sha256_final(&digest1, &ctx);
+
+    /* There is also a convenience wrapper. */
+    xhash_sha256("abcmore things", sizeof("abcmore things"), &digest2);
+
+    /* Should be the same data. */
+    assert(memcmp(digest1, digest2, sizeof(digest1)) == 0);
+
+    return 0;
+}
+```
+
+(this has not yet been tested)
+
 ## TODO checklist
 
 - [ ] Platforms
