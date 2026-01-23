@@ -1,0 +1,21 @@
+{
+  "name": "xhash",
+  "version-string": "0.1.0",
+  "description": "Fast and lightweigh hash library.",
+  "homepage": "https://github.com/rinrab/xhash",
+  "supports": "!uwp",
+  "features": {
+    "asm": {
+      "description": "Assembly-backed implementation for maximum performance."
+    }
+  },
+  "default-features": [
+    "asm"
+  ],
+  "dependencies": [
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    }
+  ]
+}
