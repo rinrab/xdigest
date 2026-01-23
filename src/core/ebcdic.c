@@ -7,7 +7,7 @@
  * https://www.openssl.org/source/license.html
  */
 
-# include <xhash/e_os2.h>
+#include "internal/e_os2.h"
 #ifndef CHARSET_EBCDIC
 static void *dummy = &dummy;
 #else

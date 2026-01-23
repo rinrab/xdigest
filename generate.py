@@ -57,6 +57,10 @@ def copy_fixup(input, output):
             "internal/deprecated.h",
         ]
 
+        hidden_includes = [
+            "openssl/e_os2.h",
+        ]
+
         def convert_func_name(name):
             # SHA1_Update -> xhash_sha1_update
             name = name.lower()
@@ -73,6 +77,13 @@ def copy_fixup(input, output):
 
             data = re.sub(rf"^#\s*include [<\"]({inc})[>\"]$",
                           r"/* ignored include '\1' */",
+                          data, flags=re.MULTILINE)
+
+        for inc in hidden_includes:
+            inc = re.escape(inc)
+
+            data = re.sub(rf"^#\s*include [<\"]({inc})[>\"]$",
+                          lambda match: f"#include \"{match[1].replace("openssl", "internal")}\"",
                           data, flags=re.MULTILINE)
 
         data = re.sub(r"include <openssl\/([^>]*)>",
@@ -132,9 +143,13 @@ def source(path, outdir = ""):
 
     copy_fixup(input, output)
 
-def include(path):
+def include(path, outname = None):
     input = os.path.join(openssl_include, path)
-    output = os.path.join(include_path, path)
+
+    if (outname == None):
+        output = os.path.join(include_path, path)
+    else:
+        output = os.path.join(include_path, outname)
 
     output = output.replace("openssl", "xhash")
 
@@ -201,8 +216,8 @@ include("openssl/md5.h")
 include("openssl/md4.h")
 include("openssl/md2.h")
 
-include("openssl/e_os2.h")
 include("openssl/ebcdic.h")
+include("openssl/e_os2.h", "internal/e_os2.h")
 
 include("internal/endian.h")
 include("internal/common.h")

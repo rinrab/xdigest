@@ -12,7 +12,7 @@
 # pragma once
 
 # ifndef xhash_NO_MD5
-#  include <xhash/e_os2.h>
+#include "internal/e_os2.h"
 #  include <stddef.h>
 #  ifdef  __cplusplus
 extern "C" {
