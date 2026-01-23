@@ -17,18 +17,18 @@ typedef struct xhash_sha1_ctx_t xhash_sha1_ctx_t;
 
 #define XHASH_SHA1_DIGEST_LENGTH 20
 
-int xhash_sha1_init(xhash_sha1_ctx_t *p_ctx);
+int xhash_sha1_init(xhash_sha1_ctx_t *ctx);
 
 int xhash_sha1_update(xhash_sha1_ctx_t *ctx,
                       const void *data,
                       size_t len);
 
-int xhash_sha1_final(unsigned char *p_digest,
+int xhash_sha1_final(unsigned char *digest,
                      xhash_sha1_ctx_t *ctx);
 
 void xhash_sha1(const unsigned char *data,
                 size_t len,
-                unsigned char *p_digest);
+                unsigned char *digest);
 
 #ifdef __cplusplus
 }

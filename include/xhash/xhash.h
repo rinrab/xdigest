@@ -23,7 +23,7 @@ typedef struct xhash_version_t
 } xhash_version_t;
 
 void
-xhash_version(xhash_version_t *p_version);
+xhash_version(xhash_version_t *version);
 
 # ifdef __cplusplus
 }
