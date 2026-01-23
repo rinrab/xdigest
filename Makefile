@@ -38,28 +38,8 @@ else
     CFLAGS += -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM
 endif
 
-c_objects = \
-    src/core/cpuid.o \
-    src/core/armcap.o \
-    src/core/version.o \
-    src/core/ebcdic.o \
-    src/core/mem_clr.o \
-    src/sha/sha1.o \
-    src/sha/sha256.o \
-    src/sha/sha512.o \
-    src/md5/md5_dgst.o \
-    src/md5/md5_one.o \
-    src/md4/md4_dgst.o \
-    src/md4/md4_one.o \
-    src/md2/md2_dgst.o \
-    src/md2/md2_one.o
-
-asm_objects = \
-    src/core/asm/cpuid-$(CONFIG).o \
-    src/sha/asm/sha256-$(CONFIG).o \
-    src/sha/asm/sha512-$(CONFIG).o \
-    src/sha/asm/sha1-$(CONFIG).o \
-    src/md5/asm/md5-$(CONFIG).o
+OBJEXT = .o
+include Makefile.inc
 
 objects = $(c_objects)
 ifndef NO_ASM
