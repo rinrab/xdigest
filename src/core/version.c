@@ -1,4 +1,4 @@
-#include "xhash/version.h"
+#include "xhash/xhash.h"
 
 void
 xhash_version(xhash_version_t *p_version)

@@ -1,10 +1,15 @@
-#ifndef XHASH_SHA_H
-# define XHASH_SHA_H 
+#ifndef XHASH_XHASH_H
+# define XHASH_XHASH_H 
 # pragma once
 
 # ifdef __cplusplus
 extern "C" {
 # endif /* __cplusplus */
+
+/*
+ * Initializes the library. This function must be called once per process.
+ */
+void xhash_init(void);
 
 #define XHASH_VERSION_MAJOR 0
 #define XHASH_VERSION_MINOR 1
@@ -24,4 +29,4 @@ xhash_version(xhash_version_t *p_version);
 }
 # endif /* __cplusplus */
 
-#endif /* ! XHASH_SHA_H */
+#endif /* ! XHASH_XHASH_H */
