@@ -9,7 +9,7 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <xhash/e_os2.h>
+#include "internal/e_os2.h"
 #include <xhash/md5.h>
 
 #ifdef MD5_ASM

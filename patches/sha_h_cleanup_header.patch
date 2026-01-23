@@ -11,7 +11,7 @@ Index: include/xhash/sha.h
 -#  define HEADER_SHA_H
 -# endif
 -
- # include <xhash/e_os2.h>
+ #include "internal/e_os2.h"
  # include <stddef.h>
  
 @@ -25,7 +20,6 @@ extern "C" {

@@ -13,7 +13,7 @@
 # include <limits.h>
 /* ignored include 'openssl/opensslconf.h' */
 
-# include <xhash/e_os2.h>
+#include "internal/e_os2.h"
 /* ignored include 'openssl/crypto.h' */
 # include "internal/numbers.h"   /* Ensure the definition of SIZE_MAX */
 
