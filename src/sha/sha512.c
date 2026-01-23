@@ -53,7 +53,7 @@
 #include <string.h>
 
 /* ignored include 'openssl/crypto.h' */
-#include <xhash/sha.h>
+#include "internal/sha.h"
 /* ignored include 'openssl/opensslv.h' */
 
 /* ignored include 'internal/cryptlib.h' */

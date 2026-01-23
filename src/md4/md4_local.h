@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 /* ignored include 'openssl/opensslconf.h' */
-#include <xhash/md4.h>
+#include "internal/md4.h"
 
 void md4_block_data_order(xhash_md4_ctx_t *c, const void *p, size_t num);
 

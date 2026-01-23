@@ -15,7 +15,7 @@
 
 #include <stdio.h>
 /* ignored include 'internal/cryptlib.h' */
-#include <xhash/md2.h>
+#include "internal/md2.h"
 #include "internal/common.h"
 
 /*

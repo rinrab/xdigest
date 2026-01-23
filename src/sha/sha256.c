@@ -19,7 +19,7 @@
 #include <string.h>
 
 /* ignored include 'openssl/crypto.h' */
-#include <xhash/sha.h>
+#include "internal/sha.h"
 /* ignored include 'openssl/opensslv.h' */
 #include "internal/endian.h"
 #include "crypto/sha.h"

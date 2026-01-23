@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "internal/e_os2.h"
-#include <xhash/md5.h>
+#include "internal/md5.h"
 
 #ifdef MD5_ASM
 # if defined(__i386) || defined(__i386__) || defined(_M_IX86) || \

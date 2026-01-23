@@ -15,7 +15,7 @@
 
 #include <stdio.h>
 #include <string.h>
-#include <xhash/md4.h>
+#include "internal/md4.h"
 /* ignored include 'openssl/crypto.h' */
 #include "internal/common.h"
 

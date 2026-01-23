@@ -12,7 +12,7 @@
 # define OSSL_xhash_SHA_H
 # pragma once
 
-# include <xhash/sha.h>
+#include "internal/sha.h"
 
 int ossl_sha256_192_init(xhash_sha256_ctx_t *c);
 int sha512_224_init(xhash_sha512_ctx_t *);
