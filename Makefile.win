@@ -4,21 +4,8 @@ CFLAGS = /c /O2 /W4 /Iinclude /DNO_ASM
 
 all: libxhash.lib
 
-c_objects = \
-    src/core/cpuid.obj \
-    src/core/armcap.obj \
-    src/core/version.obj \
-    src/core/ebcdic.obj \
-    src/core/mem_clr.obj \
-    src/sha/sha1.obj \
-    src/sha/sha256.obj \
-    src/sha/sha512.obj \
-    src/md5/md5_dgst.obj \
-    src/md5/md5_one.obj \
-    src/md4/md4_dgst.obj \
-    src/md4/md4_one.obj \
-    src/md2/md2_dgst.obj \
-    src/md2/md2_one.obj
+OBJEXT = .obj
+include Makefile.inc
 
 .c.obj:
   $(CC) /nologo $(CFLAGS) /Fo$*.obj $*.c
