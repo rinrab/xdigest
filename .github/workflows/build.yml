@@ -49,6 +49,6 @@ jobs:
 
     - name: Prepare Environment
 
-    - shell: vsdevenv x64 pwsh {0}
-      run:
+    - run:
         nmake /F Makefile.win
+      shell: vsdevenv x64 pwsh {0}
