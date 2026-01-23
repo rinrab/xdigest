@@ -45,5 +45,10 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v6
+    - uses: johnnynunez/vsdevenv-shell@v2
 
-    - run: nmake /F Makefile.win
+    - name: Prepare Environment
+
+    - shell: vsdevenv x64 pwsh {0}
+      run:
+        nmake /F Makefile.win
