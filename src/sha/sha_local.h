@@ -11,7 +11,7 @@
 #include <string.h>
 
 /* ignored include 'openssl/opensslconf.h' */
-#include <xhash/sha.h>
+#include "internal/sha.h"
 #include "internal/endian.h"
 
 #define DATA_ORDER_IS_BIG_ENDIAN

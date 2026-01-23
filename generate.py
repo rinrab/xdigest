@@ -60,6 +60,11 @@ def copy_fixup(input, output):
 
         hidden_includes = [
             "openssl/e_os2.h",
+            "openssl/sha.h",
+            "openssl/md2.h",
+            "openssl/md4.h",
+            "openssl/md5.h",
+            "openssl/sha.h",
         ]
 
         def convert_func_name(name):
@@ -194,7 +199,6 @@ perlasm(configs_aarch64, "md5/asm/md5-aarch64")
 source("arm_arch.h", "core")
 source("armcap.c", "core")
 source("cpuid.c", "core")
-source("ebcdic.c", "core")
 source("mem_clr.c", "core")
 
 source("sha/sha_local.h")
@@ -212,10 +216,10 @@ source("md4/md4_one.c")
 source("md2/md2_dgst.c")
 source("md2/md2_one.c")
 
-include("openssl/sha.h")
-include("openssl/md5.h")
-include("openssl/md4.h")
-include("openssl/md2.h")
+include("openssl/sha.h", "internal/sha.h")
+include("openssl/md5.h", "internal/md5.h")
+include("openssl/md4.h", "internal/md4.h")
+include("openssl/md2.h", "internal/md2.h")
 
 include("openssl/e_os2.h", "internal/e_os2.h")
 
@@ -236,9 +240,6 @@ patch("patches/die_and_assert.patch")
 
 patch("patches/mem_clr_remove_callback.patch")
 patch("patches/mem_clr_ifdef.patch")
-
-patch("patches/md5_h_cleanup_header.patch")
-patch("patches/sha_h_cleanup_header.patch")
 
 patch("patches/export_init_func.patch")
 

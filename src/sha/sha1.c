@@ -1,4 +1,4 @@
-#include <xhash/sha.h>
+#include "internal/sha.h"
 
 #include "sha_local.h"
 

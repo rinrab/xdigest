@@ -11,6 +11,13 @@
 # define xhash_MD5_H
 # pragma once
 
+/* ignored include 'openssl/macros.h' */
+# ifndef xhash_NO_DEPRECATED_3_0
+#  define HEADER_MD5_H
+# endif
+
+/* ignored include 'openssl/opensslconf.h' */
+
 # ifndef xhash_NO_MD5
 #include "internal/e_os2.h"
 #  include <stddef.h>
@@ -20,6 +27,7 @@ extern "C" {
 
 #  define XHASH_MD5_DIGEST_LENGTH 16
 
+#  if !defined(xhash_NO_DEPRECATED_3_0)
 /*
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  * ! XHASH_MD5_LONG has to be at least 32 bits wide.                     !
@@ -36,27 +44,15 @@ typedef struct MD5state_st {
     XHASH_MD5_LONG data[XHASH_MD5_LBLOCK];
     unsigned int num;
 } xhash_md5_ctx_t;
-
-int
-xhash_md5_init(xhash_md5_ctx_t *c);
-
-int
-xhash_md5_update(xhash_md5_ctx_t *c,
-                 const void *data,
-                 size_t len);
-
-int
-xhash_md5_final(unsigned char *md,
-                xhash_md5_ctx_t *c);
-
-unsigned char *
-xhash_md5(const unsigned char *d,
-          size_t n,
-          unsigned char *md);
-
-void
-xhash_md5_transform(xhash_md5_ctx_t *c,
-                    const unsigned char *b);
+#  endif
+#  ifndef xhash_NO_DEPRECATED_3_0
+int xhash_md5_init(xhash_md5_ctx_t *c);
+int xhash_md5_update(xhash_md5_ctx_t *c, const void *data, size_t len);
+int xhash_md5_final(unsigned char *md, xhash_md5_ctx_t *c);
+unsigned char *xhash_md5(const unsigned char *d, size_t n,
+                                         unsigned char *md);
+void xhash_md5_transform(xhash_md5_ctx_t *c, const unsigned char *b);
+#  endif
 
 #  ifdef  __cplusplus
 }

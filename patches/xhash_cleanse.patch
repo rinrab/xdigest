@@ -54,7 +54,7 @@ Index: src/md2/md2_one.c
 @@ -16,6 +16,7 @@
  #include <stdio.h>
  /* ignored include 'internal/cryptlib.h' */
- #include <xhash/md2.h>
+ #include "internal/md2.h"
 +#include "internal/common.h"
  
  /*

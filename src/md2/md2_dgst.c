@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <xhash/md2.h>
+#include "internal/md2.h"
 /* ignored include 'openssl/opensslv.h' */
 /* ignored include 'openssl/crypto.h' */
 #include "internal/common.h"
