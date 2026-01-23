@@ -87,7 +87,7 @@ create a context for processing SHA256 blocks.
 #include <assert.h>
 #include <string.h>
 
-#include <xhash/core.h>
+#include <xhash/xhash.h>
 #include <xhash/sha.h>
 
 int main() {
