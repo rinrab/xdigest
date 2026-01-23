@@ -47,8 +47,6 @@ jobs:
     - uses: actions/checkout@v6
     - uses: johnnynunez/vsdevenv-shell@v2
 
-    - name: Prepare Environment
-
     - name: Run x64
       shell: vsdevenv x64 pwsh {0}
       run: nmake /F Makefile.win
