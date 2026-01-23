@@ -1,18 +1,10 @@
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
+#include <stdint.h>
 
-#ifdef XHASH
-#include <xhash/sha.h>
+#include <xhash/sha1.h>
 #include <xhash/xhash.h>
-#else
-#include <openssl/sha.h>
-
-#define xhash_sha1_ctx_t SHA_CTX
-#define xhash_sha1_init SHA1_Init
-#define xhash_sha1_update SHA1_Update
-#define xhash_sha1_final SHA1_Final
-#endif
 
 #define BUFSIZE 1024 * 1024
 
@@ -52,18 +44,15 @@ int setup_tests(void);
 
 int main()
 {
-    xhash_sha1_ctx_t ctx = { 0 };
-
-    unsigned char digest[XHASH_SHA_DIGEST_LENGTH];
+    xhash_sha1_ctx_t *ctx = malloc(XHASH_SHA1_CTX_SIZE);
+    unsigned char digest[XHASH_SHA1_DIGEST_LENGTH];
     unsigned char *buf;
 
     time__t start, end;
     size_t iter = 0, i;
     uint32_t seed = 67;
 
-#ifdef XHASH
     xhash_init();
-#endif
 
     buf = malloc(BUFSIZE);
     for (i = 0; i < BUFSIZE; i++)
@@ -73,17 +62,17 @@ int main()
     }
 
     start = time__get();
-    xhash_sha1_init(&ctx);
+    xhash_sha1_init(ctx);
 
     do
     {
-        xhash_sha1_update(&ctx, buf, BUFSIZE);
+        xhash_sha1_update(ctx, buf, BUFSIZE);
         end = time__get();
         iter++;
     }
     while (time__diff(start, end) < 1.0);
 
-    xhash_sha1_final(digest, &ctx);
+    xhash_sha1_final(digest, ctx);
 
     printf("Processed %.2f GB in %.2f seconds.\n",
            ((double)BUFSIZE * iter) / (1024 * 1024 * 1024),
