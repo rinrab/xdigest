@@ -16,3 +16,5 @@ libxhash.lib: $(c_objects)
 clean:
   del /S *.obj *.lib
 
+rebuild: clean all
+
