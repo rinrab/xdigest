@@ -114,6 +114,46 @@ int main() {
 
 (this has not been tested yet)
 
+## Design choices
+
+### OpenSSL
+
+This library originates its implementations from OpenSSL. The reason we do that
+is because OpenSSL on its own has one of the best in terms of performance
+implementations of hash algorithms. It has bullet-proven itself throughout many
+years of being used everywhere.
+
+### Code generation
+
+The majority of source code is generated from OpenSSL source code. The
+`generate.py` script in the source tree does this work. This guarantees
+reproducebility and consistency of what we serve.
+
+Generated files are also included in the source tree of the project for
+simplity.
+
+### Public headers
+
+We provide lightweight and simple way to use OpenSSL's __implementation__.
+However, nothing from OpenSSL should be exposed to public API. Everything in
+include/xhash/*.h should be re-written.
+
+Checksum contexts are intended to be hidden from public API.
+
+### Build process
+
+It is indendent that the build process is as simple as possible. This is why
+makefile is the choice. It doesn't do anything extra. Just compile+link. Also
+fancy systems like CMake are sometimes anoying to deal with when assembly
+integration is required.
+
+### Initialization
+
+To use capabilities of modern processors in order to compute digest checksums,
+it has to be first initialized. Use `xhash_init()` function in `xhash/xhash.h`
+header in order to do that. It is important that it's called once per process.
+Otherwise, something might missbehave.
+
 ## TODO checklist
 
 - [ ] Platforms
