@@ -4,7 +4,7 @@
 
 #ifdef XHASH
 #include <xhash/sha.h>
-#include <xhash/core.h>
+#include <xhash/xhash.h>
 #else
 #include <openssl/sha.h>
 
