@@ -20,7 +20,7 @@
 #include "internal/common.h"
 
 #ifdef CHARSET_EBCDIC
-# include <xhash/ebcdic.h>
+/* ignored include 'openssl/ebcdic.h' */
 #endif
 
 unsigned char *xhash_md4(const unsigned char *d, size_t n, unsigned char *md)

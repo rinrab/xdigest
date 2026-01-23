@@ -7,7 +7,6 @@ c_objects = \
     src/core/cpuid$(OBJEXT) \
     src/core/armcap$(OBJEXT) \
     src/core/version$(OBJEXT) \
-    src/core/ebcdic$(OBJEXT) \
     src/core/mem_clr$(OBJEXT) \
     src/sha/sha1$(OBJEXT) \
     src/sha/sha256$(OBJEXT) \

@@ -12,7 +12,7 @@
 static void *dummy = &dummy;
 #else
 
-# include <xhash/ebcdic.h>
+/* ignored include 'openssl/ebcdic.h' */
 
 # ifdef CHARSET_EBCDIC_TEST
 /*

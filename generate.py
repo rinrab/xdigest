@@ -51,6 +51,7 @@ def copy_fixup(input, output):
             "openssl/opensslconf.h",
             "openssl/opensslv.h",
             "openssl/macros.h",
+            "openssl/ebcdic.h",
             "crypto/cryptlib.h",
             "internal/cryptlib.h",
             "internal/nelem.h",
@@ -216,7 +217,6 @@ include("openssl/md5.h")
 include("openssl/md4.h")
 include("openssl/md2.h")
 
-include("openssl/ebcdic.h")
 include("openssl/e_os2.h", "internal/e_os2.h")
 
 include("internal/endian.h")
