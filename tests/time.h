@@ -4,7 +4,7 @@
 
 #define BILLION 1000000000L
 
-#if WIN32
+#if __WIN32__ 
 #include <windows.h>
 
 typedef LARGE_INTEGER xhash_time__t;
