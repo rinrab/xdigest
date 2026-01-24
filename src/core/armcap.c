@@ -27,34 +27,34 @@
 #endif
 #include "arm_arch.h"
 
-unsigned int xhash_armcap_P = 0;
-unsigned int xhash_arm_midr = 0;
-unsigned int xhash_armv8_rsa_neonized = 0;
+unsigned int xdig_armcap_P = 0;
+unsigned int xdig_arm_midr = 0;
+unsigned int xdig_armv8_rsa_neonized = 0;
 
 #ifdef _WIN32
-void xhash_cpuid_setup(void)
+void xdig_cpuid_setup(void)
 {
-    xhash_armcap_P |= ARMV7_NEON;
-    xhash_armv8_rsa_neonized = 1;
-    if (IsProcessorFeaturePresent(PF_ARM_V8_xhash_INSTRUCTIONS_AVAILABLE)) {
+    xdig_armcap_P |= ARMV7_NEON;
+    xdig_armv8_rsa_neonized = 1;
+    if (IsProcessorFeaturePresent(PF_ARM_V8_xdig_INSTRUCTIONS_AVAILABLE)) {
         /* These are all covered by one call in Windows */
-        xhash_armcap_P |= ARMV8_AES;
-        xhash_armcap_P |= ARMV8_PMULL;
-        xhash_armcap_P |= ARMV8_SHA1;
-        xhash_armcap_P |= ARMV8_SHA256;
+        xdig_armcap_P |= ARMV8_AES;
+        xdig_armcap_P |= ARMV8_PMULL;
+        xdig_armcap_P |= ARMV8_SHA1;
+        xdig_armcap_P |= ARMV8_SHA256;
     }
 }
 
-uint32_t xhash_rdtsc(void)
+uint32_t xdig_rdtsc(void)
 {
     return 0;
 }
 #elif __ARM_MAX_ARCH__ < 7
-void xhash_cpuid_setup(void)
+void xdig_cpuid_setup(void)
 {
 }
 
-uint32_t xhash_rdtsc(void)
+uint32_t xdig_rdtsc(void)
 {
     return 0;
 }
@@ -146,22 +146,22 @@ static unsigned long getauxval(unsigned long key)
 
 uint32_t _armv7_tick(void);
 
-uint32_t xhash_rdtsc(void)
+uint32_t xdig_rdtsc(void)
 {
-    if (xhash_armcap_P & ARMV7_TICK)
+    if (xdig_armcap_P & ARMV7_TICK)
         return _armv7_tick();
     else
         return 0;
 }
 
 # ifdef __aarch64__
-size_t xhash_rndr_asm(unsigned char *buf, size_t len);
-size_t xhash_rndrrs_asm(unsigned char *buf, size_t len);
+size_t xdig_rndr_asm(unsigned char *buf, size_t len);
+size_t xdig_rndrrs_asm(unsigned char *buf, size_t len);
 
-size_t xhash_rndr_bytes(unsigned char *buf, size_t len);
-size_t xhash_rndrrs_bytes(unsigned char *buf, size_t len);
+size_t xdig_rndr_bytes(unsigned char *buf, size_t len);
+size_t xdig_rndrrs_bytes(unsigned char *buf, size_t len);
 
-static size_t xhash_rndr_wrapper(size_t (*func)(unsigned char *, size_t), unsigned char *buf, size_t len)
+static size_t xdig_rndr_wrapper(size_t (*func)(unsigned char *, size_t), unsigned char *buf, size_t len)
 {
     size_t buffer_size = 0;
     int i;
@@ -175,14 +175,14 @@ static size_t xhash_rndr_wrapper(size_t (*func)(unsigned char *, size_t), unsign
     return buffer_size;
 }
 
-size_t xhash_rndr_bytes(unsigned char *buf, size_t len)
+size_t xdig_rndr_bytes(unsigned char *buf, size_t len)
 {
-    return xhash_rndr_wrapper(xhash_rndr_asm, buf, len);
+    return xdig_rndr_wrapper(xdig_rndr_asm, buf, len);
 }
 
-size_t xhash_rndrrs_bytes(unsigned char *buf, size_t len)
+size_t xdig_rndrrs_bytes(unsigned char *buf, size_t len)
 {
-    return xhash_rndr_wrapper(xhash_rndrrs_asm, buf, len);
+    return xdig_rndr_wrapper(xdig_rndrrs_asm, buf, len);
 }
 # endif
 
@@ -216,7 +216,7 @@ void _armv8_rng_probe(void);
 #  endif
 # endif /* !__APPLE__ && !OSSL_IMPLEMENT_GETAUXVAL */
 
-/* We only call _armv8_cpuid_probe() if (xhash_armcap_P & ARMV8_CPUID) != 0 */
+/* We only call _armv8_cpuid_probe() if (xdig_armcap_P & ARMV8_CPUID) != 0 */
 unsigned int _armv8_cpuid_probe(void);
 
 # if defined(__APPLE__)
@@ -246,7 +246,7 @@ static unsigned int arm_probe_for(void (*probe)(void), volatile unsigned int val
 }
 # endif
 
-void xhash_cpuid_setup(void)
+void xdig_cpuid_setup(void)
 {
     const char *e;
 # if !defined(__APPLE__) && !defined(OSSL_IMPLEMENT_GETAUXVAL)
@@ -259,7 +259,7 @@ void xhash_cpuid_setup(void)
         return;
     trigger = 1;
 
-    xhash_armcap_P = 0;
+    xdig_armcap_P = 0;
 
 # if defined(__APPLE__)
 #  if !defined(__aarch64__)
@@ -269,7 +269,7 @@ void xhash_cpuid_setup(void)
      * possible to simply set pre-defined processor capability mask.
      */
     if (1) {
-        xhash_armcap_P = ARMV7_NEON;
+        xdig_armcap_P = ARMV7_NEON;
         return;
     }
 #  else
@@ -280,13 +280,13 @@ void xhash_cpuid_setup(void)
          * all of these have been available on 64-bit Apple Silicon from the
          * beginning (the A7).
          */
-        xhash_armcap_P |= ARMV7_NEON | ARMV8_PMULL | ARMV8_AES | ARMV8_SHA1 | ARMV8_SHA256;
+        xdig_armcap_P |= ARMV7_NEON | ARMV8_PMULL | ARMV8_AES | ARMV8_SHA1 | ARMV8_SHA256;
 
         /* More recent extensions are indicated by sysctls */
-        xhash_armcap_P |= sysctl_query("hw.optional.armv8_2_sha512", ARMV8_SHA512);
-        xhash_armcap_P |= sysctl_query("hw.optional.armv8_2_sha3", ARMV8_SHA3);
+        xdig_armcap_P |= sysctl_query("hw.optional.armv8_2_sha512", ARMV8_SHA512);
+        xdig_armcap_P |= sysctl_query("hw.optional.armv8_2_sha3", ARMV8_SHA3);
 
-        if (xhash_armcap_P & ARMV8_SHA3) {
+        if (xdig_armcap_P & ARMV8_SHA3) {
             char uarch[64];
 
             size_t len = sizeof(uarch);
@@ -295,8 +295,8 @@ void xhash_cpuid_setup(void)
                 (strncmp(uarch, "Apple M2", 8) == 0) ||
                 (strncmp(uarch, "Apple M3", 8) == 0) ||
                 (strncmp(uarch, "Apple M4", 8) == 0))) {
-                xhash_armcap_P |= ARMV8_UNROLL8_EOR3;
-                xhash_armcap_P |= ARMV8_HAVE_SHA3_AND_WORTH_USING;
+                xdig_armcap_P |= ARMV8_UNROLL8_EOR3;
+                xdig_armcap_P |= ARMV8_HAVE_SHA3_AND_WORTH_USING;
             }
         }
     }
@@ -307,45 +307,45 @@ void xhash_cpuid_setup(void)
     if (getauxval(OSSL_HWCAP) & OSSL_HWCAP_NEON) {
         unsigned long hwcap = getauxval(OSSL_HWCAP_CE);
 
-        xhash_armcap_P |= ARMV7_NEON;
+        xdig_armcap_P |= ARMV7_NEON;
 
         if (hwcap & OSSL_HWCAP_CE_AES)
-            xhash_armcap_P |= ARMV8_AES;
+            xdig_armcap_P |= ARMV8_AES;
 
         if (hwcap & OSSL_HWCAP_CE_PMULL)
-            xhash_armcap_P |= ARMV8_PMULL;
+            xdig_armcap_P |= ARMV8_PMULL;
 
         if (hwcap & OSSL_HWCAP_CE_SHA1)
-            xhash_armcap_P |= ARMV8_SHA1;
+            xdig_armcap_P |= ARMV8_SHA1;
 
         if (hwcap & OSSL_HWCAP_CE_SHA256)
-            xhash_armcap_P |= ARMV8_SHA256;
+            xdig_armcap_P |= ARMV8_SHA256;
 
 #  ifdef __aarch64__
         if (hwcap & OSSL_HWCAP_CE_SM4)
-            xhash_armcap_P |= ARMV8_SM4;
+            xdig_armcap_P |= ARMV8_SM4;
 
         if (hwcap & OSSL_HWCAP_CE_SHA512)
-            xhash_armcap_P |= ARMV8_SHA512;
+            xdig_armcap_P |= ARMV8_SHA512;
 
         if (hwcap & OSSL_HWCAP_CPUID)
-            xhash_armcap_P |= ARMV8_CPUID;
+            xdig_armcap_P |= ARMV8_CPUID;
 
         if (hwcap & OSSL_HWCAP_CE_SM3)
-            xhash_armcap_P |= ARMV8_SM3;
+            xdig_armcap_P |= ARMV8_SM3;
         if (hwcap & OSSL_HWCAP_SHA3)
-            xhash_armcap_P |= ARMV8_SHA3;
+            xdig_armcap_P |= ARMV8_SHA3;
 #  endif
     }
 #  ifdef __aarch64__
         if (getauxval(OSSL_HWCAP) & OSSL_HWCAP_SVE)
-            xhash_armcap_P |= ARMV8_SVE;
+            xdig_armcap_P |= ARMV8_SVE;
 
         if (getauxval(OSSL_HWCAP2) & OSSL_HWCAP2_SVE2)
-            xhash_armcap_P |= ARMV8_SVE2;
+            xdig_armcap_P |= ARMV8_SVE2;
 
         if (getauxval(OSSL_HWCAP2) & OSSL_HWCAP2_RNG)
-            xhash_armcap_P |= ARMV8_RNG;
+            xdig_armcap_P |= ARMV8_RNG;
 #  endif
 
 # else /* !__APPLE__ && !OSSL_IMPLEMENT_GETAUXVAL */
@@ -366,35 +366,35 @@ void xhash_cpuid_setup(void)
     sigprocmask(SIG_SETMASK, &ill_act.sa_mask, &oset);
     sigaction(SIGILL, &ill_act, &ill_oact);
 
-    xhash_armcap_P |= arm_probe_for(_armv7_neon_probe, ARMV7_NEON);
+    xdig_armcap_P |= arm_probe_for(_armv7_neon_probe, ARMV7_NEON);
 
-    if (xhash_armcap_P & ARMV7_NEON) {
+    if (xdig_armcap_P & ARMV7_NEON) {
 
-        xhash_armcap_P |= arm_probe_for(_armv8_pmull_probe, ARMV8_PMULL | ARMV8_AES);
-        if (!(xhash_armcap_P & ARMV8_AES)) {
-            xhash_armcap_P |= arm_probe_for(_armv8_aes_probe, ARMV8_AES);
+        xdig_armcap_P |= arm_probe_for(_armv8_pmull_probe, ARMV8_PMULL | ARMV8_AES);
+        if (!(xdig_armcap_P & ARMV8_AES)) {
+            xdig_armcap_P |= arm_probe_for(_armv8_aes_probe, ARMV8_AES);
         }
 
-        xhash_armcap_P |= arm_probe_for(_armv8_sha1_probe, ARMV8_SHA1);
-        xhash_armcap_P |= arm_probe_for(_armv8_sha256_probe, ARMV8_SHA256);
+        xdig_armcap_P |= arm_probe_for(_armv8_sha1_probe, ARMV8_SHA1);
+        xdig_armcap_P |= arm_probe_for(_armv8_sha256_probe, ARMV8_SHA256);
 
 #  if defined(__aarch64__)
-        xhash_armcap_P |= arm_probe_for(_armv8_sm3_probe, ARMV8_SM3);
-        xhash_armcap_P |= arm_probe_for(_armv8_sm4_probe, ARMV8_SM4);
-        xhash_armcap_P |= arm_probe_for(_armv8_sha512_probe, ARMV8_SHA512);
-        xhash_armcap_P |= arm_probe_for(_armv8_eor3_probe, ARMV8_SHA3);
+        xdig_armcap_P |= arm_probe_for(_armv8_sm3_probe, ARMV8_SM3);
+        xdig_armcap_P |= arm_probe_for(_armv8_sm4_probe, ARMV8_SM4);
+        xdig_armcap_P |= arm_probe_for(_armv8_sha512_probe, ARMV8_SHA512);
+        xdig_armcap_P |= arm_probe_for(_armv8_eor3_probe, ARMV8_SHA3);
 #  endif
     }
 #  ifdef __aarch64__
-    xhash_armcap_P |= arm_probe_for(_armv8_sve_probe, ARMV8_SVE);
-    xhash_armcap_P |= arm_probe_for(_armv8_sve2_probe, ARMV8_SVE2);
-    xhash_armcap_P |= arm_probe_for(_armv8_rng_probe, ARMV8_RNG);
+    xdig_armcap_P |= arm_probe_for(_armv8_sve_probe, ARMV8_SVE);
+    xdig_armcap_P |= arm_probe_for(_armv8_sve2_probe, ARMV8_SVE2);
+    xdig_armcap_P |= arm_probe_for(_armv8_rng_probe, ARMV8_RNG);
 #  endif
 
     /*
      * Probing for ARMV7_TICK is known to produce unreliable results,
      * so we only use the feature when the user explicitly enables it
-     * with xhash_armcap.
+     * with xdig_armcap.
      */
 
     sigaction(SIGILL, &ill_oact, NULL);
@@ -403,53 +403,53 @@ void xhash_cpuid_setup(void)
 # endif /* __APPLE__, OSSL_IMPLEMENT_GETAUXVAL */
 
 # ifdef __aarch64__
-    if (xhash_armcap_P & ARMV8_CPUID)
-        xhash_arm_midr = _armv8_cpuid_probe();
+    if (xdig_armcap_P & ARMV8_CPUID)
+        xdig_arm_midr = _armv8_cpuid_probe();
 
-    if ((MIDR_IS_CPU_MODEL(xhash_arm_midr, ARM_CPU_IMP_ARM, ARM_CPU_PART_CORTEX_A72) ||
-         MIDR_IS_CPU_MODEL(xhash_arm_midr, ARM_CPU_IMP_ARM, ARM_CPU_PART_N1)) &&
-        (xhash_armcap_P & ARMV7_NEON)) {
-            xhash_armv8_rsa_neonized = 1;
+    if ((MIDR_IS_CPU_MODEL(xdig_arm_midr, ARM_CPU_IMP_ARM, ARM_CPU_PART_CORTEX_A72) ||
+         MIDR_IS_CPU_MODEL(xdig_arm_midr, ARM_CPU_IMP_ARM, ARM_CPU_PART_N1)) &&
+        (xdig_armcap_P & ARMV7_NEON)) {
+            xdig_armv8_rsa_neonized = 1;
     }
-    if ((MIDR_IS_CPU_MODEL(xhash_arm_midr, ARM_CPU_IMP_ARM, ARM_CPU_PART_V1) ||
-         MIDR_IS_CPU_MODEL(xhash_arm_midr, ARM_CPU_IMP_ARM, ARM_CPU_PART_N2) ||
-         MIDR_IS_CPU_MODEL(xhash_arm_midr, ARM_CPU_IMP_QCOMM, QCOM_CPU_PART_ORYON_X1) ||
-         MIDR_IS_CPU_MODEL(xhash_arm_midr, ARM_CPU_IMP_MICROSOFT, MICROSOFT_CPU_PART_COBALT_100) ||
-         MIDR_IS_CPU_MODEL(xhash_arm_midr, ARM_CPU_IMP_ARM, ARM_CPU_PART_V2) ||
-         MIDR_IS_CPU_MODEL(xhash_arm_midr, ARM_CPU_IMP_ARM, ARM_CPU_PART_N3) ||
-         MIDR_IS_CPU_MODEL(xhash_arm_midr, ARM_CPU_IMP_ARM, ARM_CPU_PART_V3) ||
-         MIDR_IMPLEMENTER(xhash_arm_midr) == ARM_CPU_IMP_AMPERE) &&
-        (xhash_armcap_P & ARMV8_SHA3))
-        xhash_armcap_P |= ARMV8_UNROLL8_EOR3;
-    if ((MIDR_IS_CPU_MODEL(xhash_arm_midr, ARM_CPU_IMP_ARM, ARM_CPU_PART_V1) ||
-         MIDR_IS_CPU_MODEL(xhash_arm_midr, ARM_CPU_IMP_ARM, ARM_CPU_PART_V2) ||
-         MIDR_IS_CPU_MODEL(xhash_arm_midr, ARM_CPU_IMP_ARM, ARM_CPU_PART_V3) ||
-         MIDR_IMPLEMENTER(xhash_arm_midr) == ARM_CPU_IMP_AMPERE) &&
-        (xhash_armcap_P & ARMV8_SHA3))
-        xhash_armcap_P |= ARMV8_UNROLL12_EOR3;
-    if ((MIDR_IS_CPU_MODEL(xhash_arm_midr, ARM_CPU_IMP_APPLE, APPLE_CPU_PART_M1_FIRESTORM)     ||
-         MIDR_IS_CPU_MODEL(xhash_arm_midr, ARM_CPU_IMP_APPLE, APPLE_CPU_PART_M1_ICESTORM)      ||
-         MIDR_IS_CPU_MODEL(xhash_arm_midr, ARM_CPU_IMP_APPLE, APPLE_CPU_PART_M1_FIRESTORM_PRO) ||
-         MIDR_IS_CPU_MODEL(xhash_arm_midr, ARM_CPU_IMP_APPLE, APPLE_CPU_PART_M1_ICESTORM_PRO)  ||
-         MIDR_IS_CPU_MODEL(xhash_arm_midr, ARM_CPU_IMP_APPLE, APPLE_CPU_PART_M1_FIRESTORM_MAX) ||
-         MIDR_IS_CPU_MODEL(xhash_arm_midr, ARM_CPU_IMP_APPLE, APPLE_CPU_PART_M1_ICESTORM_MAX)  ||
-         MIDR_IS_CPU_MODEL(xhash_arm_midr, ARM_CPU_IMP_APPLE, APPLE_CPU_PART_M2_AVALANCHE)     ||
-         MIDR_IS_CPU_MODEL(xhash_arm_midr, ARM_CPU_IMP_APPLE, APPLE_CPU_PART_M2_BLIZZARD)      ||
-         MIDR_IS_CPU_MODEL(xhash_arm_midr, ARM_CPU_IMP_APPLE, APPLE_CPU_PART_M2_AVALANCHE_PRO) ||
-         MIDR_IS_CPU_MODEL(xhash_arm_midr, ARM_CPU_IMP_APPLE, APPLE_CPU_PART_M2_BLIZZARD_PRO)  ||
-         MIDR_IS_CPU_MODEL(xhash_arm_midr, ARM_CPU_IMP_APPLE, APPLE_CPU_PART_M2_AVALANCHE_MAX) ||
-         MIDR_IS_CPU_MODEL(xhash_arm_midr, ARM_CPU_IMP_APPLE, APPLE_CPU_PART_M2_BLIZZARD_MAX)  ||
-         MIDR_IS_CPU_MODEL(xhash_arm_midr, ARM_CPU_IMP_QCOMM, QCOM_CPU_PART_ORYON_X1)) &&
-        (xhash_armcap_P & ARMV8_SHA3))
-        xhash_armcap_P |= ARMV8_HAVE_SHA3_AND_WORTH_USING;
+    if ((MIDR_IS_CPU_MODEL(xdig_arm_midr, ARM_CPU_IMP_ARM, ARM_CPU_PART_V1) ||
+         MIDR_IS_CPU_MODEL(xdig_arm_midr, ARM_CPU_IMP_ARM, ARM_CPU_PART_N2) ||
+         MIDR_IS_CPU_MODEL(xdig_arm_midr, ARM_CPU_IMP_QCOMM, QCOM_CPU_PART_ORYON_X1) ||
+         MIDR_IS_CPU_MODEL(xdig_arm_midr, ARM_CPU_IMP_MICROSOFT, MICROSOFT_CPU_PART_COBALT_100) ||
+         MIDR_IS_CPU_MODEL(xdig_arm_midr, ARM_CPU_IMP_ARM, ARM_CPU_PART_V2) ||
+         MIDR_IS_CPU_MODEL(xdig_arm_midr, ARM_CPU_IMP_ARM, ARM_CPU_PART_N3) ||
+         MIDR_IS_CPU_MODEL(xdig_arm_midr, ARM_CPU_IMP_ARM, ARM_CPU_PART_V3) ||
+         MIDR_IMPLEMENTER(xdig_arm_midr) == ARM_CPU_IMP_AMPERE) &&
+        (xdig_armcap_P & ARMV8_SHA3))
+        xdig_armcap_P |= ARMV8_UNROLL8_EOR3;
+    if ((MIDR_IS_CPU_MODEL(xdig_arm_midr, ARM_CPU_IMP_ARM, ARM_CPU_PART_V1) ||
+         MIDR_IS_CPU_MODEL(xdig_arm_midr, ARM_CPU_IMP_ARM, ARM_CPU_PART_V2) ||
+         MIDR_IS_CPU_MODEL(xdig_arm_midr, ARM_CPU_IMP_ARM, ARM_CPU_PART_V3) ||
+         MIDR_IMPLEMENTER(xdig_arm_midr) == ARM_CPU_IMP_AMPERE) &&
+        (xdig_armcap_P & ARMV8_SHA3))
+        xdig_armcap_P |= ARMV8_UNROLL12_EOR3;
+    if ((MIDR_IS_CPU_MODEL(xdig_arm_midr, ARM_CPU_IMP_APPLE, APPLE_CPU_PART_M1_FIRESTORM)     ||
+         MIDR_IS_CPU_MODEL(xdig_arm_midr, ARM_CPU_IMP_APPLE, APPLE_CPU_PART_M1_ICESTORM)      ||
+         MIDR_IS_CPU_MODEL(xdig_arm_midr, ARM_CPU_IMP_APPLE, APPLE_CPU_PART_M1_FIRESTORM_PRO) ||
+         MIDR_IS_CPU_MODEL(xdig_arm_midr, ARM_CPU_IMP_APPLE, APPLE_CPU_PART_M1_ICESTORM_PRO)  ||
+         MIDR_IS_CPU_MODEL(xdig_arm_midr, ARM_CPU_IMP_APPLE, APPLE_CPU_PART_M1_FIRESTORM_MAX) ||
+         MIDR_IS_CPU_MODEL(xdig_arm_midr, ARM_CPU_IMP_APPLE, APPLE_CPU_PART_M1_ICESTORM_MAX)  ||
+         MIDR_IS_CPU_MODEL(xdig_arm_midr, ARM_CPU_IMP_APPLE, APPLE_CPU_PART_M2_AVALANCHE)     ||
+         MIDR_IS_CPU_MODEL(xdig_arm_midr, ARM_CPU_IMP_APPLE, APPLE_CPU_PART_M2_BLIZZARD)      ||
+         MIDR_IS_CPU_MODEL(xdig_arm_midr, ARM_CPU_IMP_APPLE, APPLE_CPU_PART_M2_AVALANCHE_PRO) ||
+         MIDR_IS_CPU_MODEL(xdig_arm_midr, ARM_CPU_IMP_APPLE, APPLE_CPU_PART_M2_BLIZZARD_PRO)  ||
+         MIDR_IS_CPU_MODEL(xdig_arm_midr, ARM_CPU_IMP_APPLE, APPLE_CPU_PART_M2_AVALANCHE_MAX) ||
+         MIDR_IS_CPU_MODEL(xdig_arm_midr, ARM_CPU_IMP_APPLE, APPLE_CPU_PART_M2_BLIZZARD_MAX)  ||
+         MIDR_IS_CPU_MODEL(xdig_arm_midr, ARM_CPU_IMP_QCOMM, QCOM_CPU_PART_ORYON_X1)) &&
+        (xdig_armcap_P & ARMV8_SHA3))
+        xdig_armcap_P |= ARMV8_HAVE_SHA3_AND_WORTH_USING;
 # endif
 }
 #endif /* _WIN32, __ARM_MAX_ARCH__ >= 7 */
 
 /* Public interface. */
-void xhash_init()
+void xdig_init()
 {
-    xhash_cpuid_setup();
+    xdig_cpuid_setup();
 }
 
 #endif /* arm */

@@ -3,7 +3,7 @@ LINK = link.exe
 LIB = lib.exe
 CFLAGS = /c /O2 /W4 /Iinclude /DNO_ASM 
 
-all: libxhash.lib
+all: libxdigest.lib
 
 OBJEXT = .obj
 include Makefile.inc
@@ -11,14 +11,14 @@ include Makefile.inc
 .c.obj:
   $(CC) /nologo $(CFLAGS) /Fo$*.obj $*.c
 
-libxhash.lib: $(c_objects)
-  $(LIB) /nologo /out:libxhash.lib $(c_objects)
+libxdigest.lib: $(c_objects)
+  $(LIB) /nologo /out:libxdigest.lib $(c_objects)
 
-test_xhash.exe: libxhash.lib tests/test_xhash.obj tests/sha_test.obj
+test_xdigest.exe: libxdigest.lib tests/test_xdigest.obj tests/sha_test.obj
 	$(LINK) /nologo $<
 
-check: test_xhash.exe
-	test_xhash.exe
+check: test_xdigest.exe
+	test_xdigest.exe
 
 clean:
   del /S *.obj *.lib

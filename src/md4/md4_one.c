@@ -23,17 +23,17 @@
 /* ignored include 'openssl/ebcdic.h' */
 #endif
 
-unsigned char *xhash_md4(const unsigned char *d, size_t n, unsigned char *md)
+unsigned char *xdig_md4(const unsigned char *d, size_t n, unsigned char *md)
 {
-    xhash_md4_ctx_t c;
-    static unsigned char m[XHASH_MD4_DIGEST_LENGTH];
+    xdig_md4_ctx_t c;
+    static unsigned char m[XDIG_MD4_DIGEST_LENGTH];
 
     if (md == NULL)
         md = m;
-    if (!xhash_md4_init(&c))
+    if (!xdig_md4_init(&c))
         return NULL;
 #ifndef CHARSET_EBCDIC
-    xhash_md4_update(&c, d, n);
+    xdig_md4_update(&c, d, n);
 #else
     {
         char temp[1024];
@@ -42,13 +42,13 @@ unsigned char *xhash_md4(const unsigned char *d, size_t n, unsigned char *md)
         while (n > 0) {
             chunk = (n > sizeof(temp)) ? sizeof(temp) : n;
             ebcdic2ascii(temp, d, chunk);
-            xhash_md4_update(&c, temp, chunk);
+            xdig_md4_update(&c, temp, chunk);
             n -= chunk;
             d += chunk;
         }
     }
 #endif
-    xhash_md4_final(md, &c);
-    xhash_cleanse(&c, sizeof(c)); /* security consideration */
+    xdig_md4_final(md, &c);
+    xdig_cleanse(&c, sizeof(c)); /* security consideration */
     return md;
 }

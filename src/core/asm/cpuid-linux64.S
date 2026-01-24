@@ -1,14 +1,14 @@
 
 
-.hidden	xhash_cpuid_setup
-.hidden	xhash_ia32cap_P
-.comm	xhash_ia32cap_P,40,4
+.hidden	xdig_cpuid_setup
+.hidden	xdig_ia32cap_P
+.comm	xdig_ia32cap_P,40,4
 .text	
 
-.globl	xhash_atomic_add
-.type	xhash_atomic_add,@function
+.globl	xdig_atomic_add
+.type	xdig_atomic_add,@function
 .align	16
-xhash_atomic_add:
+xdig_atomic_add:
 .cfi_startproc	
 .byte	243,15,30,250
 	movl	(%rdi),%eax
@@ -20,12 +20,12 @@ xhash_atomic_add:
 .byte	0x48,0x98
 	.byte	0xf3,0xc3
 .cfi_endproc	
-.size	xhash_atomic_add,.-xhash_atomic_add
+.size	xdig_atomic_add,.-xdig_atomic_add
 
-.globl	xhash_rdtsc
-.type	xhash_rdtsc,@function
+.globl	xdig_rdtsc
+.type	xdig_rdtsc,@function
 .align	16
-xhash_rdtsc:
+xdig_rdtsc:
 .cfi_startproc	
 .byte	243,15,30,250
 	rdtsc
@@ -33,12 +33,12 @@ xhash_rdtsc:
 	orq	%rdx,%rax
 	.byte	0xf3,0xc3
 .cfi_endproc	
-.size	xhash_rdtsc,.-xhash_rdtsc
+.size	xdig_rdtsc,.-xdig_rdtsc
 
-.globl	xhash_ia32_cpuid
-.type	xhash_ia32_cpuid,@function
+.globl	xdig_ia32_cpuid
+.type	xdig_ia32_cpuid,@function
 .align	16
-xhash_ia32_cpuid:
+xdig_ia32_cpuid:
 .cfi_startproc	
 .byte	243,15,30,250
 	movq	%rbx,%r8
@@ -229,12 +229,12 @@ xhash_ia32_cpuid:
 	orq	%r9,%rax
 	.byte	0xf3,0xc3
 .cfi_endproc	
-.size	xhash_ia32_cpuid,.-xhash_ia32_cpuid
+.size	xdig_ia32_cpuid,.-xdig_ia32_cpuid
 
-.globl	xhash_cleanse
-.type	xhash_cleanse,@function
+.globl	xdig_cleanse
+.type	xdig_cleanse,@function
 .align	16
-xhash_cleanse:
+xdig_cleanse:
 .cfi_startproc	
 .byte	243,15,30,250
 	xorq	%rax,%rax
@@ -267,12 +267,12 @@ xhash_cleanse:
 	jne	.Little
 	.byte	0xf3,0xc3
 .cfi_endproc	
-.size	xhash_cleanse,.-xhash_cleanse
+.size	xdig_cleanse,.-xdig_cleanse
 
-.globl	xhash_memcmp
-.type	xhash_memcmp,@function
+.globl	xdig_memcmp
+.type	xdig_memcmp,@function
 .align	16
-xhash_memcmp:
+xdig_memcmp:
 .cfi_startproc	
 .byte	243,15,30,250
 	xorq	%rax,%rax
@@ -304,11 +304,11 @@ xhash_memcmp:
 .Lno_data:
 	.byte	0xf3,0xc3
 .cfi_endproc	
-.size	xhash_memcmp,.-xhash_memcmp
-.globl	xhash_instrument_bus
-.type	xhash_instrument_bus,@function
+.size	xdig_memcmp,.-xdig_memcmp
+.globl	xdig_instrument_bus
+.type	xdig_instrument_bus,@function
 .align	16
-xhash_instrument_bus:
+xdig_instrument_bus:
 .cfi_startproc	
 .byte	243,15,30,250
 	movq	%rdi,%r10
@@ -338,12 +338,12 @@ xhash_instrument_bus:
 	movq	%r11,%rax
 	.byte	0xf3,0xc3
 .cfi_endproc	
-.size	xhash_instrument_bus,.-xhash_instrument_bus
+.size	xdig_instrument_bus,.-xdig_instrument_bus
 
-.globl	xhash_instrument_bus2
-.type	xhash_instrument_bus2,@function
+.globl	xdig_instrument_bus2
+.type	xdig_instrument_bus2,@function
 .align	16
-xhash_instrument_bus2:
+xdig_instrument_bus2:
 .cfi_startproc	
 .byte	243,15,30,250
 	movq	%rdi,%r10
@@ -389,11 +389,11 @@ xhash_instrument_bus2:
 	subq	%rcx,%rax
 	.byte	0xf3,0xc3
 .cfi_endproc	
-.size	xhash_instrument_bus2,.-xhash_instrument_bus2
-.globl	xhash_ia32_rdrand_bytes
-.type	xhash_ia32_rdrand_bytes,@function
+.size	xdig_instrument_bus2,.-xdig_instrument_bus2
+.globl	xdig_ia32_rdrand_bytes
+.type	xdig_ia32_rdrand_bytes,@function
 .align	16
-xhash_ia32_rdrand_bytes:
+xdig_ia32_rdrand_bytes:
 .cfi_startproc	
 .byte	243,15,30,250
 	xorq	%rax,%rax
@@ -433,11 +433,11 @@ xhash_ia32_rdrand_bytes:
 	xorq	%r10,%r10
 	.byte	0xf3,0xc3
 .cfi_endproc	
-.size	xhash_ia32_rdrand_bytes,.-xhash_ia32_rdrand_bytes
-.globl	xhash_ia32_rdseed_bytes
-.type	xhash_ia32_rdseed_bytes,@function
+.size	xdig_ia32_rdrand_bytes,.-xdig_ia32_rdrand_bytes
+.globl	xdig_ia32_rdseed_bytes
+.type	xdig_ia32_rdseed_bytes,@function
 .align	16
-xhash_ia32_rdseed_bytes:
+xdig_ia32_rdseed_bytes:
 .cfi_startproc	
 .byte	243,15,30,250
 	xorq	%rax,%rax
@@ -477,7 +477,7 @@ xhash_ia32_rdseed_bytes:
 	xorq	%r10,%r10
 	.byte	0xf3,0xc3
 .cfi_endproc	
-.size	xhash_ia32_rdseed_bytes,.-xhash_ia32_rdseed_bytes
+.size	xdig_ia32_rdseed_bytes,.-xdig_ia32_rdseed_bytes
 	.section ".note.gnu.property", "a"
 	.p2align 3
 	.long 1f - 0f

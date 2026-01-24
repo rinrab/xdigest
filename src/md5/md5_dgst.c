@@ -26,7 +26,7 @@
 #define INIT_DATA_C (unsigned long)0x98badcfeL
 #define INIT_DATA_D (unsigned long)0x10325476L
 
-int xhash_md5_init(xhash_md5_ctx_t *c)
+int xdig_md5_init(xdig_md5_ctx_t *c)
 {
     memset(c, 0, sizeof(*c));
     c->A = INIT_DATA_A;
@@ -40,7 +40,7 @@ int xhash_md5_init(xhash_md5_ctx_t *c)
 # ifdef X
 #  undef X
 # endif
-void md5_block_data_order(xhash_md5_ctx_t *c, const void *data_, size_t num)
+void md5_block_data_order(xdig_md5_ctx_t *c, const void *data_, size_t num)
 {
     const unsigned char *data = data_;
     register unsigned MD32_REG_T A, B, C, D, l;
@@ -50,7 +50,7 @@ void md5_block_data_order(xhash_md5_ctx_t *c, const void *data_, size_t num)
         XX8, XX9, XX10, XX11, XX12, XX13, XX14, XX15;
 #  define X(i)   XX##i
 # else
-    XHASH_MD5_LONG XX[XHASH_MD5_LBLOCK];
+    XDIG_MD5_LONG XX[XDIG_MD5_LBLOCK];
 #  define X(i)   XX[i]
 # endif
 

@@ -7,52 +7,52 @@
  * https://www.openssl.org/source/license.html
  */
 
-#ifndef xhash_MD4_H
-# define xhash_MD4_H
+#ifndef xdig_MD4_H
+# define xdig_MD4_H
 # pragma once
 
 /* ignored include 'openssl/macros.h' */
-# ifndef xhash_NO_DEPRECATED_3_0
+# ifndef xdig_NO_DEPRECATED_3_0
 #  define HEADER_MD4_H
 # endif
 
 /* ignored include 'openssl/opensslconf.h' */
 
-# ifndef xhash_NO_MD4
+# ifndef xdig_NO_MD4
 #include "internal/e_os2.h"
 #  include <stddef.h>
 #  ifdef  __cplusplus
 extern "C" {
 #   endif
 
-#  define XHASH_MD4_DIGEST_LENGTH 16
+#  define XDIG_MD4_DIGEST_LENGTH 16
 
-#  if !defined(xhash_NO_DEPRECATED_3_0)
+#  if !defined(xdig_NO_DEPRECATED_3_0)
 
 /*-
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
- * ! XHASH_MD4_LONG has to be at least 32 bits wide.                     !
+ * ! XDIG_MD4_LONG has to be at least 32 bits wide.                     !
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  */
-#   define XHASH_MD4_LONG unsigned int
+#   define XDIG_MD4_LONG unsigned int
 
-#   define XHASH_MD4_CBLOCK      64
-#   define XHASH_MD4_LBLOCK      (XHASH_MD4_CBLOCK/4)
+#   define XDIG_MD4_CBLOCK      64
+#   define XDIG_MD4_LBLOCK      (XDIG_MD4_CBLOCK/4)
 
 typedef struct MD4state_st {
-    XHASH_MD4_LONG A, B, C, D;
-    XHASH_MD4_LONG Nl, Nh;
-    XHASH_MD4_LONG data[XHASH_MD4_LBLOCK];
+    XDIG_MD4_LONG A, B, C, D;
+    XDIG_MD4_LONG Nl, Nh;
+    XDIG_MD4_LONG data[XDIG_MD4_LBLOCK];
     unsigned int num;
-} xhash_md4_ctx_t;
+} xdig_md4_ctx_t;
 #  endif
-#  ifndef xhash_NO_DEPRECATED_3_0
-int xhash_md4_init(xhash_md4_ctx_t *c);
-int xhash_md4_update(xhash_md4_ctx_t *c, const void *data, size_t len);
-int xhash_md4_final(unsigned char *md, xhash_md4_ctx_t *c);
-unsigned char *xhash_md4(const unsigned char *d, size_t n,
+#  ifndef xdig_NO_DEPRECATED_3_0
+int xdig_md4_init(xdig_md4_ctx_t *c);
+int xdig_md4_update(xdig_md4_ctx_t *c, const void *data, size_t len);
+int xdig_md4_final(unsigned char *md, xdig_md4_ctx_t *c);
+unsigned char *xdig_md4(const unsigned char *d, size_t n,
                                          unsigned char *md);
-void xhash_md4_transform(xhash_md4_ctx_t *c, const unsigned char *b);
+void xdig_md4_transform(xdig_md4_ctx_t *c, const unsigned char *b);
 #  endif
 
 #  ifdef  __cplusplus

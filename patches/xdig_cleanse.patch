@@ -6,7 +6,7 @@ Index: include/internal/common.h
  
  # endif
  
-+void xhash_cleanse(void *ptr, size_t len);
++void xdig_cleanse(void *ptr, size_t len);
 +
  /* Check if |pre|, which must be a string literal, is a prefix of |str| */
  #define HAS_PREFIX(str, pre) (strncmp(str, pre "", sizeof(pre) - 1) == 0)
@@ -17,30 +17,30 @@ Index: src/md5/md5_one.c
 +++ src/md5/md5_one.c
 @@ -17,6 +17,7 @@
  #include <string.h>
- #include <xhash/md5.h>
+ #include <xdigest/md5.h>
  /* ignored include 'openssl/crypto.h' */
 +#include "internal/common.h"
  
  #ifdef CHARSET_EBCDIC
- # include <xhash/ebcdic.h>
+ # include <xdigest/ebcdic.h>
 Index: src/md4/md4_one.c
 ===================================================================
 --- src/md4/md4_one.c
 +++ src/md4/md4_one.c
 @@ -17,6 +17,7 @@
  #include <string.h>
- #include <xhash/md4.h>
+ #include <xdigest/md4.h>
  /* ignored include 'openssl/crypto.h' */
 +#include "internal/common.h"
  
  #ifdef CHARSET_EBCDIC
- # include <xhash/ebcdic.h>
+ # include <xdigest/ebcdic.h>
 Index: src/md2/md2_dgst.c
 ===================================================================
 --- src/md2/md2_dgst.c
 +++ src/md2/md2_dgst.c
 @@ -19,6 +19,7 @@
- #include <xhash/md2.h>
+ #include <xdigestest/md2.h>
  /* ignored include 'openssl/opensslv.h' */
  /* ignored include 'openssl/crypto.h' */
 +#include "internal/common.h"

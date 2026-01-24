@@ -6,7 +6,7 @@
 .align	16
 sha256_block_data_order:
 .cfi_startproc	
-	leaq	xhash_ia32cap_P(%rip),%r10
+	leaq	xdig_ia32cap_P(%rip),%r10
 	movq	0(%r10),%r9
 	movl	8(%r10),%r11d
 	testl	$536870912,%r11d

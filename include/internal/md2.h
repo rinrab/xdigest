@@ -7,26 +7,26 @@
  * https://www.openssl.org/source/license.html
  */
 
-#ifndef xhash_MD2_H
-# define xhash_MD2_H
+#ifndef xdig_MD2_H
+# define xdig_MD2_H
 # pragma once
 
 /* ignored include 'openssl/macros.h' */
-# ifndef xhash_NO_DEPRECATED_3_0
+# ifndef xdig_NO_DEPRECATED_3_0
 #  define HEADER_MD2_H
 # endif
 
 /* ignored include 'openssl/opensslconf.h' */
 
-# ifndef xhash_NO_MD2
+# ifndef xdig_NO_MD2
 #  include <stddef.h>
 #  ifdef  __cplusplus
 extern "C" {
 #  endif
 
-#  define XHASH_MD2_DIGEST_LENGTH       16
+#  define XDIG_MD2_DIGEST_LENGTH       16
 
-#  if !defined(xhash_NO_DEPRECATED_3_0)
+#  if !defined(xdig_NO_DEPRECATED_3_0)
 
 typedef unsigned char MD2_INT;
 
@@ -37,15 +37,15 @@ typedef struct MD2state_st {
     unsigned char data[MD2_BLOCK];
     MD2_INT cksm[MD2_BLOCK];
     MD2_INT state[MD2_BLOCK];
-} xhash_md2_ctx_t;
+} xdig_md2_ctx_t;
 #  endif
-#  ifndef xhash_NO_DEPRECATED_3_0
-const char *xhash_md2_options(void);
-int xhash_md2_init(xhash_md2_ctx_t *c);
-int xhash_md2_update(xhash_md2_ctx_t *c, const unsigned char *data,
+#  ifndef xdig_NO_DEPRECATED_3_0
+const char *xdig_md2_options(void);
+int xdig_md2_init(xdig_md2_ctx_t *c);
+int xdig_md2_update(xdig_md2_ctx_t *c, const unsigned char *data,
                                      size_t len);
-int xhash_md2_final(unsigned char *md, xhash_md2_ctx_t *c);
-unsigned char *xhash_md2(const unsigned char *d, size_t n,
+int xdig_md2_final(unsigned char *md, xdig_md2_ctx_t *c);
+unsigned char *xdig_md2(const unsigned char *d, size_t n,
                                          unsigned char *md);
 #  endif
 

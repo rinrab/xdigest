@@ -6,10 +6,10 @@ section	.text	code align=64
 %else
 section	.text	code
 %endif
-global	_xhash_ia32_cpuid
+global	_xdig_ia32_cpuid
 align	16
-_xhash_ia32_cpuid:
-L$_xhash_ia32_cpuid_begin:
+_xdig_ia32_cpuid:
+L$_xdig_ia32_cpuid_begin:
 	push	ebp
 	push	ebx
 	push	esi
@@ -167,24 +167,24 @@ L$000nocpuid:
 	pop	ebx
 	pop	ebp
 	ret
-;extern	_xhash_ia32cap_P
-global	_xhash_rdtsc
+;extern	_xdig_ia32cap_P
+global	_xdig_rdtsc
 align	16
-_xhash_rdtsc:
-L$_xhash_rdtsc_begin:
+_xdig_rdtsc:
+L$_xdig_rdtsc_begin:
 	xor	eax,eax
 	xor	edx,edx
-	lea	ecx,[_xhash_ia32cap_P]
+	lea	ecx,[_xdig_ia32cap_P]
 	bt	DWORD [ecx],4
 	jnc	NEAR L$009notsc
 	rdtsc
 L$009notsc:
 	ret
-global	_xhash_instrument_halt
+global	_xdig_instrument_halt
 align	16
-_xhash_instrument_halt:
-L$_xhash_instrument_halt_begin:
-	lea	ecx,[_xhash_ia32cap_P]
+_xdig_instrument_halt:
+L$_xdig_instrument_halt_begin:
+	lea	ecx,[_xdig_ia32cap_P]
 	bt	DWORD [ecx],4
 	jnc	NEAR L$010nohalt
 dd	2421723150
@@ -207,10 +207,10 @@ L$010nohalt:
 	xor	eax,eax
 	xor	edx,edx
 	ret
-global	_xhash_far_spin
+global	_xdig_far_spin
 align	16
-_xhash_far_spin:
-L$_xhash_far_spin_begin:
+_xdig_far_spin:
+L$_xdig_far_spin_begin:
 	pushfd
 	pop	eax
 	bt	eax,9
@@ -232,10 +232,10 @@ L$011nospin:
 	xor	eax,eax
 	xor	edx,edx
 	ret
-global	_xhash_atomic_add
+global	_xdig_atomic_add
 align	16
-_xhash_atomic_add:
-L$_xhash_atomic_add_begin:
+_xdig_atomic_add:
+L$_xdig_atomic_add_begin:
 	mov	edx,DWORD [4+esp]
 	mov	ecx,DWORD [8+esp]
 	push	ebx
@@ -249,10 +249,10 @@ dd	447811568
 	mov	eax,ebx
 	pop	ebx
 	ret
-global	_xhash_cleanse
+global	_xdig_cleanse
 align	16
-_xhash_cleanse:
-L$_xhash_cleanse_begin:
+_xdig_cleanse:
+L$_xdig_cleanse_begin:
 	mov	edx,DWORD [4+esp]
 	mov	ecx,DWORD [8+esp]
 	xor	eax,eax
@@ -284,10 +284,10 @@ L$017aligned:
 	cmp	ecx,0
 	jne	NEAR L$016little
 	ret
-global	_xhash_memcmp
+global	_xdig_memcmp
 align	16
-_xhash_memcmp:
-L$_xhash_memcmp_begin:
+_xdig_memcmp:
+L$_xdig_memcmp_begin:
 	push	esi
 	push	edi
 	mov	esi,DWORD [12+esp]
@@ -311,10 +311,10 @@ L$018no_data:
 	pop	edi
 	pop	esi
 	ret
-global	_xhash_instrument_bus
+global	_xdig_instrument_bus
 align	16
-_xhash_instrument_bus:
-L$_xhash_instrument_bus_begin:
+_xdig_instrument_bus:
+L$_xdig_instrument_bus_begin:
 	push	ebp
 	push	ebx
 	push	esi
@@ -325,10 +325,10 @@ L$_xhash_instrument_bus_begin:
 	pop	ebx
 	pop	ebp
 	ret
-global	_xhash_instrument_bus2
+global	_xdig_instrument_bus2
 align	16
-_xhash_instrument_bus2:
-L$_xhash_instrument_bus2_begin:
+_xdig_instrument_bus2:
+L$_xdig_instrument_bus2_begin:
 	push	ebp
 	push	ebx
 	push	esi
@@ -339,10 +339,10 @@ L$_xhash_instrument_bus2_begin:
 	pop	ebx
 	pop	ebp
 	ret
-global	_xhash_ia32_rdrand_bytes
+global	_xdig_ia32_rdrand_bytes
 align	16
-_xhash_ia32_rdrand_bytes:
-L$_xhash_ia32_rdrand_bytes_begin:
+_xdig_ia32_rdrand_bytes:
+L$_xdig_ia32_rdrand_bytes_begin:
 	push	edi
 	push	ebx
 	xor	eax,eax
@@ -380,10 +380,10 @@ L$020done:
 	pop	ebx
 	pop	edi
 	ret
-global	_xhash_ia32_rdseed_bytes
+global	_xdig_ia32_rdseed_bytes
 align	16
-_xhash_ia32_rdseed_bytes:
-L$_xhash_ia32_rdseed_bytes_begin:
+_xdig_ia32_rdseed_bytes:
+L$_xdig_ia32_rdseed_bytes_begin:
 	push	edi
 	push	ebx
 	xor	eax,eax
@@ -422,4 +422,4 @@ L$024done:
 	pop	edi
 	ret
 segment	.bss
-common	_xhash_ia32cap_P 40
+common	_xdig_ia32cap_P 40

@@ -43,7 +43,7 @@
 #include <stdio.h>
 
 void static
-xhash_die(const char *message, const char *file, int line)
+xdig_die(const char *message, const char *file, int line)
 {
     fprintf(stderr, "%s:%d: OpenSSL internal error: %s\n", file, line, message);
     abort();
@@ -53,7 +53,7 @@ __owur static ossl_inline int ossl_assert_int(int expr, const char *exprstr,
                                               const char *file, int line)
 {
     if (!expr)
-        xhash_die(exprstr, file, line);
+        xdig_die(exprstr, file, line);
 
     return expr;
 }
@@ -63,7 +63,7 @@ __owur static ossl_inline int ossl_assert_int(int expr, const char *exprstr,
 
 # endif
 
-void xhash_cleanse(void *ptr, size_t len);
+void xdig_cleanse(void *ptr, size_t len);
 
 /* Check if |pre|, which must be a string literal, is a prefix of |str| */
 #define HAS_PREFIX(str, pre) (strncmp(str, pre "", sizeof(pre) - 1) == 0)
@@ -71,13 +71,13 @@ void xhash_cleanse(void *ptr, size_t len);
 #define CHECK_AND_SKIP_PREFIX(str, pre) \
     (HAS_PREFIX(str, pre) ? ((str) += sizeof(pre) - 1, 1) : 0)
 /* Check if the string literal |p| is a case-insensitive prefix of |s| */
-#define HAS_CASE_PREFIX(s, p) (xhash_strncasecmp(s, p "", sizeof(p) - 1) == 0)
+#define HAS_CASE_PREFIX(s, p) (xdig_strncasecmp(s, p "", sizeof(p) - 1) == 0)
 /* As before, and if check succeeds, advance |str| past the prefix |pre| */
 #define CHECK_AND_SKIP_CASE_PREFIX(str, pre) \
     (HAS_CASE_PREFIX(str, pre) ? ((str) += sizeof(pre) - 1, 1) : 0)
 /* Check if the string literal |suffix| is a case-insensitive suffix of |str| */
 #define HAS_CASE_SUFFIX(str, suffix) (strlen(str) < sizeof(suffix) - 1 ? 0 : \
-    xhash_strcasecmp(str + strlen(str) - sizeof(suffix) + 1, suffix "") == 0)
+    xdig_strcasecmp(str + strlen(str) - sizeof(suffix) + 1, suffix "") == 0)
 
 /*
  * Use this inside a union with the field that needs to be aligned to a
@@ -89,9 +89,9 @@ void xhash_cleanse(void *ptr, size_t len);
     ossl_uintmax_t align_int;   \
     void *align_ptr
 
-# define xhash_CONF             "openssl.cnf"
+# define xdig_CONF             "openssl.cnf"
 
-# ifndef xhash_SYS_VMS
+# ifndef xdig_SYS_VMS
 #  define X509_CERT_AREA          OPENSSLDIR
 #  define X509_CERT_DIR           OPENSSLDIR "/certs"
 #  define X509_CERT_FILE          OPENSSLDIR "/cert.pem"

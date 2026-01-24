@@ -5,7 +5,7 @@ default	rel
 section	.text code align=64
 
 
-EXTERN	xhash_ia32cap_P
+EXTERN	xdig_ia32cap_P
 global	sha512_block_data_order
 
 ALIGN	16
@@ -20,7 +20,7 @@ $L$SEH_begin_sha512_block_data_order:
 
 
 
-	lea	r10,[xhash_ia32cap_P]
+	lea	r10,[xdig_ia32cap_P]
 	mov	r9,QWORD[r10]
 	mov	r11d,DWORD[8+r10]
 	mov	r10d,DWORD[20+r10]

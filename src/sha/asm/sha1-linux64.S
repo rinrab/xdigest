@@ -6,9 +6,9 @@
 .align	16
 sha1_block_data_order:
 .cfi_startproc	
-	movl	xhash_ia32cap_P+0(%rip),%r9d
-	movl	xhash_ia32cap_P+4(%rip),%r8d
-	movl	xhash_ia32cap_P+8(%rip),%r10d
+	movl	xdig_ia32cap_P+0(%rip),%r9d
+	movl	xdig_ia32cap_P+4(%rip),%r8d
+	movl	xdig_ia32cap_P+8(%rip),%r10d
 	testl	$512,%r8d
 	jz	.Lialu
 	testl	$536870912,%r10d

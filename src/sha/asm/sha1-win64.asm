@@ -4,7 +4,7 @@ default	rel
 %define ZMMWORD
 section	.text code align=64
 
-EXTERN	xhash_ia32cap_P
+EXTERN	xdig_ia32cap_P
 
 global	sha1_block_data_order
 
@@ -20,9 +20,9 @@ $L$SEH_begin_sha1_block_data_order:
 
 
 
-	mov	r9d,DWORD[((xhash_ia32cap_P+0))]
-	mov	r8d,DWORD[((xhash_ia32cap_P+4))]
-	mov	r10d,DWORD[((xhash_ia32cap_P+8))]
+	mov	r9d,DWORD[((xdig_ia32cap_P+0))]
+	mov	r8d,DWORD[((xdig_ia32cap_P+4))]
+	mov	r10d,DWORD[((xdig_ia32cap_P+8))]
 	test	r8d,512
 	jz	NEAR $L$ialu
 	test	r10d,536870912

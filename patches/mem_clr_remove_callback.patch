@@ -15,7 +15,7 @@ Index: src/core/mem_clr.c
 -
 -static volatile memset_t memset_func = memset;
 -
- void xhash_cleanse(void *ptr, size_t len)
+ void xdig_cleanse(void *ptr, size_t len)
  {
 -    memset_func(ptr, 0, len);
 +    memset(ptr, 0, len);

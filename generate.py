@@ -34,7 +34,7 @@ mkdir(os.path.join(src, "core"))
 
 include_path = "include"
 mkdir(include_path)
-mkdir(os.path.join(include_path, "xhash"))
+mkdir(os.path.join(include_path, "xdigest"))
 mkdir(os.path.join(include_path, "internal"))
 mkdir(os.path.join(include_path, "crypto"))
 
@@ -42,8 +42,8 @@ def copy_fixup(input, output):
     with open(input, 'r') as file:
         data = file.read()
 
-        data = data.replace("OPENSSL_", "xhash_")
-        data = data.replace("CRYPTO_", "xhash_")
+        data = data.replace("OPENSSL_", "xdig_")
+        data = data.replace("CRYPTO_", "xdig_")
 
         remove_includes = [
             "openssl/crypto.h",
@@ -68,15 +68,15 @@ def copy_fixup(input, output):
         ]
 
         def convert_func_name(name):
-            # SHA1_Update -> xhash_sha1_update
+            # SHA1_Update -> xdig_sha1_update
             name = name.lower()
-            return f"xhash_{name}"
+            return f"xdig_{name}"
 
         def convert_ctx_name(match):
             name = match[1]
             name = name.replace('SHA_CTX', 'SHA1_CTX')
             name = name.lower()
-            return f"xhash_{name}_t"
+            return f"xdig_{name}_t"
 
         for inc in remove_includes:
             inc = re.escape(inc)
@@ -93,7 +93,7 @@ def copy_fixup(input, output):
                           data, flags=re.MULTILINE)
 
         data = re.sub(r"include <openssl\/([^>]*)>",
-                      r"include <xhash/\1>",
+                      r"include <xdig/\1>",
                       data, flags=re.MULTILINE)
 
         data = re.sub(r"((SHA|MD)\d+_?\w*\()",
@@ -107,14 +107,14 @@ def copy_fixup(input, output):
                       data, flags=re.MULTILINE)
 
         data = re.sub(r"((SHA|MD)([\w_]*)_(DIGEST_LENGTH|LBLOCK|CBLOCK|LONG|LAST_BLOCK))",
-                      r"XHASH_\1",
+                      r"XDIG_\1",
                       data, flags=re.MULTILINE)
 
         data = re.sub(r"^(#define HASH_\w+\s+)((SHA|MD)(\d*)_(Update|Final|Transform|Init))$",
                       lambda match: f"{match[1]}{convert_func_name(match[2])}",
                       data, flags=re.MULTILINE)
 
-    output.replace("openssl", "xhash")
+    output.replace("openssl", "xdigest")
 
     with open(output, 'w') as file:
         file.write(data)
@@ -157,7 +157,7 @@ def include(path, outname = None):
     else:
         output = os.path.join(include_path, outname)
 
-    output = output.replace("openssl", "xhash")
+    output = output.replace("openssl", "xdigest")
 
     copy_fixup(input, output)
 
@@ -231,7 +231,7 @@ include("internal/numbers.h")
 include("crypto/md32_common.h")
 include("crypto/sha.h")
 
-patch("patches/xhash_cleanse.patch")
+patch("patches/xdig_cleanse.patch")
 patch("patches/OPENSSL_IA32CAP_P_MAX_INDEXES.patch")
 patch("patches/sha256_hash_data.patch")
 patch("patches/sha512_hash_data.patch")

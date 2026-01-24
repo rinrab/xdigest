@@ -22,7 +22,7 @@
  * outside; this file e_os.h is not part of the exported interface.
  */
 
-# if defined(xhash_SYS_VXWORKS) || defined(xhash_SYS_UEFI)
+# if defined(xdig_SYS_VXWORKS) || defined(xdig_SYS_UEFI)
 #  define NO_CHMOD
 #  define NO_SYSLOG
 # endif
@@ -34,13 +34,13 @@
 /********************************************************************
  The Microsoft section
  ********************************************************************/
-# if defined(xhash_SYS_WIN32) && !defined(WIN32)
+# if defined(xdig_SYS_WIN32) && !defined(WIN32)
 #  define WIN32
 # endif
-# if defined(xhash_SYS_WINDOWS) && !defined(WINDOWS)
+# if defined(xdig_SYS_WINDOWS) && !defined(WINDOWS)
 #  define WINDOWS
 # endif
-# if defined(xhash_SYS_MSDOS) && !defined(MSDOS)
+# if defined(xdig_SYS_MSDOS) && !defined(MSDOS)
 #  define MSDOS
 # endif
 
@@ -123,8 +123,8 @@ FILE *__iob_func(void);
 #  include <io.h>
 #  include <fcntl.h>
 
-#  ifdef xhash_SYS_WINCE
-#   define xhash_NO_POSIX_IO
+#  ifdef xdig_SYS_WINCE
+#   define xdig_NO_POSIX_IO
 #  endif
 
 #  define EXIT(n) exit(n)
@@ -135,7 +135,7 @@ FILE *__iob_func(void);
 #  ifndef R_OK
 #   define R_OK        4
 #  endif
-#  ifdef xhash_SYS_WINCE
+#  ifdef xdig_SYS_WINCE
 #   define DEFAULT_HOME  ""
 #  else
 #   define DEFAULT_HOME  "C:"
@@ -152,13 +152,13 @@ FILE *__iob_func(void);
 
 # else                          /* The non-microsoft world */
 
-#  if defined(xhash_SYS_VXWORKS)
+#  if defined(xdig_SYS_VXWORKS)
 #   include <time.h>
 #  else
 #   include <sys/time.h>
 #  endif
 
-#  ifdef xhash_SYS_VMS
+#  ifdef xdig_SYS_VMS
 #   define VMS 1
   /*
    * some programs don't include stdlib, so exit() and others give implicit
@@ -205,7 +205,7 @@ FILE *__iob_func(void);
      /* !defined VMS */
 #   include <unistd.h>
 #   include <sys/types.h>
-#   ifdef xhash_SYS_WIN32_CYGWIN
+#   ifdef xdig_SYS_WIN32_CYGWIN
 #    include <io.h>
 #    include <fcntl.h>
 #   endif
@@ -218,7 +218,7 @@ FILE *__iob_func(void);
 
 /***********************************************/
 
-# if defined(xhash_SYS_WINDOWS)
+# if defined(xdig_SYS_WINDOWS)
 #  if defined(_MSC_VER) && (_MSC_VER >= 1310) && !defined(_WIN32_WCE)
 #   define open _open
 #   define fdopen _fdopen
@@ -235,7 +235,7 @@ FILE *__iob_func(void);
 # endif
 
 /* vxworks */
-# if defined(xhash_SYS_VXWORKS)
+# if defined(xdig_SYS_VXWORKS)
 #  include <ioLib.h>
 #  include <tickLib.h>
 #  include <sysLib.h>
@@ -293,7 +293,7 @@ inline int nssgetpid(void);
 /*#  define connect(a,b,c) connect(a,(struct sockaddr *)b,c)*/
 /*#  define bind(a,b,c) bind(a,(struct sockaddr *)b,c)*/
 /*#  define sendto(a,b,c,d,e,f) sendto(a,(char*)b,c,d,(struct sockaddr *)e,f)*/
-#  if defined(xhash_THREADS) && !defined(_PUT_MODEL_)
+#  if defined(xdig_THREADS) && !defined(_PUT_MODEL_)
   /*
    * HPNS SPT threads
    */
@@ -316,19 +316,19 @@ inline int nssgetpid(void);
 # endif
 
 # ifdef FUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION
-#  define xhash_memcmp memcmp
+#  define xdig_memcmp memcmp
 # endif
 
-# ifndef xhash_NO_SECURE_MEMORY
+# ifndef xdig_NO_SECURE_MEMORY
    /* unistd.h defines _POSIX_VERSION */
-#  if (defined(xhash_SYS_UNIX) \
+#  if (defined(xdig_SYS_UNIX) \
         && ( (defined(_POSIX_VERSION) && _POSIX_VERSION >= 200112L)      \
              || defined(__sun) || defined(__hpux) || defined(__sgi)      \
              || defined(__osf__) )) \
       || defined(_WIN32)
       /* secure memory is implemented */
 #   else
-#     define xhash_NO_SECURE_MEMORY
+#     define xdig_NO_SECURE_MEMORY
 #   endif
 # endif
 
@@ -338,7 +338,7 @@ inline int nssgetpid(void);
  * There are also equivalent functions on Windows.
  * There is no locale_t on NONSTOP.
  */
-# if defined(xhash_SYS_WINDOWS)
+# if defined(xdig_SYS_WINDOWS)
 #  define locale_t _locale_t
 #  define freelocale _free_locale
 #  define strcasecmp_l _stricmp_l
@@ -346,9 +346,9 @@ inline int nssgetpid(void);
 #  define strcasecmp _stricmp
 #  define strncasecmp _strnicmp
 # elif !defined(_POSIX_C_SOURCE) || _POSIX_C_SOURCE < 200809L \
-     || defined(xhash_SYS_TANDEM)
-#  ifndef xhash_NO_LOCALE
-#   define xhash_NO_LOCALE
+     || defined(xdig_SYS_TANDEM)
+#  ifndef xdig_NO_LOCALE
+#   define xdig_NO_LOCALE
 #  endif
 # endif
 

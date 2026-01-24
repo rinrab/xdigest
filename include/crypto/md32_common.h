@@ -54,17 +54,17 @@
  *
  *      #define DATA_ORDER_IS_LITTLE_ENDIAN
  *
- *      #define HASH_LONG               XHASH_MD5_LONG
- *      #define HASH_CTX                xhash_md5_ctx_t
- *      #define HASH_CBLOCK             XHASH_MD5_CBLOCK
+ *      #define HASH_LONG               XDIG_MD5_LONG
+ *      #define HASH_CTX                xdig_md5_ctx_t
+ *      #define HASH_CBLOCK             XDIG_MD5_CBLOCK
  *      #define HASH_UPDATE             MD5_Update
  *      #define HASH_TRANSFORM          MD5_Transform
  *      #define HASH_FINAL              MD5_Final
  *      #define HASH_BLOCK_DATA_ORDER   md5_block_data_order
  */
 
-#ifndef OSSL_xhash_MD32_COMMON_H
-# define OSSL_xhash_MD32_COMMON_H
+#ifndef OSSL_xdig_MD32_COMMON_H
+# define OSSL_xdig_MD32_COMMON_H
 # pragma once
 
 /* ignored include 'openssl/crypto.h' */
@@ -105,7 +105,7 @@
 
 #ifndef PEDANTIC
 # if defined(__GNUC__) && __GNUC__>=2 && \
-     !defined(xhash_NO_ASM) && !defined(xhash_NO_INLINE_ASM)
+     !defined(xdig_NO_ASM) && !defined(xdig_NO_INLINE_ASM)
 #  if defined(__riscv_zbb) || defined(__riscv_zbkb)
 #   if __riscv_xlen == 64
 #   undef ROTATE
@@ -184,8 +184,8 @@ int HASH_UPDATE(HASH_CTX *c, const void *data_, size_t len)
             len -= n;
             c->num = 0;
             /*
-             * We use memset rather than xhash_cleanse() here deliberately.
-             * Using xhash_cleanse() here could be a performance issue. It
+             * We use memset rather than xdig_cleanse() here deliberately.
+             * Using xdig_cleanse() here could be a performance issue. It
              * will get properly cleansed on finalisation so this isn't a
              * security problem.
              */
@@ -244,7 +244,7 @@ int HASH_FINAL(unsigned char *md, HASH_CTX *c)
     p -= HASH_CBLOCK;
     HASH_BLOCK_DATA_ORDER(c, p, 1);
     c->num = 0;
-    xhash_cleanse(p, HASH_CBLOCK);
+    xdig_cleanse(p, HASH_CBLOCK);
 
 # ifndef HASH_MAKE_STRING
 #  error "HASH_MAKE_STRING must be defined!"
@@ -264,7 +264,7 @@ int HASH_FINAL(unsigned char *md, HASH_CTX *c)
  * which is why it was moved to common header file.
  *
  * In case you wonder why A-D are declared as long and not
- * as XHASH_MD5_LONG. Doing so results in slight performance
+ * as XDIG_MD5_LONG. Doing so results in slight performance
  * boost on LP64 architectures. The catch is we don't
  * really care if 32 MSBs of a 64-bit register get polluted
  * with eventual overflows as we *save* only 32 LSBs in

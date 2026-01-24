@@ -11,17 +11,17 @@
 #include <assert.h>
 #include <stdio.h>
 
-#ifdef XHASH
-#include <xhash/sha1.h>
-#include <xhash/sha2.h>
+#ifdef XDIG
+#include <xdigest/sha1.h>
+#include <xdigest/sha2.h>
 #else
 #include <openssl/sha.h>
 
-#define xhash_sha1 SHA1
-#define xhash_sha224 SHA224
-#define xhash_sha256 SHA256
-#define xhash_sha384 SHA384
-#define xhash_sha512 SHA512
+#define xdig_sha1 SHA1
+#define xdig_sha224 SHA224
+#define xdig_sha256 SHA256
+#define xdig_sha384 SHA384
+#define xdig_sha512 SHA512
 #endif
 
 #define TEST_ASSERT(expr) do { \
@@ -33,14 +33,14 @@
 
 static int test_static_sha1(void)
 {
-    unsigned char expected[XHASH_SHA1_DIGEST_LENGTH] = {
+    unsigned char expected[XDIG_SHA1_DIGEST_LENGTH] = {
         0xa9, 0x99, 0x3e, 0x36, 0x47, 0x06, 0x81, 0x6a,
         0xba, 0x3e, 0x25, 0x71, 0x78, 0x50, 0xc2, 0x6c,
         0x9c, 0xd0, 0xd8, 0x9d
     };
     unsigned char actual[sizeof(expected)];
 
-    xhash_sha1((unsigned char *)"abc", 3, actual);
+    xdig_sha1((unsigned char *)"abc", 3, actual);
     TEST_ASSERT(memcmp(expected, actual, sizeof(expected)) == 0);
 
     return 1;
@@ -48,7 +48,7 @@ static int test_static_sha1(void)
 
 static int test_static_sha224(void)
 {
-    unsigned char expected[XHASH_SHA224_DIGEST_LENGTH] = {
+    unsigned char expected[XDIG_SHA224_DIGEST_LENGTH] = {
         0x23, 0x09, 0x7d, 0x22, 0x34, 0x05, 0xd8, 0x22,
         0x86, 0x42, 0xa4, 0x77, 0xbd, 0xa2, 0x55, 0xb3,
         0x2a, 0xad, 0xbc, 0xe4, 0xbd, 0xa0, 0xb3, 0xf7,
@@ -56,7 +56,7 @@ static int test_static_sha224(void)
     };
     unsigned char actual[sizeof(expected)];
 
-    xhash_sha224((unsigned char *)"abc", 3, actual);
+    xdig_sha224((unsigned char *)"abc", 3, actual);
     TEST_ASSERT(memcmp(expected, actual, sizeof(expected)) == 0);
 
     return 1;
@@ -64,7 +64,7 @@ static int test_static_sha224(void)
 
 static int test_static_sha256(void)
 {
-    unsigned char expected[XHASH_SHA256_DIGEST_LENGTH] = {
+    unsigned char expected[XDIG_SHA256_DIGEST_LENGTH] = {
         0xba, 0x78, 0x16, 0xbf, 0x8f, 0x01, 0xcf, 0xea,
         0x41, 0x41, 0x40, 0xde, 0x5d, 0xae, 0x22, 0x23,
         0xb0, 0x03, 0x61, 0xa3, 0x96, 0x17, 0x7a, 0x9c,
@@ -72,7 +72,7 @@ static int test_static_sha256(void)
     };
     unsigned char actual[sizeof(expected)];
 
-    xhash_sha256((unsigned char *)"abc", 3, actual);
+    xdig_sha256((unsigned char *)"abc", 3, actual);
     TEST_ASSERT(memcmp(expected, actual, sizeof(expected)) == 0);
 
     return 1;
@@ -80,7 +80,7 @@ static int test_static_sha256(void)
 
 static int test_static_sha384(void)
 {
-    unsigned char expected[XHASH_SHA384_DIGEST_LENGTH] = {
+    unsigned char expected[XDIG_SHA384_DIGEST_LENGTH] = {
         0xcb, 0x00, 0x75, 0x3f, 0x45, 0xa3, 0x5e, 0x8b,
         0xb5, 0xa0, 0x3d, 0x69, 0x9a, 0xc6, 0x50, 0x07,
         0x27, 0x2c, 0x32, 0xab, 0x0e, 0xde, 0xd1, 0x63,
@@ -90,7 +90,7 @@ static int test_static_sha384(void)
     };
     unsigned char actual[sizeof(expected)];
 
-    xhash_sha384((unsigned char *)"abc", 3, actual);
+    xdig_sha384((unsigned char *)"abc", 3, actual);
     TEST_ASSERT(memcmp(expected, actual, sizeof(expected)) == 0);
 
     return 1;
@@ -98,7 +98,7 @@ static int test_static_sha384(void)
 
 static int test_static_sha512(void)
 {
-    unsigned char expected[XHASH_SHA512_DIGEST_LENGTH] = {
+    unsigned char expected[XDIG_SHA512_DIGEST_LENGTH] = {
         0xdd, 0xaf, 0x35, 0xa1, 0x93, 0x61, 0x7a, 0xba,
         0xcc, 0x41, 0x73, 0x49, 0xae, 0x20, 0x41, 0x31,
         0x12, 0xe6, 0xfa, 0x4e, 0x89, 0xa9, 0x7e, 0xa2,
@@ -111,7 +111,7 @@ static int test_static_sha512(void)
 
     unsigned char actual[sizeof(expected)];
 
-    xhash_sha512((unsigned char *)"abc", 3, actual);
+    xdig_sha512((unsigned char *)"abc", 3, actual);
     TEST_ASSERT(memcmp(expected, actual, sizeof(expected)) == 0);
 
     return 1;

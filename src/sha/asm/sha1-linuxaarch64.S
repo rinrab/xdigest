@@ -1,7 +1,7 @@
 #include "arm_arch.h"
 #ifndef	__KERNEL__
 
-.hidden	xhash_armcap_P
+.hidden	xdig_armcap_P
 #endif
 
 .text
@@ -11,8 +11,8 @@
 .align	6
 sha1_block_data_order:
 	AARCH64_VALID_CALL_TARGET
-	adrp	x16,xhash_armcap_P
-	ldr	w16,[x16,#:lo12:xhash_armcap_P]
+	adrp	x16,xdig_armcap_P
+	ldr	w16,[x16,#:lo12:xdig_armcap_P]
 	tst	w16,#ARMV8_SHA1
 	b.ne	Lv8_entry
 

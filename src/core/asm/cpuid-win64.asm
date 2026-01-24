@@ -3,17 +3,17 @@ default	rel
 %define YMMWORD
 %define ZMMWORD
 
-EXTERN	xhash_cpuid_setup
+EXTERN	xdig_cpuid_setup
 
 
-common	xhash_ia32cap_P 40
+common	xdig_ia32cap_P 40
 section	.text code align=64
 
 
-global	xhash_atomic_add
+global	xdig_atomic_add
 
 ALIGN	16
-xhash_atomic_add:
+xdig_atomic_add:
 
 DB	243,15,30,250
 	mov	eax,DWORD[rcx]
@@ -27,10 +27,10 @@ DB	0x48,0x98
 
 
 
-global	xhash_rdtsc
+global	xdig_rdtsc
 
 ALIGN	16
-xhash_rdtsc:
+xdig_rdtsc:
 
 DB	243,15,30,250
 	rdtsc
@@ -40,14 +40,14 @@ DB	243,15,30,250
 
 
 
-global	xhash_ia32_cpuid
+global	xdig_ia32_cpuid
 
 ALIGN	16
-xhash_ia32_cpuid:
+xdig_ia32_cpuid:
 	mov	QWORD[8+rsp],rdi	;WIN64 prologue
 	mov	QWORD[16+rsp],rsi
 	mov	rax,rsp
-$L$SEH_begin_xhash_ia32_cpuid:
+$L$SEH_begin_xdig_ia32_cpuid:
 	mov	rdi,rcx
 
 
@@ -243,12 +243,12 @@ $L$done:
 	mov	rsi,QWORD[16+rsp]
 	DB	0F3h,0C3h		;repret
 
-$L$SEH_end_xhash_ia32_cpuid:
+$L$SEH_end_xdig_ia32_cpuid:
 
-global	xhash_cleanse
+global	xdig_cleanse
 
 ALIGN	16
-xhash_cleanse:
+xdig_cleanse:
 
 DB	243,15,30,250
 	xor	rax,rax
@@ -283,10 +283,10 @@ $L$aligned:
 
 
 
-global	xhash_memcmp
+global	xdig_memcmp
 
 ALIGN	16
-xhash_memcmp:
+xdig_memcmp:
 
 DB	243,15,30,250
 	xor	rax,rax
@@ -319,10 +319,10 @@ $L$no_data:
 	DB	0F3h,0C3h		;repret
 
 
-global	xhash_instrument_bus
+global	xdig_instrument_bus
 
 ALIGN	16
-xhash_instrument_bus:
+xdig_instrument_bus:
 
 DB	243,15,30,250
 	mov	r10,rcx
@@ -354,10 +354,10 @@ DB	0xf0
 
 
 
-global	xhash_instrument_bus2
+global	xdig_instrument_bus2
 
 ALIGN	16
-xhash_instrument_bus2:
+xdig_instrument_bus2:
 
 DB	243,15,30,250
 	mov	r10,rcx
@@ -404,10 +404,10 @@ $L$done2:
 	DB	0F3h,0C3h		;repret
 
 
-global	xhash_ia32_rdrand_bytes
+global	xdig_ia32_rdrand_bytes
 
 ALIGN	16
-xhash_ia32_rdrand_bytes:
+xdig_ia32_rdrand_bytes:
 
 DB	243,15,30,250
 	xor	rax,rax
@@ -448,10 +448,10 @@ $L$done_rdrand_bytes:
 	DB	0F3h,0C3h		;repret
 
 
-global	xhash_ia32_rdseed_bytes
+global	xdig_ia32_rdseed_bytes
 
 ALIGN	16
-xhash_ia32_rdseed_bytes:
+xdig_ia32_rdseed_bytes:
 
 DB	243,15,30,250
 	xor	rax,rax
