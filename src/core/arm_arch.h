@@ -7,8 +7,8 @@
  * https://www.openssl.org/source/license.html
  */
 
-#ifndef OSSL_xhash_ARM_ARCH_H
-# define OSSL_xhash_ARM_ARCH_H
+#ifndef OSSL_xdig_ARM_ARCH_H
+# define OSSL_xdig_ARM_ARCH_H
 
 # if !defined(__ARM_ARCH__)
 #  if defined(__CC_ARM)
@@ -67,9 +67,9 @@
 # endif
 
 # ifndef __ASSEMBLER__
-extern unsigned int xhash_armcap_P;
-extern unsigned int xhash_arm_midr;
-extern unsigned int xhash_armv8_rsa_neonized;
+extern unsigned int xdig_armcap_P;
+extern unsigned int xdig_arm_midr;
+extern unsigned int xdig_armv8_rsa_neonized;
 # endif
 
 # define ARMV7_NEON      (1<<0)
@@ -219,6 +219,6 @@ extern unsigned int xhash_armv8_rsa_neonized;
 # endif  /* defined __ASSEMBLER__ */
 
 # define IS_CPU_SUPPORT_UNROLL8_EOR3() \
-           (xhash_armcap_P & ARMV8_UNROLL8_EOR3)
+           (xdig_armcap_P & ARMV8_UNROLL8_EOR3)
 
 #endif

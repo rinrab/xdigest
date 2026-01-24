@@ -26,16 +26,16 @@
 # endif
 #endif
 
-void md5_block_data_order(xhash_md5_ctx_t *c, const void *p, size_t num);
+void md5_block_data_order(xdig_md5_ctx_t *c, const void *p, size_t num);
 
 #define DATA_ORDER_IS_LITTLE_ENDIAN
 
-#define HASH_LONG               XHASH_MD5_LONG
-#define HASH_CTX                xhash_md5_ctx_t
-#define HASH_CBLOCK             XHASH_MD5_CBLOCK
-#define HASH_UPDATE             xhash_md5_update
-#define HASH_TRANSFORM          xhash_md5_transform
-#define HASH_FINAL              xhash_md5_final
+#define HASH_LONG               XDIG_MD5_LONG
+#define HASH_CTX                xdig_md5_ctx_t
+#define HASH_CBLOCK             XDIG_MD5_CBLOCK
+#define HASH_UPDATE             xdig_md5_update
+#define HASH_TRANSFORM          xdig_md5_transform
+#define HASH_FINAL              xdig_md5_final
 #define HASH_MAKE_STRING(c,s)   do {    \
         unsigned long ll;               \
         ll=(c)->A; (void)HOST_l2c(ll,(s));      \

@@ -26,7 +26,7 @@
 #define INIT_DATA_C (unsigned long)0x98badcfeL
 #define INIT_DATA_D (unsigned long)0x10325476L
 
-int xhash_md4_init(xhash_md4_ctx_t *c)
+int xdig_md4_init(xdig_md4_ctx_t *c)
 {
     memset(c, 0, sizeof(*c));
     c->A = INIT_DATA_A;
@@ -40,7 +40,7 @@ int xhash_md4_init(xhash_md4_ctx_t *c)
 # ifdef X
 #  undef X
 # endif
-void md4_block_data_order(xhash_md4_ctx_t *c, const void *data_, size_t num)
+void md4_block_data_order(xdig_md4_ctx_t *c, const void *data_, size_t num)
 {
     const unsigned char *data = data_;
     register unsigned MD32_REG_T A, B, C, D, l;
@@ -50,7 +50,7 @@ void md4_block_data_order(xhash_md4_ctx_t *c, const void *data_, size_t num)
         XX8, XX9, XX10, XX11, XX12, XX13, XX14, XX15;
 #  define X(i)   XX##i
 # else
-    XHASH_MD4_LONG XX[XHASH_MD4_LBLOCK];
+    XDIG_MD4_LONG XX[XDIG_MD4_LBLOCK];
 #  define X(i)   XX[i]
 # endif
 

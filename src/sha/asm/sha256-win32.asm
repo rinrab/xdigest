@@ -6,7 +6,7 @@ section	.text	code align=64
 %else
 section	.text	code
 %endif
-;extern	_xhash_ia32cap_P
+;extern	_xdig_ia32cap_P
 global	_sha256_block_data_order
 align	16
 _sha256_block_data_order:
@@ -3351,4 +3351,4 @@ L$009grand_loop:
 	pop	ebp
 	ret
 segment	.bss
-common	_xhash_ia32cap_P 40
+common	_xdig_ia32cap_P 40

@@ -9,7 +9,7 @@ Index: src/core/cpuid.c
 --- src/core/cpuid.c
 +++ src/core/cpuid.c
 @@ -44,6 +44,7 @@ static variant_char *ossl_getenv(const char *name)
-     return (len > 0 && len < xhash_IA32CAP_P_MAX_CHAR_SIZE) ? value : NULL;
+     return (len > 0 && len < xdig_IA32CAP_P_MAX_CHAR_SIZE) ? value : NULL;
  }
  #  else
 +#   include <stdlib.h>

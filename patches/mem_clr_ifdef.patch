@@ -11,7 +11,7 @@ Index: src/core/mem_clr.c
  #include <string.h>
  /* ignored include 'openssl/crypto.h' */
  
-@@ -14,3 +16,5 @@ void xhash_cleanse(void *ptr, size_t len)
+@@ -14,3 +16,5 @@ void xdig_cleanse(void *ptr, size_t len)
  {
      memset(ptr, 0, len);
  }

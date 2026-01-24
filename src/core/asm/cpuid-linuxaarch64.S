@@ -112,10 +112,10 @@ _armv8_sm3_probe:
 	ret
 
 
-.globl	xhash_cleanse
+.globl	xdig_cleanse
 
 .align	5
-xhash_cleanse:
+xdig_cleanse:
 	AARCH64_VALID_CALL_TARGET
 	cbz	x1,Lret	// len==0?
 	cmp	x1,#15
@@ -144,10 +144,10 @@ Laligned:
 	ret
 
 
-.globl	xhash_memcmp
+.globl	xdig_memcmp
 
 .align	4
-xhash_memcmp:
+xdig_memcmp:
 	AARCH64_VALID_CALL_TARGET
 	eor	w3,w3,w3
 	cbz	x2,Lno_data	// len==0?
@@ -190,10 +190,10 @@ _armv8_rng_probe:
 // inputs:  char * in x0 - Pointer to buffer
 //          size_t in x1 - Number of bytes to write to buffer
 // outputs: size_t in x0 - Number of bytes successfully written to buffer
-.globl	xhash_rndr_asm
+.globl	xdig_rndr_asm
 
 .align	4
-xhash_rndr_asm:
+xdig_rndr_asm:
 	AARCH64_VALID_CALL_TARGET
 	mov	x2,xzr
 	mov	x3,xzr
@@ -233,10 +233,10 @@ Loop_single_byte_rndr:
 // inputs:  char * in x0 - Pointer to buffer
 //          size_t in x1 - Number of bytes to write to buffer
 // outputs: size_t in x0 - Number of bytes successfully written to buffer
-.globl	xhash_rndrrs_asm
+.globl	xdig_rndrrs_asm
 
 .align	4
-xhash_rndrrs_asm:
+xdig_rndrrs_asm:
 	AARCH64_VALID_CALL_TARGET
 	mov	x2,xzr
 	mov	x3,xzr

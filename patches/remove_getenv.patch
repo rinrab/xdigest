@@ -3,14 +3,14 @@ Index: src/core/cpuid.c
 --- src/core/cpuid.c	(revision 6109)
 +++ src/core/cpuid.c	(working copy)
 @@ -20,78 +20,6 @@
- extern unsigned int xhash_ia32cap_P[xhash_IA32CAP_P_MAX_INDEXES];
+ extern unsigned int xdig_ia32cap_P[xdig_IA32CAP_P_MAX_INDEXES];
  
- # if defined(xhash_CPUID_OBJ)
+ # if defined(xdig_CPUID_OBJ)
 -
 -/*
 - * Purpose of these minimalistic and character-type-agnostic subroutines
 - * is to break dependency on MSVCRT (on Windows) and locale. This makes
-- * xhash_cpuid_setup safe to use as "constructor". "Character-type-
+- * xdig_cpuid_setup safe to use as "constructor". "Character-type-
 - * agnostic" means that they work with either wide or 8-bit characters,
 - * exploiting the fact that first 127 characters can be simply casted
 - * between the sets, while the rest would be simply rejected by ossl_is*
@@ -18,7 +18,7 @@ Index: src/core/cpuid.c
 - */
 -#  ifdef _WIN32
 -typedef WCHAR variant_char;
--#   define xhash_IA32CAP_P_MAX_CHAR_SIZE 256
+-#   define xdig_IA32CAP_P_MAX_CHAR_SIZE 256
 -static variant_char *ossl_getenv(const char *name)
 -{
 -    /*
@@ -26,10 +26,10 @@ Index: src/core/cpuid.c
 -     * just ignore |name| and use equivalent wide-char L-literal.
 -     * As well as to ignore excessively long values...
 -     */
--    static WCHAR value[xhash_IA32CAP_P_MAX_CHAR_SIZE];
--    DWORD len = GetEnvironmentVariableW(L"xhash_ia32cap", value, xhash_IA32CAP_P_MAX_CHAR_SIZE);
+-    static WCHAR value[xdig_IA32CAP_P_MAX_CHAR_SIZE];
+-    DWORD len = GetEnvironmentVariableW(L"xdig_ia32cap", value, xdig_IA32CAP_P_MAX_CHAR_SIZE);
 -
--    return (len > 0 && len < xhash_IA32CAP_P_MAX_CHAR_SIZE) ? value : NULL;
+-    return (len > 0 && len < xdig_IA32CAP_P_MAX_CHAR_SIZE) ? value : NULL;
 -}
 -#  else
 -typedef char variant_char;
@@ -78,12 +78,12 @@ Index: src/core/cpuid.c
 -    return NULL;
 -}
 -
- #  define xhash_CPUID_SETUP
+ #  define xdig_CPUID_SETUP
  typedef uint64_t IA32CAP;
  
-@@ -99,71 +99,14 @@ void xhash_cpuid_setup(void)
+@@ -99,71 +99,14 @@ void xdig_cpuid_setup(void)
      static int trigger = 0;
-     IA32CAP xhash_ia32_cpuid(unsigned int *);
+     IA32CAP xdig_ia32_cpuid(unsigned int *);
      IA32CAP vec;
 -    const variant_char *env;
 -    int index = 2;
@@ -92,15 +92,15 @@ Index: src/core/cpuid.c
          return;
  
      trigger = 1;
--    if ((env = ossl_getenv("xhash_ia32cap")) != NULL) {
+-    if ((env = ossl_getenv("xdig_ia32cap")) != NULL) {
 -        int off = (env[0] == '~') ? 1 : 0;
  
 -        vec = ossl_strtouint64(env + off);
-+    vec = xhash_ia32_cpuid(xhash_ia32cap_P);
++    vec = xdig_ia32_cpuid(xdig_ia32cap_P);
  
 -        if (off) {
 -            IA32CAP mask = vec;
--            vec = xhash_ia32_cpuid(xhash_ia32cap_P) & ~mask;
+-            vec = xdig_ia32_cpuid(xdig_ia32cap_P) & ~mask;
 -            if (mask & (1<<24)) {
 -                /*
 -                 * User disables FXSR bit, mask even other capabilities
@@ -113,13 +113,13 @@ Index: src/core/cpuid.c
 -                vec &= ~((IA32CAP)(1<<1|1<<11|1<<25|1<<28) << 32);
 -            }
 -        } else if (env[0] == ':') {
--            vec = xhash_ia32_cpuid(xhash_ia32cap_P);
+-            vec = xdig_ia32_cpuid(xdig_ia32cap_P);
 -        }
 -
 -        /* Processed indexes 0, 1 */
 -        if ((env = ossl_strchr(env, ':')) != NULL)
 -            env++;
--        for (; index < xhash_IA32CAP_P_MAX_INDEXES; index += 2) {
+-        for (; index < xdig_IA32CAP_P_MAX_INDEXES; index += 2) {
 -            if ((env != NULL) && (env[0] != '\0')) {
 -                /* if env[0] == ':' current index is skipped */
 -                if (env[0] != ':') {
@@ -128,50 +128,50 @@ Index: src/core/cpuid.c
 -                    off = (env[0] == '~') ? 1 : 0;
 -                    vecx = ossl_strtouint64(env + off);
 -                    if (off) {
--                        xhash_ia32cap_P[index] &= ~(unsigned int)vecx;
--                        xhash_ia32cap_P[index + 1] &= ~(unsigned int)(vecx >> 32);
+-                        xdig_ia32cap_P[index] &= ~(unsigned int)vecx;
+-                        xdig_ia32cap_P[index + 1] &= ~(unsigned int)(vecx >> 32);
 -                    } else {
--                        xhash_ia32cap_P[index] = (unsigned int)vecx;
--                        xhash_ia32cap_P[index + 1] = (unsigned int)(vecx >> 32);
+-                        xdig_ia32cap_P[index] = (unsigned int)vecx;
+-                        xdig_ia32cap_P[index + 1] = (unsigned int)(vecx >> 32);
 -                    }
 -                }
 -                /* skip delimeter */
 -                if ((env = ossl_strchr(env, ':')) != NULL)
 -                    env++;
 -            } else { /* zeroize the next two indexes */
--                xhash_ia32cap_P[index] = 0;
--                xhash_ia32cap_P[index + 1] = 0;
+-                xdig_ia32cap_P[index] = 0;
+-                xdig_ia32cap_P[index + 1] = 0;
 -            }
 -        }
 -
 -        /* If AVX10 is disabled, zero out its detailed cap bits */
--        if (!(xhash_ia32cap_P[6] & (1 << 19)))
--            xhash_ia32cap_P[9] = 0;
+-        if (!(xdig_ia32cap_P[6] & (1 << 19)))
+-            xdig_ia32cap_P[9] = 0;
 -    } else {
--        vec = xhash_ia32_cpuid(xhash_ia32cap_P);
+-        vec = xdig_ia32_cpuid(xdig_ia32cap_P);
 -    }
 -
      /*
       * |(1<<10) sets a reserved bit to signal that variable
       * was initialized already... This is to avoid interference
-@@ -47,7 +47,6 @@ void xhash_cpuid_setup(void)
+@@ -47,7 +47,6 @@ void xdig_cpuid_setup(void)
  # else
- unsigned int xhash_ia32cap_P[xhash_IA32CAP_P_MAX_INDEXES];
+ unsigned int xdig_ia32cap_P[xdig_IA32CAP_P_MAX_INDEXES];
  # endif
 -#endif
  
- #ifndef xhash_CPUID_OBJ
- # ifndef xhash_CPUID_SETUP
-@@ -101,9 +100,12 @@ size_t xhash_instrument_bus2(unsigned int *out, si
+ #ifndef xdig_CPUID_OBJ
+ # ifndef xdig_CPUID_SETUP
+@@ -101,9 +100,12 @@ size_t xdig_instrument_bus2(unsigned int *out, si
      return 0;
  }
  
-+#endif /* ! xhash_CPUID_OBJ */
++#endif /* ! xdig_CPUID_OBJ */
 +
  /* Public interface. */
- void xhash_init()
+ void xdig_init()
  {
-     xhash_cpuid_setup();
+     xdig_cpuid_setup();
  }
 +
  #endif
@@ -179,12 +179,12 @@ Index: src/core/armcap.c
 ===================================================================
 --- src/core/armcap.c
 +++ src/core/armcap.c
-@@ -261,11 +261,6 @@ void xhash_cpuid_setup(void)
+@@ -261,11 +261,6 @@ void xdig_cpuid_setup(void)
  
-     xhash_armcap_P = 0;
+     xdig_armcap_P = 0;
  
--    if ((e = getenv("xhash_armcap"))) {
--        xhash_armcap_P = (unsigned int)strtoul(e, NULL, 0);
+-    if ((e = getenv("xdig_armcap"))) {
+-        xdig_armcap_P = (unsigned int)strtoul(e, NULL, 0);
 -        return;
 -    }
 -

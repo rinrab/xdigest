@@ -7,12 +7,12 @@
  * https://www.openssl.org/source/license.html
  */
 
-#ifndef xhash_SHA_H
-# define xhash_SHA_H
+#ifndef xdig_SHA_H
+# define xdig_SHA_H
 # pragma once
 
 /* ignored include 'openssl/macros.h' */
-# ifndef xhash_NO_DEPRECATED_3_0
+# ifndef xdig_NO_DEPRECATED_3_0
 #  define HEADER_SHA_H
 # endif
 
@@ -23,73 +23,73 @@
 extern "C" {
 # endif
 
-# define XHASH_SHA_DIGEST_LENGTH 20
+# define XDIG_SHA_DIGEST_LENGTH 20
 
-# ifndef xhash_NO_DEPRECATED_3_0
+# ifndef xdig_NO_DEPRECATED_3_0
 /*-
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
- * ! XHASH_SHA_LONG has to be at least 32 bits wide.                    !
+ * ! XDIG_SHA_LONG has to be at least 32 bits wide.                    !
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  */
-#  define XHASH_SHA_LONG unsigned int
+#  define XDIG_SHA_LONG unsigned int
 
-#  define XHASH_SHA_LBLOCK      16
-#  define XHASH_SHA_CBLOCK      (XHASH_SHA_LBLOCK*4)/* SHA treats input data as a
+#  define XDIG_SHA_LBLOCK      16
+#  define XDIG_SHA_CBLOCK      (XDIG_SHA_LBLOCK*4)/* SHA treats input data as a
                                          * contiguous array of 32 bit wide
                                          * big-endian values. */
-#  define XHASH_SHA_LAST_BLOCK  (XHASH_SHA_CBLOCK-8)
+#  define XDIG_SHA_LAST_BLOCK  (XDIG_SHA_CBLOCK-8)
 
 typedef struct SHAstate_st {
-    XHASH_SHA_LONG h0, h1, h2, h3, h4;
-    XHASH_SHA_LONG Nl, Nh;
-    XHASH_SHA_LONG data[XHASH_SHA_LBLOCK];
+    XDIG_SHA_LONG h0, h1, h2, h3, h4;
+    XDIG_SHA_LONG Nl, Nh;
+    XDIG_SHA_LONG data[XDIG_SHA_LBLOCK];
     unsigned int num;
-} xhash_sha1_ctx_t;
+} xdig_sha1_ctx_t;
 
-int xhash_sha1_init(xhash_sha1_ctx_t *c);
-int xhash_sha1_update(xhash_sha1_ctx_t *c, const void *data, size_t len);
-int xhash_sha1_final(unsigned char *md, xhash_sha1_ctx_t *c);
-void xhash_sha1_transform(xhash_sha1_ctx_t *c, const unsigned char *data);
+int xdig_sha1_init(xdig_sha1_ctx_t *c);
+int xdig_sha1_update(xdig_sha1_ctx_t *c, const void *data, size_t len);
+int xdig_sha1_final(unsigned char *md, xdig_sha1_ctx_t *c);
+void xdig_sha1_transform(xdig_sha1_ctx_t *c, const unsigned char *data);
 # endif
 
-unsigned char *xhash_sha1(const unsigned char *d, size_t n, unsigned char *md);
+unsigned char *xdig_sha1(const unsigned char *d, size_t n, unsigned char *md);
 
-# ifndef xhash_NO_DEPRECATED_3_0
-#  define XHASH_SHA256_CBLOCK   (XHASH_SHA_LBLOCK*4)/* SHA-256 treats input data as a
+# ifndef xdig_NO_DEPRECATED_3_0
+#  define XDIG_SHA256_CBLOCK   (XDIG_SHA_LBLOCK*4)/* SHA-256 treats input data as a
                                         * contiguous array of 32 bit wide
                                         * big-endian values. */
 
 typedef struct SHA256state_st {
-    XHASH_SHA_LONG h[8];
-    XHASH_SHA_LONG Nl, Nh;
-    XHASH_SHA_LONG data[XHASH_SHA_LBLOCK];
+    XDIG_SHA_LONG h[8];
+    XDIG_SHA_LONG Nl, Nh;
+    XDIG_SHA_LONG data[XDIG_SHA_LBLOCK];
     unsigned int num, md_len;
-} xhash_sha256_ctx_t;
+} xdig_sha256_ctx_t;
 
-int xhash_sha224_init(xhash_sha256_ctx_t *c);
-int xhash_sha224_update(xhash_sha256_ctx_t *c,
+int xdig_sha224_init(xdig_sha256_ctx_t *c);
+int xdig_sha224_update(xdig_sha256_ctx_t *c,
                                         const void *data, size_t len);
-int xhash_sha224_final(unsigned char *md, xhash_sha256_ctx_t *c);
-int xhash_sha256_init(xhash_sha256_ctx_t *c);
-int xhash_sha256_update(xhash_sha256_ctx_t *c,
+int xdig_sha224_final(unsigned char *md, xdig_sha256_ctx_t *c);
+int xdig_sha256_init(xdig_sha256_ctx_t *c);
+int xdig_sha256_update(xdig_sha256_ctx_t *c,
                                         const void *data, size_t len);
-int xhash_sha256_final(unsigned char *md, xhash_sha256_ctx_t *c);
-void xhash_sha256_transform(xhash_sha256_ctx_t *c,
+int xdig_sha256_final(unsigned char *md, xdig_sha256_ctx_t *c);
+void xdig_sha256_transform(xdig_sha256_ctx_t *c,
                                             const unsigned char *data);
 # endif
 
-unsigned char *xhash_sha224(const unsigned char *d, size_t n, unsigned char *md);
-unsigned char *xhash_sha256(const unsigned char *d, size_t n, unsigned char *md);
+unsigned char *xdig_sha224(const unsigned char *d, size_t n, unsigned char *md);
+unsigned char *xdig_sha256(const unsigned char *d, size_t n, unsigned char *md);
 
-# define XHASH_SHA256_192_DIGEST_LENGTH 24
-# define XHASH_SHA224_DIGEST_LENGTH    28
-# define XHASH_SHA256_DIGEST_LENGTH    32
-# define XHASH_SHA384_DIGEST_LENGTH    48
-# define XHASH_SHA512_DIGEST_LENGTH    64
+# define XDIG_SHA256_192_DIGEST_LENGTH 24
+# define XDIG_SHA224_DIGEST_LENGTH    28
+# define XDIG_SHA256_DIGEST_LENGTH    32
+# define XDIG_SHA384_DIGEST_LENGTH    48
+# define XDIG_SHA512_DIGEST_LENGTH    64
 
-# ifndef xhash_NO_DEPRECATED_3_0
+# ifndef xdig_NO_DEPRECATED_3_0
 /*
- * Unlike 32-bit digest algorithms, SHA-512 *relies* on XHASH_SHA_LONG64
+ * Unlike 32-bit digest algorithms, SHA-512 *relies* on XDIG_SHA_LONG64
  * being exactly 64-bit wide. See Implementation Notes in sha512.c
  * for further details.
  */
@@ -98,39 +98,39 @@ unsigned char *xhash_sha256(const unsigned char *d, size_t n, unsigned char *md)
  * contiguous array of 64 bit
  * wide big-endian values.
  */
-#  define XHASH_SHA512_CBLOCK   (XHASH_SHA_LBLOCK*8)
+#  define XDIG_SHA512_CBLOCK   (XDIG_SHA_LBLOCK*8)
 #  if (defined(_WIN32) || defined(_WIN64)) && !defined(__MINGW32__)
-#   define XHASH_SHA_LONG64 unsigned __int64
+#   define XDIG_SHA_LONG64 unsigned __int64
 #  elif defined(__arch64__)
-#   define XHASH_SHA_LONG64 unsigned long
+#   define XDIG_SHA_LONG64 unsigned long
 #  else
-#   define XHASH_SHA_LONG64 unsigned long long
+#   define XDIG_SHA_LONG64 unsigned long long
 #  endif
 
 typedef struct SHA512state_st {
-    XHASH_SHA_LONG64 h[8];
-    XHASH_SHA_LONG64 Nl, Nh;
+    XDIG_SHA_LONG64 h[8];
+    XDIG_SHA_LONG64 Nl, Nh;
     union {
-        XHASH_SHA_LONG64 d[XHASH_SHA_LBLOCK];
-        unsigned char p[XHASH_SHA512_CBLOCK];
+        XDIG_SHA_LONG64 d[XDIG_SHA_LBLOCK];
+        unsigned char p[XDIG_SHA512_CBLOCK];
     } u;
     unsigned int num, md_len;
-} xhash_sha512_ctx_t;
+} xdig_sha512_ctx_t;
 
-int xhash_sha384_init(xhash_sha512_ctx_t *c);
-int xhash_sha384_update(xhash_sha512_ctx_t *c,
+int xdig_sha384_init(xdig_sha512_ctx_t *c);
+int xdig_sha384_update(xdig_sha512_ctx_t *c,
                                         const void *data, size_t len);
-int xhash_sha384_final(unsigned char *md, xhash_sha512_ctx_t *c);
-int xhash_sha512_init(xhash_sha512_ctx_t *c);
-int xhash_sha512_update(xhash_sha512_ctx_t *c,
+int xdig_sha384_final(unsigned char *md, xdig_sha512_ctx_t *c);
+int xdig_sha512_init(xdig_sha512_ctx_t *c);
+int xdig_sha512_update(xdig_sha512_ctx_t *c,
                                         const void *data, size_t len);
-int xhash_sha512_final(unsigned char *md, xhash_sha512_ctx_t *c);
-void xhash_sha512_transform(xhash_sha512_ctx_t *c,
+int xdig_sha512_final(unsigned char *md, xdig_sha512_ctx_t *c);
+void xdig_sha512_transform(xdig_sha512_ctx_t *c,
                                             const unsigned char *data);
 # endif
 
-unsigned char *xhash_sha384(const unsigned char *d, size_t n, unsigned char *md);
-unsigned char *xhash_sha512(const unsigned char *d, size_t n, unsigned char *md);
+unsigned char *xdig_sha384(const unsigned char *d, size_t n, unsigned char *md);
+unsigned char *xdig_sha512(const unsigned char *d, size_t n, unsigned char *md);
 
 # ifdef  __cplusplus
 }

@@ -33,7 +33,7 @@ ASSEMBLER = $(CC)
 ifdef NO_ASM
     CFLAGS += -DNO_ASM
 else
-    CFLAGS += -Dxhash_CPUID_OBJ
+    CFLAGS += -Dxdig_CPUID_OBJ
     CFLAGS += -DMD5_ASM
     CFLAGS += -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM
 endif
@@ -47,21 +47,21 @@ ifndef NO_ASM
 endif
 
 sofiles = \
-	libxhash.so.$(VERSION) \
-	libxhash.so.$(SONAME) \
-	libxhash.so
+	libxdigest.so.$(VERSION) \
+	libxdigest.so.$(SONAME) \
+	libxdigest.so
 
-all: libxhash.so
+all: libxdigest.so
 .PHONY: all
 
-libxhash.so.$(VERSION): $(objects)
+libxdigest.so.$(VERSION): $(objects)
 	mkdir -p $(@D)
 	$(CC) $(CFLAGS) -shared -o $@ $^
 
-libxhash.so.$(SONAME): libxhash.so.$(VERSION)
+libxdigest.so.$(SONAME): libxdigest.so.$(VERSION)
 	ln -s $^ $@
 
-libxhash.so: libxhash.so.$(SONAME)
+libxdigest.so: libxdigest.so.$(SONAME)
 	ln -s $^ $@
 
 %.o: %.S
@@ -70,11 +70,11 @@ libxhash.so: libxhash.so.$(SONAME)
 %.o: %.c
 	mkdir -p $(@D) && $(CC) -c $^ -o $@ $(CFLAGS)
 
-test_xhash: tests/test_xhash.c tests/sha_test.c libxhash.so
-	mkdir -p $(@D) && $(CC) $^ -o $@ $(CFLAGS) -DXHASH -Lxhash.so
+test_xdigest: tests/test_xdigest.c tests/sha_test.c libxdigest.so
+	mkdir -p $(@D) && $(CC) $^ -o $@ $(CFLAGS) -DXDIG -Lxdigest.so
 
-test: test_xhash
-	export "LD_LIBRARY_PATH=$(CURDIR):$(LD_LIBRARY_PATH)" && ./test_xhash
+test: test_xdigest
+	export "LD_LIBRARY_PATH=$(CURDIR):$(LD_LIBRARY_PATH)" && ./test_xdigest
 
 clean:
 	find . -type f -name '*.o' -delete
@@ -86,8 +86,8 @@ install: all
 	install -d $(DESTDIR)$(PREFIX)/lib/
 	install -m 644 $(sofiles) $(DESTDIR)$(PREFIX)/lib/
 	install -d $(DESTDIR)$(PREFIX)/include/
-	install -d $(DESTDIR)$(PREFIX)/include/xhash
-	install -m 644 include/xhash/*.h $(DESTDIR)$(PREFIX)/include/xhash
+	install -d $(DESTDIR)$(PREFIX)/include/xdigest
+	install -m 644 include/xdigest/*.h $(DESTDIR)$(PREFIX)/include/xdigest
 
 rebuild: clean all
 

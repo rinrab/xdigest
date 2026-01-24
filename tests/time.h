@@ -7,9 +7,9 @@
 #if __WIN32__ 
 #include <windows.h>
 
-typedef LARGE_INTEGER xhash_time__t;
+typedef LARGE_INTEGER xdig_time__t;
 
-static xhash_time__t xhash_time__get()
+static xdig_time__t xdig_time__get()
 {
     LARGE_INTEGER result = { 0 };
 
@@ -20,7 +20,7 @@ static xhash_time__t xhash_time__get()
 }
 
 static double
-xhash_time__diff(xhash_time__t start, xhash_time__t end)
+xdig_time__diff(xdig_time__t start, xdig_time__t end)
 {
     LONG_INTEGER frequency = { 0 };
 
@@ -32,9 +32,9 @@ xhash_time__diff(xhash_time__t start, xhash_time__t end)
 #else
 #include <time.h>
 
-typedef struct timespec xhash_time__t;
+typedef struct timespec xdig_time__t;
 
-static xhash_time__t xhash_time__get()
+static xdig_time__t xdig_time__get()
 {
     struct timespec time;
 
@@ -50,7 +50,7 @@ static xhash_time__t xhash_time__get()
 }
 
 static double
-xhash_time__diff(xhash_time__t start, xhash_time__t end)
+xdig_time__diff(xdig_time__t start, xdig_time__t end)
 {
     return (end.tv_sec - start.tv_sec)
              + (double)(end.tv_nsec - start.tv_nsec)

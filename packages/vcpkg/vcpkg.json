@@ -1,8 +1,8 @@
 {
-  "name": "xhash",
+  "name": "xdigest",
   "version-string": "0.1.0",
   "description": "Fast and lightweigh hash library.",
-  "homepage": "https://github.com/rinrab/xhash",
+  "homepage": "https://github.com/rinrab/xdigest",
   "supports": "!uwp",
   "features": {
     "asm": {

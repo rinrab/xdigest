@@ -7,12 +7,12 @@
  * https://www.openssl.org/source/license.html
  */
 
-#ifndef xhash_E_OS2_H
-# define xhash_E_OS2_H
+#ifndef xdig_E_OS2_H
+# define xdig_E_OS2_H
 # pragma once
 
 /* ignored include 'openssl/macros.h' */
-# ifndef xhash_NO_DEPRECATED_3_0
+# ifndef xdig_NO_DEPRECATED_3_0
 #  define HEADER_E_OS2_H
 # endif
 
@@ -24,11 +24,11 @@ extern "C" {
 
 /******************************************************************************
  * Detect operating systems.  This probably needs completing.
- * The result is that at least one xhash_SYS_os macro should be defined.
+ * The result is that at least one xdig_SYS_os macro should be defined.
  * However, if none is defined, Unix is assumed.
  **/
 
-# define xhash_SYS_UNIX
+# define xdig_SYS_UNIX
 
 /* --------------------- Microsoft operating systems ---------------------- */
 
@@ -36,8 +36,8 @@ extern "C" {
  * Note that MSDOS actually denotes 32-bit environments running on top of
  * MS-DOS, such as DJGPP one.
  */
-# if defined(xhash_SYS_MSDOS)
-#  undef xhash_SYS_UNIX
+# if defined(xdig_SYS_MSDOS)
+#  undef xdig_SYS_UNIX
 # endif
 
 /*
@@ -48,42 +48,42 @@ extern "C" {
  * UEFI lives here because it might be built with a Microsoft toolchain and
  * we need to avoid the false positive match on Windows.
  */
-# if defined(xhash_SYS_UEFI)
-#  undef xhash_SYS_UNIX
-# elif defined(xhash_SYS_UWIN)
-#  undef xhash_SYS_UNIX
-#  define xhash_SYS_WIN32_UWIN
+# if defined(xdig_SYS_UEFI)
+#  undef xdig_SYS_UNIX
+# elif defined(xdig_SYS_UWIN)
+#  undef xdig_SYS_UNIX
+#  define xdig_SYS_WIN32_UWIN
 # else
-#  if defined(__CYGWIN__) || defined(xhash_SYS_CYGWIN)
-#   define xhash_SYS_WIN32_CYGWIN
+#  if defined(__CYGWIN__) || defined(xdig_SYS_CYGWIN)
+#   define xdig_SYS_WIN32_CYGWIN
 #  else
-#   if defined(_WIN32) || defined(xhash_SYS_WIN32)
-#    undef xhash_SYS_UNIX
-#    if !defined(xhash_SYS_WIN32)
-#     define xhash_SYS_WIN32
+#   if defined(_WIN32) || defined(xdig_SYS_WIN32)
+#    undef xdig_SYS_UNIX
+#    if !defined(xdig_SYS_WIN32)
+#     define xdig_SYS_WIN32
 #    endif
 #   endif
-#   if defined(_WIN64) || defined(xhash_SYS_WIN64)
-#    undef xhash_SYS_UNIX
-#    if !defined(xhash_SYS_WIN64)
-#     define xhash_SYS_WIN64
+#   if defined(_WIN64) || defined(xdig_SYS_WIN64)
+#    undef xdig_SYS_UNIX
+#    if !defined(xdig_SYS_WIN64)
+#     define xdig_SYS_WIN64
 #    endif
 #   endif
-#   if defined(xhash_SYS_WINNT)
-#    undef xhash_SYS_UNIX
+#   if defined(xdig_SYS_WINNT)
+#    undef xdig_SYS_UNIX
 #   endif
-#   if defined(xhash_SYS_WINCE)
-#    undef xhash_SYS_UNIX
+#   if defined(xdig_SYS_WINCE)
+#    undef xdig_SYS_UNIX
 #   endif
 #  endif
 # endif
 
 /* Anything that tries to look like Microsoft is "Windows" */
-# if defined(xhash_SYS_WIN32) || defined(xhash_SYS_WIN64) || defined(xhash_SYS_WINNT) || defined(xhash_SYS_WINCE)
-#  undef xhash_SYS_UNIX
-#  define xhash_SYS_WINDOWS
-#  ifndef xhash_SYS_MSDOS
-#   define xhash_SYS_MSDOS
+# if defined(xdig_SYS_WIN32) || defined(xdig_SYS_WIN64) || defined(xdig_SYS_WINNT) || defined(xdig_SYS_WINCE)
+#  undef xdig_SYS_UNIX
+#  define xdig_SYS_WINDOWS
+#  ifndef xdig_SYS_MSDOS
+#   define xdig_SYS_MSDOS
 #  endif
 # endif
 
@@ -92,49 +92,49 @@ extern "C" {
  * application implementer how he or she will link the application, so it
  * requires some macro to be used.
  */
-# ifdef xhash_SYS_WINDOWS
-#  ifndef xhash_OPT_WINDLL
+# ifdef xdig_SYS_WINDOWS
+#  ifndef xdig_OPT_WINDLL
 #   if defined(_WINDLL)         /* This is used when building OpenSSL to
                                  * indicate that DLL linkage should be used */
-#    define xhash_OPT_WINDLL
+#    define xdig_OPT_WINDLL
 #   endif
 #  endif
 # endif
 
 /* ------------------------------- OpenVMS -------------------------------- */
 # if defined(__VMS) || defined(VMS)
-#  if !defined(xhash_SYS_VMS)
-#   undef xhash_SYS_UNIX
-#   define xhash_SYS_VMS
+#  if !defined(xdig_SYS_VMS)
+#   undef xdig_SYS_UNIX
+#   define xdig_SYS_VMS
 #  endif
 #  if defined(__DECC)
-#   define xhash_SYS_VMS_DECC
+#   define xdig_SYS_VMS_DECC
 #  elif defined(__DECCXX)
-#   define xhash_SYS_VMS_DECC
-#   define xhash_SYS_VMS_DECCXX
+#   define xdig_SYS_VMS_DECC
+#   define xdig_SYS_VMS_DECCXX
 #  else
-#   define xhash_SYS_VMS_NODECC
+#   define xdig_SYS_VMS_NODECC
 #  endif
 # endif
 
 /* -------------------------------- Unix ---------------------------------- */
-# ifdef xhash_SYS_UNIX
-#  if defined(linux) || defined(__linux__) && !defined(xhash_SYS_LINUX)
-#   define xhash_SYS_LINUX
+# ifdef xdig_SYS_UNIX
+#  if defined(linux) || defined(__linux__) && !defined(xdig_SYS_LINUX)
+#   define xdig_SYS_LINUX
 #  endif
-#  if defined(_AIX) && !defined(xhash_SYS_AIX)
-#   define xhash_SYS_AIX
+#  if defined(_AIX) && !defined(xdig_SYS_AIX)
+#   define xdig_SYS_AIX
 #  endif
 # endif
 
 /* -------------------------------- VOS ----------------------------------- */
-# if defined(__VOS__) && !defined(xhash_SYS_VOS)
-#  define xhash_SYS_VOS
+# if defined(__VOS__) && !defined(xdig_SYS_VOS)
+#  define xdig_SYS_VOS
 #  ifdef __HPPA__
-#   define xhash_SYS_VOS_HPPA
+#   define xdig_SYS_VOS_HPPA
 #  endif
 #  ifdef __IA32__
-#   define xhash_SYS_VOS_IA32
+#   define xdig_SYS_VOS_IA32
 #  endif
 # endif
 
@@ -143,12 +143,12 @@ extern "C" {
 #  ifdef _STRING
 #   include <strings.h>
 #  endif
-# define xhash_USE_BUILD_DATE
-# if defined(xhash_THREADS) && defined(_SPT_MODEL_)
+# define xdig_USE_BUILD_DATE
+# if defined(xdig_THREADS) && defined(_SPT_MODEL_)
 #  define  SPT_THREAD_SIGNAL 1
 #  define  SPT_THREAD_AWARE 1
 #  include <spthread.h>
-# elif defined(xhash_THREADS) && defined(_PUT_MODEL_)
+# elif defined(xdig_THREADS) && defined(_PUT_MODEL_)
 #  include <pthread.h>
 # endif
 # endif
@@ -158,30 +158,30 @@ extern "C" {
  *****************************************************************************/
 
 /*-
- * xhash_EXTERN is normally used to declare a symbol with possible extra
+ * xdig_EXTERN is normally used to declare a symbol with possible extra
  * attributes to handle its presence in a shared library.
- * xhash_EXPORT is used to define a symbol with extra possible attributes
+ * xdig_EXPORT is used to define a symbol with extra possible attributes
  * to make it visible in a shared library.
  * Care needs to be taken when a header file is used both to declare and
  * define symbols.  Basically, for any library that exports some global
  * variables, the following code must be present in the header file that
- * declares them, before xhash_EXTERN is used:
+ * declares them, before xdig_EXTERN is used:
  *
  * #ifdef SOME_BUILD_FLAG_MACRO
- * # undef xhash_EXTERN
- * # define xhash_EXTERN xhash_EXPORT
+ * # undef xdig_EXTERN
+ * # define xdig_EXTERN xdig_EXPORT
  * #endif
  *
- * The default is to have xhash_EXPORT and xhash_EXTERN
+ * The default is to have xdig_EXPORT and xdig_EXTERN
  * have some generally sensible values.
  */
 
-# if defined(xhash_SYS_WINDOWS) && defined(xhash_OPT_WINDLL)
-#  define xhash_EXPORT extern __declspec(dllexport)
-#  define xhash_EXTERN extern __declspec(dllimport)
+# if defined(xdig_SYS_WINDOWS) && defined(xdig_OPT_WINDLL)
+#  define xdig_EXPORT extern __declspec(dllexport)
+#  define xdig_EXTERN extern __declspec(dllimport)
 # else
-#  define xhash_EXPORT extern
-#  define xhash_EXTERN extern
+#  define xdig_EXPORT extern
+#  define xdig_EXTERN extern
 # endif
 
 # ifdef _WIN32
@@ -194,7 +194,7 @@ extern "C" {
 #  endif
 # endif
 
-# if defined(xhash_SYS_UEFI) && !defined(ossl_ssize_t)
+# if defined(xdig_SYS_UEFI) && !defined(ossl_ssize_t)
 #  define ossl_ssize_t INTN
 #  define OSSL_SSIZE_MAX MAX_INTN
 # endif
@@ -218,9 +218,9 @@ extern "C" {
 # endif
 
 /* Standard integer types */
-# define xhash_NO_INTTYPES_H
-# define xhash_NO_STDINT_H
-# if defined(xhash_SYS_UEFI)
+# define xdig_NO_INTTYPES_H
+# define xdig_NO_STDINT_H
+# if defined(xdig_SYS_UEFI)
 typedef INT8 int8_t;
 typedef UINT8 uint8_t;
 typedef INT16 int16_t;
@@ -232,11 +232,11 @@ typedef UINT64 uint64_t;
 typedef UINTN uintptr_t;
 # elif (defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || \
      defined(__osf__) || defined(__sgi) || defined(__hpux) || \
-     defined(xhash_SYS_VMS) || defined (__OpenBSD__)
+     defined(xdig_SYS_VMS) || defined (__OpenBSD__)
 #  include <inttypes.h>
-#  undef xhash_NO_INTTYPES_H
+#  undef xdig_NO_INTTYPES_H
 /* Because the specs say that inttypes.h includes stdint.h if present */
-#  undef xhash_NO_STDINT_H
+#  undef xdig_NO_STDINT_H
 # elif defined(_MSC_VER) && _MSC_VER<1600
 /*
  * minimally required typdefs for systems not supporting inttypes.h or
@@ -250,12 +250,12 @@ typedef int int32_t;
 typedef unsigned int uint32_t;
 typedef __int64 int64_t;
 typedef unsigned __int64 uint64_t;
-# elif defined(xhash_SYS_TANDEM)
+# elif defined(xdig_SYS_TANDEM)
 #  include <stdint.h>
 #  include <sys/types.h>
 # else
 #  include <stdint.h>
-#  undef xhash_NO_STDINT_H
+#  undef xdig_NO_STDINT_H
 # endif
 # if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L && \
     defined(INTMAX_MAX) && defined(UINTMAX_MAX)

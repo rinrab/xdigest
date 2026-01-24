@@ -7,51 +7,51 @@
  * https://www.openssl.org/source/license.html
  */
 
-#ifndef xhash_MD5_H
-# define xhash_MD5_H
+#ifndef xdig_MD5_H
+# define xdig_MD5_H
 # pragma once
 
 /* ignored include 'openssl/macros.h' */
-# ifndef xhash_NO_DEPRECATED_3_0
+# ifndef xdig_NO_DEPRECATED_3_0
 #  define HEADER_MD5_H
 # endif
 
 /* ignored include 'openssl/opensslconf.h' */
 
-# ifndef xhash_NO_MD5
+# ifndef xdig_NO_MD5
 #include "internal/e_os2.h"
 #  include <stddef.h>
 #  ifdef  __cplusplus
 extern "C" {
 #  endif
 
-#  define XHASH_MD5_DIGEST_LENGTH 16
+#  define XDIG_MD5_DIGEST_LENGTH 16
 
-#  if !defined(xhash_NO_DEPRECATED_3_0)
+#  if !defined(xdig_NO_DEPRECATED_3_0)
 /*
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
- * ! XHASH_MD5_LONG has to be at least 32 bits wide.                     !
+ * ! XDIG_MD5_LONG has to be at least 32 bits wide.                     !
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  */
-#   define XHASH_MD5_LONG unsigned int
+#   define XDIG_MD5_LONG unsigned int
 
-#   define XHASH_MD5_CBLOCK      64
-#   define XHASH_MD5_LBLOCK      (XHASH_MD5_CBLOCK/4)
+#   define XDIG_MD5_CBLOCK      64
+#   define XDIG_MD5_LBLOCK      (XDIG_MD5_CBLOCK/4)
 
 typedef struct MD5state_st {
-    XHASH_MD5_LONG A, B, C, D;
-    XHASH_MD5_LONG Nl, Nh;
-    XHASH_MD5_LONG data[XHASH_MD5_LBLOCK];
+    XDIG_MD5_LONG A, B, C, D;
+    XDIG_MD5_LONG Nl, Nh;
+    XDIG_MD5_LONG data[XDIG_MD5_LBLOCK];
     unsigned int num;
-} xhash_md5_ctx_t;
+} xdig_md5_ctx_t;
 #  endif
-#  ifndef xhash_NO_DEPRECATED_3_0
-int xhash_md5_init(xhash_md5_ctx_t *c);
-int xhash_md5_update(xhash_md5_ctx_t *c, const void *data, size_t len);
-int xhash_md5_final(unsigned char *md, xhash_md5_ctx_t *c);
-unsigned char *xhash_md5(const unsigned char *d, size_t n,
+#  ifndef xdig_NO_DEPRECATED_3_0
+int xdig_md5_init(xdig_md5_ctx_t *c);
+int xdig_md5_update(xdig_md5_ctx_t *c, const void *data, size_t len);
+int xdig_md5_final(unsigned char *md, xdig_md5_ctx_t *c);
+unsigned char *xdig_md5(const unsigned char *d, size_t n,
                                          unsigned char *md);
-void xhash_md5_transform(xhash_md5_ctx_t *c, const unsigned char *b);
+void xdig_md5_transform(xdig_md5_ctx_t *c, const unsigned char *b);
 #  endif
 
 #  ifdef  __cplusplus

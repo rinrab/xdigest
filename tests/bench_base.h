@@ -5,7 +5,7 @@
 #include "time.h"
 
 static void
-xhash_bench__create_buffer(unsigned char *buf, size_t len)
+xdig_bench__create_buffer(unsigned char *buf, size_t len)
 {
     int i;
     uint32_t seed = 67;
@@ -17,14 +17,14 @@ xhash_bench__create_buffer(unsigned char *buf, size_t len)
     }
 }
 
-typedef struct xhash_bench__ctx_t {
+typedef struct xdig_bench__ctx_t {
     const char *name;
 
 #ifdef WIN32
     #error "not supported"
 #else
-    xhash_time__t start;
-    xhash_time__t end;
+    xdig_time__t start;
+    xdig_time__t end;
 #endif
 
     double requested_time;
@@ -32,51 +32,51 @@ typedef struct xhash_bench__ctx_t {
 
     size_t bufsize;
     unsigned char *buf;
-} xhash_bench__ctx_t;
+} xdig_bench__ctx_t;
 
-static xhash_bench__ctx_t *
-xhash_bench__ctx_create(const char *name, double requested_time, size_t bufsize)
+static xdig_bench__ctx_t *
+xdig_bench__ctx_create(const char *name, double requested_time, size_t bufsize)
 {
-    xhash_bench__ctx_t *ctx = (xhash_bench__ctx_t *)malloc(sizeof(*ctx));
+    xdig_bench__ctx_t *ctx = (xdig_bench__ctx_t *)malloc(sizeof(*ctx));
 
     ctx->name = name;
     ctx->requested_time = requested_time;
-    ctx->start = xhash_time__get();
+    ctx->start = xdig_time__get();
     ctx->iter = 0;
 
     ctx->bufsize = bufsize;
     ctx->buf = (unsigned char *)malloc(bufsize);
-    xhash_bench__create_buffer(ctx->buf, bufsize);
+    xdig_bench__create_buffer(ctx->buf, bufsize);
 
     return ctx;
 }
 
 static int
-xhash_bench__ctx_next(xhash_bench__ctx_t *ctx)
+xdig_bench__ctx_next(xdig_bench__ctx_t *ctx)
 {
     double diff;
 
     ctx->iter++;
-    ctx->end = xhash_time__get();
+    ctx->end = xdig_time__get();
 
-    diff = xhash_time__diff(ctx->start, ctx->end);
+    diff = xdig_time__diff(ctx->start, ctx->end);
 
     return (diff < ctx->requested_time);
 }
 
 static void
-xhash_bench__ctx_finish(xhash_bench__ctx_t *ctx)
+xdig_bench__ctx_finish(xdig_bench__ctx_t *ctx)
 {
 #define GB (1024 * 1024 * 1024)
 
     printf("%6s: Processed %.2f GB in %.2f seconds.\n",
            ctx->name,
            ((double)ctx->bufsize * ctx->iter) / GB,
-           xhash_time__diff(ctx->start, ctx->end));
+           xdig_time__diff(ctx->start, ctx->end));
 }
 
 static void
-xhash_bench__ctx_free(xhash_bench__ctx_t *ctx)
+xdig_bench__ctx_free(xdig_bench__ctx_t *ctx)
 {
     free(ctx->buf);
     free(ctx);

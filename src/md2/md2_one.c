@@ -23,17 +23,17 @@
  * functions to different names
  */
 
-unsigned char *xhash_md2(const unsigned char *d, size_t n, unsigned char *md)
+unsigned char *xdig_md2(const unsigned char *d, size_t n, unsigned char *md)
 {
-    xhash_md2_ctx_t c;
-    static unsigned char m[XHASH_MD2_DIGEST_LENGTH];
+    xdig_md2_ctx_t c;
+    static unsigned char m[XDIG_MD2_DIGEST_LENGTH];
 
     if (md == NULL)
         md = m;
-    if (!xhash_md2_init(&c))
+    if (!xdig_md2_init(&c))
         return NULL;
 #ifndef CHARSET_EBCDIC
-    xhash_md2_update(&c, d, n);
+    xdig_md2_update(&c, d, n);
 #else
     {
         char temp[1024];
@@ -42,13 +42,13 @@ unsigned char *xhash_md2(const unsigned char *d, size_t n, unsigned char *md)
         while (n > 0) {
             chunk = (n > sizeof(temp)) ? sizeof(temp) : n;
             ebcdic2ascii(temp, d, chunk);
-            xhash_md2_update(&c, temp, chunk);
+            xdig_md2_update(&c, temp, chunk);
             n -= chunk;
             d += chunk;
         }
     }
 #endif
-    xhash_md2_final(md, &c);
-    xhash_cleanse(&c, sizeof(c)); /* Security consideration */
+    xdig_md2_final(md, &c);
+    xdig_cleanse(&c, sizeof(c)); /* Security consideration */
     return md;
 }

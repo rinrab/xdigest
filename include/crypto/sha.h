@@ -8,16 +8,16 @@
  * https://www.openssl.org/source/license.html
  */
 
-#ifndef OSSL_xhash_SHA_H
-# define OSSL_xhash_SHA_H
+#ifndef OSSL_xdig_SHA_H
+# define OSSL_xdig_SHA_H
 # pragma once
 
 #include "internal/sha.h"
 
-int ossl_sha256_192_init(xhash_sha256_ctx_t *c);
-int sha512_224_init(xhash_sha512_ctx_t *);
-int sha512_256_init(xhash_sha512_ctx_t *);
-int ossl_sha1_ctrl(xhash_sha1_ctx_t *ctx, int cmd, int mslen, void *ms);
+int ossl_sha256_192_init(xdig_sha256_ctx_t *c);
+int sha512_224_init(xdig_sha512_ctx_t *);
+int sha512_256_init(xdig_sha512_ctx_t *);
+int ossl_sha1_ctrl(xdig_sha1_ctx_t *ctx, int cmd, int mslen, void *ms);
 unsigned char *ossl_sha1(const unsigned char *d, size_t n, unsigned char *md);
 
 #endif

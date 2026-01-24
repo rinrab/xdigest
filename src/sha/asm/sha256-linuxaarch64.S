@@ -19,7 +19,7 @@
 // Performance in cycles per processed byte and improvement coefficient
 // over code generated with "default" compiler:
 //
-//		SHA256-hw	xhash_sha256(*)	SHA512
+//		SHA256-hw	xdig_sha256(*)	SHA512
 // Apple A7	1.97		10.5 (+33%)	6.73 (-1%(**))
 // Cortex-A53	2.38		15.5 (+115%)	10.0 (+150%(***))
 // Cortex-A57	2.31		11.6 (+86%)	7.51 (+260%(***))
@@ -58,7 +58,7 @@
 #include "arm_arch.h"
 #ifndef	__KERNEL__
 
-.hidden	xhash_armcap_P
+.hidden	xdig_armcap_P
 #endif
 
 .text
@@ -69,8 +69,8 @@
 sha256_block_data_order:
 	AARCH64_VALID_CALL_TARGET
 #ifndef	__KERNEL__
-	adrp	x16,xhash_armcap_P
-	ldr	w16,[x16,#:lo12:xhash_armcap_P]
+	adrp	x16,xdig_armcap_P
+	ldr	w16,[x16,#:lo12:xdig_armcap_P]
 	tst	w16,#ARMV8_SHA256
 	b.ne	Lv8_entry
 	tst	w16,#ARMV7_NEON

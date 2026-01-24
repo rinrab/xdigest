@@ -1,4 +1,4 @@
-# xhash
+# xdigest
 
 Fast and lightweight hash library that serves OpenSSL assembly optimised hash
 implementation as a standalone package.
@@ -30,8 +30,8 @@ But it's important to know that the GitHub repository is actually a mirror of a
 Subversion repository because svn is the GOAT.
 
 ```bash
-git clone https://github.com/rinrab/xhash.git
-cd xhash
+git clone https://github.com/rinrab/xdigest.git
+cd xdigest
 ```
 
 ### Install library via a package manager
@@ -71,7 +71,7 @@ The best talents of this world are currently working hard to get this done.
 
 ### Use the library
 
-This package exports headers <INCLUDEDIR>/xhash/ and libxhash.so library
+This package exports headers <INCLUDEDIR>/xdigest/ and libxdigest.so library
 object. Soon, we'll also add pkgconfig file.
 
 Keep in mind that the library needs to be initialized first before using any
@@ -80,30 +80,30 @@ exactly it's done is responsibily of calling side. Since in our example we
 don't really care about all that fancy multithreading stuff, we'll just invoke
 it on startup.
 
-For example, SHA related APIs are located in xhash/sha.h. We could use to
+For example, SHA related APIs are located in xdigest/sha.h. We could use to
 create a context for processing SHA256 blocks.
 
 ```c
 #include <assert.h>
 #include <string.h>
 
-#include <xhash/xhash.h>
-#include <xhash/sha.h>
+#include <xdigest/xdigest.h>
+#include <xdigest/sha.h>
 
 int main() {
-    xhash_sha256_ctx_t ctx = { 0 };
-    char digest1[XHASH_SHA256_DIGEST_LENGTH];
-    char digest2[XHASH_SHA256_DIGEST_LENGTH];
+    xdig_sha256_ctx_t ctx = { 0 };
+    char digest1[XDIG_SHA256_DIGEST_LENGTH];
+    char digest2[XDIG_SHA256_DIGEST_LENGTH];
 
-    xhash_init();
+    xdig_init();
 
-    xhash_sha256_init(&ctx);
-    xhash_sha256_update(&ctx, "abc", 3);
-    xhash_sha256_update(&ctx, "more things", sizeof("more things"));
-    xhash_sha256_final(&digest1, &ctx);
+    xdig_sha256_init(&ctx);
+    xdig_sha256_update(&ctx, "abc", 3);
+    xdig_sha256_update(&ctx, "more things", sizeof("more things"));
+    xdig_sha256_final(&digest1, &ctx);
 
     /* There is also a convenience wrapper. */
-    xhash_sha256("abcmore things", sizeof("abcmore things"), &digest2);
+    xdig_sha256("abcmore things", sizeof("abcmore things"), &digest2);
 
     /* Should be the same data. */
     assert(memcmp(digest1, digest2, sizeof(digest1)) == 0);
@@ -136,7 +136,7 @@ simplity.
 
 We provide lightweight and simple way to use OpenSSL's __implementation__.
 However, nothing from OpenSSL should be exposed to public API. Everything in
-include/xhash/*.h should be re-written.
+include/xdigest/*.h should be re-written.
 
 Checksum contexts are intended to be hidden from public API.
 
@@ -150,7 +150,7 @@ integration is required.
 ### Initialization
 
 To use capabilities of modern processors in order to compute digest checksums,
-it has to be first initialized. Use `xhash_init()` function in `xhash/xhash.h`
+it has to be first initialized. Use `xdig_init()` function in `xdigest/xdigest.h`
 header in order to do that. It is important that it's called once per process.
 Otherwise, something might missbehave.
 
