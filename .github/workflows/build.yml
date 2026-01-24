@@ -49,4 +49,4 @@ jobs:
 
     - name: Run x64
       shell: vsdevenv x64 pwsh {0}
-      run: nmake /F Makefile.win
+      run: nmake /F Makefile.win clean all check
