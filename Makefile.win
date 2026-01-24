@@ -1,4 +1,5 @@
 CC = cl.exe
+LINK = link.exe
 LIB = lib.exe
 CFLAGS = /c /O2 /W4 /Iinclude /DNO_ASM 
 
@@ -12,6 +13,9 @@ include Makefile.inc
 
 libxhash.lib: $(c_objects)
   $(LIB) /nologo /out:libxhash.lib $(c_objects)
+
+test_xhash.exe: libxhash.lib tests/test_xhash.obj tests/sha_test.obj
+	$(LINK) /nologo $<
 
 clean:
   del /S *.obj *.lib
