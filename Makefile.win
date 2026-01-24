@@ -17,6 +17,9 @@ libxhash.lib: $(c_objects)
 test_xhash.exe: libxhash.lib tests/test_xhash.obj tests/sha_test.obj
 	$(LINK) /nologo $<
 
+check: test_xhash.exe
+	test_xhash.exe
+
 clean:
   del /S *.obj *.lib
 
