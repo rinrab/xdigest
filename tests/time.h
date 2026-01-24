@@ -2,12 +2,12 @@
 #include <assert.h>
 #include <stdlib.h>
 
+#define BILLION 1000000000L
+
 #if WIN32
 # error "TODO"
 #else
 #include <time.h>
-
-#define BILLION  1000000000L;
 
 typedef struct timespec xhash_time__t;
 
