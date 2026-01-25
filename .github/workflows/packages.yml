@@ -19,5 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v6
-    - run: sudo apt install makepkg
-    - run: cd packages/archlinux && makepkg
+
+    - name: Validate package
+      uses: heyhusen/archlinux-package-action@v3
+      with:
+        path: packages/archlinux
