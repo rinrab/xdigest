@@ -19,10 +19,15 @@ if (NOT USE_ASM)
 endif()
 
 if (VCPKG_TARGET_IS_WINDOWS)
+    # todo
 else()
-    vcpkg_install_make(
+    vcpkg_configure_make(
         SOURCE_PATH "${SOURCE_PATH}"
-        OPTIONS ${OPTIONS}
+        COPY_SOURCE
+    )
+
+    vcpkg_install_make(
+        MAKEFILE Makefile.conf
     )
 endif()
 
