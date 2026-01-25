@@ -2,9 +2,9 @@ Index: src/md2/md2_one.c
 ===================================================================
 --- src/md2/md2_one.c
 +++ src/md2/md2_one.c
-@@ -52,3 +52,8 @@ unsigned char *xdig_md2(const unsigned char *d, si
-     xdig_cleanse(&c, sizeof(c)); /* Security consideration */
-     return md;
+@@ -35,3 +35,8 @@ unsigned char *xdig_md2(const unsigned char *d, si
+
+     return digest;
  }
 +
 +size_t xdig_md2_ctx_size(void)
@@ -15,9 +15,9 @@ Index: src/md4/md4_one.c
 ===================================================================
 --- src/md4/md4_one.c
 +++ src/md4/md4_one.c
-@@ -52,3 +52,8 @@ unsigned char *xdig_md4(const unsigned char *d, si
-     xdig_cleanse(&c, sizeof(c)); /* security consideration */
-     return md;
+@@ -35,3 +35,8 @@ unsigned char *xdig_md4(const unsigned char *d, si
+
+     return digest;
  }
 +
 +size_t xdig_md4_ctx_size(void)
@@ -28,9 +28,9 @@ Index: src/md5/md5_one.c
 ===================================================================
 --- src/md5/md5_one.c
 +++ src/md5/md5_one.c
-@@ -52,3 +52,8 @@ unsigned char *xdig_md5(const unsigned char *d, si
-     xdig_cleanse(&c, sizeof(c)); /* security consideration */
-     return md;
+@@ -35,3 +35,8 @@ unsigned char *xdig_md5(const unsigned char *d, si
+
+     return digest;
  }
 +
 +size_t xdig_md5_ctx_size(void)
