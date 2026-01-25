@@ -27,9 +27,10 @@ int xdig_sha1_update(xdig_sha1_ctx_t *ctx,
 int xdig_sha1_final(unsigned char *digest,
                     xdig_sha1_ctx_t *ctx);
 
-void xdig_sha1(const unsigned char *data,
-               size_t len,
-               unsigned char *digest);
+unsigned char *
+xdig_sha1(const unsigned char *data,
+          size_t len,
+          unsigned char *digest);
 
 #ifdef __cplusplus
 }
