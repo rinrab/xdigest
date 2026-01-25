@@ -35,19 +35,18 @@ all: $(sofiles)
 install: install-shared install-headers
 
 clean:
-	rm -f $(sofiles)
-	find . -type f -name '*.o' -delete
-	find . -type f -name '*.a' -delete
+	$(RM) $(sofiles)
+	$(RM) $(objects)
 
 libxdigest.so.$(VERSION): $(objects)
-	mkdir -p $(@D)
+	$(MKDIR) $(@D)
 	$(CC) $(CFLAGS) -shared -o $@ $^
 
 libxdigest.so.$(SONAME): libxdigest.so.$(VERSION)
-	ln -s $^ $@
+	$(LN) $^ $@
 
 libxdigest.so: libxdigest.so.$(SONAME)
-	ln -s $^ $@
+	$(LN) $^ $@
 
 $(asm_objects): %.o: %.S
 	mkdir -p $(@D) && $(ASSEMBLER) -c $^ -o $@ $(ASMFLAGS)

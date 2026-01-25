@@ -27,3 +27,8 @@ ASMFLAGS = -Wa,--noexecstack
 ifeq ($(prefix),)
     prefix := /usr/local
 endif
+
+MKDIR = mkdir -p
+RM = rm -f
+RMDIR = rm -rf
+LN = ln -sf
