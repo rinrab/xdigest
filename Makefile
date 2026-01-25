@@ -6,7 +6,7 @@ endif
 
 include Version.inc
 
-CFLAGS += -O3 -Wall -Iinclude -Ixdigest/core
+CFLAGS += -O3 -Wall -Ixdigest/include -Ixdigest/core
 ASMFLAGS = -Wa,--noexecstack
 
 ifeq ($(ARCH),)
@@ -90,7 +90,7 @@ install: all
 	install -m 644 $(sofiles) $(DESTDIR)$(prefix)/lib/
 	install -d $(DESTDIR)$(prefix)/include/
 	install -d $(DESTDIR)$(prefix)/include/xdigest
-	install -m 644 include/xdigest/*.h $(DESTDIR)$(prefix)/include/xdigest
+	install -m 644 xdigest/include/xdigest/*.h $(DESTDIR)$(prefix)/include/xdigest
 
 rebuild: clean all
 

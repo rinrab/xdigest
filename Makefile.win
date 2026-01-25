@@ -1,7 +1,7 @@
 CC = cl.exe
 LINK = link.exe
 LIB = lib.exe
-CFLAGS = /c /O2 /W4 /Iinclude /DNO_ASM 
+CFLAGS = /c /O2 /W4 /Ixdigest/include /DNO_ASM 
 
 all: libxdigest.lib
 
