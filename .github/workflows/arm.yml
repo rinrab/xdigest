@@ -12,5 +12,5 @@ jobs:
     steps:
     - uses: actions/checkout@v6
 
-    - run: make rebuild install test prefix=installaarch64 ARCH=aarch64
-    - run: make rebuild install test prefix=installaarch64 ARCH=aarch64 NO_ASM=1
+    - run: make rebuild install test prefix=${{ github.workspace }}/installaarch64 ARCH=aarch64
+    - run: make rebuild install test prefix=${{ github.workspace }}installaarch64 ARCH=aarch64 NO_ASM=1
