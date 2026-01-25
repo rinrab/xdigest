@@ -101,6 +101,16 @@ unsigned char *xdig_sha224(const unsigned char *d, size_t n, unsigned char *md)
     return md;
 }
 
+size_t xdig_sha256_ctx_size(void)
+{
+    return sizeof(xdig_sha256_ctx_t);
+}
+
+size_t xdig_sha224_ctx_size(void)
+{
+    return xdig_sha256_ctx_size();
+}
+
 #define DATA_ORDER_IS_BIG_ENDIAN
 
 #define HASH_LONG               XDIG_SHA_LONG

@@ -177,6 +177,16 @@ unsigned char *xdig_sha512(const unsigned char *d, size_t n, unsigned char *md)
     return md;
 }
 
+size_t xdig_sha512_ctx_size(void)
+{
+    return sizeof(xdig_sha512_ctx_t);
+}
+
+size_t xdig_sha384_ctx_size(void)
+{
+    return xdig_sha512_ctx_size();
+}
+
 #ifndef SHA512_ASM
 static
 #else

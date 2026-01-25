@@ -12,8 +12,9 @@ extern "C" {
 /*
  * MD2
  */
-#define XDIG_MD2_CTX_SIZE 52
 typedef struct xdig_md2_ctx_t xdig_md2_ctx_t;
+
+size_t xdig_md2_ctx_size(void);
 
 #define XDIG_MD2_DIGEST_LENGTH 16
 

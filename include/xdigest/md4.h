@@ -12,8 +12,9 @@ extern "C" {
 /*
  * MD4
  */
-#define XDIG_MD4_CTX_SIZE 92
 typedef struct xdig_md4_ctx_t xdig_md4_ctx_t;
+
+size_t xdig_md4_ctx_size(void);
 
 #define XDIG_MD4_DIGEST_LENGTH 16
 

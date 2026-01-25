@@ -12,8 +12,9 @@ extern "C" {
 /*
  * SHA1
  */
-#define XDIG_SHA1_CTX_SIZE 96
 typedef struct xdig_sha1_ctx_t xdig_sha1_ctx_t;
+
+size_t xdig_sha1_ctx_size(void);
 
 #define XDIG_SHA1_DIGEST_LENGTH 20
 
