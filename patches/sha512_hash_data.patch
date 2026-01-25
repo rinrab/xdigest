@@ -2,17 +2,13 @@ Index: src/sha/sha512.c
 ===================================================================
 --- src/sha/sha512.c
 +++ src/sha/sha512.c
-@@ -123,6 +123,21 @@ int xdig_sha384_init(xdig_sha512_ctx_t *c)
+@@ -123,6 +123,15 @@ int xdig_sha384_init(xdig_sha512_ctx_t *c)
      return 1;
  }
  
 +unsigned char *xdig_sha384(const unsigned char *d, size_t n, unsigned char *md)
 +{
-+    static unsigned char m[XDIG_SHA384_DIGEST_LENGTH];
 +    xdig_sha512_ctx_t ctx;
-+
-+    if (md == NULL)
-+        md = m;
 +
 +    xdig_sha384_init(&ctx);
 +    xdig_sha384_update(&ctx, d, n);
@@ -24,17 +20,13 @@ Index: src/sha/sha512.c
  int xdig_sha512_init(xdig_sha512_ctx_t *c)
  {
      c->h[0] = U64(0x6a09e667f3bcc908);
-@@ -141,6 +156,21 @@ int xdig_sha512_init(xdig_sha512_ctx_t *c)
+@@ -141,6 +156,15 @@ int xdig_sha512_init(xdig_sha512_ctx_t *c)
      return 1;
  }
  
 +unsigned char *xdig_sha512(const unsigned char *d, size_t n, unsigned char *md)
 +{
-+    static unsigned char m[XDIG_SHA512_DIGEST_LENGTH];
 +    xdig_sha512_ctx_t ctx;
-+
-+    if (md == NULL)
-+        md = m;
 +
 +    xdig_sha512_init(&ctx);
 +    xdig_sha512_update(&ctx, d, n);

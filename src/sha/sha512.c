@@ -131,11 +131,7 @@ int xdig_sha384_init(xdig_sha512_ctx_t *c)
 
 unsigned char *xdig_sha384(const unsigned char *d, size_t n, unsigned char *md)
 {
-    static unsigned char m[XDIG_SHA384_DIGEST_LENGTH];
     xdig_sha512_ctx_t ctx;
-
-    if (md == NULL)
-        md = m;
 
     xdig_sha384_init(&ctx);
     xdig_sha384_update(&ctx, d, n);
@@ -164,11 +160,7 @@ int xdig_sha512_init(xdig_sha512_ctx_t *c)
 
 unsigned char *xdig_sha512(const unsigned char *d, size_t n, unsigned char *md)
 {
-    static unsigned char m[XDIG_SHA512_DIGEST_LENGTH];
     xdig_sha512_ctx_t ctx;
-
-    if (md == NULL)
-        md = m;
 
     xdig_sha512_init(&ctx);
     xdig_sha512_update(&ctx, d, n);

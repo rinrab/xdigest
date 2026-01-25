@@ -56,11 +56,7 @@ int xdig_sha256_init(xdig_sha256_ctx_t *c)
 
 unsigned char *xdig_sha256(const unsigned char *d, size_t n, unsigned char *md)
 {
-    static unsigned char m[XDIG_SHA256_DIGEST_LENGTH];
     xdig_sha256_ctx_t ctx;
-
-    if (md == NULL)
-        md = m;
 
     xdig_sha256_init(&ctx);
     xdig_sha256_update(&ctx, d, n);
@@ -88,11 +84,7 @@ int xdig_sha224_final(unsigned char *md, xdig_sha256_ctx_t *c)
 
 unsigned char *xdig_sha224(const unsigned char *d, size_t n, unsigned char *md)
 {
-    static unsigned char m[XDIG_SHA224_DIGEST_LENGTH];
     xdig_sha256_ctx_t ctx;
-
-    if (md == NULL)
-        md = m;
 
     xdig_sha224_init(&ctx);
     xdig_sha224_update(&ctx, d, n);
