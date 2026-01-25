@@ -56,10 +56,10 @@ make [NO_ASM=1]
 ```
 
 Now, we're ready to install it. Optionally, the install prefix could be changed
-via PREFIX variable.
+via `prefix` variable.
 
 ```
-sudo make install [PREFIX=/usr/local]
+sudo make install [prefix=/usr/local]
 ```
 
 To cross compile, pass any of the following value to the ARCH variable while
