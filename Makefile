@@ -30,45 +30,25 @@ endif
 CC = $(CROSS_COMPILE)gcc
 ASSEMBLER = $(CC)
 
-ifdef NO_ASM
-    CFLAGS += -DNO_ASM
-else
-    CFLAGS += -Dxdig_CPUID_OBJ
-    CFLAGS += -DMD5_ASM
-    CFLAGS += -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM
-endif
+MAKE_FLAGS = \
+	 "CC=$(CC)"  \
+	 "ASSEMBLER=$(ASSEMBLER)" \
+	 "CONFIG=$(CONFIG)" \
+	 "CFLAGS=$(CFLAGS)" \
+	 "ASMFLAGS=$(CFLAGS)" \
+	 "prefix=$(prefix)"
 
-OBJEXT = .o
-include Makefile.inc
+all:
+	$(MAKE) -C xdigest $@ $(MAKE_FLAGS)
 
-objects = $(c_objects)
-ifndef NO_ASM
-    objects += $(asm_objects)
-endif
+clean:
+	$(MAKE) -C xdigest $@ $(MAKE_FLAGS)
+	find . -type f -name '*.svnpatch.rej' -delete
 
-sofiles = \
-	libxdigest.so.$(VERSION) \
-	libxdigest.so.$(SONAME) \
-	libxdigest.so
+install:
+	$(MAKE) -C xdigest $@ $(MAKE_FLAGS)
 
-all: libxdigest.so
-.PHONY: all
-
-libxdigest.so.$(VERSION): $(objects)
-	mkdir -p $(@D)
-	$(CC) $(CFLAGS) -shared -o $@ $^
-
-libxdigest.so.$(SONAME): libxdigest.so.$(VERSION)
-	ln -s $^ $@
-
-libxdigest.so: libxdigest.so.$(SONAME)
-	ln -s $^ $@
-
-%.o: %.S
-	mkdir -p $(@D) && $(ASSEMBLER) -c $^ -o $@ $(CFLAGS) $(ASMFLAGS)
-
-%.o: %.c
-	mkdir -p $(@D) && $(CC) -c $^ -o $@ $(CFLAGS)
+rebuild: clean all
 
 test_xdigest: tests/test_xdigest.c tests/sha_test.c libxdigest.so
 	mkdir -p $(@D) && $(CC) $^ -o $@ $(CFLAGS) -DXDIG -Lxdigest.so
@@ -78,21 +58,6 @@ example: tests/example.c libxdigest.so
 
 test: test_xdigest
 	export "LD_LIBRARY_PATH=$(CURDIR):$(LD_LIBRARY_PATH)" && ./test_xdigest
-
-clean:
-	find . -type f -name '*.o' -delete
-	rm -f $(sofiles)
-	find . -type f -name '*.a' -delete
-	find . -type f -name '*.svnpatch.rej' -delete
-
-install: all
-	install -d $(DESTDIR)$(prefix)/lib/
-	install -m 644 $(sofiles) $(DESTDIR)$(prefix)/lib/
-	install -d $(DESTDIR)$(prefix)/include/
-	install -d $(DESTDIR)$(prefix)/include/xdigest
-	install -m 644 xdigest/include/xdigest/*.h $(DESTDIR)$(prefix)/include/xdigest
-
-rebuild: clean all
 
 # TODO: checksum
 OPENSSL_VERSION = 3.6.0
