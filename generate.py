@@ -32,7 +32,7 @@ mkdir(os.path.join(xdigest, "md4"))
 mkdir(os.path.join(xdigest, "md2"))
 mkdir(os.path.join(xdigest, "core"))
 
-include_path = "include"
+include_path = "xdigest/include"
 mkdir(include_path)
 mkdir(os.path.join(include_path, "xdigest"))
 mkdir(os.path.join(include_path, "internal"))

@@ -1,7 +1,7 @@
-Index: include/internal/common.h
+Index: xdigest/include/internal/common.h
 ===================================================================
---- include/internal/common.h
-+++ include/internal/common.h
+--- xdigest/include/internal/common.h
++++ xdigest/include/internal/common.h
 @@ -40,6 +40,15 @@
  # ifdef NDEBUG
  #  define ossl_assert(x) ossl_likely((x) != 0)
