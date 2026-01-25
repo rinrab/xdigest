@@ -20,15 +20,15 @@ typedef struct xdig_sha1_ctx_t xdig_sha1_ctx_t;
 int xdig_sha1_init(xdig_sha1_ctx_t *ctx);
 
 int xdig_sha1_update(xdig_sha1_ctx_t *ctx,
-                      const void *data,
-                      size_t len);
+                     const void *data,
+                     size_t len);
 
 int xdig_sha1_final(unsigned char *digest,
-                     xdig_sha1_ctx_t *ctx);
+                    xdig_sha1_ctx_t *ctx);
 
 void xdig_sha1(const unsigned char *data,
-                size_t len,
-                unsigned char *digest);
+               size_t len,
+               unsigned char *digest);
 
 #ifdef __cplusplus
 }

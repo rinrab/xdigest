@@ -20,11 +20,11 @@ typedef struct xdig_md4_ctx_t xdig_md4_ctx_t;
 int xdig_md4_init(xdig_md4_ctx_t *ctx);
 
 int xdig_md4_update(xdig_md4_ctx_t *ctx,
-                     const void *data,
-                     size_t len);
+                    const void *data,
+                    size_t len);
 
 int xdig_md4_final(unsigned char *digest,
-                    xdig_md4_ctx_t *ctx);
+                   xdig_md4_ctx_t *ctx);
 
 void xdig_md4(const unsigned char *data,
                size_t len,
