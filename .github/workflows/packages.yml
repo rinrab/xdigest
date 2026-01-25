@@ -1,0 +1,16 @@
+name: Test packages
+
+on:
+  push:
+    branches: ["*"]
+  pull_request:
+    branches: ["*"]
+
+jobs:
+  vcpkg-linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+
+    - run: vcpkg install xdigest --head --overlay-ports packages/vcpkg --triplet x64-linux --enforce-port-checks
+    - run: vcpkg install xdigest --head --overlay-ports packages/vcpkg --triplet x86-linux --enforce-port-checks
