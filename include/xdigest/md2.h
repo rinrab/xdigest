@@ -27,9 +27,10 @@ int xdig_md2_update(xdig_md2_ctx_t *ctx,
 int xdig_md2_final(unsigned char *digest,
                    xdig_md2_ctx_t *ctx);
 
-void xdig_md2(const unsigned char *data,
-              size_t len,
-              unsigned char *digest);
+unsigned char *
+xdig_md2(const unsigned char *data,
+         size_t len,
+         unsigned char *digest);
 
 #ifdef __cplusplus
 }

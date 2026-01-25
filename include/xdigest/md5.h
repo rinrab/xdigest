@@ -27,9 +27,10 @@ int xdig_md5_update(xdig_md5_ctx_t *ctx,
 int xdig_md5_final(unsigned char *digest,
                    xdig_md5_ctx_t *ctx);
 
-void xdig_md5(const unsigned char *data,
-              size_t len,
-              unsigned char *digest);
+unsigned char *
+xdig_md5(const unsigned char *data,
+         size_t len,
+         unsigned char *digest);
 
 #ifdef __cplusplus
 }
