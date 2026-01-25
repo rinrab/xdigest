@@ -1,7 +1,7 @@
 out = out
 
-ifeq ($(PREFIX),)
-    PREFIX := /usr/local
+ifeq ($(prefix),)
+    prefix := /usr/local
 endif
 
 include Version.inc
@@ -86,11 +86,11 @@ clean:
 	find . -type f -name '*.svnpatch.rej' -delete
 
 install: all
-	install -d $(DESTDIR)$(PREFIX)/lib/
-	install -m 644 $(sofiles) $(DESTDIR)$(PREFIX)/lib/
-	install -d $(DESTDIR)$(PREFIX)/include/
-	install -d $(DESTDIR)$(PREFIX)/include/xdigest
-	install -m 644 include/xdigest/*.h $(DESTDIR)$(PREFIX)/include/xdigest
+	install -d $(DESTDIR)$(prefix)/lib/
+	install -m 644 $(sofiles) $(DESTDIR)$(prefix)/lib/
+	install -d $(DESTDIR)$(prefix)/include/
+	install -d $(DESTDIR)$(prefix)/include/xdigest
+	install -m 644 include/xdigest/*.h $(DESTDIR)$(prefix)/include/xdigest
 
 rebuild: clean all
 
