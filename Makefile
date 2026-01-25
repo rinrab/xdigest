@@ -73,6 +73,9 @@ libxdigest.so: libxdigest.so.$(SONAME)
 test_xdigest: tests/test_xdigest.c tests/sha_test.c libxdigest.so
 	mkdir -p $(@D) && $(CC) $^ -o $@ $(CFLAGS) -DXDIG -Lxdigest.so
 
+example: tests/example.c libxdigest.so
+	mkdir -p $(@D) && $(CC) $^ -o $@ $(CFLAGS) -DXDIG -Lxdigest.so
+
 test: test_xdigest
 	export "LD_LIBRARY_PATH=$(CURDIR):$(LD_LIBRARY_PATH)" && ./test_xdigest
 
