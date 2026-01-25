@@ -23,11 +23,13 @@ install:
 
 rebuild: clean all
 
-test_xdigest: tests/test_xdigest.c tests/sha_test.c libxdigest.so
-	$(MKDIR) $(@D) && $(CC) $^ -o $@ $(CFLAGS) -DXDIG -Lxdigest.so
+xdigest/libxdigest.so: all
 
-example: tests/example.c libxdigest.so
-	$(MKDIR) $(@D) && $(CC) $^ -o $@ $(CFLAGS) -DXDIG -Lxdigest.so
+test_xdigest: tests/test_xdigest.c tests/sha_test.c xdigest/libxdigest.so
+	$(MKDIR) $(@D) && $(CC) $^ -o $@ $(CFLAGS) -DXDIG
+
+example: tests/example.c xdigest/libxdigest.so
+	$(MKDIR) $(@D) && $(CC) $^ -o $@ $(CFLAGS) -DXDIG
 
 test: test_xdigest
 	export "LD_LIBRARY_PATH=$(CURDIR):$(LD_LIBRARY_PATH)" && ./test_xdigest
