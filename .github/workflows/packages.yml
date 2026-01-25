@@ -20,4 +20,4 @@ jobs:
     steps:
     - uses: actions/checkout@v6
     - run: sudo apt install makepkg
-    - run: makepkg -D packages/archlinux
+    - run: cd packages/archlinux && makepkg
