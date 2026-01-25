@@ -12,10 +12,11 @@ extern "C" {
 /*
  * SHA224
  */
-#define XDIG_SHA224_CTX_SIZE 112
 typedef struct xdig_sha224_ctx_t xdig_sha224_ctx_t;
 
 #define XDIG_SHA224_DIGEST_LENGTH 28
+
+size_t xdig_sha224_ctx_size(void);
 
 int xdig_sha224_init(xdig_sha224_ctx_t *ctx);
 
@@ -33,8 +34,9 @@ void xdig_sha224(const unsigned char *data,
 /*
  * SHA256
  */
-#define XDIG_SHA256_CTX_SIZE 112
 typedef struct xdig_sha256_ctx_t xdig_sha256_ctx_t;
+
+size_t xdig_sha256_ctx_size(void);
 
 #define XDIG_SHA256_DIGEST_LENGTH 32
 
@@ -56,8 +58,9 @@ void xdig_sha256(const unsigned char *data,
 /*
  * SHA384
  */
-#define XDIG_SHA384_CTX_SIZE 216
 typedef struct xdig_sha384_ctx_t xdig_sha384_ctx_t;
+
+size_t xdig_sha384_ctx_size(void);
 
 #define XDIG_SHA384_DIGEST_LENGTH 48
 
@@ -77,8 +80,9 @@ void xdig_sha384(const unsigned char *data,
 /*
  * SHA512
  */
-#define XDIG_SHA512_CTX_SIZE 216
 typedef struct xdig_sha512_ctx_t xdig_sha512_ctx_t;
+
+size_t xdig_sha512_ctx_size(void);
 
 #define XDIG_SHA512_DIGEST_LENGTH 64
 

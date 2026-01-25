@@ -16,3 +16,8 @@ unsigned char *xdig_sha1(const unsigned char *d, size_t n, unsigned char *md)
 
     return md;
 }
+
+size_t xdig_sha1_ctx_size(void)
+{
+    return sizeof(xdig_sha1_ctx_t);
+}

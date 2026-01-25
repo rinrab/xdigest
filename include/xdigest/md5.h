@@ -12,8 +12,9 @@ extern "C" {
 /*
  * MD5
  */
-#define XDIG_MD5_CTX_SIZE 92
 typedef struct xdig_md5_ctx_t xdig_md5_ctx_t;
+
+size_t xdig_md5_ctx_size(void);
 
 #define XDIG_MD5_DIGEST_LENGTH 16
 

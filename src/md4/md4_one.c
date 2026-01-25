@@ -52,3 +52,8 @@ unsigned char *xdig_md4(const unsigned char *d, size_t n, unsigned char *md)
     xdig_cleanse(&c, sizeof(c)); /* security consideration */
     return md;
 }
+
+size_t xdig_md4_ctx_size(void)
+{
+    return sizeof(xdig_md4_ctx_t);
+}
