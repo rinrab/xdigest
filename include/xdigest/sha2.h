@@ -20,15 +20,15 @@ typedef struct xdig_sha224_ctx_t xdig_sha224_ctx_t;
 int xdig_sha224_init(xdig_sha224_ctx_t *ctx);
 
 int xdig_sha224_update(xdig_sha224_ctx_t *ctx,
-                        const void *data,
-                        size_t len);
+                       const void *data,
+                       size_t len);
 
 int xdig_sha224_final(unsigned char *digest,
-                       xdig_sha224_ctx_t *ctx);
+                      xdig_sha224_ctx_t *ctx);
 
 void xdig_sha224(const unsigned char *data,
-                  size_t len,
-                  unsigned char *digest);
+                 size_t len,
+                 unsigned char *digest);
 
 /*
  * SHA256
@@ -41,15 +41,15 @@ typedef struct xdig_sha256_ctx_t xdig_sha256_ctx_t;
 int xdig_sha256_init(xdig_sha256_ctx_t *ctx);
 
 int xdig_sha256_update(xdig_sha256_ctx_t *ctx,
-                        const void *data,
-                        size_t len);
+                       const void *data,
+                       size_t len);
 
 int xdig_sha256_final(unsigned char *digest,
-                       xdig_sha256_ctx_t *ctx);
+                      xdig_sha256_ctx_t *ctx);
 
 void xdig_sha256(const unsigned char *data,
-                  size_t len,
-                  unsigned char *digest);
+                 size_t len,
+                 unsigned char *digest);
 
 #define XDIG_SHA256_192_DIGEST_LENGTH 24
 
@@ -64,15 +64,15 @@ typedef struct xdig_sha384_ctx_t xdig_sha384_ctx_t;
 int xdig_sha384_init(xdig_sha384_ctx_t *ctx);
 
 int xdig_sha384_update(xdig_sha384_ctx_t *ctx,
-                        const void *data,
-                        size_t len);
+                       const void *data,
+                       size_t len);
 
 int xdig_sha384_final(unsigned char *digest,
-                       xdig_sha384_ctx_t *ctx);
+                      xdig_sha384_ctx_t *ctx);
 
 void xdig_sha384(const unsigned char *data,
-                  size_t len,
-                  unsigned char *digest);
+                 size_t len,
+                 unsigned char *digest);
 
 /*
  * SHA512
@@ -85,15 +85,15 @@ typedef struct xdig_sha512_ctx_t xdig_sha512_ctx_t;
 int xdig_sha512_init(xdig_sha512_ctx_t *ctx);
 
 int xdig_sha512_update(xdig_sha512_ctx_t *ctx,
-                        const void *data,
-                        size_t len);
+                       const void *data,
+                       size_t len);
 
 int xdig_sha512_final(unsigned char *digest,
-                       xdig_sha512_ctx_t *ctx);
+                      xdig_sha512_ctx_t *ctx);
 
 void xdig_sha512(const unsigned char *data,
-                  size_t len,
-                  unsigned char *digest);
+                 size_t len,
+                 unsigned char *digest);
 
 #ifdef __cplusplus
 }

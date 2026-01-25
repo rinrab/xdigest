@@ -20,15 +20,15 @@ typedef struct xdig_md2_ctx_t xdig_md2_ctx_t;
 int xdig_md2_init(xdig_md2_ctx_t *ctx);
 
 int xdig_md2_update(xdig_md2_ctx_t *ctx,
-                     const void *data,
-                     size_t len);
+                    const void *data,
+                    size_t len);
 
 int xdig_md2_final(unsigned char *digest,
-                    xdig_md2_ctx_t *ctx);
+                   xdig_md2_ctx_t *ctx);
 
 void xdig_md2(const unsigned char *data,
-               size_t len,
-               unsigned char *digest);
+              size_t len,
+              unsigned char *digest);
 
 #ifdef __cplusplus
 }
