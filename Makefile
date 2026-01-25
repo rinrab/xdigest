@@ -1,34 +1,7 @@
 out = out
 
-ifeq ($(prefix),)
-    prefix := /usr/local
-endif
-
 include Version.inc
-
-CFLAGS += -O3 -Wall -Ixdigest/include -Ixdigest/core
-ASMFLAGS = -Wa,--noexecstack
-
-ifeq ($(ARCH),)
-    ARCH = x86_64
-endif
-
-ifeq ($(ARCH), x86_64)
-    CONFIG = linux64
-    CFLAGS += -m64
-else ifeq ($(ARCH), x86)
-    CONFIG = linux32
-    CFLAGS += -m32
-else ifeq ($(ARCH), aarch64)
-    CONFIG = linuxaarch64
-    CFLAGS += -march=armv8-a+crypto
-    CROSS_COMPILE ?= aarch64-linux-gnu-
-else
-    $(error invalid architecute: "$(ARCH)")
-endif
-
-CC = $(CROSS_COMPILE)gcc
-ASSEMBLER = $(CC)
+include rules.unix
 
 MAKE_FLAGS = \
 	 "CC=$(CC)"  \

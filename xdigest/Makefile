@@ -13,10 +13,10 @@ else
     DEFS += -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM
 endif
 
-INCS = -Iinclude
-
-OBJEXT = .o
 include Makefile.inc
+include ../rules.unix
+
+INCS += -Iinclude
 
 objects = $(c_objects)
 ifndef NO_ASM
