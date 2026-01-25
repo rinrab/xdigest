@@ -1,7 +1,7 @@
-Index: src/core/cpuid.c
+Index: xdigest/core/cpuid.c
 ===================================================================
---- src/core/cpuid.c	(revision 6114)
-+++ src/core/cpuid.c	(working copy)
+--- xdigest/core/cpuid.c	(revision 6114)
++++ xdigest/core/cpuid.c	(working copy)
 @@ -8,6 +8,7 @@
   */
  
@@ -21,10 +21,10 @@ Index: src/core/cpuid.c
 +    xdig_cpuid_setup();
 +}
  #endif
-Index: src/core/armcap.c
+Index: xdigest/core/armcap.c
 ===================================================================
---- src/core/armcap.c
-+++ src/core/armcap.c
+--- xdigest/core/armcap.c
++++ xdigest/core/armcap.c
 @@ -448,3 +448,9 @@ void xdig_cpuid_setup(void)
  # endif
  }

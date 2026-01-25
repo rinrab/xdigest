@@ -1,7 +1,7 @@
-Index: src/md2/md2_one.c
+Index: xdigest/md2/md2_one.c
 ===================================================================
---- src/md2/md2_one.c
-+++ src/md2/md2_one.c
+--- xdigest/md2/md2_one.c
++++ xdigest/md2/md2_one.c
 @@ -23,32 +23,17 @@
   * functions to different names
   */

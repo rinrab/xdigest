@@ -6,7 +6,7 @@ endif
 
 include Version.inc
 
-CFLAGS += -O3 -Wall -Iinclude -Isrc/core
+CFLAGS += -O3 -Wall -Iinclude -Ixdigest/core
 ASMFLAGS = -Wa,--noexecstack
 
 ifeq ($(ARCH),)

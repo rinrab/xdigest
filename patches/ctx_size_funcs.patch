@@ -1,7 +1,7 @@
-Index: src/md2/md2_one.c
+Index: xdigest/md2/md2_one.c
 ===================================================================
---- src/md2/md2_one.c
-+++ src/md2/md2_one.c
+--- xdigest/md2/md2_one.c
++++ xdigest/md2/md2_one.c
 @@ -35,3 +35,8 @@ unsigned char *xdig_md2(const unsigned char *d, si
 
      return digest;
@@ -11,10 +11,10 @@ Index: src/md2/md2_one.c
 +{
 +    return sizeof(xdig_md2_ctx_t);
 +}
-Index: src/md4/md4_one.c
+Index: xdigest/md4/md4_one.c
 ===================================================================
---- src/md4/md4_one.c
-+++ src/md4/md4_one.c
+--- xdigest/md4/md4_one.c
++++ xdigest/md4/md4_one.c
 @@ -35,3 +35,8 @@ unsigned char *xdig_md4(const unsigned char *d, si
 
      return digest;
@@ -24,10 +24,10 @@ Index: src/md4/md4_one.c
 +{
 +    return sizeof(xdig_md4_ctx_t);
 +}
-Index: src/md5/md5_one.c
+Index: xdigest/md5/md5_one.c
 ===================================================================
---- src/md5/md5_one.c
-+++ src/md5/md5_one.c
+--- xdigest/md5/md5_one.c
++++ xdigest/md5/md5_one.c
 @@ -35,3 +35,8 @@ unsigned char *xdig_md5(const unsigned char *d, si
 
      return digest;
@@ -37,10 +37,10 @@ Index: src/md5/md5_one.c
 +{
 +    return sizeof(xdig_md5_ctx_t);
 +}
-Index: src/sha/sha256.c
+Index: xdigest/sha/sha256.c
 ===================================================================
---- src/sha/sha256.c
-+++ src/sha/sha256.c
+--- xdigest/sha/sha256.c
++++ xdigest/sha/sha256.c
 @@ -101,6 +101,16 @@ unsigned char *xdig_sha224(const unsigned char *d,
      return md;
  }
@@ -58,10 +58,10 @@ Index: src/sha/sha256.c
  #define DATA_ORDER_IS_BIG_ENDIAN
  
  #define HASH_LONG               XDIG_SHA_LONG
-Index: src/sha/sha512.c
+Index: xdigest/sha/sha512.c
 ===================================================================
---- src/sha/sha512.c
-+++ src/sha/sha512.c
+--- xdigest/sha/sha512.c
++++ xdigest/sha/sha512.c
 @@ -177,6 +177,16 @@ unsigned char *xdig_sha512(const unsigned char *d,
      return md;
  }

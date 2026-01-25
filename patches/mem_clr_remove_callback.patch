@@ -1,7 +1,7 @@
-Index: src/core/mem_clr.c
+Index: xdigest/core/mem_clr.c
 ===================================================================
---- src/core/mem_clr.c	(revision 6199)
-+++ src/core/mem_clr.c	(working copy)
+--- xdigest/core/mem_clr.c	(revision 6199)
++++ xdigest/core/mem_clr.c	(working copy)
 @@ -10,16 +10,7 @@
  #include <string.h>
  /* ignored include 'openssl/crypto.h' */
