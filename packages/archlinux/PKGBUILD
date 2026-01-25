@@ -26,7 +26,7 @@ check() {
 
 package() {
   cd ${pkgname}
-  make -I $pkgname install PREFIX=${pkgdir}/usr
+  make -I $pkgname install prefix=${pkgdir}/usr
 }
 
 # vim:set ts=2 sw=2 et:
