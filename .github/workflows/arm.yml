@@ -1,0 +1,16 @@
+name: Build and test on ARM
+
+on:
+  push:
+    branches: ["*"]
+  pull_request:
+    branches: ["*"]
+
+jobs:
+  linux-arm:
+    runs-on: ubuntu-latest-arm 
+    steps:
+    - uses: actions/checkout@v6
+
+    - run: make rebuild install test PREFIX=installaarch64 ARCH=aarch64
+    - run: make rebuild install test PREFIX=installaarch64 ARCH=aarch64 NO_ASM=1
