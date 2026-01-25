@@ -1,7 +1,7 @@
-Index: src/md4/md4_one.c
+Index: xdigest/md4/md4_one.c
 ===================================================================
---- src/md4/md4_one.c
-+++ src/md4/md4_one.c
+--- xdigest/md4/md4_one.c
++++ xdigest/md4/md4_one.c
 @@ -23,32 +23,17 @@
  /* ignored include 'openssl/ebcdic.h' */
  #endif

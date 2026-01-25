@@ -4,10 +4,10 @@ Instead, we now disable whole getenv capability via 'remove_getenv.patch' file.
 It's too bloated for our needs and introduces inpredictability into the
 library.
 
-Index: src/core/cpuid.c
+Index: xdigest/core/cpuid.c
 ===================================================================
---- src/core/cpuid.c
-+++ src/core/cpuid.c
+--- xdigest/core/cpuid.c
++++ xdigest/core/cpuid.c
 @@ -44,6 +44,7 @@ static variant_char *ossl_getenv(const char *name)
      return (len > 0 && len < xdig_IA32CAP_P_MAX_CHAR_SIZE) ? value : NULL;
  }

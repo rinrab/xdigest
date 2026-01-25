@@ -24,13 +24,13 @@ crypto = "openssl/crypto"
 openssl_include = "openssl/include"
 
 asm = "asm"
-src = "src"
+xdigest = "xdigest"
 
-mkdir(os.path.join(src, "sha"))
-mkdir(os.path.join(src, "md5"))
-mkdir(os.path.join(src, "md4"))
-mkdir(os.path.join(src, "md2"))
-mkdir(os.path.join(src, "core"))
+mkdir(os.path.join(xdigest, "sha"))
+mkdir(os.path.join(xdigest, "md5"))
+mkdir(os.path.join(xdigest, "md4"))
+mkdir(os.path.join(xdigest, "md2"))
+mkdir(os.path.join(xdigest, "core"))
 
 include_path = "include"
 mkdir(include_path)
@@ -124,9 +124,9 @@ def copy_fixup(input, output):
 def perlasm(configs, file, outputname = None):
     for config, ext, compiler, name in configs:
         if (outputname == None):
-            output = os.path.join("src", file)
+            output = os.path.join("xdigest", file)
         else:
-            output = os.path.join("src", outputname)
+            output = os.path.join("xdigest", outputname)
 
         # sha1-x86_64 -> sha1-linux-x86-64.S
         output = re.sub(r"-?(x86_64|586|x86|armv8|armv4|aarch64|arm64)", "", output)
@@ -145,7 +145,7 @@ def perlasm(configs, file, outputname = None):
 
 def source(path, outdir = ""):
     input = os.path.join(crypto, path)
-    output = os.path.join(src, outdir, path)
+    output = os.path.join(xdigest, outdir, path)
 
     copy_fixup(input, output)
 

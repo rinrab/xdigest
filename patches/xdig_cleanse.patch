@@ -11,10 +11,10 @@ Index: include/internal/common.h
  /* Check if |pre|, which must be a string literal, is a prefix of |str| */
  #define HAS_PREFIX(str, pre) (strncmp(str, pre "", sizeof(pre) - 1) == 0)
  /* As before, and if check succeeds, advance |str| past the prefix |pre| */
-Index: src/md5/md5_one.c
+Index: xdigest/md5/md5_one.c
 ===================================================================
---- src/md5/md5_one.c
-+++ src/md5/md5_one.c
+--- xdigest/md5/md5_one.c
++++ xdigest/md5/md5_one.c
 @@ -17,6 +17,7 @@
  #include <string.h>
  #include <xdigest/md5.h>
@@ -23,10 +23,10 @@ Index: src/md5/md5_one.c
  
  #ifdef CHARSET_EBCDIC
  # include <xdigest/ebcdic.h>
-Index: src/md4/md4_one.c
+Index: xdigest/md4/md4_one.c
 ===================================================================
---- src/md4/md4_one.c
-+++ src/md4/md4_one.c
+--- xdigest/md4/md4_one.c
++++ xdigest/md4/md4_one.c
 @@ -17,6 +17,7 @@
  #include <string.h>
  #include <xdigest/md4.h>
@@ -35,10 +35,10 @@ Index: src/md4/md4_one.c
  
  #ifdef CHARSET_EBCDIC
  # include <xdigest/ebcdic.h>
-Index: src/md2/md2_dgst.c
+Index: xdigest/md2/md2_dgst.c
 ===================================================================
---- src/md2/md2_dgst.c
-+++ src/md2/md2_dgst.c
+--- xdigest/md2/md2_dgst.c
++++ xdigest/md2/md2_dgst.c
 @@ -19,6 +19,7 @@
  #include <xdigestest/md2.h>
  /* ignored include 'openssl/opensslv.h' */
@@ -47,10 +47,10 @@ Index: src/md2/md2_dgst.c
  
  /*
   * Implemented from RFC1319 The MD2 Message-Digest Algorithm
-Index: src/md2/md2_one.c
+Index: xdigest/md2/md2_one.c
 ===================================================================
---- src/md2/md2_one.c
-+++ src/md2/md2_one.c
+--- xdigest/md2/md2_one.c
++++ xdigest/md2/md2_one.c
 @@ -16,6 +16,7 @@
  #include <stdio.h>
  /* ignored include 'internal/cryptlib.h' */

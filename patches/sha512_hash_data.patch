@@ -1,7 +1,7 @@
-Index: src/sha/sha512.c
+Index: xdigest/sha/sha512.c
 ===================================================================
---- src/sha/sha512.c
-+++ src/sha/sha512.c
+--- xdigest/sha/sha512.c
++++ xdigest/sha/sha512.c
 @@ -123,6 +123,15 @@ int xdig_sha384_init(xdig_sha512_ctx_t *c)
      return 1;
  }

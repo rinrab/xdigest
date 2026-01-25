@@ -1,7 +1,7 @@
-Index: src/core/armcap.c
+Index: xdigest/core/armcap.c
 ===================================================================
---- src/core/armcap.c
-+++ src/core/armcap.c
+--- xdigest/core/armcap.c
++++ xdigest/core/armcap.c
 @@ -7,6 +7,8 @@
   * https://www.openssl.org/source/license.html
   */
