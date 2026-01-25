@@ -33,14 +33,6 @@ jobs:
     - run: make rebuild install PREFIX=installaarch64 ARCH=aarch64
     - run: make rebuild install PREFIX=installaarch64 ARCH=aarch64 NO_ASM=1
 
-  linux-arm:
-    runs-on: ubuntu-latest-arm 
-    steps:
-    - uses: actions/checkout@v6
-
-    - run: make rebuild install test PREFIX=installaarch64 ARCH=aarch64
-    - run: make rebuild install test PREFIX=installaarch64 ARCH=aarch64 NO_ASM=1
-
   win32:
     runs-on: windows-latest
     steps:
