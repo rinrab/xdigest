@@ -17,7 +17,7 @@ int setup_tests(void);
 /* it's lowkey the best peace of code i've ever wrote in my life */
 #define ADD_ALGO(name) \
     do { \
-        xdig_##name##_ctx_t *ctx = malloc(256); \
+        xdig_##name##_ctx_t *ctx = malloc(xdig_##name##_ctx_size()); \
         xdig_bench__ctx_t *bench; \
         unsigned char digest[256]; \
         xdig_##name##_init(ctx); \
