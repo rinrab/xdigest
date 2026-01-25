@@ -14,3 +14,9 @@ jobs:
 
     - run: vcpkg install xdigest --head --overlay-ports packages/vcpkg --triplet x64-linux --enforce-port-checks
     - run: vcpkg install xdigest --head --overlay-ports packages/vcpkg --triplet x86-linux --enforce-port-checks
+
+  archlinux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+    - run: makepkg -D packages/archlinux
