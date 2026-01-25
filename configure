@@ -1,0 +1,43 @@
+#!/bin/sh
+
+set -e
+
+linkage=shared
+prefix=
+for OPTION; do
+    case "${OPTION}" in
+    --prefix=*)
+        prefix="${OPTION#--prefix=}"
+        ;;
+    --enable-static)
+        linkage=static
+        ;;
+    esac
+done
+
+cat > Makefile.configured <<END_MAKEFILE ;
+
+BUILD_OPTIONS = \
+    "AR=$AR" \
+    "BUILD_CC=$CC" \
+    "CC=$CC" \
+    "OBJCOPY=$OBJCOPY" \
+    "RANLIB=$RANLIB" \
+    "lib=lib" \
+    "prefix=$prefix"
+
+ifeq ($linkage,shared)
+libs := libxdigest.so 
+BUILD_OPTIONS += SHARED=yes
+else
+libs := libxdigest.so
+BUILD_OPTIONS += SHARED=no
+endif
+
+all:
+	\$(MAKE) \$(libs) \$(BUILD_OPTIONS)
+
+install:
+	\$(MAKE) install \$(BUILD_OPTIONS)
+
+END_MAKEFILE
