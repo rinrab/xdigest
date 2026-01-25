@@ -15,7 +15,7 @@ for OPTION; do
     esac
 done
 
-cat > Makefile.configured <<END_MAKEFILE ;
+cat > Makefile.conf <<END_MAKEFILE ;
 
 BUILD_OPTIONS = \
     "AR=$AR" \
