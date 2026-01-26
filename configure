@@ -19,25 +19,22 @@ cat > Makefile.conf <<END_MAKEFILE ;
 
 BUILD_OPTIONS = \
     "AR=$AR" \
-    "BUILD_CC=$CC" \
     "CC=$CC" \
-    "OBJCOPY=$OBJCOPY" \
-    "RANLIB=$RANLIB" \
     "lib=lib" \
     "prefix=$prefix"
 
 ifeq ($linkage,shared)
-libs := libxdigest.so 
-BUILD_OPTIONS += SHARED=yes
+    libs := libxdigest.so 
+    BUILD_OPTIONS += SHARED=yes
 else
-libs := libxdigest.so
-BUILD_OPTIONS += SHARED=no
+    libs := libxdigest.so
+    BUILD_OPTIONS += SHARED=no
 endif
 
 all:
-	\$(MAKE) \$(libs) \$(BUILD_OPTIONS)
+	\$(MAKE) -C xdigest \$(libs) \$(BUILD_OPTIONS)
 
 install:
-	\$(MAKE) install \$(BUILD_OPTIONS)
+	\$(MAKE) -C xdigest install \$(BUILD_OPTIONS)
 
 END_MAKEFILE
