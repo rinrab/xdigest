@@ -46,7 +46,7 @@ endif
 test-vcpkg:
 	vcpkg remove xdigest --triplet $(VCPKG_TRIPLET)
 	vcpkg install xdigest[$(VCPKG_FEATURES)] --enforce-port-checks \
-		--overlay-ports=packages/vcpkg --head --triplet $(VCPKG_TRIPLET)
+		--overlay-ports=contrib/vcpkg --head --triplet $(VCPKG_TRIPLET)
 
 # TODO: checksum
 OPENSSL_VERSION = 3.6.0

@@ -27,4 +27,4 @@ jobs:
     - name: Validate package
       uses: heyhusen/archlinux-package-action@v3.0.0
       with:
-        path: packages/archlinux
+        path: contrib/archlinux
