@@ -20,6 +20,7 @@ cat > Makefile.conf <<END_MAKEFILE ;
 BUILD_OPTIONS = \
     "AR=$AR" \
     "CC=$CC" \
+    "ASSEMBLER=$CC" \
     "lib=lib" \
     "prefix=$prefix"
 
