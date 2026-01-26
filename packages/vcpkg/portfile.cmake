@@ -20,15 +20,13 @@ endif()
 
 if(VCPKG_TARGET_IS_LINUX)
     if(VCPKG_TARGET_ARCHITECTURE MATCHES "arm64")
-        set(ENV{CONFIG} linux-aarch64)
-    elseif(VCPKG_TARGET_ARCHITECTURE MATCHES "arm")
-        set(ENV{CONFIG} linux-armv4)
+        set(ENV{ARCH} aarch64)
     elseif(VCPKG_TARGET_ARCHITECTURE MATCHES "x64")
-        set(ENV{CONFIG} linux64)
+        set(ENV{ARCH} x86_64)
     elseif(VCPKG_TARGET_ARCHITECTURE MATCHES "x86")
-        set(ENV{CONFIG} linux32)
+        set(ENV{ARCH} x86)
     else()
-        set(ENV{CONFIG} linux-generic32)
+        message(FATAL_ERROR "Unsopported architecture: ${VCPKG_TARGET_ARCHITECTURE}")
     endif()
 endif()
 
@@ -39,11 +37,11 @@ else()
 
     vcpkg_configure_make(
         SOURCE_PATH "${SOURCE_PATH}"
-        COPY_SOURCE
     )
 
     vcpkg_install_make(
         MAKEFILE Makefile.conf
+        OPTIONS
     )
 endif()
 
