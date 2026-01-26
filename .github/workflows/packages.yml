@@ -14,8 +14,10 @@ jobs:
 
     - run: sudo apt-get install gcc-multilib
 
-    - run: vcpkg install xdigest --head --overlay-ports packages/vcpkg --triplet x64-linux --enforce-port-checks
-    - run: vcpkg install xdigest --head --overlay-ports packages/vcpkg --triplet x86-linux --enforce-port-checks
+    - run: make test-vcpkg VCPKG_TRIPLET=x64-linux
+    - run: make test-vcpkg VCPKG_TRIPLET=x64-linux NO_ASM=1
+    - run: make test-vcpkg VCPKG_TRIPLET=x86-linux
+    - run: make test-vcpkg VCPKG_TRIPLET=x86-linux NO_ASM=1
 
   archlinux:
     runs-on: ubuntu-latest
