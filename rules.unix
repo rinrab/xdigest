@@ -20,6 +20,7 @@ endif
 
 CC = $(CROSS_COMPILE)gcc
 ASSEMBLER = $(CC)
+LINK_SHARED = $(CC) -shared
 
 CFLAGS += -O3 -Wall -Ixdigest/include -Ixdigest/core
 ASMFLAGS = -Wa,--noexecstack
