@@ -3,8 +3,10 @@ out = out
 include Version.inc
 include rules.unix
 
+CFLAGS += -O3 -Wall
+
 MAKE_FLAGS = \
-	 "CC=$(CC)"  \
+	 "CC=$(CC)" \
 	 "ASSEMBLER=$(ASSEMBLER)" \
 	 "CONFIG=$(CONFIG)" \
 	 "CFLAGS=$(CFLAGS)" \
