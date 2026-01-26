@@ -1,16 +1,15 @@
 out = out
 
 include Version.inc
+include rules.arch
 include rules.unix
-
-CFLAGS += -O3 -Wall
 
 MAKE_FLAGS = \
 	 "CC=$(CC)" \
 	 "ASSEMBLER=$(ASSEMBLER)" \
+	 "LINK_SHARED=$(LINK_SHARED)" \
 	 "CONFIG=$(CONFIG)" \
 	 "CFLAGS=$(CFLAGS)" \
-	 "ASMFLAGS=$(CFLAGS)" \
 	 "prefix=$(prefix)"
 
 all:
