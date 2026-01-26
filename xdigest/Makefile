@@ -61,4 +61,4 @@ install-shared: $(sofiles)
 install-headers:
 	install -d $(DESTDIR)$(prefix)/include/
 	install -d $(DESTDIR)$(prefix)/include/xdigest
-	install -m 644 xdigest/include/xdigest/*.h $(DESTDIR)$(prefix)/include/xdigest
+	install -m 644 include/xdigest/*.h $(DESTDIR)$(prefix)/include/xdigest
