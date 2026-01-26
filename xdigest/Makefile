@@ -40,7 +40,7 @@ clean:
 
 libxdigest.so.$(VERSION): $(objects)
 	$(MKDIR) $(@D)
-	$(LINK_SHARED) -o $@ $^
+	$(LINK_SHARED) -o $@ $^ $(CFLAGS)
 
 libxdigest.so.$(SONAME): libxdigest.so.$(VERSION)
 	$(LN) $^ $@
