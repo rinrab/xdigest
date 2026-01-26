@@ -13,19 +13,20 @@ ifeq ($(ARCH),)
 endif
 
 ifeq ($(ARCH), x86_64)
-    CONFIG ?= linux64
-    CFLAGS ?= -m64
+    CONFIG = linux64
+    CFLAGS = -m64
+    CC = cc
 else ifeq ($(ARCH), x86)
-    CONFIG ?= linux32
-    CFLAGS ?= -m32
+    CONFIG = linux32
+    CFLAGS = -m32
+    CC = cc
 else ifeq ($(ARCH), aarch64)
-    CONFIG ?= linuxaarch64
-    CFLAGS ?= -march=armv8-a+crypto
-    CROSS_COMPILE ?= aarch64-linux-gnu-
+    CONFIG = linuxaarch64
+    CFLAGS = -march=armv8-a+crypto
+    CC = aarch64-linux-gnu-gcc
 else
     $(error invalid architecute: "$(ARCH)")
 endif
 
-CC = $(CROSS_COMPILE)gcc
 ASSEMBLER = $(CC)
 LINK_SHARED = $(CC) -shared
