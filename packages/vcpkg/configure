@@ -21,6 +21,7 @@ BUILD_OPTIONS = \
     "AR=$AR" \
     "CC=$CC" \
     "ASSEMBLER=$CC" \
+    "LINK_SHARED=$CC -shared" \
     "lib=lib" \
     "prefix=$prefix"
 
