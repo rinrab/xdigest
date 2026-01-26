@@ -35,9 +35,16 @@ test: test_xdigest
 	export "LD_LIBRARY_PATH=$(CURDIR):$(LD_LIBRARY_PATH)" && ./test_xdigest
 
 VCPKG_TRIPLET ?= x64-linux
+
+ifdef NO_ASM
+    VCPKG_FEATURES ?= core
+else
+    VCPKG_FEATURES ?= core,asm
+endif
+
 test-vcpkg:
 	vcpkg remove xdigest $(VCPKG_TRIPLET)
-	vcpkg install xdigest --overlay-ports=packages/vcpkg --head --triplet $(VCPKG_TRIPLET)
+	vcpkg install xdigest[$(VCPKG_FEATURES)] --overlay-ports=packages/vcpkg --head --triplet $(VCPKG_TRIPLET)
 
 # TODO: checksum
 OPENSSL_VERSION = 3.6.0
