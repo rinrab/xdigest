@@ -35,6 +35,8 @@ endif()
 if (VCPKG_TARGET_IS_WINDOWS)
     # todo
 else()
+    file(COPY "${CMAKE_CURRENT_LIST_DIR}/configure" DESTINATION "${SOURCE_PATH}")
+
     vcpkg_configure_make(
         SOURCE_PATH "${SOURCE_PATH}"
         COPY_SOURCE
