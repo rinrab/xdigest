@@ -22,7 +22,7 @@ CC = $(CROSS_COMPILE)gcc
 ASSEMBLER = $(CC)
 LINK_SHARED = $(CC) -shared
 
-CFLAGS += -O3 -Wall -Ixdigest/include -Ixdigest/core
+CFLAGS += -O3 -Wall
 ASMFLAGS = -Wa,--noexecstack
 
 ifeq ($(prefix),)
