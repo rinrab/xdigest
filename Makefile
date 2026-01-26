@@ -44,7 +44,7 @@ else
 endif
 
 test-vcpkg:
-	vcpkg remove xdigest $(VCPKG_TRIPLET)
+	vcpkg remove xdigest --triplet $(VCPKG_TRIPLET)
 	vcpkg install xdigest[$(VCPKG_FEATURES)] --enforce-port-checks \
 		--overlay-ports=packages/vcpkg --head --triplet $(VCPKG_TRIPLET)
 
