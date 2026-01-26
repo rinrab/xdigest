@@ -55,10 +55,10 @@ $(c_objects): %.o: %.c
 	mkdir -p $(@D) && $(CC) -c $^ -o $@ $(CFLAGS) $(DEFS) $(INCS)
 
 install-shared: $(sofiles)
-	install -d $(DESTDIR)$(prefix)/lib/
-	install -m 644 $(sofiles) $(DESTDIR)$(prefix)/lib/
+	install -d $(prefix)/lib/
+	install -m 644 $(sofiles) $(prefix)/lib/
 
 install-headers:
-	install -d $(DESTDIR)$(prefix)/include/
-	install -d $(DESTDIR)$(prefix)/include/xdigest
-	install -m 644 include/xdigest/*.h $(DESTDIR)$(prefix)/include/xdigest
+	install -d $(prefix)/include/
+	install -d $(prefix)/include/xdigest
+	install -m 644 include/xdigest/*.h $(prefix)/include/xdigest
