@@ -9,7 +9,6 @@ MAKE_FLAGS = \
 	 "ASSEMBLER=$(ASSEMBLER)" \
 	 "LINK_SHARED=$(LINK_SHARED)" \
 	 "CONFIG=$(CONFIG)" \
-	 "CFLAGS=$(CFLAGS)" \
 	 "prefix=$(prefix)"
 
 all:
@@ -28,15 +27,15 @@ xdigest/libxdigest.so: all
 
 %.o: %.c
 	mkdir -p $(@D)
-	$(CC) $@ $^ $(CFLAGS) -DXDIG -Ixdigest/include
+	$(CC) $@ $^ -DXDIG -Ixdigest/include
 
 test_xdigest: tests/test_xdigest.o tests/sha_test.o xdigest/libxdigest.so
 	$(MKDIR) $(@D)
-	$(LINK_PROGRAM) $@ $^ $(CFLAGS)
+	$(LINK_PROGRAM) $@ $^
 
 example: tests/example.o xdigest/libxdigest.so
 	$(MKDIR) $(@D)
-	$(LINK_PROGRAM) $@ $^ $(CFLAGS)
+	$(LINK_PROGRAM) $@ $^
 
 test: test_xdigest
 	export "LD_LIBRARY_PATH=$(CURDIR):$(LD_LIBRARY_PATH)" && ./test_xdigest

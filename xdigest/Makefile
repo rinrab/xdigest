@@ -1,7 +1,6 @@
 # NO_ASM - disables assembly
 # CC - c compiler
 # ASSEMBLER - asm compiler
-# CFLAGS - things to pass to the compiler
 # ASMFLAGS - things to pass to the assembler
 # prefix - where to install stuff
 
@@ -40,7 +39,7 @@ clean:
 
 libxdigest.so.$(VERSION): $(objects)
 	$(MKDIR) $(@D)
-	$(LINK_SHARED) $@ $^ $(CFLAGS)
+	$(LINK_SHARED) $@ $^
 
 libxdigest.so.$(SONAME): libxdigest.so.$(VERSION)
 	$(LN) $^ $@
@@ -49,10 +48,10 @@ libxdigest.so: libxdigest.so.$(SONAME)
 	$(LN) $^ $@
 
 $(asm_objects): %.o: %.S
-	mkdir -p $(@D) && $(ASSEMBLER) $@ $^ $(CFLAGS) $(DEFS) $(INCS)
+	mkdir -p $(@D) && $(ASSEMBLER) $@ $^ $(DEFS) $(INCS)
 
 $(c_objects): %.o: %.c
-	mkdir -p $(@D) && $(CC) $@ $^ $(CFLAGS) $(DEFS) $(INCS)
+	mkdir -p $(@D) && $(CC) $@ $^ $(DEFS) $(INCS)
 
 install-shared: $(sofiles)
 	install -d $(prefix)/lib/
