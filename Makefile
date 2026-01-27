@@ -26,11 +26,17 @@ rebuild: clean all
 
 xdigest/libxdigest.so: all
 
-test_xdigest: tests/test_xdigest.c tests/sha_test.c xdigest/libxdigest.so
-	$(MKDIR) $(@D) && $(CC) $^ -o $@ $(CFLAGS) -DXDIG -Ixdigest/include
+%.o: %.c
+	mkdir -p $(@D)
+	$(CC) $@ $^ $(CFLAGS) -DXDIG -Ixdigest/include
 
-example: tests/example.c xdigest/libxdigest.so
-	$(MKDIR) $(@D) && $(CC) $^ -o $@ $(CFLAGS) -DXDIG -Ixdigest/include
+test_xdigest: tests/test_xdigest.o tests/sha_test.o xdigest/libxdigest.so
+	$(MKDIR) $(@D)
+	$(LINK_PROGRAM) $@ $^ $(CFLAGS)
+
+example: tests/example.o xdigest/libxdigest.so
+	$(MKDIR) $(@D)
+	$(LINK_PROGRAM) $@ $^ $(CFLAGS)
 
 test: test_xdigest
 	export "LD_LIBRARY_PATH=$(CURDIR):$(LD_LIBRARY_PATH)" && ./test_xdigest
