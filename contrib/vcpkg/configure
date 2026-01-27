@@ -3,11 +3,10 @@
 set -e
 
 linkage=shared
-prefix=
 for OPTION; do
     case "${OPTION}" in
-    --prefix=*)
-        prefix="${OPTION#--prefix=}"
+    --vcpkg-prefix=*)
+        vcpkg_prefix="${OPTION#--vcpkg-prefix=}"
         ;;
     --enable-static)
         linkage=static
@@ -18,7 +17,7 @@ done
 cat > Makefile.conf <<END_MAKEFILE ;
 
 BUILD_OPTIONS = \
-    "prefix=$prefix"
+    "prefix=$vcpkg_prefix"
 
 all:
 	\$(MAKE) all \$(BUILD_OPTIONS)
