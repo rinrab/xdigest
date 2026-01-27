@@ -26,7 +26,7 @@ if(VCPKG_TARGET_IS_LINUX)
     elseif(VCPKG_TARGET_ARCHITECTURE MATCHES "x86")
         set(ENV{ARCH} x86)
     else()
-        message(FATAL_ERROR "Unsopported architecture: ${VCPKG_TARGET_ARCHITECTURE}")
+        message(FATAL_ERROR "Unsupported architecture: ${VCPKG_TARGET_ARCHITECTURE}")
     endif()
 endif()
 
