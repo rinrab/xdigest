@@ -7,7 +7,7 @@
 # LINK_SHARED - linker for shared libs
 # CFLAGS - flags for the compiler
 
-ifndef $(CONFIG)
+ifndef CONFIG
     CONFIG ?= linux64
 endif
 
