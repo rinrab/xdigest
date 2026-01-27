@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v6
 
-    - run: sudo apt-get install gcc-multilib libstdc++6:i386
+    - run: sudo apt-get install gcc-multilib lib32stdc++6
 
     - run: make test-vcpkg VCPKG_TRIPLET=x64-linux
     - run: make test-vcpkg VCPKG_TRIPLET=x64-linux NO_ASM=1
