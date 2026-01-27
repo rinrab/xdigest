@@ -1,0 +1,20 @@
+  XDIGEST
+
+Copyright 2026 rinrab (Timofei Zhakov) and contributors
+
+This product is distributed under Apache 2.0 license and includes software
+developed by the OpenSSL Project (https://www.openssl.org/).
+
+This library uses and derives from OpenSSL source code. Use of the
+OpenSSL-derived portions of this software is subject to the terms and
+conditions of the OpenSSL License and the Apache License, Version 2.0.
+
+The OpenSSL license text is included with this distribution.
+
+The OpenSSL-derived code affects the following source files:
+
+- everything in xdigest/*/asm/*
+- the majority of xdigest/*/*.c
+- xdigest/include/internal/*.h
+- xdigest/include/crypto/*.h
+- tests/tests/sha_test.c
