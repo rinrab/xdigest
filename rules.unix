@@ -1,8 +1,5 @@
 OBJEXT = .o
 
-ASMFLAGS += -Wa,--noexecstack
-CFLAGS += -O3 -Wall
-
 prefix ?= /usr/local
 
 MKDIR ?= mkdir -p
