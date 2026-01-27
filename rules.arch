@@ -13,19 +13,28 @@ endif
 
 ifeq ($(CONFIG), linux64)
     CFLAGS = -m64
-    CC = cc -c
-    ASSEMBLER = cc -c
-    LINK_SHARED = cc -shared
+    CC = cc -c -o
+    ASSEMBLER = cc -c -o
+    LINK_SHARED = cc -shared -o
+    LINK_PROGRAM = cc -o
 else ifeq ($(CONFIG), linux32)
     CFLAGS = -m32
-    CC = cc -c
-    ASSEMBLER = cc -c
-    LINK_SHARED = cc -shared
+    CC = cc -c -o
+    ASSEMBLER = cc -c -o
+    LINK_SHARED = cc -shared -o
+    LINK_PROGRAM = cc -o
 else ifeq ($(CONFIG), linuxaarch64)
-    CFLAGS = -march=armv8-a+crypto
-    CC = aarch64-linux-gnu-gcc -c
-    ASSEMBLER = aarch64-linux-gnu-gcc -c
-    LINK_SHARED = aarch64-linux-gnu-gcc -shared
+    CFLAGS = -march=armv8-a+cryptoA
+    CC = aarch64-linux-gnu-gcc -c -o
+    ASSEMBLER = aarch64-linux-gnu-gcc -c -o
+    LINK_SHARED = aarch64-linux-gnu-gcc -shared -o
+    LINK_PROGRAM = aarch64-linux-gnu-gcc -o
+else ifeq ($(CONFIG), win64)
+    CFLAGS = /O2 /W4
+    CC = cl /nologo /c /Fo
+    ASSEMBLER = todo
+    LINK_SHARED = lib /nologo /out
+    LINK_PROGRAM = link /nologo /out
 else
     $(error invalid architecute: "$(CONFIG)")
 endif

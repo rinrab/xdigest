@@ -40,7 +40,7 @@ clean:
 
 libxdigest.so.$(VERSION): $(objects)
 	$(MKDIR) $(@D)
-	$(LINK_SHARED) -o $@ $^ $(CFLAGS)
+	$(LINK_SHARED) $@ $^ $(CFLAGS)
 
 libxdigest.so.$(SONAME): libxdigest.so.$(VERSION)
 	$(LN) $^ $@
@@ -49,10 +49,10 @@ libxdigest.so: libxdigest.so.$(SONAME)
 	$(LN) $^ $@
 
 $(asm_objects): %.o: %.S
-	mkdir -p $(@D) && $(ASSEMBLER) $^ -o $@ $(CFLAGS) $(DEFS) $(INCS)
+	mkdir -p $(@D) && $(ASSEMBLER) $@ $^ $(CFLAGS) $(DEFS) $(INCS)
 
 $(c_objects): %.o: %.c
-	mkdir -p $(@D) && $(CC) -c $^ -o $@ $(CFLAGS) $(DEFS) $(INCS)
+	mkdir -p $(@D) && $(CC) $@ $^ $(CFLAGS) $(DEFS) $(INCS)
 
 install-shared: $(sofiles)
 	install -d $(prefix)/lib/
