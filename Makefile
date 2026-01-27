@@ -13,14 +13,14 @@ MAKE_FLAGS = \
 	 "prefix=$(prefix)"
 
 all:
-	$(MAKE) -C xdigest $@ $(MAKE_FLAGS)
+	"$(MAKE)" -C xdigest $@ $(MAKE_FLAGS)
 
 clean:
-	$(MAKE) -C xdigest $@ $(MAKE_FLAGS)
+	"$(MAKE)" -C xdigest $@ $(MAKE_FLAGS)
 	@find . -name '*.rej' | xargs $(RM)
 
 install:
-	$(MAKE) -C xdigest $@ $(MAKE_FLAGS)
+	"$(MAKE)" -C xdigest $@ $(MAKE_FLAGS)
 
 rebuild: clean all
 
