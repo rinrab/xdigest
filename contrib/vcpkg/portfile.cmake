@@ -38,9 +38,12 @@ else()
     vcpkg_configure_make(
         SOURCE_PATH "${SOURCE_PATH}"
         COPY_SOURCE
+        OPTIONS_RELEASE "--vcpkg-prefix=${CURRENT_PACKAGES_DIR}"
+        OPTIONS_DEBUG "--vcpkg-prefix=${CURRENT_PACKAGES_DIR}/debug"
     )
 
-    vcpkg_install_make(
+    vcpkg_build_make(
+        BUILD_TARGET install
         MAKEFILE Makefile.conf
     )
 endif()
