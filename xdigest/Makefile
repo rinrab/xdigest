@@ -49,7 +49,7 @@ libxdigest.so: libxdigest.so.$(SONAME)
 	$(LN) $^ $@
 
 $(asm_objects): %.o: %.S
-	mkdir -p $(@D) && $(ASSEMBLER) -c $^ -o $@ $(CFLAGS) $(DEFS) $(INCS)
+	mkdir -p $(@D) && $(ASSEMBLER) $^ -o $@ $(CFLAGS) $(DEFS) $(INCS)
 
 $(c_objects): %.o: %.c
 	mkdir -p $(@D) && $(CC) -c $^ -o $@ $(CFLAGS) $(DEFS) $(INCS)
