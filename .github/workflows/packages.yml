@@ -16,8 +16,10 @@ jobs:
 
     - run: make test-vcpkg VCPKG_TRIPLET=x64-linux
     - run: make test-vcpkg VCPKG_TRIPLET=x64-linux NO_ASM=1
-    - run: make test-vcpkg VCPKG_TRIPLET=x86-linux
-    - run: make test-vcpkg VCPKG_TRIPLET=x86-linux NO_ASM=1
+
+    # vcpkg refuses to cross compile without C++ which doesn't work either
+    # - run: make test-vcpkg VCPKG_TRIPLET=x86-linux
+    # - run: make test-vcpkg VCPKG_TRIPLET=x86-linux NO_ASM=1
 
   archlinux:
     runs-on: ubuntu-latest
