@@ -17,7 +17,6 @@ option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
 option(USE_ASM "Enable assembly implementation." ON)
 option(ENABLE_TESTS "Compile test-suite" ON)
 
-set(CMAKE_ASM_COMPILER gcc)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3 -Wall")
 set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -Wa,--noexecstack")
 
