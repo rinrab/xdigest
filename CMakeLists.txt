@@ -38,8 +38,6 @@ if ("${CONFIG}" STREQUAL "unsupported")
     message(ERROR "Could not detect assembly architecture or one is not supported.")
 endif()
 
-message(STATUS "Detected configuration: ${CONFIG}")
-
 add_library(xdigest
     xdigest/core/cpuid.c
     xdigest/core/armcap.c
