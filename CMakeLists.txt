@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.12)
 
 project(xdigest LANGUAGES C ASM)
 
+include(GNUInstallDirs)
+
 file(
   STRINGS "xdigest/include/xdigest/xdigest.h" VERSION_STRINGS
   REGEX "#define (XDIG_VERSION_MAJOR|XDIG_VERSION_MINOR|XDIG_VERSION_PATCH)"
@@ -96,7 +98,7 @@ install(TARGETS xdigest)
 file(GLOB public_headers "xdigest/include/xdigest/*.h")
 install(FILES
     ${public_headers}
-    DESTINATION "include/xdigest"
+    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/xdigest"
 )
 
 message(STATUS "Configuration summary:")
