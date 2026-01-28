@@ -20,12 +20,8 @@ xdig_bench__create_buffer(unsigned char *buf, size_t len)
 typedef struct xdig_bench__ctx_t {
     const char *name;
 
-#ifdef WIN32
-    #error "not supported"
-#else
     xdig_time__t start;
     xdig_time__t end;
-#endif
 
     double requested_time;
     size_t iter;
