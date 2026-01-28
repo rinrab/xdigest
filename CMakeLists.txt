@@ -67,3 +67,11 @@ install(FILES
     ${public_headers}
     DESTINATION "include/xdigest"
 )
+
+message(STATUS "Configuration summary:")
+message(STATUS "  Version ......................... : TODO")
+message(STATUS "  Build type ...................... : ${CMAKE_BUILD_TYPE}")
+message(STATUS "  Assembly configuration .......... : ${CONFIG}")
+message(STATUS "  Using Assembly .................. : ${NO_ASM}")
+message(STATUS "  Build test suite ................ : TODO")
+message(STATUS "  Install prefix: ................. : ${CMAKE_INSTALL_PREFIX}")
