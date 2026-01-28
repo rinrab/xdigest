@@ -2,6 +2,17 @@ cmake_minimum_required(VERSION 3.12)
 
 project(xdigest LANGUAGES C ASM)
 
+file(
+  STRINGS "xdigest/include/xdigest/xdigest.h" VERSION_STRINGS
+  REGEX "#define (XDIG_VERSION_MAJOR|XDIG_VERSION_MINOR|XDIG_VERSION_PATCH)"
+)
+
+string(REGEX REPLACE ".*XDIG_VERSION_MAJOR +([0-9]+).*" "\\1" XDIG_VERSION_MAJOR ${VERSION_STRINGS})
+string(REGEX REPLACE ".*XDIG_VERSION_MINOR +([0-9]+).*" "\\1" XDIG_VERSION_MINOR ${VERSION_STRINGS})
+string(REGEX REPLACE ".*XDIG_VERSION_PATCH +([0-9]+).*" "\\1" XDIG_VERSION_PATCH ${VERSION_STRINGS})
+
+set(XDIG_VERSION "${XDIG_VERSION_MAJOR}.${XDIG_VERSION_MINOR}.${XDIG_VERSION_PATCH}")
+
 option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
 option(USE_ASM "Enable assembly implementation." ON)
 option(ENABLE_TESTS "Compile test-suite" ON)
@@ -90,7 +101,7 @@ install(FILES
 )
 
 message(STATUS "Configuration summary:")
-message(STATUS "  Version ......................... : TODO")
+message(STATUS "  Version ......................... : ${XDIG_VERSION}")
 message(STATUS "  Build type ...................... : ${CMAKE_BUILD_TYPE}")
 message(STATUS "  Assembly configuration .......... : ${CONFIG}")
 message(STATUS "  Using Assembly .................. : ${USE_ASM}")
