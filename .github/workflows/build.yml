@@ -16,11 +16,11 @@ jobs:
     - run: |
         sudo apt-get install gcc-multilib 
 
-    - run: make rebuild install test prefix=${{ github.workspace }}install64 CONFIG=linux-x86_64
-    - run: make rebuild install test prefix=${{ github.workspace }}install64 CONFIG=linux-x86_64 NO_ASM=1
+    - run: make rebuild install test prefix=${{ github.workspace }}install64 CONFIG=linux64
+    - run: make rebuild install test prefix=${{ github.workspace }}install64 CONFIG=linux64 NO_ASM=1
 
-    - run: make rebuild install test prefix=${{ github.workspace }}install32 CONFIG=linux-x86
-    - run: make rebuild install test prefix=${{ github.workspace }}install32 CONFIG=linux-x86 NO_ASM=1 
+    - run: make rebuild install test prefix=${{ github.workspace }}install32 CONFIG=linux32
+    - run: make rebuild install test prefix=${{ github.workspace }}install32 CONFIG=linux32 NO_ASM=1 
 
   linux-cross-compile-arm:
     runs-on: ubuntu-latest
@@ -30,5 +30,5 @@ jobs:
     - run: |
         sudo apt-get install gcc-aarch64-linux-gnu
 
-    - run: make rebuild install prefix=${{ github.workspace }}installaarch64 CONFIG=linux-aarch64
-    - run: make rebuild install prefix=${{ github.workspace }}installaarch64 CONFIG=linux-aarch64 NO_ASM=1
+    - run: make rebuild install prefix=${{ github.workspace }}installaarch64 CONFIG=linuxaarch64
+    - run: make rebuild install prefix=${{ github.workspace }}installaarch64 CONFIG=linuxaarch64 NO_ASM=1
