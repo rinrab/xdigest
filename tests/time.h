@@ -4,7 +4,7 @@
 
 #define BILLION 1000000000L
 
-#ifdef __WIN32__
+#ifdef WIN32
 #include <windows.h>
 
 typedef LARGE_INTEGER xdig_time__t;
