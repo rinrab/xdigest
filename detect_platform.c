@@ -14,8 +14,8 @@
  * always fails no matter what.
  *
  * We cannot simply run it because then we would lose ability to cross-compile.
- * It's not usually possible to run program compiled for different
- * architecture on host one.
+ * It's not usually possible to run program compiled for different architecture
+ * on host one.
  */
 
 #ifdef __linux__
