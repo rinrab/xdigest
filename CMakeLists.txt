@@ -9,8 +9,23 @@ set(CMAKE_ASM_COMPILER gcc)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3 -Wall")
 set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -Wa,--noexecstack")
 
-set(CONFIG linux64)
 set(ASMEXT S)
+
+try_compile(
+    DETECT_PLATFORM_RESULT
+    ${CMAKE_CURRENT_BINARY_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/detect_platform.c
+    OUTPUT_VARIABLE DETECT_PLATFORM_OUTPUT
+)
+
+string(REGEX MATCH "DETECTED: ([a-z0-9]+)" _ ${DETECT_PLATFORM_OUTPUT})
+set(CONFIG ${CMAKE_MATCH_1})
+
+if ("${CONFIG}" STREQUAL "unsupported")
+    message(ERROR "Could not detect assembly architecture or one is not supported.")
+endif()
+
+message(STATUS "Detected configuration: ${CONFIG}")
 
 add_library(xdigest
     xdigest/core/cpuid.c
