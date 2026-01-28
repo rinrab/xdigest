@@ -101,6 +101,16 @@ install(FILES
     DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/xdigest"
 )
 
+configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/build/xdigest.pc.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/xdigest.pc" @ONLY
+)
+
+install(
+    FILES "${CMAKE_CURRENT_BINARY_DIR}/xdigest.pc"
+    DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig"
+)
+
 message(STATUS "Configuration summary:")
 message(STATUS "  Version ......................... : ${XDIG_VERSION}")
 message(STATUS "  Build type ...................... : ${CMAKE_BUILD_TYPE}")
