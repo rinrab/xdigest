@@ -4,6 +4,7 @@ project(xdigest LANGUAGES C ASM)
 
 option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
 option(USE_ASM "Enable assembly implementation." ON)
+option(ENABLE_TESTS "Compile test-suite" ON)
 
 set(CMAKE_ASM_COMPILER gcc)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3 -Wall")
@@ -50,6 +51,21 @@ if (USE_ASM)
         xdigest/sha/asm/sha512-${CONFIG}.${ASMEXT}
         xdigest/sha/asm/sha1-${CONFIG}.${ASMEXT}
         xdigest/md5/asm/md5-${CONFIG}.${ASMEXT}
+    )
+endif()
+
+if (ENABLE_TESTS)
+    enable_testing()
+
+    add_executable(test_xdigest
+        tests/test_xdigest.c
+        tests/sha_test.c
+    )
+    target_link_libraries(test_xdigest PRIVATE xdigest)
+    target_compile_definitions(test_xdigest PRIVATE XDIG)
+    add_test(
+        NAME test_xdigest
+        COMMAND test_xdigest
     )
 endif()
 
