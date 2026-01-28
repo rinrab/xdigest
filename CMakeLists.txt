@@ -14,7 +14,7 @@ set(ASMEXT S)
 try_compile(
     DETECT_PLATFORM_RESULT
     ${CMAKE_CURRENT_BINARY_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/detect_platform.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/build/detect_platform.c
     OUTPUT_VARIABLE DETECT_PLATFORM_OUTPUT
 )
 
