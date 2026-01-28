@@ -1,0 +1,10 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+libdir={prefix}/@CMAKE_INSTALL_LIBDIR@
+includedir={prefix}/@CMAKE_INSTALL_INCLUDEDIR@
+
+Name: libxdigest
+Description: Extremly fast digest algorithms
+Version: @XDIGEST_VERSION@
+Requires:
+Libs: -L${libdir} -lxdigest
+Cflags: -I${includedir}
