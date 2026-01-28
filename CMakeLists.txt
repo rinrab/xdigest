@@ -26,7 +26,7 @@ endif()
 
 if (USE_ASM)
     if (CONFIG MATCHES "win*.")
-        enable_language(NASM)
+        enable_language(ASM_NASM)
         set(ASMEXT asm)
     else()
         enable_language(ASM)
