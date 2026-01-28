@@ -14,7 +14,7 @@ jobs:
 
     - run: sudo apt-get install gcc-multilib lib32stdc++6
 
-    - run: cmake -B x64 -DCMAKE_INSTALL_PREFIX=install/x64
-    - run: ninja -C x64
-    - run: ninja -C x64 install
-    - run: ninja -C x64 test
+    - run: cmake -B out-x64 -DCMAKE_INSTALL_PREFIX=install/x64
+    - run: ninja -C out-x64
+    - run: ninja -C out-x64 install
+    - run: ninja -C out-x64 test
