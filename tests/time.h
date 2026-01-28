@@ -22,7 +22,7 @@ static xdig_time__t xdig_time__get()
 static double
 xdig_time__diff(xdig_time__t start, xdig_time__t end)
 {
-    LONG_INTEGER frequency = { 0 };
+    LARGE_INTEGER frequency = { 0 };
 
     if (! QueryPerformanceFrequency(&frequency))
        abort();
