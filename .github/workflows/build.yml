@@ -7,20 +7,24 @@ on:
     branches: ["*"]
 
 jobs:
-  linux-x86-64:
+  linux64:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v6
 
-    - run: |
-        sudo apt-get install gcc-multilib 
+    - run: make rebuild install test prefix=${{ github.workspace }}install CONFIG=linux64
+    - run: make rebuild install test prefix=${{ github.workspace }}install CONFIG=linux64 NO_ASM=1
 
-    - run: make rebuild install test prefix=${{ github.workspace }}install64 CONFIG=linux64
-    - run: make rebuild install test prefix=${{ github.workspace }}install64 CONFIG=linux64 NO_ASM=1
+  linux32:
+    runs-on: ubuntu-latest
 
-    - run: make rebuild install test prefix=${{ github.workspace }}install32 CONFIG=linux32
-    - run: make rebuild install test prefix=${{ github.workspace }}install32 CONFIG=linux32 NO_ASM=1 
+    steps:
+    - uses: actions/checkout@v6
+    - run: sudo apt-get install gcc-multilib
+
+    - run: make rebuild install test prefix=${{ github.workspace }}install CONFIG=linux32
+    - run: make rebuild install test prefix=${{ github.workspace }}install CONFIG=linux32 NO_ASM=1
 
   linux-cross-compile-arm:
     runs-on: ubuntu-latest
