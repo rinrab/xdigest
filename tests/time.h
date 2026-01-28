@@ -13,7 +13,7 @@ static xdig_time__t xdig_time__get()
 {
     LARGE_INTEGER result = { 0 };
 
-    if (! QueryPerformanceCounter())
+    if (! QueryPerformanceCounter(&result))
        abort();
 
     return result;
