@@ -1,29 +1,15 @@
 cmake_minimum_required(VERSION 3.12)
 
-project(xdigest LANGUAGES C ASM)
+project(xdigest LANGUAGES C)
 
 include(GNUInstallDirs)
 
-file(
-  STRINGS "xdigest/include/xdigest/xdigest.h" VERSION_STRINGS
-  REGEX "#define (XDIG_VERSION_MAJOR|XDIG_VERSION_MINOR|XDIG_VERSION_PATCH)"
-)
-
-string(REGEX REPLACE ".*XDIG_VERSION_MAJOR +([0-9]+).*" "\\1" XDIG_VERSION_MAJOR ${VERSION_STRINGS})
-string(REGEX REPLACE ".*XDIG_VERSION_MINOR +([0-9]+).*" "\\1" XDIG_VERSION_MINOR ${VERSION_STRINGS})
-string(REGEX REPLACE ".*XDIG_VERSION_PATCH +([0-9]+).*" "\\1" XDIG_VERSION_PATCH ${VERSION_STRINGS})
-
-set(XDIG_VERSION "${XDIG_VERSION_MAJOR}.${XDIG_VERSION_MINOR}.${XDIG_VERSION_PATCH}")
-
+# options
 option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
 option(USE_ASM "Enable assembly implementation." ON)
 option(ENABLE_TESTS "Compile test-suite" ON)
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3 -Wall")
-set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -Wa,--noexecstack")
-
-set(ASMEXT S)
-
+# Detect architecture
 try_compile(
     DETECT_PLATFORM_RESULT
     ${CMAKE_CURRENT_BINARY_DIR}
@@ -37,6 +23,30 @@ set(CONFIG ${CMAKE_MATCH_1})
 if ("${CONFIG}" STREQUAL "unsupported")
     message(ERROR "Could not detect assembly architecture or one is not supported.")
 endif()
+
+if (USE_ASM)
+    if (CONFIG MATCHES "win*.")
+        enable_language(NASM)
+        set(ASMEXT asm)
+    else()
+        enable_language(ASM)
+        set(ASMEXT S)
+    endif()
+endif()
+
+file(
+  STRINGS "xdigest/include/xdigest/xdigest.h" VERSION_STRINGS
+  REGEX "#define (XDIG_VERSION_MAJOR|XDIG_VERSION_MINOR|XDIG_VERSION_PATCH)"
+)
+
+string(REGEX REPLACE ".*XDIG_VERSION_MAJOR +([0-9]+).*" "\\1" XDIG_VERSION_MAJOR ${VERSION_STRINGS})
+string(REGEX REPLACE ".*XDIG_VERSION_MINOR +([0-9]+).*" "\\1" XDIG_VERSION_MINOR ${VERSION_STRINGS})
+string(REGEX REPLACE ".*XDIG_VERSION_PATCH +([0-9]+).*" "\\1" XDIG_VERSION_PATCH ${VERSION_STRINGS})
+
+set(XDIG_VERSION "${XDIG_VERSION_MAJOR}.${XDIG_VERSION_MINOR}.${XDIG_VERSION_PATCH}")
+
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3 -Wall")
+set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -Wa,--noexecstack")
 
 add_library(xdigest
     xdigest/core/cpuid.c
