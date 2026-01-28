@@ -61,3 +61,9 @@ target_compile_definitions(xdigest PRIVATE
 )
 
 install(TARGETS xdigest)
+
+file(GLOB public_headers "xdigest/include/xdigest/*.h")
+install(FILES
+    ${public_headers}
+    DESTINATION "include/xdigest"
+)
