@@ -35,12 +35,6 @@ else ifeq ($(CONFIG), linuxaarch64)
     ASSEMBLER = $(GCC) -c $(ASMFLAGS) $(ARCH) -o
     LINK_SHARED = $(GCC) -shared $(ARCH) -o
     LINK_PROGRAM = $(GCC) $(ARCH) -o
-else ifeq ($(CONFIG), win64)
-    CFLAGS = /O2 /W4
-    CC = cl /nologo /c /Fo
-    ASSEMBLER = todo
-    LINK_SHARED = lib /nologo /out
-    LINK_PROGRAM = link /nologo /out
 else
     $(error invalid architecute: "$(CONFIG)")
 endif
