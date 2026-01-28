@@ -41,12 +41,17 @@ add_library(xdigest
     xdigest/md4/md4_one.c
     xdigest/md2/md2_dgst.c
     xdigest/md2/md2_one.c
-    xdigest/core/asm/cpuid-${CONFIG}.${ASMEXT}
-    xdigest/sha/asm/sha256-${CONFIG}.${ASMEXT}
-    xdigest/sha/asm/sha512-${CONFIG}.${ASMEXT}
-    xdigest/sha/asm/sha1-${CONFIG}.${ASMEXT}
-    xdigest/md5/asm/md5-${CONFIG}.${ASMEXT}
 )
+
+if (USE_ASM)
+    target_sources(xdigest PRIVATE
+        xdigest/core/asm/cpuid-${CONFIG}.${ASMEXT}
+        xdigest/sha/asm/sha256-${CONFIG}.${ASMEXT}
+        xdigest/sha/asm/sha512-${CONFIG}.${ASMEXT}
+        xdigest/sha/asm/sha1-${CONFIG}.${ASMEXT}
+        xdigest/md5/asm/md5-${CONFIG}.${ASMEXT}
+    )
+endif()
 
 target_include_directories(xdigest PUBLIC
     "${CMAKE_CURRENT_SOURCE_DIR}/xdigest/include"
