@@ -13,7 +13,7 @@ else
 endif
 
 include Makefile.inc
-include ../rules.unix
+include ../build/rules.unix
 
 INCS += -Iinclude -I. -Icore
 
@@ -22,7 +22,7 @@ ifndef NO_ASM
     objects += $(asm_objects)
 endif
 
-include ../Version.inc
+include ../build/Version.inc
 
 sofiles = \
 	libxdigest.so.$(VERSION) \

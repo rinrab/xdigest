@@ -1,8 +1,8 @@
 out = out
 
-include Version.inc
-include rules.arch
-include rules.unix
+include build/Version.inc
+include build/rules.arch
+include build/rules.unix
 
 MAKE_FLAGS = \
 	 "CC=$(CC)" \
