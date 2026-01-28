@@ -59,3 +59,5 @@ target_compile_definitions(xdigest PRIVATE
     MD5_ASM
     xdig_CPUID_OBJ
 )
+
+install(TARGETS xdigest)
