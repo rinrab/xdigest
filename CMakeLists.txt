@@ -91,6 +91,10 @@ if (ENABLE_TESTS)
 endif()
 
 target_include_directories(xdigest PUBLIC
+    "${CMAKE_CURRENT_SOURCE_DIR}/xdigest/include/xdigest"
+)
+
+target_include_directories(xdigest PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/xdigest/include"
 )
 

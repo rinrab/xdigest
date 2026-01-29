@@ -1,4 +1,4 @@
-#include <xdigest/xdigest.h>
+#include <xdigest.h>
 
 int main() {
     xdig_init();

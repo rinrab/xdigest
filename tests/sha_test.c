@@ -12,8 +12,8 @@
 #include <stdio.h>
 
 #ifdef XDIG
-#include <xdigest/xdigest_sha1.h>
-#include <xdigest/xdigest_sha2.h>
+#include <xdigest_sha1.h>
+#include <xdigest_sha2.h>
 #else
 #include <openssl/sha.h>
 

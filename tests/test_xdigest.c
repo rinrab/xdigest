@@ -3,12 +3,12 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-#include <xdigest/xdigest_sha1.h>
-#include <xdigest/xdigest_sha2.h>
-#include <xdigest/xdigest_md5.h>
-#include <xdigest/xdigest_md4.h>
-#include <xdigest/xdigest_md2.h>
-#include <xdigest/xdigest.h>
+#include <xdigest_sha1.h>
+#include <xdigest_sha2.h>
+#include <xdigest_md5.h>
+#include <xdigest_md4.h>
+#include <xdigest_md2.h>
+#include <xdigest.h>
 
 #include "bench_base.h"
 
