@@ -88,7 +88,7 @@ create a context for processing SHA256 blocks.
 #include <string.h>
 
 #include <xdigest/xdigest.h>
-#include <xdigest/sha.h>
+#include <xdigest/xdigest_sha.h>
 
 int main() {
     xdig_sha256_ctx_t ctx = { 0 };

@@ -3,11 +3,11 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-#include <xdigest/sha1.h>
-#include <xdigest/sha2.h>
-#include <xdigest/md5.h>
-#include <xdigest/md4.h>
-#include <xdigest/md2.h>
+#include <xdigest/xdigest_sha1.h>
+#include <xdigest/xdigest_sha2.h>
+#include <xdigest/xdigest_md5.h>
+#include <xdigest/xdigest_md4.h>
+#include <xdigest/xdigest_md2.h>
 #include <xdigest/xdigest.h>
 
 #include "bench_base.h"
