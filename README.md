@@ -20,6 +20,15 @@ implementation as a standalone package.
 
 ## Getting started
 
+This section describes how this library can be used in your projects.
+
+If you plan to get it from a package manager, skip to the [Install library via a package manager](#install-library-via-a-package-manager)
+
+If you plan to compile library from sources, you'll have to first get checkout
+the source codes and compile it using either make or cmake. Both of these
+options are explained bellow in further details. We've made it as simple and
+straightforward as possible.
+
 ### Getting source code
 
 Currenly, the only way to install the library is to compile it using 'make'
@@ -38,36 +47,73 @@ cd xdigest
 
 Work in progress. I hope we'll be in their distrubutions at some point.
 
-### Compile the library (Unix)
+### Compile the library (CMake)
 
-Let's compile it. It shouldn't take more than 0.73 seconds. However, it might
-take 0.86 seconds in the worst case scenario. The process itself is also as
-straightforward as it sounds.
+This project supports CMake build system for both, Unix and Windows platforms.
+The basic process consists of configuration, compilation, (optional) testing,
+and installation.
+
+Please note that if you wish to compile xdigest on Windows platform with
+assembly enabled, you would have to install NASM <https://www.nasm.us>. It's
+important that its executable is either available in path or is passed via
+CMAKE_ASM_NASM_COMPILER option.
+
+Use the following command to configure project:
 
 ```bash
-make
+cmake -B out [...OPTIONS] [-G <generator>]
 ```
 
-If you really want to, assembly-backed implementation can be disabled via
-NO_ASM option.
+Available options are as follows:
+
+- USE_ASM: Enables assembly implementations. Default is ON.
+- CMAKE_INSTALL_PREFIX: Where to install project.
+- ENABLE_TESTS: Whether to build the test-suite or not. Default is ON.
+- BUILD_SHARED_LIBS: Builds into shared libraries (i.e. DLLs on Windows).
+  Default is ON.
+
+You could also change the output directory to build anywhere else by putting a
+different path instead of `out`.
+
+The command bellow will compile the project.
 
 ```bash
-make [NO_ASM=1]
+cmake --build out
 ```
+
+The installation can be performed via a command like this one bellow:
+
+```bash
+sudo cmake --install out [--prefix <prefix>]
+```
+
+### Compile the library (Makefile)
+
+You can also use `make` to compile the xdigest. However, this will only work on
+Unix platforms. It might be beneficial to use this approach if you are on a
+c-plus-plus-less platform/can't afford to install CMake. It would also be more
+relevant for cross-compilation.
+
+The following command will compile project:
+
+```bash
+make [...OPTIONS]
+```
+
+Supported options:
+
+- `prefix`: where to install
+- `NO_ASM`: disables assmebly
+- `CONFIG`: disables assmebly
 
 Now, we're ready to install it. Optionally, the install prefix could be changed
 via `prefix` variable.
 
 ```
-sudo make install [prefix=/usr/local]
+sudo make install [prefix=/usr/local] [OPTIONS]
 ```
 
-To cross compile, pass any of the following value to the ARCH variable while
-performing **all** operations.
-
-### Compile the library (Win32)
-
-The best talents of this world are currently working hard to get this done.
+Note: options, if any, have to passed to **all** steps.
 
 ### Use the library
 
