@@ -74,7 +74,13 @@ if (USE_ASM)
         xdigest/md5/asm/md5-${CONFIG}.${ASMEXT}
     )
 
-    target_compile_definitions(xdigest PRIVATE xdig_CPUID_OBJ)
+    target_compile_definitions(xdigest PRIVATE
+        SHA1_ASM
+        SHA256_ASM
+        SHA512_ASM
+        MD5_ASM
+        xdig_CPUID_OBJ
+    )
 endif()
 
 if (ENABLE_TESTS)
@@ -98,13 +104,6 @@ target_include_directories(xdigest PUBLIC
 
 target_include_directories(xdigest PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/xdigest/include"
-)
-
-target_compile_definitions(xdigest PRIVATE
-    SHA1_ASM
-    SHA256_ASM
-    SHA512_ASM
-    MD5_ASM
 )
 
 install(TARGETS xdigest)
