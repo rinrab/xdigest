@@ -119,7 +119,7 @@ Note: options, if any, have to passed to **all** steps.
 ### Use the library
 
 This package exports headers `<INCLUDEDIR>/xdigest/` and libxdigest.so library
-object. Soon, we'll also add pkgconfig file.
+object. Also pkgconfig files are exported as `xdigest.pc`.
 
 Keep in mind that the library needs to be initialized first before using any
 algorithms. It's important that initialization is done once per process. How
