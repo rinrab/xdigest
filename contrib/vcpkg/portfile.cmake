@@ -15,6 +15,7 @@ vcpkg_check_features(
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
+        -DENABLE_TESTS=OFF
         ${FEATURE_OPTIONS}
 )
 vcpkg_cmake_install()
