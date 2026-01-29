@@ -13,6 +13,7 @@
  */
 /* ignored include 'internal/deprecated.h' */
 
+
 /* ignored include 'openssl/opensslconf.h' */
 
 #include <stdlib.h>
@@ -24,7 +25,7 @@
 #include "internal/endian.h"
 #include "crypto/sha.h"
 
-int xdig_sha224_ctx_init(xdig_sha256_ctx_t *c)
+void xdig_sha224_ctx_init(xdig_sha256_ctx_t *c)
 {
     memset(c, 0, sizeof(*c));
     c->h[0] = 0xc1059ed8UL;
@@ -36,10 +37,9 @@ int xdig_sha224_ctx_init(xdig_sha256_ctx_t *c)
     c->h[6] = 0x64f98fa7UL;
     c->h[7] = 0xbefa4fa4UL;
     c->md_len = XDIG_SHA224_DIGEST_LENGTH;
-    return 1;
 }
 
-int xdig_sha256_ctx_init(xdig_sha256_ctx_t *c)
+void xdig_sha256_ctx_init(xdig_sha256_ctx_t *c)
 {
     memset(c, 0, sizeof(*c));
     c->h[0] = 0x6a09e667UL;
@@ -51,7 +51,6 @@ int xdig_sha256_ctx_init(xdig_sha256_ctx_t *c)
     c->h[6] = 0x1f83d9abUL;
     c->h[7] = 0x5be0cd19UL;
     c->md_len = XDIG_SHA256_DIGEST_LENGTH;
-    return 1;
 }
 
 unsigned char *xdig_sha256(const unsigned char *d, size_t n, unsigned char *md)
@@ -65,21 +64,20 @@ unsigned char *xdig_sha256(const unsigned char *d, size_t n, unsigned char *md)
     return md;
 }
 
-int ossl_sha256_192_init(xdig_sha256_ctx_t *c)
+void ossl_sha256_192_init(xdig_sha256_ctx_t *c)
 {
     xdig_sha256_ctx_init(c);
     c->md_len = XDIG_SHA256_192_DIGEST_LENGTH;
-    return 1;
 }
 
-int xdig_sha224_ctx_update(xdig_sha256_ctx_t *c, const void *data, size_t len)
+void xdig_sha224_ctx_update(xdig_sha256_ctx_t *c, const void *data, size_t len)
 {
-    return xdig_sha256_ctx_update(c, data, len);
+    xdig_sha256_ctx_update(c, data, len);
 }
 
-int xdig_sha224_ctx_final(unsigned char *md, xdig_sha256_ctx_t *c)
+void xdig_sha224_ctx_final(unsigned char *md, xdig_sha256_ctx_t *c)
 {
-    return xdig_sha256_ctx_final(md, c);
+    xdig_sha256_ctx_final(md, c);
 }
 
 unsigned char *xdig_sha224(const unsigned char *d, size_t n, unsigned char *md)
@@ -137,8 +135,6 @@ size_t xdig_sha224_ctx_size(void)
                 }                       \
                 break;                  \
             default:                    \
-                if ((c)->md_len > XDIG_SHA256_DIGEST_LENGTH) \
-                    return 0;                           \
                 for (nn=0;nn<(c)->md_len/4;nn++) {              \
                     ll=(c)->h[nn]; (void)HOST_l2c(ll,(s));      \
                 }                       \

@@ -41,14 +41,14 @@ size_t xdig_sha1_ctx_size(void);
 
 #define XDIG_SHA1_DIGEST_LENGTH 20
 
-int xdig_sha1_ctx_init(xdig_sha1_ctx_t *ctx);
+void xdig_sha1_ctx_init(xdig_sha1_ctx_t *ctx);
 
-int xdig_sha1_ctx_update(xdig_sha1_ctx_t *ctx,
-                         const void *data,
-                         size_t len);
+void xdig_sha1_ctx_update(xdig_sha1_ctx_t *ctx,
+                          const void *data,
+                          size_t len);
 
-int xdig_sha1_ctx_final(unsigned char *digest,
-                        xdig_sha1_ctx_t *ctx);
+void xdig_sha1_ctx_final(unsigned char *digest,
+                         xdig_sha1_ctx_t *ctx);
 
 unsigned char *
 xdig_sha1(const void *data,

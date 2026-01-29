@@ -75,21 +75,17 @@ const char *xdig_md2_ctx_options(void)
         return "md2(int)";
 }
 
-int xdig_md2_ctx_init(xdig_md2_ctx_t *c)
+void xdig_md2_ctx_init(xdig_md2_ctx_t *c)
 {
     c->num = 0;
     memset(c->state, 0, sizeof(c->state));
     memset(c->cksm, 0, sizeof(c->cksm));
     memset(c->data, 0, sizeof(c->data));
-    return 1;
 }
 
-int xdig_md2_ctx_update(xdig_md2_ctx_t *c, const unsigned char *data, size_t len)
+void xdig_md2_ctx_update(xdig_md2_ctx_t *c, const unsigned char *data, size_t len)
 {
     register UCHAR *p;
-
-    if (len == 0)
-        return 1;
 
     p = c->data;
     if (c->num != 0) {
@@ -104,7 +100,7 @@ int xdig_md2_ctx_update(xdig_md2_ctx_t *c, const unsigned char *data, size_t len
             memcpy(&(p[c->num]), data, len);
             /* data+=len; */
             c->num += (int)len;
-            return 1;
+            return;
         }
     }
     /*
@@ -118,7 +114,6 @@ int xdig_md2_ctx_update(xdig_md2_ctx_t *c, const unsigned char *data, size_t len
     }
     memcpy(p, data, len);
     c->num = (int)len;
-    return 1;
 }
 
 static void md2_block(xdig_md2_ctx_t *c, const unsigned char *d)
@@ -154,7 +149,7 @@ static void md2_block(xdig_md2_ctx_t *c, const unsigned char *d)
     xdig_cleanse(state, 48 * sizeof(MD2_INT));
 }
 
-int xdig_md2_ctx_final(unsigned char *md, xdig_md2_ctx_t *c)
+void xdig_md2_ctx_final(unsigned char *md, xdig_md2_ctx_t *c)
 {
     int i, v;
     register UCHAR *cp;
@@ -176,5 +171,4 @@ int xdig_md2_ctx_final(unsigned char *md, xdig_md2_ctx_t *c)
     for (i = 0; i < 16; i++)
         md[i] = (UCHAR) (p1[i] & 0xff);
     xdig_cleanse(c, sizeof(*c));
-    return 1;
 }

@@ -75,7 +75,7 @@
 # define U64(C)     C##ULL
 #endif
 
-int sha512_224_init(xdig_sha512_ctx_t *c)
+void sha512_224_init(xdig_sha512_ctx_t *c)
 {
     c->h[0] = U64(0x8c3d37c819544da2);
     c->h[1] = U64(0x73e1996689dcd4d6);
@@ -90,10 +90,9 @@ int sha512_224_init(xdig_sha512_ctx_t *c)
     c->Nh = 0;
     c->num = 0;
     c->md_len = XDIG_SHA224_DIGEST_LENGTH;
-    return 1;
 }
 
-int sha512_256_init(xdig_sha512_ctx_t *c)
+void sha512_256_init(xdig_sha512_ctx_t *c)
 {
     c->h[0] = U64(0x22312194fc2bf72c);
     c->h[1] = U64(0x9f555fa3c84c64c2);
@@ -108,10 +107,9 @@ int sha512_256_init(xdig_sha512_ctx_t *c)
     c->Nh = 0;
     c->num = 0;
     c->md_len = XDIG_SHA256_DIGEST_LENGTH;
-    return 1;
 }
 
-int xdig_sha384_ctx_init(xdig_sha512_ctx_t *c)
+void xdig_sha384_ctx_init(xdig_sha512_ctx_t *c)
 {
     c->h[0] = U64(0xcbbb9d5dc1059ed8);
     c->h[1] = U64(0x629a292a367cd507);
@@ -126,7 +124,6 @@ int xdig_sha384_ctx_init(xdig_sha512_ctx_t *c)
     c->Nh = 0;
     c->num = 0;
     c->md_len = XDIG_SHA384_DIGEST_LENGTH;
-    return 1;
 }
 
 unsigned char *xdig_sha384(const unsigned char *d, size_t n, unsigned char *md)
@@ -140,7 +137,7 @@ unsigned char *xdig_sha384(const unsigned char *d, size_t n, unsigned char *md)
     return md;
 }
 
-int xdig_sha512_ctx_init(xdig_sha512_ctx_t *c)
+void xdig_sha512_ctx_init(xdig_sha512_ctx_t *c)
 {
     c->h[0] = U64(0x6a09e667f3bcc908);
     c->h[1] = U64(0xbb67ae8584caa73b);
@@ -155,7 +152,6 @@ int xdig_sha512_ctx_init(xdig_sha512_ctx_t *c)
     c->Nh = 0;
     c->num = 0;
     c->md_len = XDIG_SHA512_DIGEST_LENGTH;
-    return 1;
 }
 
 unsigned char *xdig_sha512(const unsigned char *d, size_t n, unsigned char *md)
@@ -188,7 +184,7 @@ void sha512_block_data_order_c(xdig_sha512_ctx_t *ctx, const void *in, size_t nu
 #endif
 void sha512_block_data_order(xdig_sha512_ctx_t *ctx, const void *in, size_t num);
 
-int xdig_sha512_ctx_final(unsigned char *md, xdig_sha512_ctx_t *c)
+void xdig_sha512_ctx_final(unsigned char *md, xdig_sha512_ctx_t *c)
 {
     unsigned char *p = (unsigned char *)c->u.p;
     size_t n = c->num;
@@ -225,9 +221,6 @@ int xdig_sha512_ctx_final(unsigned char *md, xdig_sha512_ctx_t *c)
 #endif
 
     sha512_block_data_order(c, p, 1);
-
-    if (md == 0)
-        return 0;
 
     switch (c->md_len) {
     /* Let compiler decide if it's appropriate to unroll... */
@@ -301,25 +294,20 @@ int xdig_sha512_ctx_final(unsigned char *md, xdig_sha512_ctx_t *c)
         break;
     /* ... as well as make sure md_len is not abused. */
     default:
-        return 0;
+        abort(); /* we should never end up here */
     }
-
-    return 1;
 }
 
-int xdig_sha384_ctx_final(unsigned char *md, xdig_sha512_ctx_t *c)
+void xdig_sha384_ctx_final(unsigned char *md, xdig_sha512_ctx_t *c)
 {
-    return xdig_sha512_ctx_final(md, c);
+    xdig_sha512_ctx_final(md, c);
 }
 
-int xdig_sha512_ctx_update(xdig_sha512_ctx_t *c, const void *_data, size_t len)
+void xdig_sha512_ctx_update(xdig_sha512_ctx_t *c, const void *_data, size_t len)
 {
     XDIG_SHA_LONG64 l;
     unsigned char *p = c->u.p;
     const unsigned char *data = (const unsigned char *)_data;
-
-    if (len == 0)
-        return 1;
 
     l = (c->Nl + (((XDIG_SHA_LONG64) len) << 3)) & U64(0xffffffffffffffff);
     if (l < c->Nl)
@@ -333,7 +321,7 @@ int xdig_sha512_ctx_update(xdig_sha512_ctx_t *c, const void *_data, size_t len)
 
         if (len < n) {
             memcpy(p + c->num, data, len), c->num += (unsigned int)len;
-            return 1;
+            return;
         } else {
             memcpy(p + c->num, data, n), c->num = 0;
             len -= n, data += n;
@@ -356,13 +344,11 @@ int xdig_sha512_ctx_update(xdig_sha512_ctx_t *c, const void *_data, size_t len)
 
     if (len != 0)
         memcpy(p, data, len), c->num = (int)len;
-
-    return 1;
 }
 
-int xdig_sha384_ctx_update(xdig_sha512_ctx_t *c, const void *data, size_t len)
+void xdig_sha384_ctx_update(xdig_sha512_ctx_t *c, const void *data, size_t len)
 {
-    return xdig_sha512_ctx_update(c, data, len);
+    xdig_sha512_ctx_update(c, data, len);
 }
 
 void xdig_sha512_ctx_transform(xdig_sha512_ctx_t *c, const unsigned char *data)

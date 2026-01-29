@@ -257,3 +257,5 @@ patch("patches/export_init_func.patch")
 # patch("patches/include_stdlib_for_getenv.patch")
 patch("patches/remove_getenv.patch")
 patch("patches/armcap_ifdef.patch")
+
+patch("patches/void_returning_context_operations.patch")

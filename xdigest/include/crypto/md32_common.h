@@ -155,7 +155,7 @@
  * Time for some action :-)
  */
 
-int HASH_UPDATE(HASH_CTX *c, const void *data_, size_t len)
+void HASH_UPDATE(HASH_CTX *c, const void *data_, size_t len)
 {
     const unsigned char *data = data_;
     unsigned char *p;
@@ -163,7 +163,7 @@ int HASH_UPDATE(HASH_CTX *c, const void *data_, size_t len)
     size_t n;
 
     if (ossl_unlikely(len == 0))
-        return 1;
+        return;
 
     l = (c->Nl + (((HASH_LONG) len) << 3)) & 0xffffffffUL;
     if (ossl_unlikely(l < c->Nl))              /* overflow */
@@ -193,7 +193,7 @@ int HASH_UPDATE(HASH_CTX *c, const void *data_, size_t len)
         } else {
             memcpy(p + n, data, len);
             c->num += (unsigned int)len;
-            return 1;
+            return;
         }
     }
 
@@ -210,7 +210,6 @@ int HASH_UPDATE(HASH_CTX *c, const void *data_, size_t len)
         c->num = (unsigned int)len;
         memcpy(p, data, len);
     }
-    return 1;
 }
 
 void HASH_TRANSFORM(HASH_CTX *c, const unsigned char *data)
@@ -218,7 +217,7 @@ void HASH_TRANSFORM(HASH_CTX *c, const unsigned char *data)
     HASH_BLOCK_DATA_ORDER(c, data, 1);
 }
 
-int HASH_FINAL(unsigned char *md, HASH_CTX *c)
+void HASH_FINAL(unsigned char *md, HASH_CTX *c)
 {
     unsigned char *p = (unsigned char *)c->data;
     size_t n = c->num;
@@ -251,8 +250,6 @@ int HASH_FINAL(unsigned char *md, HASH_CTX *c)
 # else
     HASH_MAKE_STRING(c, md);
 # endif
-
-    return 1;
 }
 
 # ifndef MD32_REG_T
