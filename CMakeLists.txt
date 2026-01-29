@@ -73,6 +73,8 @@ if (USE_ASM)
         xdigest/sha/asm/sha1-${CONFIG}.${ASMEXT}
         xdigest/md5/asm/md5-${CONFIG}.${ASMEXT}
     )
+
+    target_compile_definitions(xdigest PRIVATE xdig_CPUID_OBJ)
 endif()
 
 if (ENABLE_TESTS)
@@ -103,7 +105,6 @@ target_compile_definitions(xdigest PRIVATE
     SHA256_ASM
     SHA512_ASM
     MD5_ASM
-    xdig_CPUID_OBJ
 )
 
 install(TARGETS xdigest)
