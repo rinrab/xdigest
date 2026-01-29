@@ -189,9 +189,9 @@ Checksum contexts are intended to be hidden from public API.
 ### Build process
 
 It is intendent that the build process is as simple as possible. This is why
-makefile is the choice. It doesn't do anything extra. Just compile+link. Also
-fancy systems like CMake are sometimes anoying to deal with when assembly
-integration is required.
+makefile was the original choice. It doesn't do anything extra. Just
+compile+link. CMake was added later on. It should not do anything crazy as
+well.
 
 ### Initialization
 
