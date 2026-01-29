@@ -160,8 +160,6 @@ int main() {
 }
 ```
 
-(this has not been tested yet)
-
 ## Design choices
 
 ### OpenSSL
