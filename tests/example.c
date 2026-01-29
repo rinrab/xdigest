@@ -6,7 +6,7 @@
 #include <xdigest_sha2.h>
 
 int main() {
-    xdig_sha256_ctx_t *ctx = malloc(XDIG_SHA256_CTX_SIZE);
+    xdig_sha256_ctx_t *ctx = malloc(xdig_sha256_ctx_size());
     unsigned char digest1[XDIG_SHA256_DIGEST_LENGTH];
     unsigned char digest2[XDIG_SHA256_DIGEST_LENGTH];
 
