@@ -53,7 +53,7 @@ and installation.
 Please note that if you wish to compile xdigest on Windows platform with
 assembly enabled, you would have to install NASM <https://www.nasm.us>. It's
 important that its executable is either available in path or is passed via
-CMAKE_ASM_NASM_COMPILER option.
+`CMAKE_ASM_NASM_COMPILER` option.
 
 Use the following command to configure project:
 
@@ -63,10 +63,10 @@ cmake -B out [...OPTIONS] [-G <generator>]
 
 Available options are as follows:
 
-- USE_ASM: Enables assembly implementations. Default is ON.
-- CMAKE_INSTALL_PREFIX: Where to install project.
-- ENABLE_TESTS: Whether to build the test-suite or not. Default is ON.
-- BUILD_SHARED_LIBS: Builds into shared libraries (i.e. DLLs on Windows).
+- `USE_ASM`: Enables assembly implementations. Default is ON.
+- `CMAKE_INSTALL_PREFIX`: Where to install project.
+- `ENABLE_TESTS`: Whether to build the test-suite or not. Default is ON.
+- `BUILD_SHARED_LIBS`: Builds into shared libraries (i.e. DLLs on Windows).
   Default is ON.
 
 You could also change the output directory to build anywhere else by putting a
