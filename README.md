@@ -118,7 +118,7 @@ Note: options, if any, have to passed to **all** steps.
 
 ### Use the library
 
-This package exports headers <INCLUDEDIR>/xdigest/ and libxdigest.so library
+This package exports headers `<INCLUDEDIR>/xdigest/` and libxdigest.so library
 object. Soon, we'll also add pkgconfig file.
 
 Keep in mind that the library needs to be initialized first before using any
