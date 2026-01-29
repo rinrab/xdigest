@@ -40,11 +40,11 @@ typedef struct MD2state_st {
 } xdig_md2_ctx_t;
 #  endif
 #  ifndef xdig_NO_DEPRECATED_3_0
-const char *xdig_md2_options(void);
-int xdig_md2_init(xdig_md2_ctx_t *c);
-int xdig_md2_update(xdig_md2_ctx_t *c, const unsigned char *data,
+const char *xdig_md2_ctx_options(void);
+int xdig_md2_ctx_init(xdig_md2_ctx_t *c);
+int xdig_md2_ctx_update(xdig_md2_ctx_t *c, const unsigned char *data,
                                      size_t len);
-int xdig_md2_final(unsigned char *md, xdig_md2_ctx_t *c);
+int xdig_md2_ctx_final(unsigned char *md, xdig_md2_ctx_t *c);
 unsigned char *xdig_md2(const unsigned char *d, size_t n,
                                          unsigned char *md);
 #  endif

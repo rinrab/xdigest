@@ -2,7 +2,7 @@ Index: xdigest/sha/sha256.c
 ===================================================================
 --- xdigest/sha/sha256.c
 +++ xdigest/sha/sha256.c
-@@ -44,6 +44,17 @@ int xdig_sha256_init(xdig_sha256_ctx_t *c)
+@@ -44,6 +44,17 @@ int xdig_sha256_ctx_init(xdig_sha256_ctx_t *c)
      return 1;
  }
  
@@ -10,27 +10,27 @@ Index: xdigest/sha/sha256.c
 +{
 +    xdig_sha256_ctx_t ctx;
 +
-+    xdig_sha256_init(&ctx);
-+    xdig_sha256_update(&ctx, d, n);
-+    xdig_sha256_final(md, &ctx);
++    xdig_sha256_ctx_init(&ctx);
++    xdig_sha256_ctx_update(&ctx, d, n);
++    xdig_sha256_ctx_final(md, &ctx);
 +
 +    return md;
 +}
 +
  int ossl_sha256_192_init(xdig_sha256_ctx_t *c)
  {
-     xdig_sha256_init(c);
-@@ -61,6 +76,17 @@ int xdig_sha224_final(unsigned char *md, xdig_sh
-     return xdig_sha256_final(md, c);
+     xdig_sha256_ctx_init(c);
+@@ -61,6 +76,17 @@ int xdig_sha224_ctx_final(unsigned char *md, xdig_sh
+     return xdig_sha256_ctx_final(md, c);
  }
  
 +unsigned char *xdig_sha224(const unsigned char *d, size_t n, unsigned char *md)
 +{
 +    xdig_sha256_ctx_t ctx;
 +
-+    xdig_sha224_init(&ctx);
-+    xdig_sha224_update(&ctx, d, n);
-+    xdig_sha224_final(md, &ctx);
++    xdig_sha224_ctx_init(&ctx);
++    xdig_sha224_ctx_update(&ctx, d, n);
++    xdig_sha224_ctx_final(md, &ctx);
 +
 +    return md;
 +}

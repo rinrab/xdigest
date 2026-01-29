@@ -46,12 +46,12 @@ typedef struct MD5state_st {
 } xdig_md5_ctx_t;
 #  endif
 #  ifndef xdig_NO_DEPRECATED_3_0
-int xdig_md5_init(xdig_md5_ctx_t *c);
-int xdig_md5_update(xdig_md5_ctx_t *c, const void *data, size_t len);
-int xdig_md5_final(unsigned char *md, xdig_md5_ctx_t *c);
+int xdig_md5_ctx_init(xdig_md5_ctx_t *c);
+int xdig_md5_ctx_update(xdig_md5_ctx_t *c, const void *data, size_t len);
+int xdig_md5_ctx_final(unsigned char *md, xdig_md5_ctx_t *c);
 unsigned char *xdig_md5(const unsigned char *d, size_t n,
                                          unsigned char *md);
-void xdig_md5_transform(xdig_md5_ctx_t *c, const unsigned char *b);
+void xdig_md5_ctx_transform(xdig_md5_ctx_t *c, const unsigned char *b);
 #  endif
 
 #  ifdef  __cplusplus

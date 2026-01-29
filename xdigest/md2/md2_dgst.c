@@ -67,7 +67,7 @@ static const MD2_INT S[256] = {
     0xDB, 0x99, 0x8D, 0x33, 0x9F, 0x11, 0x83, 0x14,
 };
 
-const char *xdig_md2_options(void)
+const char *xdig_md2_ctx_options(void)
 {
     if (sizeof(MD2_INT) == 1)
         return "md2(char)";
@@ -75,7 +75,7 @@ const char *xdig_md2_options(void)
         return "md2(int)";
 }
 
-int xdig_md2_init(xdig_md2_ctx_t *c)
+int xdig_md2_ctx_init(xdig_md2_ctx_t *c)
 {
     c->num = 0;
     memset(c->state, 0, sizeof(c->state));
@@ -84,7 +84,7 @@ int xdig_md2_init(xdig_md2_ctx_t *c)
     return 1;
 }
 
-int xdig_md2_update(xdig_md2_ctx_t *c, const unsigned char *data, size_t len)
+int xdig_md2_ctx_update(xdig_md2_ctx_t *c, const unsigned char *data, size_t len)
 {
     register UCHAR *p;
 
@@ -154,7 +154,7 @@ static void md2_block(xdig_md2_ctx_t *c, const unsigned char *d)
     xdig_cleanse(state, 48 * sizeof(MD2_INT));
 }
 
-int xdig_md2_final(unsigned char *md, xdig_md2_ctx_t *c)
+int xdig_md2_ctx_final(unsigned char *md, xdig_md2_ctx_t *c)
 {
     int i, v;
     register UCHAR *cp;

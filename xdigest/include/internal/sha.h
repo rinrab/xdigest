@@ -46,10 +46,10 @@ typedef struct SHAstate_st {
     unsigned int num;
 } xdig_sha1_ctx_t;
 
-int xdig_sha1_init(xdig_sha1_ctx_t *c);
-int xdig_sha1_update(xdig_sha1_ctx_t *c, const void *data, size_t len);
-int xdig_sha1_final(unsigned char *md, xdig_sha1_ctx_t *c);
-void xdig_sha1_transform(xdig_sha1_ctx_t *c, const unsigned char *data);
+int xdig_sha1_ctx_init(xdig_sha1_ctx_t *c);
+int xdig_sha1_ctx_update(xdig_sha1_ctx_t *c, const void *data, size_t len);
+int xdig_sha1_ctx_final(unsigned char *md, xdig_sha1_ctx_t *c);
+void xdig_sha1_ctx_transform(xdig_sha1_ctx_t *c, const unsigned char *data);
 # endif
 
 unsigned char *xdig_sha1(const unsigned char *d, size_t n, unsigned char *md);
@@ -66,15 +66,15 @@ typedef struct SHA256state_st {
     unsigned int num, md_len;
 } xdig_sha256_ctx_t;
 
-int xdig_sha224_init(xdig_sha256_ctx_t *c);
-int xdig_sha224_update(xdig_sha256_ctx_t *c,
+int xdig_sha224_ctx_init(xdig_sha256_ctx_t *c);
+int xdig_sha224_ctx_update(xdig_sha256_ctx_t *c,
                                         const void *data, size_t len);
-int xdig_sha224_final(unsigned char *md, xdig_sha256_ctx_t *c);
-int xdig_sha256_init(xdig_sha256_ctx_t *c);
-int xdig_sha256_update(xdig_sha256_ctx_t *c,
+int xdig_sha224_ctx_final(unsigned char *md, xdig_sha256_ctx_t *c);
+int xdig_sha256_ctx_init(xdig_sha256_ctx_t *c);
+int xdig_sha256_ctx_update(xdig_sha256_ctx_t *c,
                                         const void *data, size_t len);
-int xdig_sha256_final(unsigned char *md, xdig_sha256_ctx_t *c);
-void xdig_sha256_transform(xdig_sha256_ctx_t *c,
+int xdig_sha256_ctx_final(unsigned char *md, xdig_sha256_ctx_t *c);
+void xdig_sha256_ctx_transform(xdig_sha256_ctx_t *c,
                                             const unsigned char *data);
 # endif
 
@@ -117,15 +117,15 @@ typedef struct SHA512state_st {
     unsigned int num, md_len;
 } xdig_sha512_ctx_t;
 
-int xdig_sha384_init(xdig_sha512_ctx_t *c);
-int xdig_sha384_update(xdig_sha512_ctx_t *c,
+int xdig_sha384_ctx_init(xdig_sha512_ctx_t *c);
+int xdig_sha384_ctx_update(xdig_sha512_ctx_t *c,
                                         const void *data, size_t len);
-int xdig_sha384_final(unsigned char *md, xdig_sha512_ctx_t *c);
-int xdig_sha512_init(xdig_sha512_ctx_t *c);
-int xdig_sha512_update(xdig_sha512_ctx_t *c,
+int xdig_sha384_ctx_final(unsigned char *md, xdig_sha512_ctx_t *c);
+int xdig_sha512_ctx_init(xdig_sha512_ctx_t *c);
+int xdig_sha512_ctx_update(xdig_sha512_ctx_t *c,
                                         const void *data, size_t len);
-int xdig_sha512_final(unsigned char *md, xdig_sha512_ctx_t *c);
-void xdig_sha512_transform(xdig_sha512_ctx_t *c,
+int xdig_sha512_ctx_final(unsigned char *md, xdig_sha512_ctx_t *c);
+void xdig_sha512_ctx_transform(xdig_sha512_ctx_t *c,
                                             const unsigned char *data);
 # endif
 

@@ -111,7 +111,7 @@ int sha512_256_init(xdig_sha512_ctx_t *c)
     return 1;
 }
 
-int xdig_sha384_init(xdig_sha512_ctx_t *c)
+int xdig_sha384_ctx_init(xdig_sha512_ctx_t *c)
 {
     c->h[0] = U64(0xcbbb9d5dc1059ed8);
     c->h[1] = U64(0x629a292a367cd507);
@@ -133,14 +133,14 @@ unsigned char *xdig_sha384(const unsigned char *d, size_t n, unsigned char *md)
 {
     xdig_sha512_ctx_t ctx;
 
-    xdig_sha384_init(&ctx);
-    xdig_sha384_update(&ctx, d, n);
-    xdig_sha384_final(md, &ctx);
+    xdig_sha384_ctx_init(&ctx);
+    xdig_sha384_ctx_update(&ctx, d, n);
+    xdig_sha384_ctx_final(md, &ctx);
 
     return md;
 }
 
-int xdig_sha512_init(xdig_sha512_ctx_t *c)
+int xdig_sha512_ctx_init(xdig_sha512_ctx_t *c)
 {
     c->h[0] = U64(0x6a09e667f3bcc908);
     c->h[1] = U64(0xbb67ae8584caa73b);
@@ -162,9 +162,9 @@ unsigned char *xdig_sha512(const unsigned char *d, size_t n, unsigned char *md)
 {
     xdig_sha512_ctx_t ctx;
 
-    xdig_sha512_init(&ctx);
-    xdig_sha512_update(&ctx, d, n);
-    xdig_sha512_final(md, &ctx);
+    xdig_sha512_ctx_init(&ctx);
+    xdig_sha512_ctx_update(&ctx, d, n);
+    xdig_sha512_ctx_final(md, &ctx);
 
     return md;
 }
@@ -188,7 +188,7 @@ void sha512_block_data_order_c(xdig_sha512_ctx_t *ctx, const void *in, size_t nu
 #endif
 void sha512_block_data_order(xdig_sha512_ctx_t *ctx, const void *in, size_t num);
 
-int xdig_sha512_final(unsigned char *md, xdig_sha512_ctx_t *c)
+int xdig_sha512_ctx_final(unsigned char *md, xdig_sha512_ctx_t *c)
 {
     unsigned char *p = (unsigned char *)c->u.p;
     size_t n = c->num;
@@ -307,12 +307,12 @@ int xdig_sha512_final(unsigned char *md, xdig_sha512_ctx_t *c)
     return 1;
 }
 
-int xdig_sha384_final(unsigned char *md, xdig_sha512_ctx_t *c)
+int xdig_sha384_ctx_final(unsigned char *md, xdig_sha512_ctx_t *c)
 {
-    return xdig_sha512_final(md, c);
+    return xdig_sha512_ctx_final(md, c);
 }
 
-int xdig_sha512_update(xdig_sha512_ctx_t *c, const void *_data, size_t len)
+int xdig_sha512_ctx_update(xdig_sha512_ctx_t *c, const void *_data, size_t len)
 {
     XDIG_SHA_LONG64 l;
     unsigned char *p = c->u.p;
@@ -360,12 +360,12 @@ int xdig_sha512_update(xdig_sha512_ctx_t *c, const void *_data, size_t len)
     return 1;
 }
 
-int xdig_sha384_update(xdig_sha512_ctx_t *c, const void *data, size_t len)
+int xdig_sha384_ctx_update(xdig_sha512_ctx_t *c, const void *data, size_t len)
 {
-    return xdig_sha512_update(c, data, len);
+    return xdig_sha512_ctx_update(c, data, len);
 }
 
-void xdig_sha512_transform(xdig_sha512_ctx_t *c, const unsigned char *data)
+void xdig_sha512_ctx_transform(xdig_sha512_ctx_t *c, const unsigned char *data)
 {
 #ifndef SHA512_BLOCK_CAN_MANAGE_UNALIGNED_DATA
     if ((size_t)data % sizeof(c->u.d[0]) != 0)

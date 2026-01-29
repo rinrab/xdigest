@@ -26,7 +26,7 @@
 #define INIT_DATA_C (unsigned long)0x98badcfeL
 #define INIT_DATA_D (unsigned long)0x10325476L
 
-int xdig_md5_init(xdig_md5_ctx_t *c)
+int xdig_md5_ctx_init(xdig_md5_ctx_t *c)
 {
     memset(c, 0, sizeof(*c));
     c->A = INIT_DATA_A;
