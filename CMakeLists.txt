@@ -81,6 +81,8 @@ if (USE_ASM)
         MD5_ASM
         xdig_CPUID_OBJ
     )
+else()
+    target_compile_definitions(xdigest PRIVATE NO_ASM)
 endif()
 
 if (ENABLE_TESTS)
