@@ -28,7 +28,7 @@ int xdig_sha224_final(unsigned char *digest,
                       xdig_sha224_ctx_t *ctx);
 
 unsigned char *
-xdig_sha224(const unsigned char *data,
+xdig_sha224(const void *data,
             size_t len,
             unsigned char *digest);
 
@@ -51,7 +51,7 @@ int xdig_sha256_final(unsigned char *digest,
                       xdig_sha256_ctx_t *ctx);
 
 unsigned char *
-xdig_sha256(const unsigned char *data,
+xdig_sha256(const void *data,
             size_t len,
             unsigned char *digest);
 
@@ -76,7 +76,7 @@ int xdig_sha384_final(unsigned char *digest,
                       xdig_sha384_ctx_t *ctx);
 
 unsigned char *
-xdig_sha384(const unsigned char *data,
+xdig_sha384(const void *data,
             size_t len,
             unsigned char *digest);
 
@@ -99,7 +99,7 @@ int xdig_sha512_final(unsigned char *digest,
                       xdig_sha512_ctx_t *ctx);
 
 unsigned char *
-xdig_sha512(const unsigned char *data,
+xdig_sha512(const void *data,
             size_t len,
             unsigned char *digest);
 

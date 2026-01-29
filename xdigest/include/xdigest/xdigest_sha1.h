@@ -28,7 +28,7 @@ int xdig_sha1_final(unsigned char *digest,
                     xdig_sha1_ctx_t *ctx);
 
 unsigned char *
-xdig_sha1(const unsigned char *data,
+xdig_sha1(const void *data,
           size_t len,
           unsigned char *digest);
 
