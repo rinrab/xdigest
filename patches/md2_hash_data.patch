@@ -16,29 +16,29 @@ Index: xdigest/md2/md2_one.c
  
 -    if (md == NULL)
 -        md = m;
--    if (!xdig_md2_init(&c))
+-    if (!xdig_md2_ctx_init(&c))
 -        return NULL;
 -#ifndef CHARSET_EBCDIC
--    xdig_md2_update(&c, d, n);
+-    xdig_md2_ctx_update(&c, d, n);
 -#else
 -    {
 -        char temp[1024];
 -        unsigned long chunk;
-+    xdig_md2_init(&ctx);
-+    xdig_md2_update(&ctx, data, len);
-+    xdig_md2_final(digest, &ctx);
++    xdig_md2_ctx_init(&ctx);
++    xdig_md2_ctx_update(&ctx, data, len);
++    xdig_md2_ctx_final(digest, &ctx);
 +    xdig_cleanse(&ctx, sizeof(ctx)); /* Security consideration */
  
 -        while (n > 0) {
 -            chunk = (n > sizeof(temp)) ? sizeof(temp) : n;
 -            ebcdic2ascii(temp, d, chunk);
--            xdig_md2_update(&c, temp, chunk);
+-            xdig_md2_ctx_update(&c, temp, chunk);
 -            n -= chunk;
 -            d += chunk;
 -        }
 -    }
 -#endif
--    xdig_md2_final(md, &c);
+-    xdig_md2_ctx_final(md, &c);
 -    xdig_cleanse(&c, sizeof(c)); /* Security consideration */
 -    return md;
 +    return digest;

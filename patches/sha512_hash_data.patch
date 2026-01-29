@@ -2,7 +2,7 @@ Index: xdigest/sha/sha512.c
 ===================================================================
 --- xdigest/sha/sha512.c
 +++ xdigest/sha/sha512.c
-@@ -123,6 +123,15 @@ int xdig_sha384_init(xdig_sha512_ctx_t *c)
+@@ -123,6 +123,15 @@ int xdig_sha384_ctx_init(xdig_sha512_ctx_t *c)
      return 1;
  }
  
@@ -10,17 +10,17 @@ Index: xdigest/sha/sha512.c
 +{
 +    xdig_sha512_ctx_t ctx;
 +
-+    xdig_sha384_init(&ctx);
-+    xdig_sha384_update(&ctx, d, n);
-+    xdig_sha384_final(md, &ctx);
++    xdig_sha384_ctx_init(&ctx);
++    xdig_sha384_ctx_update(&ctx, d, n);
++    xdig_sha384_ctx_final(md, &ctx);
 +
 +    return md;
 +}
 +
- int xdig_sha512_init(xdig_sha512_ctx_t *c)
+ int xdig_sha512_ctx_init(xdig_sha512_ctx_t *c)
  {
      c->h[0] = U64(0x6a09e667f3bcc908);
-@@ -141,6 +156,15 @@ int xdig_sha512_init(xdig_sha512_ctx_t *c)
+@@ -141,6 +156,15 @@ int xdig_sha512_ctx_init(xdig_sha512_ctx_t *c)
      return 1;
  }
  
@@ -28,9 +28,9 @@ Index: xdigest/sha/sha512.c
 +{
 +    xdig_sha512_ctx_t ctx;
 +
-+    xdig_sha512_init(&ctx);
-+    xdig_sha512_update(&ctx, d, n);
-+    xdig_sha512_final(md, &ctx);
++    xdig_sha512_ctx_init(&ctx);
++    xdig_sha512_ctx_update(&ctx, d, n);
++    xdig_sha512_ctx_final(md, &ctx);
 +
 +    return md;
 +}

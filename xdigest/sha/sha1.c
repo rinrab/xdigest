@@ -6,9 +6,9 @@ unsigned char *xdig_sha1(const unsigned char *d, size_t n, unsigned char *md)
 {
     xdig_sha1_ctx_t ctx;
 
-    xdig_sha1_init(&ctx);
-    xdig_sha1_update(&ctx, d, n);
-    xdig_sha1_final(md, &ctx);
+    xdig_sha1_ctx_init(&ctx);
+    xdig_sha1_ctx_update(&ctx, d, n);
+    xdig_sha1_ctx_final(md, &ctx);
 
     return md;
 }

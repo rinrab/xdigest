@@ -67,10 +67,17 @@ def copy_fixup(input, output):
             "openssl/sha.h",
         ]
 
+        # SHA1_Update -> xdig_sha1_ctx_update
         def convert_func_name(name):
-            # SHA1_Update -> xdig_sha1_update
             name = name.lower()
-            return f"xdig_{name}"
+            match = re.match(r"^([a-z0-9]+)_([a-z0-9\()]+)$", name)
+
+            if (match == None):
+                return f"xdig_{name}"
+            else:
+                namespace = match.group(1)
+                verb = match.group(2)
+                return f"xdig_{namespace}_ctx_{verb}"
 
         def convert_ctx_name(match):
             name = match[1]

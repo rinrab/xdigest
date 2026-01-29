@@ -20,12 +20,12 @@ int setup_tests(void);
         xdig_##name##_ctx_t *ctx = malloc(xdig_##name##_ctx_size()); \
         xdig_bench__ctx_t *bench; \
         unsigned char digest[256]; \
-        xdig_##name##_init(ctx); \
+        xdig_##name##_ctx_init(ctx); \
         bench = xdig_bench__ctx_create(#name, 1.0, 1024 * 1024); \
         while (xdig_bench__ctx_next(bench)) { \
-            xdig_##name##_update(ctx, bench->buf, bench->bufsize); \
+            xdig_##name##_ctx_update(ctx, bench->buf, bench->bufsize); \
         } \
-        xdig_##name##_final(digest, ctx); \
+        xdig_##name##_ctx_final(digest, ctx); \
         xdig_bench__ctx_finish(bench); \
         xdig_bench__ctx_free(bench); \
         free(ctx); \
