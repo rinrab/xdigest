@@ -1,7 +1,6 @@
 # xdigest
 
-Fast and lightweight hash library that serves OpenSSL assembly optimised hash
-implementation as a standalone package.
+Extremely fast digest algorithms packaged into a lightweight library.
 
 ## Features
 
