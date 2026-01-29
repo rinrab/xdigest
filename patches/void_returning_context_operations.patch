@@ -1,7 +1,7 @@
 Index: xdigest/include/crypto/md32_common.h
 ===================================================================
---- xdigest/include/crypto/md32_common.h	(revision 6374)
-+++ xdigest/include/crypto/md32_common.h	(working copy)
+--- xdigest/include/crypto/md32_common.h
++++ xdigest/include/crypto/md32_common.h
 @@ -155,7 +155,7 @@
   * Time for some action :-)
   */
@@ -57,8 +57,8 @@ Index: xdigest/include/crypto/md32_common.h
  # ifndef MD32_REG_T
 Index: xdigest/include/crypto/sha.h
 ===================================================================
---- xdigest/include/crypto/sha.h	(revision 6374)
-+++ xdigest/include/crypto/sha.h	(working copy)
+--- xdigest/include/crypto/sha.h
++++ xdigest/include/crypto/sha.h
 @@ -14,10 +14,10 @@
  
  #include "internal/sha.h"
@@ -76,8 +76,8 @@ Index: xdigest/include/crypto/sha.h
  #endif
 Index: xdigest/include/internal/md2.h
 ===================================================================
---- xdigest/include/internal/md2.h	(revision 6395)
-+++ xdigest/include/internal/md2.h	(working copy)
+--- xdigest/include/internal/md2.h
++++ xdigest/include/internal/md2.h
 @@ -41,10 +41,10 @@ typedef struct MD2state_st {
  #  endif
  #  ifndef xdig_NO_DEPRECATED_3_0
@@ -94,8 +94,8 @@ Index: xdigest/include/internal/md2.h
  #  endif
 Index: xdigest/include/internal/md4.h
 ===================================================================
---- xdigest/include/internal/md4.h	(revision 6395)
-+++ xdigest/include/internal/md4.h	(working copy)
+--- xdigest/include/internal/md4.h
++++ xdigest/include/internal/md4.h
 @@ -47,9 +47,9 @@ typedef struct MD4state_st {
  } xdig_md4_ctx_t;
  #  endif
@@ -111,8 +111,8 @@ Index: xdigest/include/internal/md4.h
  void xdig_md4_ctx_transform(xdig_md4_ctx_t *c, const unsigned char *b);
 Index: xdigest/include/internal/md5.h
 ===================================================================
---- xdigest/include/internal/md5.h	(revision 6395)
-+++ xdigest/include/internal/md5.h	(working copy)
+--- xdigest/include/internal/md5.h
++++ xdigest/include/internal/md5.h
 @@ -46,9 +46,9 @@ typedef struct MD5state_st {
  } xdig_md5_ctx_t;
  #  endif
@@ -128,8 +128,8 @@ Index: xdigest/include/internal/md5.h
  void xdig_md5_ctx_transform(xdig_md5_ctx_t *c, const unsigned char *b);
 Index: xdigest/include/internal/sha.h
 ===================================================================
---- xdigest/include/internal/sha.h	(revision 6395)
-+++ xdigest/include/internal/sha.h	(working copy)
+--- xdigest/include/internal/sha.h
++++ xdigest/include/internal/sha.h
 @@ -46,9 +46,9 @@ typedef struct SHAstate_st {
      unsigned int num;
  } xdig_sha1_ctx_t;
@@ -187,8 +187,8 @@ Index: xdigest/include/internal/sha.h
  # endif
 Index: xdigest/include/xdigest/xdigest_md2.h
 ===================================================================
---- xdigest/include/xdigest/xdigest_md2.h	(revision 6396)
-+++ xdigest/include/xdigest/xdigest_md2.h	(working copy)
+--- xdigest/include/xdigest/xdigest_md2.h
++++ xdigest/include/xdigest/xdigest_md2.h
 @@ -41,14 +41,14 @@ size_t xdig_md2_ctx_size(void);
  
  #define XDIG_MD2_DIGEST_LENGTH 16
@@ -212,8 +212,8 @@ Index: xdigest/include/xdigest/xdigest_md2.h
  xdig_md2(const void *data,
 Index: xdigest/include/xdigest/xdigest_md5.h
 ===================================================================
---- xdigest/include/xdigest/xdigest_md5.h	(revision 6396)
-+++ xdigest/include/xdigest/xdigest_md5.h	(working copy)
+--- xdigest/include/xdigest/xdigest_md5.h
++++ xdigest/include/xdigest/xdigest_md5.h
 @@ -41,14 +41,14 @@ size_t xdig_md5_ctx_size(void);
  
  #define XDIG_MD5_DIGEST_LENGTH 16
@@ -237,8 +237,8 @@ Index: xdigest/include/xdigest/xdigest_md5.h
  xdig_md5(const void *data,
 Index: xdigest/include/xdigest/xdigest_sha1.h
 ===================================================================
---- xdigest/include/xdigest/xdigest_sha1.h	(revision 6396)
-+++ xdigest/include/xdigest/xdigest_sha1.h	(working copy)
+--- xdigest/include/xdigest/xdigest_sha1.h
++++ xdigest/include/xdigest/xdigest_sha1.h
 @@ -41,14 +41,14 @@ size_t xdig_sha1_ctx_size(void);
  
  #define XDIG_SHA1_DIGEST_LENGTH 20
@@ -262,8 +262,8 @@ Index: xdigest/include/xdigest/xdigest_sha1.h
  xdig_sha1(const void *data,
 Index: xdigest/md2/md2_dgst.c
 ===================================================================
---- xdigest/md2/md2_dgst.c	(revision 6395)
-+++ xdigest/md2/md2_dgst.c	(working copy)
+--- xdigest/md2/md2_dgst.c
++++ xdigest/md2/md2_dgst.c
 @@ -75,22 +75,18 @@ const char *xdig_md2_ctx_options(void)
          return "md2(int)";
  }
@@ -323,8 +323,8 @@ Index: xdigest/md2/md2_dgst.c
  }
 Index: xdigest/md4/md4_dgst.c
 ===================================================================
---- xdigest/md4/md4_dgst.c	(revision 6395)
-+++ xdigest/md4/md4_dgst.c	(working copy)
+--- xdigest/md4/md4_dgst.c
++++ xdigest/md4/md4_dgst.c
 @@ -26,7 +26,7 @@
  #define INIT_DATA_C (unsigned long)0x98badcfeL
  #define INIT_DATA_D (unsigned long)0x10325476L
@@ -344,8 +344,8 @@ Index: xdigest/md4/md4_dgst.c
  #ifndef md4_block_data_order
 Index: xdigest/md5/md5_dgst.c
 ===================================================================
---- xdigest/md5/md5_dgst.c	(revision 6395)
-+++ xdigest/md5/md5_dgst.c	(working copy)
+--- xdigest/md5/md5_dgst.c
++++ xdigest/md5/md5_dgst.c
 @@ -26,7 +26,7 @@
  #define INIT_DATA_C (unsigned long)0x98badcfeL
  #define INIT_DATA_D (unsigned long)0x10325476L
@@ -365,8 +365,8 @@ Index: xdigest/md5/md5_dgst.c
  #ifndef md5_block_data_order
 Index: xdigest/sha/sha256.c
 ===================================================================
---- xdigest/sha/sha256.c	(revision 6395)
-+++ xdigest/sha/sha256.c	(working copy)
+--- xdigest/sha/sha256.c
++++ xdigest/sha/sha256.c
 @@ -13,6 +13,7 @@
   */
  /* ignored include 'internal/deprecated.h' */
@@ -442,8 +442,8 @@ Index: xdigest/sha/sha256.c
                  }                       \
 Index: xdigest/sha/sha512.c
 ===================================================================
---- xdigest/sha/sha512.c	(revision 6395)
-+++ xdigest/sha/sha512.c	(working copy)
+--- xdigest/sha/sha512.c
++++ xdigest/sha/sha512.c
 @@ -75,7 +75,7 @@
  # define U64(C)     C##ULL
  #endif
@@ -579,8 +579,8 @@ Index: xdigest/sha/sha512.c
  void xdig_sha512_ctx_transform(xdig_sha512_ctx_t *c, const unsigned char *data)
 Index: xdigest/sha/sha_local.h
 ===================================================================
---- xdigest/sha/sha_local.h	(revision 6395)
-+++ xdigest/sha/sha_local.h	(working copy)
+--- xdigest/sha/sha_local.h
++++ xdigest/sha/sha_local.h
 @@ -51,7 +51,7 @@ void sha1_block_data_order(xdig_sha1_ctx_t *c, con
  #define INIT_DATA_h3 0x10325476UL
  #define INIT_DATA_h4 0xc3d2e1f0UL
