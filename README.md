@@ -55,6 +55,10 @@ assembly enabled, you would have to install NASM <https://www.nasm.us>. It's
 important that its executable is either available in path or is passed via
 `CMAKE_ASM_NASM_COMPILER` option.
 
+On Windows, it is also mandatory that all commands are executed from the Visual
+Studio development command prompt. This will ensure that everything including
+cmake and the compiler itself is available in PATH.
+
 Use the following command to configure project:
 
 ```bash
