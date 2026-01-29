@@ -18,3 +18,27 @@ jobs:
     - run: ninja -C out-x64
     - run: ninja -C out-x64 install
     - run: ninja -C out-x64 test
+
+  win32:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v6
+    - uses: johnnynunez/vsdevenv-shell@v2
+
+    - run: sudo apt-get install gcc-multilib lib32stdc++6
+
+    - name: x64
+      run: |
+        cmake -B out-x64 -G Ninja -DCMAKE_INSTALL_PREFIX=install/x64
+        ninja -C out-x64
+        ninja -C out-x64 install
+        ninja -C out-x64 test
+      shell: vsdevenv x64 pwsh {0}
+
+    - name: x86
+      run: |
+        cmake -B out-x86 -G Ninja -DCMAKE_INSTALL_PREFIX=install/x86
+        ninja -C out-x86
+        ninja -C out-x86 install
+        ninja -C out-x86 test
+      shell: vsdevenv x86 pwsh {0}
