@@ -17,7 +17,7 @@ Index: xdigest/md5/md5_one.c
 +++ xdigest/md5/md5_one.c
 @@ -17,6 +17,7 @@
  #include <string.h>
- #include <xdigest/md5.h>
+ #include <xdigest/xdigest_md5.h>
  /* ignored include 'openssl/crypto.h' */
 +#include "internal/common.h"
  
@@ -29,7 +29,7 @@ Index: xdigest/md4/md4_one.c
 +++ xdigest/md4/md4_one.c
 @@ -17,6 +17,7 @@
  #include <string.h>
- #include <xdigest/md4.h>
+ #include <xdigest/xdigest_md4.h>
  /* ignored include 'openssl/crypto.h' */
 +#include "internal/common.h"
  

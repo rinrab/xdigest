@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 #include <xdigest/xdigest.h>
-#include <xdigest/sha2.h>
+#include <xdigest/xdigest_sha2.h>
 
 int main() {
     xdig_sha256_ctx_t *ctx = malloc(XDIG_SHA256_CTX_SIZE);
