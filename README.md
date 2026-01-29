@@ -239,8 +239,6 @@ Only Unix support is planed for the alpha version. It doesn't mean Windows is
 not going to be supported in general, but focus will be concentrated on Unix
 specifically.
 
-`(We are here. Move this marker as we go.)`
-
 Build process works perfectly, including cross-compiling, installation, and
 out-of-tree build.
 
@@ -254,6 +252,8 @@ overkill. It's a bit nonsense that 'digest' and 'sha1' are in the same name).
 I'm also considering something originating from 'hyper-sonic' hashes or
 something with 'lightweight' but couldn't think of any good ideas to combine
 those.
+
+`(We are here. Move this marker as we go.)`
 
 ### Beta
 
