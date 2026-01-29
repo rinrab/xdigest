@@ -21,6 +21,29 @@ jobs:
     # - run: make test-vcpkg VCPKG_TRIPLET=x86-linux
     # - run: make test-vcpkg VCPKG_TRIPLET=x86-linux NO_ASM=1
 
+  vcpkg-win32:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v6
+
+    - run: make test-vcpkg VCPKG_TRIPLET=x64-windows
+    - run: make test-vcpkg VCPKG_TRIPLET=x64-windows NO_ASM=1
+
+    - run: make test-vcpkg VCPKG_TRIPLET=x86-windows
+    - run: make test-vcpkg VCPKG_TRIPLET=x86-windows NO_ASM=1
+
+    - run: make test-vcpkg VCPKG_TRIPLET=x64-windows-static
+    - run: make test-vcpkg VCPKG_TRIPLET=x64-windows-static NO_ASM=1
+
+    - run: make test-vcpkg VCPKG_TRIPLET=x86-windows-static
+    - run: make test-vcpkg VCPKG_TRIPLET=x86-windows-static NO_ASM=1
+
+    - run: make test-vcpkg VCPKG_TRIPLET=x64-windows-static-md
+    - run: make test-vcpkg VCPKG_TRIPLET=x64-windows-static-md NO_ASM=1
+
+    - run: make test-vcpkg VCPKG_TRIPLET=x86-windows-static-md
+    - run: make test-vcpkg VCPKG_TRIPLET=x86-windows-static-md NO_ASM=1
+
   archlinux:
     runs-on: ubuntu-latest
     steps:
