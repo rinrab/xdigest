@@ -51,7 +51,7 @@ void sha1_block_data_order(xdig_sha1_ctx_t *c, const void *p, size_t num);
 #define INIT_DATA_h3 0x10325476UL
 #define INIT_DATA_h4 0xc3d2e1f0UL
 
-int HASH_INIT(xdig_sha1_ctx_t *c)
+void HASH_INIT(xdig_sha1_ctx_t *c)
 {
     memset(c, 0, sizeof(*c));
     c->h0 = INIT_DATA_h0;
@@ -59,7 +59,6 @@ int HASH_INIT(xdig_sha1_ctx_t *c)
     c->h2 = INIT_DATA_h2;
     c->h3 = INIT_DATA_h3;
     c->h4 = INIT_DATA_h4;
-    return 1;
 }
 
 #define K_00_19 0x5a827999UL
