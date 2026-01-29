@@ -31,12 +31,9 @@ straightforward as possible.
 
 ### Getting source code
 
-Currenly, the only way to install the library is to compile it using 'make'
-from sources. It's simple anyway.
-
-First, get the sources. The sources are officially published here at GitHub.
-But it's important to know that the GitHub repository is actually a mirror of a
-Subversion repository because svn is the GOAT.
+The sources are officially published here at GitHub. But it's important to know
+that the GitHub repository is actually a mirror of a Subversion repository
+because svn is the GOAT.
 
 ```bash
 git clone https://github.com/rinrab/xdigest.git
