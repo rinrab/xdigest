@@ -15,7 +15,7 @@ endif
 include Makefile.inc
 include ../build/rules.unix
 
-INCS += -Iinclude -I. -Icore
+INCS += -Iinclude -Iinclude/xdigest -I. -Icore
 
 objects = $(c_objects)
 ifndef NO_ASM

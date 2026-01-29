@@ -27,7 +27,7 @@ xdigest/libxdigest.so: all
 
 %.o: %.c
 	mkdir -p $(@D)
-	$(CC) $@ $^ -DXDIG -Ixdigest/include
+	$(CC) $@ $^ -DXDIG -Ixdigest/include/xdigest
 
 test_xdigest: tests/test_xdigest.o tests/sha_test.o xdigest/libxdigest.so
 	$(MKDIR) $(@D)
