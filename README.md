@@ -204,7 +204,8 @@ Otherwise, something might missbehave.
 
 - [ ] Platforms
     - [x] Linux
-    - [ ] Windows
+    - [x] Windows
+    - [ ] Windows ARM
     - [x] 64 bit
     - [x] 32 bit
     - [x] ARM
