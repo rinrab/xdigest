@@ -1,7 +1,7 @@
 {
   "name": "xdigest",
   "version-string": "0.1.0",
-  "description": "Fast and lightweigh hash library.",
+  "description": "Extremely fast digest algorithms packaged into a lightweight library.",
   "homepage": "https://github.com/rinrab/xdigest",
   "license": "Apache-2.0",
   "features": {
