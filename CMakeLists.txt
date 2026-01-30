@@ -46,9 +46,6 @@ string(REGEX REPLACE ".*XDIG_VERSION_PATCH +([0-9]+).*" "\\1" XDIG_VERSION_PATCH
 
 set(XDIG_VERSION "${XDIG_VERSION_MAJOR}.${XDIG_VERSION_MINOR}.${XDIG_VERSION_PATCH}")
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3 -Wall")
-set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -Wa,--noexecstack")
-
 add_library(xdigest
     xdigest/core/cpuid.c
     xdigest/core/armcap.c
