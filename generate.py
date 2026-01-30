@@ -259,3 +259,4 @@ patch("patches/remove_getenv.patch")
 patch("patches/armcap_ifdef.patch")
 
 patch("patches/void_returning_context_operations.patch")
+patch("patches/fixup_armcap_win32_capability_detection.patch")
