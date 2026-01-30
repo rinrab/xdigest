@@ -36,7 +36,7 @@ void xdig_cpuid_setup(void)
 {
     xdig_armcap_P |= ARMV7_NEON;
     xdig_armv8_rsa_neonized = 1;
-    if (IsProcessorFeaturePresent(PF_ARM_V8_xdig_INSTRUCTIONS_AVAILABLE)) {
+    if (IsProcessorFeaturePresent(PF_ARM_V8_CRYPTO_INSTRUCTIONS_AVAILABLE)) {
         /* These are all covered by one call in Windows */
         xdig_armcap_P |= ARMV8_AES;
         xdig_armcap_P |= ARMV8_PMULL;
