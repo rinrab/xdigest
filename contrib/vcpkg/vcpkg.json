@@ -3,6 +3,7 @@
   "version-string": "0.1.0",
   "description": "Fast and lightweigh hash library.",
   "homepage": "https://github.com/rinrab/xdigest",
+  "license": "Apache-2.0",
   "features": {
     "asm": {
       "description": "Assembly-backed implementation for maximum performance.",
