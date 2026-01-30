@@ -21,6 +21,20 @@ jobs:
     # - run: make test-vcpkg VCPKG_TRIPLET=x86-linux
     # - run: make test-vcpkg VCPKG_TRIPLET=x86-linux NO_ASM=1
 
+  vcpkg-macos:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v6
+
+    - run: make test-vcpkg VCPKG_TRIPLET=arm64-osx
+    - run: make test-vcpkg VCPKG_TRIPLET=arm64-osx NO_ASM=1
+
+    - run: make test-vcpkg VCPKG_TRIPLET=x64-osx
+    - run: make test-vcpkg VCPKG_TRIPLET=x64-osx NO_ASM=1
+
+    - run: make test-vcpkg VCPKG_TRIPLET=x86-osx
+    - run: make test-vcpkg VCPKG_TRIPLET=x86-osx NO_ASM=1
+
   vcpkg-win32:
     runs-on: windows-latest
     steps:
