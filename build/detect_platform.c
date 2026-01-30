@@ -28,6 +28,15 @@
 # error "DETECTED: linuxaarch64"
 #endif
 
+#elif defined(__APPLE__)
+# error "DETECTED: macosx64"
+#elif defined(i386) || defined(__i386__) || defined(__i386) || defined(_M_IX86)
+# error "DETECTED: macosx32"
+#elif defined(__aarch64__) || defined(_M_ARM64)
+# error "DETECTED: macosxaarch64"
+#endif
+
+
 #elif WIN32
 
 #if defined(__x86_64__) || defined(_M_X64)
