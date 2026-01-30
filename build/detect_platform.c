@@ -30,11 +30,11 @@
 
 #elif defined(__APPLE__)
 #if defined(__x86_64__) || defined(_M_X64)
-# error "DETECTED: macosx64"
+# error "DETECTED: linux64"
 #elif defined(i386) || defined(__i386__) || defined(__i386) || defined(_M_IX86)
-# error "DETECTED: macosx32"
+# error "DETECTED: linux32"
 #elif defined(__aarch64__) || defined(_M_ARM64)
-# error "DETECTED: macosxaarch64"
+# error "DETECTED: linuxaarch64"
 #endif
 
 #elif WIN32
