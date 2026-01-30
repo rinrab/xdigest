@@ -12,8 +12,8 @@ win32 = ("win32n", ".asm", "cl", "win32")
 win64 = ("nasm", ".asm", "cl", "win64")
 
 macosx64 = ("macosx", ".S", "gcc", "macosx64")
-macosx32 = ("macosx", ".S", "gcc", "macosx64")
-macosxaarch64 = ("macosx", ".S", "gcc", "macosx32")
+macosx32 = ("macosx", ".S", "gcc", "macosx32")
+macosxaarch64 = ("ios64", ".S", "gcc", "macosxaarch64")
 
 configs_x86_64 = [linux64, win64, macosx64]
 configs_x86 = [linux32, win32, macosx32]

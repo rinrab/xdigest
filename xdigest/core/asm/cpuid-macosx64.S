@@ -1,481 +1,480 @@
-.text
+
+
+.private_extern	_xdig_cpuid_setup
+.private_extern	_xdig_ia32cap_P
+.comm	_xdig_ia32cap_P,40,2
+.text	
+
+.globl	_xdig_atomic_add
+
+.p2align	4
+_xdig_atomic_add:
+
+.byte	243,15,30,250
+	movl	(%rdi),%eax
+L$spin:	leaq	(%rsi,%rax,1),%r8
+.byte	0xf0
+	cmpxchgl	%r8d,(%rdi)
+	jne	L$spin
+	movl	%r8d,%eax
+.byte	0x48,0x98
+	.byte	0xf3,0xc3
+
+
+
+.globl	_xdig_rdtsc
+
+.p2align	4
+_xdig_rdtsc:
+
+.byte	243,15,30,250
+	rdtsc
+	shlq	$32,%rdx
+	orq	%rdx,%rax
+	.byte	0xf3,0xc3
+
+
+
 .globl	_xdig_ia32_cpuid
-.align	4
+
+.p2align	4
 _xdig_ia32_cpuid:
-L_xdig_ia32_cpuid_begin:
-	#ifdef __CET__
 
-.byte	243,15,30,251
-	#endif
+.byte	243,15,30,250
+	movq	%rbx,%r8
 
-	pushl	%ebp
-	pushl	%ebx
-	pushl	%esi
-	pushl	%edi
-	xorl	%edx,%edx
-	pushfl
-	popl	%eax
-	movl	%eax,%ecx
-	xorl	$2097152,%eax
-	pushl	%eax
-	popfl
-	pushfl
-	popl	%eax
-	xorl	%eax,%ecx
+
 	xorl	%eax,%eax
-	movl	20(%esp),%esi
-	movl	%eax,8(%esi)
-	btl	$21,%ecx
-	jnc	L000nocpuid
-	.byte	0x0f,0xa2
-	movl	%eax,%edi
+	movq	%rax,8(%rdi)
+	cpuid
+	movl	%eax,%r11d
+
 	xorl	%eax,%eax
-	cmpl	$1970169159,%ebx
+	cmpl	$0x756e6547,%ebx
 	setne	%al
-	movl	%eax,%ebp
-	cmpl	$1231384169,%edx
+	movl	%eax,%r9d
+	cmpl	$0x49656e69,%edx
 	setne	%al
-	orl	%eax,%ebp
-	cmpl	$1818588270,%ecx
+	orl	%eax,%r9d
+	cmpl	$0x6c65746e,%ecx
 	setne	%al
-	orl	%eax,%ebp
-	jz	L001intel
-	cmpl	$1752462657,%ebx
+	orl	%eax,%r9d
+	jz	L$intel
+
+	cmpl	$0x68747541,%ebx
 	setne	%al
-	movl	%eax,%esi
-	cmpl	$1769238117,%edx
+	movl	%eax,%r10d
+	cmpl	$0x69746E65,%edx
 	setne	%al
-	orl	%eax,%esi
-	cmpl	$1145913699,%ecx
+	orl	%eax,%r10d
+	cmpl	$0x444D4163,%ecx
 	setne	%al
-	orl	%eax,%esi
-	jnz	L001intel
-	movl	$2147483648,%eax
-	.byte	0x0f,0xa2
-	cmpl	$2147483649,%eax
-	jb	L001intel
-	movl	%eax,%esi
-	movl	$2147483649,%eax
-	.byte	0x0f,0xa2
-	orl	%ecx,%ebp
-	andl	$2049,%ebp
-	cmpl	$2147483656,%esi
-	jb	L001intel
-	movl	$2147483656,%eax
-	.byte	0x0f,0xa2
-	movzbl	%cl,%esi
-	incl	%esi
+	orl	%eax,%r10d
+	jnz	L$intel
+
+
+	movl	$0x80000000,%eax
+	cpuid
+	cmpl	$0x80000001,%eax
+	jb	L$intel
+	movl	%eax,%r10d
+	movl	$0x80000001,%eax
+	cpuid
+	orl	%ecx,%r9d
+	andl	$0x00000801,%r9d
+
+	cmpl	$0x80000008,%r10d
+	jb	L$intel
+
+	movl	$0x80000008,%eax
+	cpuid
+	movzbq	%cl,%r10
+	incq	%r10
+
 	movl	$1,%eax
-	xorl	%ecx,%ecx
-	.byte	0x0f,0xa2
+	cpuid
 	btl	$28,%edx
-	jnc	L002generic
+	jnc	L$generic
 	shrl	$16,%ebx
-	andl	$255,%ebx
-	cmpl	%esi,%ebx
-	ja	L002generic
-	andl	$4026531839,%edx
-	jmp	L002generic
-L001intel:
-	cmpl	$4,%edi
-	movl	$-1,%esi
-	jb	L003nocacheinfo
+	cmpb	%r10b,%bl
+	ja	L$generic
+	andl	$0xefffffff,%edx
+	jmp	L$generic
+
+L$intel:
+	cmpl	$4,%r11d
+	movl	$-1,%r10d
+	jb	L$nocacheinfo
+
 	movl	$4,%eax
 	movl	$0,%ecx
-	.byte	0x0f,0xa2
-	movl	%eax,%esi
-	shrl	$14,%esi
-	andl	$4095,%esi
-L003nocacheinfo:
+	cpuid
+	movl	%eax,%r10d
+	shrl	$14,%r10d
+	andl	$0xfff,%r10d
+
+L$nocacheinfo:
 	movl	$1,%eax
-	xorl	%ecx,%ecx
-	.byte	0x0f,0xa2
-	andl	$3220176895,%edx
-	cmpl	$0,%ebp
-	jne	L004notintel
-	orl	$1073741824,%edx
+	cpuid
+	movd	%eax,%xmm0
+	andl	$0xbfefffff,%edx
+	cmpl	$0,%r9d
+	jne	L$notintel
+	orl	$0x40000000,%edx
 	andb	$15,%ah
 	cmpb	$15,%ah
-	jne	L004notintel
-	orl	$1048576,%edx
-L004notintel:
+	jne	L$notP4
+	orl	$0x00100000,%edx
+L$notP4:
+	cmpb	$6,%ah
+	jne	L$notintel
+	andl	$0x0fff0ff0,%eax
+	cmpl	$0x00050670,%eax
+	je	L$knights
+	cmpl	$0x00080650,%eax
+	jne	L$notintel
+L$knights:
+	andl	$0xfbffffff,%ecx
+
+L$notintel:
 	btl	$28,%edx
-	jnc	L002generic
-	andl	$4026531839,%edx
-	cmpl	$0,%esi
-	je	L002generic
-	orl	$268435456,%edx
+	jnc	L$generic
+	andl	$0xefffffff,%edx
+	cmpl	$0,%r10d
+	je	L$generic
+
+	orl	$0x10000000,%edx
 	shrl	$16,%ebx
 	cmpb	$1,%bl
-	ja	L002generic
-	andl	$4026531839,%edx
-L002generic:
-	andl	$2048,%ebp
-	andl	$4294965247,%ecx
-	movl	%edx,%esi
-	orl	%ecx,%ebp
-	cmpl	$7,%edi
-	movl	20(%esp),%edi
-	jb	L005no_extended_info
+	ja	L$generic
+	andl	$0xefffffff,%edx
+L$generic:
+	andl	$0x00000800,%r9d
+	andl	$0xfffff7ff,%ecx
+	orl	%ecx,%r9d
+
+	movl	%edx,%r10d
+
+	cmpl	$7,%r11d
+	jb	L$no_extended_info
 	movl	$7,%eax
 	xorl	%ecx,%ecx
-	.byte	0x0f,0xa2
-	movl	%ebx,8(%edi)
-	movl	%ecx,12(%edi)
-	movl	%edx,16(%edi)
-	cmpl	$1,%eax
-	jb	L005no_extended_info
-	movl	$7,%eax
-	movl	$1,%ecx
-	.byte	0x0f,0xa2
-	movl	%eax,20(%edi)
-	movl	%edx,24(%edi)
-	movl	%ebx,28(%edi)
-	movl	%ecx,32(%edi)
-	andl	$524288,%edx
-	cmpl	$0,%edx
-	je	L005no_extended_info
-	movl	$36,%eax
-	movl	$0,%ecx
-	.byte	0x0f,0xa2
-	movl	%ebx,36(%edi)
-L005no_extended_info:
-	btl	$27,%ebp
-	jnc	L006clear_avx
+	cpuid
+	movd	%eax,%xmm1
+	btl	$26,%r9d
+	jc	L$notknights
+	andl	$0xfff7ffff,%ebx
+L$notknights:
+	movd	%xmm0,%eax
+	andl	$0x0fff0ff0,%eax
+	cmpl	$0x00050650,%eax
+	jne	L$notskylakex
+	andl	$0xfffeffff,%ebx
+
+
+L$notskylakex:
+	movl	%ebx,8(%rdi)
+	movl	%ecx,12(%rdi)
+	movl	%edx,16(%rdi)
+
+	movd	%xmm1,%eax
+	cmpl	$0x1,%eax
+	jb	L$no_extended_info
+	movl	$0x7,%eax
+	movl	$0x1,%ecx
+	cpuid
+	movl	%eax,20(%rdi)
+	movl	%edx,24(%rdi)
+	movl	%ebx,28(%rdi)
+	movl	%ecx,32(%rdi)
+
+	andl	$0x80000,%edx
+	cmpl	$0x0,%edx
+	je	L$no_extended_info
+	movl	$0x24,%eax
+	movl	$0x0,%ecx
+	cpuid
+	movl	%ebx,36(%rdi)
+
+L$no_extended_info:
+
+	btl	$27,%r9d
+	jnc	L$clear_avx
 	xorl	%ecx,%ecx
-.byte	15,1,208
+.byte	0x0f,0x01,0xd0
+	andl	$0xe6,%eax
+	cmpl	$0xe6,%eax
+	je	L$done
+	andl	$0x3fdeffff,8(%rdi)
+
+
+
+
 	andl	$6,%eax
 	cmpl	$6,%eax
-	je	L007done
-	cmpl	$2,%eax
-	je	L006clear_avx
-L008clear_xmm:
-	andl	$4261412861,%ebp
-	andl	$4278190079,%esi
-L006clear_avx:
-	andl	$4026525695,%ebp
-	andl	$4286578687,20(%edi)
-	andl	$4294967263,8(%edi)
-L007done:
-	movl	%esi,%eax
-	movl	%ebp,%edx
-L000nocpuid:
-	popl	%edi
-	popl	%esi
-	popl	%ebx
-	popl	%ebp
-	ret
-.globl	_xdig_rdtsc
-.align	4
-_xdig_rdtsc:
-L_xdig_rdtsc_begin:
-	#ifdef __CET__
+	je	L$done
+L$clear_avx:
+	andl	$0xff7fffff,20(%rdi)
 
-.byte	243,15,30,251
-	#endif
 
-	xorl	%eax,%eax
-	xorl	%edx,%edx
-	call	L009PIC_me_up
-L009PIC_me_up:
-	popl	%ecx
-	movl	L_xdig_ia32cap_P$non_lazy_ptr-L009PIC_me_up(%ecx),%ecx
-	btl	$4,(%ecx)
-	jnc	L010notsc
-	.byte	0x0f,0x31
-L010notsc:
-	ret
-.globl	_xdig_instrument_halt
-.align	4
-_xdig_instrument_halt:
-L_xdig_instrument_halt_begin:
-	#ifdef __CET__
+	movl	$0xefffe7ff,%eax
+	andl	%eax,%r9d
+	movl	$0x3fdeffdf,%eax
+	andl	%eax,8(%rdi)
+L$done:
+	shlq	$32,%r9
+	movl	%r10d,%eax
+	movq	%r8,%rbx
 
-.byte	243,15,30,251
-	#endif
+	orq	%r9,%rax
+	.byte	0xf3,0xc3
 
-	call	L011PIC_me_up
-L011PIC_me_up:
-	popl	%ecx
-	movl	L_xdig_ia32cap_P$non_lazy_ptr-L011PIC_me_up(%ecx),%ecx
-	btl	$4,(%ecx)
-	jnc	L012nohalt
-.long	2421723150
-	andl	$3,%eax
-	jnz	L012nohalt
-	pushfl
-	popl	%eax
-	btl	$9,%eax
-	jnc	L012nohalt
-	.byte	0x0f,0x31
-	pushl	%edx
-	pushl	%eax
-	hlt
-	.byte	0x0f,0x31
-	subl	(%esp),%eax
-	sbbl	4(%esp),%edx
-	addl	$8,%esp
-	ret
-L012nohalt:
-	xorl	%eax,%eax
-	xorl	%edx,%edx
-	ret
-.globl	_xdig_far_spin
-.align	4
-_xdig_far_spin:
-L_xdig_far_spin_begin:
-	#ifdef __CET__
 
-.byte	243,15,30,251
-	#endif
 
-	pushfl
-	popl	%eax
-	btl	$9,%eax
-	jnc	L013nospin
-	movl	4(%esp),%eax
-	movl	8(%esp),%ecx
-.long	2430111262
-	xorl	%eax,%eax
-	movl	(%ecx),%edx
-	jmp	L014spin
-.align	4,0x90
-L014spin:
-	incl	%eax
-	cmpl	(%ecx),%edx
-	je	L014spin
-.long	529567888
-	ret
-L013nospin:
-	xorl	%eax,%eax
-	xorl	%edx,%edx
-	ret
-.globl	_xdig_atomic_add
-.align	4
-_xdig_atomic_add:
-L_xdig_atomic_add_begin:
-	#ifdef __CET__
-
-.byte	243,15,30,251
-	#endif
-
-	movl	4(%esp),%edx
-	movl	8(%esp),%ecx
-	pushl	%ebx
-	nop
-	movl	(%edx),%eax
-L015spin:
-	leal	(%eax,%ecx,1),%ebx
-	nop
-.long	447811568
-	jne	L015spin
-	movl	%ebx,%eax
-	popl	%ebx
-	ret
 .globl	_xdig_cleanse
-.align	4
+
+.p2align	4
 _xdig_cleanse:
-L_xdig_cleanse_begin:
-	#ifdef __CET__
 
-.byte	243,15,30,251
-	#endif
+.byte	243,15,30,250
+	xorq	%rax,%rax
+	cmpq	$15,%rsi
+	jae	L$ot
+	cmpq	$0,%rsi
+	je	L$ret
+L$ittle:
+	movb	%al,(%rdi)
+	subq	$1,%rsi
+	leaq	1(%rdi),%rdi
+	jnz	L$ittle
+L$ret:
+	.byte	0xf3,0xc3
+.p2align	4
+L$ot:
+	testq	$7,%rdi
+	jz	L$aligned
+	movb	%al,(%rdi)
+	leaq	-1(%rsi),%rsi
+	leaq	1(%rdi),%rdi
+	jmp	L$ot
+L$aligned:
+	movq	%rax,(%rdi)
+	leaq	-8(%rsi),%rsi
+	testq	$-8,%rsi
+	leaq	8(%rdi),%rdi
+	jnz	L$aligned
+	cmpq	$0,%rsi
+	jne	L$ittle
+	.byte	0xf3,0xc3
 
-	movl	4(%esp),%edx
-	movl	8(%esp),%ecx
-	xorl	%eax,%eax
-	cmpl	$7,%ecx
-	jae	L016lot
-	cmpl	$0,%ecx
-	je	L017ret
-L018little:
-	movb	%al,(%edx)
-	subl	$1,%ecx
-	leal	1(%edx),%edx
-	jnz	L018little
-L017ret:
-	ret
-.align	4,0x90
-L016lot:
-	testl	$3,%edx
-	jz	L019aligned
-	movb	%al,(%edx)
-	leal	-1(%ecx),%ecx
-	leal	1(%edx),%edx
-	jmp	L016lot
-L019aligned:
-	movl	%eax,(%edx)
-	leal	-4(%ecx),%ecx
-	testl	$-4,%ecx
-	leal	4(%edx),%edx
-	jnz	L019aligned
-	cmpl	$0,%ecx
-	jne	L018little
-	ret
+
+
 .globl	_xdig_memcmp
-.align	4
+
+.p2align	4
 _xdig_memcmp:
-L_xdig_memcmp_begin:
-	#ifdef __CET__
 
-.byte	243,15,30,251
-	#endif
+.byte	243,15,30,250
+	xorq	%rax,%rax
+	xorq	%r10,%r10
+	cmpq	$0,%rdx
+	je	L$no_data
+	cmpq	$16,%rdx
+	jne	L$oop_cmp
+	movq	(%rdi),%r10
+	movq	8(%rdi),%r11
+	movq	$1,%rdx
+	xorq	(%rsi),%r10
+	xorq	8(%rsi),%r11
+	orq	%r11,%r10
+	cmovnzq	%rdx,%rax
+	.byte	0xf3,0xc3
 
-	pushl	%esi
-	pushl	%edi
-	movl	12(%esp),%esi
-	movl	16(%esp),%edi
-	movl	20(%esp),%ecx
-	xorl	%eax,%eax
-	xorl	%edx,%edx
-	cmpl	$0,%ecx
-	je	L020no_data
-L021loop:
-	movb	(%esi),%dl
-	leal	1(%esi),%esi
-	xorb	(%edi),%dl
-	leal	1(%edi),%edi
-	orb	%dl,%al
-	decl	%ecx
-	jnz	L021loop
-	negl	%eax
-	shrl	$31,%eax
-L020no_data:
-	popl	%edi
-	popl	%esi
-	ret
+.p2align	4
+L$oop_cmp:
+	movb	(%rdi),%r10b
+	leaq	1(%rdi),%rdi
+	xorb	(%rsi),%r10b
+	leaq	1(%rsi),%rsi
+	orb	%r10b,%al
+	decq	%rdx
+	jnz	L$oop_cmp
+	negq	%rax
+	shrq	$63,%rax
+L$no_data:
+	.byte	0xf3,0xc3
+
+
 .globl	_xdig_instrument_bus
-.align	4
+
+.p2align	4
 _xdig_instrument_bus:
-L_xdig_instrument_bus_begin:
-	#ifdef __CET__
 
-.byte	243,15,30,251
-	#endif
+.byte	243,15,30,250
+	movq	%rdi,%r10
+	movq	%rsi,%rcx
+	movq	%rsi,%r11
 
-	pushl	%ebp
-	pushl	%ebx
-	pushl	%esi
-	pushl	%edi
-	movl	$0,%eax
-	popl	%edi
-	popl	%esi
-	popl	%ebx
-	popl	%ebp
-	ret
+	rdtsc
+	movl	%eax,%r8d
+	movl	$0,%r9d
+	clflush	(%r10)
+.byte	0xf0
+	addl	%r9d,(%r10)
+	jmp	L$oop
+.p2align	4
+L$oop:	rdtsc
+	movl	%eax,%edx
+	subl	%r8d,%eax
+	movl	%edx,%r8d
+	movl	%eax,%r9d
+	clflush	(%r10)
+.byte	0xf0
+	addl	%eax,(%r10)
+	leaq	4(%r10),%r10
+	subq	$1,%rcx
+	jnz	L$oop
+
+	movq	%r11,%rax
+	.byte	0xf3,0xc3
+
+
+
 .globl	_xdig_instrument_bus2
-.align	4
+
+.p2align	4
 _xdig_instrument_bus2:
-L_xdig_instrument_bus2_begin:
-	#ifdef __CET__
 
-.byte	243,15,30,251
-	#endif
+.byte	243,15,30,250
+	movq	%rdi,%r10
+	movq	%rsi,%rcx
+	movq	%rdx,%r11
+	movq	%rcx,8(%rsp)
 
-	pushl	%ebp
-	pushl	%ebx
-	pushl	%esi
-	pushl	%edi
-	movl	$0,%eax
-	popl	%edi
-	popl	%esi
-	popl	%ebx
-	popl	%ebp
-	ret
+	rdtsc
+	movl	%eax,%r8d
+	movl	$0,%r9d
+
+	clflush	(%r10)
+.byte	0xf0
+	addl	%r9d,(%r10)
+
+	rdtsc
+	movl	%eax,%edx
+	subl	%r8d,%eax
+	movl	%edx,%r8d
+	movl	%eax,%r9d
+L$oop2:
+	clflush	(%r10)
+.byte	0xf0
+	addl	%eax,(%r10)
+
+	subq	$1,%r11
+	jz	L$done2
+
+	rdtsc
+	movl	%eax,%edx
+	subl	%r8d,%eax
+	movl	%edx,%r8d
+	cmpl	%r9d,%eax
+	movl	%eax,%r9d
+	movl	$0,%edx
+	setne	%dl
+	subq	%rdx,%rcx
+	leaq	(%r10,%rdx,4),%r10
+	jnz	L$oop2
+
+L$done2:
+	movq	8(%rsp),%rax
+	subq	%rcx,%rax
+	.byte	0xf3,0xc3
+
+
 .globl	_xdig_ia32_rdrand_bytes
-.align	4
+
+.p2align	4
 _xdig_ia32_rdrand_bytes:
-L_xdig_ia32_rdrand_bytes_begin:
-	#ifdef __CET__
 
-.byte	243,15,30,251
-	#endif
+.byte	243,15,30,250
+	xorq	%rax,%rax
+	cmpq	$0,%rsi
+	je	L$done_rdrand_bytes
 
-	pushl	%edi
-	pushl	%ebx
-	xorl	%eax,%eax
-	movl	12(%esp),%edi
-	movl	16(%esp),%ebx
-	cmpl	$0,%ebx
-	je	L022done
-	movl	$8,%ecx
-L023loop:
-.byte	15,199,242
-	jc	L024break
-	loop	L023loop
-	jmp	L022done
-.align	4,0x90
-L024break:
-	cmpl	$4,%ebx
-	jb	L025tail
-	movl	%edx,(%edi)
-	leal	4(%edi),%edi
-	addl	$4,%eax
-	subl	$4,%ebx
-	jz	L022done
-	movl	$8,%ecx
-	jmp	L023loop
-.align	4,0x90
-L025tail:
-	movb	%dl,(%edi)
-	leal	1(%edi),%edi
-	incl	%eax
-	shrl	$8,%edx
-	decl	%ebx
-	jnz	L025tail
-L022done:
-	xorl	%edx,%edx
-	popl	%ebx
-	popl	%edi
-	ret
+	movq	$8,%r11
+L$oop_rdrand_bytes:
+.byte	73,15,199,242
+	jc	L$break_rdrand_bytes
+	decq	%r11
+	jnz	L$oop_rdrand_bytes
+	jmp	L$done_rdrand_bytes
+
+.p2align	4
+L$break_rdrand_bytes:
+	cmpq	$8,%rsi
+	jb	L$tail_rdrand_bytes
+	movq	%r10,(%rdi)
+	leaq	8(%rdi),%rdi
+	addq	$8,%rax
+	subq	$8,%rsi
+	jz	L$done_rdrand_bytes
+	movq	$8,%r11
+	jmp	L$oop_rdrand_bytes
+
+.p2align	4
+L$tail_rdrand_bytes:
+	movb	%r10b,(%rdi)
+	leaq	1(%rdi),%rdi
+	incq	%rax
+	shrq	$8,%r10
+	decq	%rsi
+	jnz	L$tail_rdrand_bytes
+
+L$done_rdrand_bytes:
+	xorq	%r10,%r10
+	.byte	0xf3,0xc3
+
+
 .globl	_xdig_ia32_rdseed_bytes
-.align	4
+
+.p2align	4
 _xdig_ia32_rdseed_bytes:
-L_xdig_ia32_rdseed_bytes_begin:
-	#ifdef __CET__
 
-.byte	243,15,30,251
-	#endif
+.byte	243,15,30,250
+	xorq	%rax,%rax
+	cmpq	$0,%rsi
+	je	L$done_rdseed_bytes
 
-	pushl	%edi
-	pushl	%ebx
-	xorl	%eax,%eax
-	movl	12(%esp),%edi
-	movl	16(%esp),%ebx
-	cmpl	$0,%ebx
-	je	L026done
-	movl	$8,%ecx
-L027loop:
-.byte	15,199,250
-	jc	L028break
-	loop	L027loop
-	jmp	L026done
-.align	4,0x90
-L028break:
-	cmpl	$4,%ebx
-	jb	L029tail
-	movl	%edx,(%edi)
-	leal	4(%edi),%edi
-	addl	$4,%eax
-	subl	$4,%ebx
-	jz	L026done
-	movl	$8,%ecx
-	jmp	L027loop
-.align	4,0x90
-L029tail:
-	movb	%dl,(%edi)
-	leal	1(%edi),%edi
-	incl	%eax
-	shrl	$8,%edx
-	decl	%ebx
-	jnz	L029tail
-L026done:
-	xorl	%edx,%edx
-	popl	%ebx
-	popl	%edi
-	ret
-.section __IMPORT,__pointers,non_lazy_symbol_pointers
-L_xdig_ia32cap_P$non_lazy_ptr:
-.indirect_symbol	_xdig_ia32cap_P
-.long	0
-.comm	_xdig_ia32cap_P,40,2
+	movq	$8,%r11
+L$oop_rdseed_bytes:
+.byte	73,15,199,250
+	jc	L$break_rdseed_bytes
+	decq	%r11
+	jnz	L$oop_rdseed_bytes
+	jmp	L$done_rdseed_bytes
+
+.p2align	4
+L$break_rdseed_bytes:
+	cmpq	$8,%rsi
+	jb	L$tail_rdseed_bytes
+	movq	%r10,(%rdi)
+	leaq	8(%rdi),%rdi
+	addq	$8,%rax
+	subq	$8,%rsi
+	jz	L$done_rdseed_bytes
+	movq	$8,%r11
+	jmp	L$oop_rdseed_bytes
+
+.p2align	4
+L$tail_rdseed_bytes:
+	movb	%r10b,(%rdi)
+	leaq	1(%rdi),%rdi
+	incq	%rax
+	shrq	$8,%r10
+	decq	%rsi
+	jnz	L$tail_rdseed_bytes
+
+L$done_rdseed_bytes:
+	xorq	%r10,%r10
+	.byte	0xf3,0xc3
+
+
