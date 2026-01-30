@@ -7,12 +7,17 @@ import subprocess
 linux64 = ("elf", ".S", "gcc", "linux64")
 linux32 = ("elf", ".S", "gcc", "linux32")
 linuxaarch64 = ("aarch64", ".S", "gcc", "linuxaarch64")
+
 win32 = ("win32n", ".asm", "cl", "win32")
 win64 = ("nasm", ".asm", "cl", "win64")
 
-configs_x86_64 = [linux64, win64]
-configs_x86 = [linux32, win32]
-configs_aarch64 = [linuxaarch64]
+macosx64 = ("macosx", ".S", "gcc", "macosx64")
+macosx32 = ("macosx", ".S", "gcc", "macosx64")
+macosxaarch64 = ("macosx", ".S", "gcc", "macosx32")
+
+configs_x86_64 = [linux64, win64, macosx64]
+configs_x86 = [linux32, win32, macosx32]
+configs_aarch64 = [linuxaarch64, macosxaarch64]
 
 def mkdir(path):
     try:
