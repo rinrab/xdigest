@@ -7,7 +7,7 @@
   "features": {
     "asm": {
       "description": "Assembly-backed implementation for maximum performance.",
-      "supports": "!(windows & arm)"
+      "supports": "!(windows & arm) & !android"
     }
   },
   "default-features": [
