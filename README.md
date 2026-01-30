@@ -41,7 +41,17 @@ cd xdigest
 
 ### Install library via a package manager
 
-Work in progress. I hope we'll be in their distrubutions at some point.
+#### Arch Linux
+
+```
+yay -S xdigest
+```
+
+#### vcpkg (in progress)
+
+```
+vcpkg install xdigest
+```
 
 ### Compile the library (CMake)
 
