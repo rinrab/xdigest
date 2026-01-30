@@ -13,9 +13,32 @@ Extremely fast digest algorithms packaged into a lightweight library.
 
 ## Benchmarks
 
-| algorithm | speed     |
-|-----------|-----------|
-| SHA1      | 1.50 GB/s |
+To get more accurate benchmarks on your machine, you can run the test suite.
+It's is usualy done via `make test` command. It will dump benchmarks of feeding
+random data into hash context by 1 MB blocks and dump results per each
+supported algorithm.
+
+Below, is a table of test results ran locally on my power-plant (on Linux).
+
+| algorithm | speed (with assembly) | without assembly (NO_ASM=1) |
+|---|---|---|
+|   sha1 | 1.91 GB/s | 0.85 GB/s |
+| sha224 | 1.71 GB/s | 0.30 GB/s |
+| sha256 | 1.71 GB/s | 0.30 GB/s |
+| sha384 | 0.75 GB/s | 0.50 GB/s |
+| sha512 | 0.75 GB/s | 0.50 GB/s |
+|    md5 | 0.78 GB/s | 0.70 GB/s |
+|    md4 | 1.25 GB/s | 1.26 GB/s |
+|    md2 | 0.01 GB/s | 0.01 GB/s |
+
+These results could be not accurate enough because I remember getting much
+higher benchmarks before I reconfigured something (I don't even know what
+exactly have I changed) in my system in relation to powersaving modes.
+
+I also made an interesting observation that I was getting around 1.50 GB/s
+(SHA1) in WSL environment and even lower number on Windows host. The peak I
+could get on Linux was 2.50 GB/s but I will probably have to figure out how TLP
+works to get those measurements again. Average Linux desktop experience...
 
 ## Getting started
 
