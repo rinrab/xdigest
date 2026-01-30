@@ -48,6 +48,15 @@ jobs:
     - run: make test-vcpkg VCPKG_TRIPLET=x86-windows-static-md
     - run: make test-vcpkg VCPKG_TRIPLET=x86-windows-static-md NO_ASM=1
 
+    - run: make test-vcpkg VCPKG_TRIPLET=arm64-windows
+    - run: make test-vcpkg VCPKG_TRIPLET=arm64-windows NO_ASM=1
+
+    - run: make test-vcpkg VCPKG_TRIPLET=arm64-uwp
+    - run: make test-vcpkg VCPKG_TRIPLET=arm64-uwp NO_ASM=1
+
+    - run: make test-vcpkg VCPKG_TRIPLET=x64-uwp
+    - run: make test-vcpkg VCPKG_TRIPLET=x64-uwp NO_ASM=1
+
   archlinux:
     runs-on: ubuntu-latest
     steps:
