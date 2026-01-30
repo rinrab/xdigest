@@ -18,7 +18,8 @@ It's is usualy done via `make test` command. It will dump benchmarks of feeding
 random data into hash context by 1 MB blocks and dump results per each
 supported algorithm.
 
-Below, is a table of test results ran locally on my power-plant (on Linux).
+Below, is a table of test results ran locally on my power-plant laptop (with
+Linux).
 
 | algorithm | speed (with assembly) | without assembly (NO_ASM=1) |
 |---|---|---|
