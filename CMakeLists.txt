@@ -103,6 +103,7 @@ target_include_directories(xdigest PUBLIC
 
 target_include_directories(xdigest PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/xdigest/include"
+    "${CMAKE_CURRENT_SOURCE_DIR}/xdigest/core"
 )
 
 install(TARGETS xdigest)
