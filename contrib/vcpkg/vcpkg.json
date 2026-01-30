@@ -7,7 +7,7 @@
   "features": {
     "asm": {
       "description": "Assembly-backed implementation for maximum performance.",
-      "supports": "!(windows & arm) & !uwp"
+      "supports": "!(windows & arm)"
     }
   },
   "default-features": [
