@@ -59,6 +59,10 @@
 /* ignored include 'internal/cryptlib.h' */
 #include "crypto/sha.h"
 
+struct xdig_sha384_ctx_t {
+    xdig_sha512_ctx_t state;
+};
+
 #if defined(__i386) || defined(__i386__) || defined(_M_IX86) || \
     defined(__x86_64) || defined(_M_AMD64) || defined(_M_X64) || \
     defined(__s390__) || defined(__s390x__) || \
@@ -109,26 +113,26 @@ void sha512_256_init(xdig_sha512_ctx_t *c)
     c->md_len = XDIG_SHA256_DIGEST_LENGTH;
 }
 
-void xdig_sha384_ctx_init(xdig_sha512_ctx_t *c)
+void xdig_sha384_ctx_init(xdig_sha384_ctx_t *c)
 {
-    c->h[0] = U64(0xcbbb9d5dc1059ed8);
-    c->h[1] = U64(0x629a292a367cd507);
-    c->h[2] = U64(0x9159015a3070dd17);
-    c->h[3] = U64(0x152fecd8f70e5939);
-    c->h[4] = U64(0x67332667ffc00b31);
-    c->h[5] = U64(0x8eb44a8768581511);
-    c->h[6] = U64(0xdb0c2e0d64f98fa7);
-    c->h[7] = U64(0x47b5481dbefa4fa4);
+    c->state.h[0] = U64(0xcbbb9d5dc1059ed8);
+    c->state.h[1] = U64(0x629a292a367cd507);
+    c->state.h[2] = U64(0x9159015a3070dd17);
+    c->state.h[3] = U64(0x152fecd8f70e5939);
+    c->state.h[4] = U64(0x67332667ffc00b31);
+    c->state.h[5] = U64(0x8eb44a8768581511);
+    c->state.h[6] = U64(0xdb0c2e0d64f98fa7);
+    c->state.h[7] = U64(0x47b5481dbefa4fa4);
 
-    c->Nl = 0;
-    c->Nh = 0;
-    c->num = 0;
-    c->md_len = XDIG_SHA384_DIGEST_LENGTH;
+    c->state.Nl = 0;
+    c->state.Nh = 0;
+    c->state.num = 0;
+    c->state.md_len = XDIG_SHA384_DIGEST_LENGTH;
 }
 
-unsigned char *xdig_sha384(const unsigned char *d, size_t n, unsigned char *md)
+unsigned char *xdig_sha384(const void *d, size_t n, unsigned char *md)
 {
-    xdig_sha512_ctx_t ctx;
+    xdig_sha384_ctx_t ctx;
 
     xdig_sha384_ctx_init(&ctx);
     xdig_sha384_ctx_update(&ctx, d, n);
@@ -154,7 +158,7 @@ void xdig_sha512_ctx_init(xdig_sha512_ctx_t *c)
     c->md_len = XDIG_SHA512_DIGEST_LENGTH;
 }
 
-unsigned char *xdig_sha512(const unsigned char *d, size_t n, unsigned char *md)
+unsigned char *xdig_sha512(const void *d, size_t n, unsigned char *md)
 {
     xdig_sha512_ctx_t ctx;
 
@@ -298,9 +302,9 @@ void xdig_sha512_ctx_final(xdig_sha512_ctx_t *c, unsigned char *md)
     }
 }
 
-void xdig_sha384_ctx_final(xdig_sha512_ctx_t *c, unsigned char *md)
+void xdig_sha384_ctx_final(xdig_sha384_ctx_t *c, unsigned char *md)
 {
-    xdig_sha512_ctx_final(c, md);
+    xdig_sha512_ctx_final(&c->state, md);
 }
 
 void xdig_sha512_ctx_update(xdig_sha512_ctx_t *c, const void *_data, size_t len)
@@ -346,18 +350,18 @@ void xdig_sha512_ctx_update(xdig_sha512_ctx_t *c, const void *_data, size_t len)
         memcpy(p, data, len), c->num = (int)len;
 }
 
-void xdig_sha384_ctx_update(xdig_sha512_ctx_t *c, const void *data, size_t len)
+void xdig_sha384_ctx_update(xdig_sha384_ctx_t *c, const void *data, size_t len)
 {
-    xdig_sha512_ctx_update(c, data, len);
+    xdig_sha512_ctx_update(&c->state, data, len);
 }
 
-void xdig_sha512_ctx_transform(xdig_sha512_ctx_t *c, const unsigned char *data)
+void xdig_sha512_ctx_transform(xdig_sha384_ctx_t *c, const unsigned char *data)
 {
 #ifndef SHA512_BLOCK_CAN_MANAGE_UNALIGNED_DATA
     if ((size_t)data % sizeof(c->u.d[0]) != 0)
         memcpy(c->u.p, data, sizeof(c->u.p)), data = c->u.p;
 #endif
-    sha512_block_data_order(c, data, 1);
+    sha512_block_data_order(&c->state, data, 1);
 }
 
 #if !defined(SHA512_ASM) || defined(INCLUDE_C_SHA512)
