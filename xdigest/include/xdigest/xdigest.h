@@ -36,7 +36,7 @@ void xdig_init(void);
 
 #define XDIG_VERSION_MAJOR 0
 #define XDIG_VERSION_MINOR 2
-#define XDIG_VERSION_PATCH 0
+#define XDIG_VERSION_PATCH 1
 
 typedef struct xdig_version_t
 {
