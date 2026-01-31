@@ -48,7 +48,7 @@ typedef struct SHAstate_st {
 
 void xdig_sha1_ctx_init(xdig_sha1_ctx_t *c);
 void xdig_sha1_ctx_update(xdig_sha1_ctx_t *c, const void *data, size_t len);
-void xdig_sha1_ctx_final(unsigned char *md, xdig_sha1_ctx_t *c);
+void xdig_sha1_ctx_final(xdig_sha1_ctx_t *c, unsigned char *md);
 void xdig_sha1_ctx_transform(xdig_sha1_ctx_t *c, const unsigned char *data);
 # endif
 
@@ -69,11 +69,11 @@ typedef struct SHA256state_st {
 void xdig_sha224_ctx_init(xdig_sha256_ctx_t *c);
 void xdig_sha224_ctx_update(xdig_sha256_ctx_t *c,
                                         const void *data, size_t len);
-void xdig_sha224_ctx_final(unsigned char *md, xdig_sha256_ctx_t *c);
+void xdig_sha224_ctx_final(xdig_sha256_ctx_t *c, unsigned char *md);
 void xdig_sha256_ctx_init(xdig_sha256_ctx_t *c);
 void xdig_sha256_ctx_update(xdig_sha256_ctx_t *c,
                                         const void *data, size_t len);
-void xdig_sha256_ctx_final(unsigned char *md, xdig_sha256_ctx_t *c);
+void xdig_sha256_ctx_final(xdig_sha256_ctx_t *c, unsigned char *md);
 void xdig_sha256_ctx_transform(xdig_sha256_ctx_t *c,
                                             const unsigned char *data);
 # endif
@@ -120,11 +120,11 @@ typedef struct SHA512state_st {
 void xdig_sha384_ctx_init(xdig_sha512_ctx_t *c);
 void xdig_sha384_ctx_update(xdig_sha512_ctx_t *c,
                                         const void *data, size_t len);
-void xdig_sha384_ctx_final(unsigned char *md, xdig_sha512_ctx_t *c);
+void xdig_sha384_ctx_final(xdig_sha512_ctx_t *c, unsigned char *md);
 void xdig_sha512_ctx_init(xdig_sha512_ctx_t *c);
 void xdig_sha512_ctx_update(xdig_sha512_ctx_t *c,
                                         const void *data, size_t len);
-void xdig_sha512_ctx_final(unsigned char *md, xdig_sha512_ctx_t *c);
+void xdig_sha512_ctx_final(xdig_sha512_ctx_t *c, unsigned char *md);
 void xdig_sha512_ctx_transform(xdig_sha512_ctx_t *c,
                                             const unsigned char *data);
 # endif

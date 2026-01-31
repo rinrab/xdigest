@@ -217,7 +217,7 @@ void HASH_TRANSFORM(HASH_CTX *c, const unsigned char *data)
     HASH_BLOCK_DATA_ORDER(c, data, 1);
 }
 
-void HASH_FINAL(unsigned char *md, HASH_CTX *c)
+void HASH_FINAL(HASH_CTX *c, unsigned char *md)
 {
     unsigned char *p = (unsigned char *)c->data;
     size_t n = c->num;

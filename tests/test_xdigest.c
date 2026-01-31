@@ -25,7 +25,7 @@ int setup_tests(void);
         while (xdig_bench__ctx_next(bench)) { \
             xdig_##name##_ctx_update(ctx, bench->buf, bench->bufsize); \
         } \
-        xdig_##name##_ctx_final(digest, ctx); \
+        xdig_##name##_ctx_final(ctx, digest); \
         xdig_bench__ctx_finish(bench); \
         xdig_bench__ctx_free(bench); \
         free(ctx); \

@@ -30,7 +30,7 @@ xdig_md4(const unsigned char *data, size_t len, unsigned char *digest)
 
     xdig_md4_ctx_init(&ctx);
     xdig_md4_ctx_update(&ctx, data, len);
-    xdig_md4_ctx_final(digest, &ctx);
+    xdig_md4_ctx_final(&ctx, digest);
     xdig_cleanse(&ctx, sizeof(ctx)); /* security consideration */
 
     return digest;

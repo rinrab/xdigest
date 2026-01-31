@@ -178,10 +178,10 @@ int main() {
 
     xdig_init();
 
-    xdig_sha256_init(ctx);
-    xdig_sha256_update(ctx, "abc", 3);
-    xdig_sha256_update(ctx, "more things", sizeof("more things"));
-    xdig_sha256_final(digest1, ctx);
+    xdig_sha256_ctx_init(ctx);
+    xdig_sha256_ctx_update(ctx, "abc", 3);
+    xdig_sha256_ctx_update(ctx, "more things", sizeof("more things"));
+    xdig_sha256_ctx_final(ctx, digest1);
 
     /* There is also a convenience wrapper. */
     xdig_sha256("abcmore things", sizeof("abcmore things"), digest2);

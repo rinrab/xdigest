@@ -47,8 +47,8 @@ void xdig_sha1_ctx_update(xdig_sha1_ctx_t *ctx,
                           const void *data,
                           size_t len);
 
-void xdig_sha1_ctx_final(unsigned char *digest,
-                         xdig_sha1_ctx_t *ctx);
+void xdig_sha1_ctx_final(xdig_sha1_ctx_t *ctx,
+                         unsigned char *digest);
 
 unsigned char *
 xdig_sha1(const void *data,

@@ -149,7 +149,7 @@ static void md2_block(xdig_md2_ctx_t *c, const unsigned char *d)
     xdig_cleanse(state, 48 * sizeof(MD2_INT));
 }
 
-void xdig_md2_ctx_final(unsigned char *md, xdig_md2_ctx_t *c)
+void xdig_md2_ctx_final(xdig_md2_ctx_t *c, unsigned char *md)
 {
     int i, v;
     register UCHAR *cp;

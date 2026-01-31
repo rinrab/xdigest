@@ -59,7 +59,7 @@ unsigned char *xdig_sha256(const unsigned char *d, size_t n, unsigned char *md)
 
     xdig_sha256_ctx_init(&ctx);
     xdig_sha256_ctx_update(&ctx, d, n);
-    xdig_sha256_ctx_final(md, &ctx);
+    xdig_sha256_ctx_final(&ctx, md);
 
     return md;
 }
@@ -75,9 +75,9 @@ void xdig_sha224_ctx_update(xdig_sha256_ctx_t *c, const void *data, size_t len)
     xdig_sha256_ctx_update(c, data, len);
 }
 
-void xdig_sha224_ctx_final(unsigned char *md, xdig_sha256_ctx_t *c)
+void xdig_sha224_ctx_final(xdig_sha256_ctx_t *c, unsigned char *md)
 {
-    xdig_sha256_ctx_final(md, c);
+    xdig_sha256_ctx_final(c, md);
 }
 
 unsigned char *xdig_sha224(const unsigned char *d, size_t n, unsigned char *md)
@@ -86,7 +86,7 @@ unsigned char *xdig_sha224(const unsigned char *d, size_t n, unsigned char *md)
 
     xdig_sha224_ctx_init(&ctx);
     xdig_sha224_ctx_update(&ctx, d, n);
-    xdig_sha224_ctx_final(md, &ctx);
+    xdig_sha224_ctx_final(&ctx, md);
 
     return md;
 }

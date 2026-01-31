@@ -30,7 +30,7 @@ xdig_md2(const unsigned char *data, size_t len, unsigned char *digest)
 
     xdig_md2_ctx_init(&ctx);
     xdig_md2_ctx_update(&ctx, data, len);
-    xdig_md2_ctx_final(digest, &ctx);
+    xdig_md2_ctx_final(&ctx, digest);
     xdig_cleanse(&ctx, sizeof(ctx)); /* Security consideration */
 
     return digest;

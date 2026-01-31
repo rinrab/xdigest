@@ -44,7 +44,7 @@ const char *xdig_md2_ctx_options(void);
 void xdig_md2_ctx_init(xdig_md2_ctx_t *c);
 void xdig_md2_ctx_update(xdig_md2_ctx_t *c, const unsigned char *data,
                                      size_t len);
-void xdig_md2_ctx_final(unsigned char *md, xdig_md2_ctx_t *c);
+void xdig_md2_ctx_final(xdig_md2_ctx_t *c, unsigned char *md);
 unsigned char *xdig_md2(const unsigned char *d, size_t n,
                                          unsigned char *md);
 #  endif
