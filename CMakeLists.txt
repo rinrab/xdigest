@@ -98,7 +98,8 @@ if (ENABLE_TESTS)
 endif()
 
 target_include_directories(xdigest PUBLIC
-    "${CMAKE_CURRENT_SOURCE_DIR}/xdigest/include/xdigest"
+    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/xdigest/include/xdigest>"
+    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/xdigest>"
 )
 
 target_include_directories(xdigest PRIVATE
