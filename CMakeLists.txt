@@ -107,7 +107,30 @@ target_include_directories(xdigest PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/xdigest/core"
 )
 
-install(TARGETS xdigest)
+# Installation
+install(
+    TARGETS xdigest
+    EXPORT xdigest-config
+)
+
+include(CMakePackageConfigHelpers)
+
+install(
+    EXPORT xdigest-config
+    NAMESPACE xdigest::
+    FILE "xdigest-config.cmake"
+    DESTINATION "lib/cmake/xdigest"
+)
+
+write_basic_package_version_file(
+    "${CMAKE_CURRENT_BINARY_DIR}/xdigest-config-version.cmake"
+    VERSION ${XDIG_VERSION}
+    COMPATIBILITY SameMajorVersion
+)
+install(
+    FILES "${CMAKE_CURRENT_BINARY_DIR}/xdigest-config-version.cmake"
+    DESTINATION "lib/cmake/xdigest"
+)
 
 file(GLOB public_headers "xdigest/include/xdigest/*.h")
 install(FILES
