@@ -8,7 +8,7 @@
  */
 
 
-#if defined(__aarch64__) || defined(_M_ARM64)
+#if (defined(__aarch64__) || defined(_M_ARM64)) && !defined(NO_ASM)
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
