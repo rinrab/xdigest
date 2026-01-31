@@ -41,13 +41,13 @@ typedef struct xdig_sha224_ctx_t xdig_sha224_ctx_t;
 
 size_t xdig_sha224_ctx_size(void);
 
-int xdig_sha224_ctx_init(xdig_sha224_ctx_t *ctx);
+void xdig_sha224_ctx_init(xdig_sha224_ctx_t *ctx);
 
-int xdig_sha224_ctx_update(xdig_sha224_ctx_t *ctx,
+void xdig_sha224_ctx_update(xdig_sha224_ctx_t *ctx,
                            const void *data,
                            size_t len);
 
-int xdig_sha224_ctx_final(xdig_sha224_ctx_t *ctx,
+void xdig_sha224_ctx_final(xdig_sha224_ctx_t *ctx,
                           unsigned char *digest);
 
 unsigned char *
@@ -64,13 +64,13 @@ size_t xdig_sha256_ctx_size(void);
 
 #define XDIG_SHA256_DIGEST_LENGTH 32
 
-int xdig_sha256_ctx_init(xdig_sha256_ctx_t *ctx);
+void xdig_sha256_ctx_init(xdig_sha256_ctx_t *ctx);
 
-int xdig_sha256_ctx_update(xdig_sha256_ctx_t *ctx,
+void xdig_sha256_ctx_update(xdig_sha256_ctx_t *ctx,
                            const void *data,
                            size_t len);
 
-int xdig_sha256_ctx_final(xdig_sha256_ctx_t *ctx,
+void xdig_sha256_ctx_final(xdig_sha256_ctx_t *ctx,
                           unsigned char *digest);
 
 unsigned char *
@@ -89,13 +89,13 @@ size_t xdig_sha384_ctx_size(void);
 
 #define XDIG_SHA384_DIGEST_LENGTH 48
 
-int xdig_sha384_ctx_init(xdig_sha384_ctx_t *ctx);
+void xdig_sha384_ctx_init(xdig_sha384_ctx_t *ctx);
 
-int xdig_sha384_ctx_update(xdig_sha384_ctx_t *ctx,
+void xdig_sha384_ctx_update(xdig_sha384_ctx_t *ctx,
                            const void *data,
                            size_t len);
 
-int xdig_sha384_ctx_final(xdig_sha384_ctx_t *ctx,
+void xdig_sha384_ctx_final(xdig_sha384_ctx_t *ctx,
                           unsigned char *digest);
 
 unsigned char *
@@ -112,13 +112,13 @@ size_t xdig_sha512_ctx_size(void);
 
 #define XDIG_SHA512_DIGEST_LENGTH 64
 
-int xdig_sha512_ctx_init(xdig_sha512_ctx_t *ctx);
+void xdig_sha512_ctx_init(xdig_sha512_ctx_t *ctx);
 
-int xdig_sha512_ctx_update(xdig_sha512_ctx_t *ctx,
+void xdig_sha512_ctx_update(xdig_sha512_ctx_t *ctx,
                            const void *data,
                            size_t len);
 
-int xdig_sha512_ctx_final(xdig_sha512_ctx_t *ctx,
+void xdig_sha512_ctx_final(xdig_sha512_ctx_t *ctx,
                           unsigned char *digest);
 
 unsigned char *
