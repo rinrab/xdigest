@@ -21,7 +21,7 @@ supported algorithm.
 Below, is a table of test results ran locally on my power-plant laptop (with
 Linux).
 
-| algorithm | speed (with assembly) | without assembly (NO_ASM=1) |
+| algorithm | with assembly | without assembly (NO_ASM=1) |
 |---|---|---|
 |   sha1 | 1.91 GB/s | 0.85 GB/s |
 | sha224 | 1.71 GB/s | 0.30 GB/s |
