@@ -20,24 +20,7 @@
 
 #include "sha256_local.h"
 
-struct xdig_sha224_ctx_t {
-    xdig_sha256_ctx_t state;
-};
-
-void xdig_sha224_ctx_init(xdig_sha224_ctx_t *c)
-{
-    memset(c, 0, sizeof(*c));
-    c->state.h[0] = 0xc1059ed8UL;
-    c->state.h[1] = 0x367cd507UL;
-    c->state.h[2] = 0x3070dd17UL;
-    c->state.h[3] = 0xf70e5939UL;
-    c->state.h[4] = 0xffc00b31UL;
-    c->state.h[5] = 0x68581511UL;
-    c->state.h[6] = 0x64f98fa7UL;
-    c->state.h[7] = 0xbefa4fa4UL;
-    c->state.md_len = XDIG_SHA224_DIGEST_LENGTH;
-}
-
+/* SHA256 */
 void xdig_sha256_ctx_init(xdig_sha256_ctx_t *c)
 {
     memset(c, 0, sizeof(*c));
@@ -63,11 +46,30 @@ unsigned char *xdig_sha256(const void *d, size_t n, unsigned char *md)
     return md;
 }
 
-void ossl_sha256_192_init(xdig_sha256_ctx_t *c)
+size_t xdig_sha256_ctx_size(void)
 {
-    xdig_sha256_ctx_init(c);
-    c->md_len = XDIG_SHA256_192_DIGEST_LENGTH;
+    return sizeof(xdig_sha256_ctx_t);
 }
+
+/* SHA224 */
+struct xdig_sha224_ctx_t {
+    xdig_sha256_ctx_t state;
+};
+
+void xdig_sha224_ctx_init(xdig_sha224_ctx_t *c)
+{
+    memset(c, 0, sizeof(*c));
+    c->state.h[0] = 0xc1059ed8UL;
+    c->state.h[1] = 0x367cd507UL;
+    c->state.h[2] = 0x3070dd17UL;
+    c->state.h[3] = 0xf70e5939UL;
+    c->state.h[4] = 0xffc00b31UL;
+    c->state.h[5] = 0x68581511UL;
+    c->state.h[6] = 0x64f98fa7UL;
+    c->state.h[7] = 0xbefa4fa4UL;
+    c->state.md_len = XDIG_SHA224_DIGEST_LENGTH;
+}
+
 
 void xdig_sha224_ctx_update(xdig_sha224_ctx_t *c, const void *data, size_t len)
 {
@@ -90,12 +92,14 @@ unsigned char *xdig_sha224(const void *d, size_t n, unsigned char *md)
     return md;
 }
 
-size_t xdig_sha256_ctx_size(void)
-{
-    return sizeof(xdig_sha256_ctx_t);
-}
-
 size_t xdig_sha224_ctx_size(void)
 {
     return sizeof(xdig_sha224_ctx_t);
+}
+
+/* SHA256_192 */
+void ossl_sha256_192_init(xdig_sha256_ctx_t *c)
+{
+    xdig_sha256_ctx_init(c);
+    c->md_len = XDIG_SHA256_192_DIGEST_LENGTH;
 }
