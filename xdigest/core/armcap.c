@@ -8,7 +8,18 @@
  */
 
 
-#if (defined(__aarch64__) || defined(_M_ARM64)) && !defined(NO_ASM)
+/* This feature is only available on ARM architecture. */
+#if defined(__aarch64__) || defined(_M_ARM64)
+
+/*
+ * We must provide dummy implementation of xdig_init() function if ASM is
+ * disabled. But no need to do any real work in it. yet. and probably ever.
+ */
+#ifdef NO_ASM
+void xdig_init()
+{
+}
+#else /* NO_ASM */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -452,4 +463,5 @@ void xdig_init()
     xdig_cpuid_setup();
 }
 
+#endif /* NO_ASM */
 #endif /* arm */
