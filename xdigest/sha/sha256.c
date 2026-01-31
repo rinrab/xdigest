@@ -19,24 +19,30 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <xdigest/xdigest_sha2.h>
+
 /* ignored include 'openssl/crypto.h' */
 #include "internal/sha.h"
 /* ignored include 'openssl/opensslv.h' */
 #include "internal/endian.h"
 #include "crypto/sha.h"
 
-void xdig_sha224_ctx_init(xdig_sha256_ctx_t *c)
+struct xdig_sha224_ctx_t {
+    xdig_sha256_ctx_t state;
+};
+
+void xdig_sha224_ctx_init(xdig_sha224_ctx_t *c)
 {
     memset(c, 0, sizeof(*c));
-    c->h[0] = 0xc1059ed8UL;
-    c->h[1] = 0x367cd507UL;
-    c->h[2] = 0x3070dd17UL;
-    c->h[3] = 0xf70e5939UL;
-    c->h[4] = 0xffc00b31UL;
-    c->h[5] = 0x68581511UL;
-    c->h[6] = 0x64f98fa7UL;
-    c->h[7] = 0xbefa4fa4UL;
-    c->md_len = XDIG_SHA224_DIGEST_LENGTH;
+    c->state.h[0] = 0xc1059ed8UL;
+    c->state.h[1] = 0x367cd507UL;
+    c->state.h[2] = 0x3070dd17UL;
+    c->state.h[3] = 0xf70e5939UL;
+    c->state.h[4] = 0xffc00b31UL;
+    c->state.h[5] = 0x68581511UL;
+    c->state.h[6] = 0x64f98fa7UL;
+    c->state.h[7] = 0xbefa4fa4UL;
+    c->state.md_len = XDIG_SHA224_DIGEST_LENGTH;
 }
 
 void xdig_sha256_ctx_init(xdig_sha256_ctx_t *c)
@@ -53,7 +59,7 @@ void xdig_sha256_ctx_init(xdig_sha256_ctx_t *c)
     c->md_len = XDIG_SHA256_DIGEST_LENGTH;
 }
 
-unsigned char *xdig_sha256(const unsigned char *d, size_t n, unsigned char *md)
+unsigned char *xdig_sha256(const void *d, size_t n, unsigned char *md)
 {
     xdig_sha256_ctx_t ctx;
 
@@ -70,19 +76,19 @@ void ossl_sha256_192_init(xdig_sha256_ctx_t *c)
     c->md_len = XDIG_SHA256_192_DIGEST_LENGTH;
 }
 
-void xdig_sha224_ctx_update(xdig_sha256_ctx_t *c, const void *data, size_t len)
+void xdig_sha224_ctx_update(xdig_sha224_ctx_t *c, const void *data, size_t len)
 {
-    xdig_sha256_ctx_update(c, data, len);
+    xdig_sha256_ctx_update(&c->state, data, len);
 }
 
-void xdig_sha224_ctx_final(xdig_sha256_ctx_t *c, unsigned char *md)
+void xdig_sha224_ctx_final(xdig_sha224_ctx_t *c, unsigned char *md)
 {
-    xdig_sha256_ctx_final(c, md);
+    xdig_sha256_ctx_final(&c->state, md);
 }
 
-unsigned char *xdig_sha224(const unsigned char *d, size_t n, unsigned char *md)
+unsigned char *xdig_sha224(const void *d, size_t n, unsigned char *md)
 {
-    xdig_sha256_ctx_t ctx;
+    xdig_sha224_ctx_t ctx;
 
     xdig_sha224_ctx_init(&ctx);
     xdig_sha224_ctx_update(&ctx, d, n);
@@ -98,7 +104,7 @@ size_t xdig_sha256_ctx_size(void)
 
 size_t xdig_sha224_ctx_size(void)
 {
-    return xdig_sha256_ctx_size();
+    return sizeof(xdig_sha224_ctx_t);
 }
 
 #define DATA_ORDER_IS_BIG_ENDIAN
