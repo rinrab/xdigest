@@ -2,15 +2,15 @@
 
 #include "sha_local.h"
 
-unsigned char *xdig_sha1(const unsigned char *d, size_t n, unsigned char *md)
+unsigned char *xdig_sha1(const unsigned char *data, size_t len, unsigned char *digest)
 {
     xdig_sha1_ctx_t ctx;
 
     xdig_sha1_ctx_init(&ctx);
-    xdig_sha1_ctx_update(&ctx, d, n);
-    xdig_sha1_ctx_final(&ctx, md);
+    xdig_sha1_ctx_update(&ctx, data, len);
+    xdig_sha1_ctx_final(&ctx, digest);
 
-    return md;
+    return digest;
 }
 
 size_t xdig_sha1_ctx_size(void)
