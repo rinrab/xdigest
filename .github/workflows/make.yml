@@ -26,6 +26,18 @@ jobs:
     - run: make rebuild install test prefix=${{ github.workspace }}install CONFIG=linux32
     - run: make rebuild install test prefix=${{ github.workspace }}install CONFIG=linux32 NO_ASM=1
 
+  macosx:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - run: make rebuild install test prefix=${{ github.workspace }}install CONFIG=macosx64
+    - run: make rebuild install test prefix=${{ github.workspace }}install CONFIG=macosx64 NO_ASM=1
+
+    - run: make rebuild install prefix=${{ github.workspace }}installarm CONFIG=macosxaarch64
+    - run: make rebuild install prefix=${{ github.workspace }}installarm CONFIG=macosxaarch64 NO_ASM=1
+
   linux-cross-compile-arm:
     runs-on: ubuntu-latest
     steps:
