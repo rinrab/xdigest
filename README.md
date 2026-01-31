@@ -1,6 +1,6 @@
 # xdigest
 
-Extremely fast digest algorithms packaged into a lightweight library.
+Extremely fast digest algorithm implementations packaged into a lightweight library.
 
 ## Features
 
