@@ -38,7 +38,9 @@ example: tests/example.o xdigest/libxdigest.so
 	$(LINK_PROGRAM) $@ $^
 
 test: test_xdigest
-	export "LD_LIBRARY_PATH=$(CURDIR):$(LD_LIBRARY_PATH)" && ./test_xdigest
+	export "LD_LIBRARY_PATH=$(CURDIR):$(LD_LIBRARY_PATH)"
+	export "DYLD_LIBRARY_PATH=$(CURDIR):$(DYLD_LIBRARY_PATH)"
+	./test_xdigest
 
 VCPKG_TRIPLET ?= x64-linux
 
