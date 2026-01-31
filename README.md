@@ -294,7 +294,7 @@ Focus on stabilisation and moving towards being included into various package
 destributions. It will also get its 1.0 version number.
 
 A nice place in Apache Subversion's codebase exists where this library will be
-extreamly useful. We'll be suggested as an option for its checksum backend
+really useful. We'll be suggested as an option for its checksum backend
 library.
 
 Now, it's also time to support Windows platform. Most probably, we should be
