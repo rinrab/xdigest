@@ -40,8 +40,6 @@
  *      HASH_UPDATE.
  * HASH_UPDATE
  *      name of "Update" function, implemented here.
- * HASH_TRANSFORM
- *      name of "Transform" function, implemented here.
  * HASH_FINAL
  *      name of "Final" function, implemented here.
  * HASH_BLOCK_DATA_ORDER
@@ -58,7 +56,6 @@
  *      #define HASH_CTX                xdig_md5_ctx_t
  *      #define HASH_CBLOCK             XDIG_MD5_CBLOCK
  *      #define HASH_UPDATE             MD5_Update
- *      #define HASH_TRANSFORM          MD5_Transform
  *      #define HASH_FINAL              MD5_Final
  *      #define HASH_BLOCK_DATA_ORDER   md5_block_data_order
  */
@@ -89,9 +86,6 @@
 
 # ifndef HASH_UPDATE
 #  error "HASH_UPDATE must be defined!"
-# endif
-# ifndef HASH_TRANSFORM
-#  error "HASH_TRANSFORM must be defined!"
 # endif
 # ifndef HASH_FINAL
 #  error "HASH_FINAL must be defined!"
@@ -210,11 +204,6 @@ void HASH_UPDATE(HASH_CTX *c, const void *data_, size_t len)
         c->num = (unsigned int)len;
         memcpy(p, data, len);
     }
-}
-
-void HASH_TRANSFORM(HASH_CTX *c, const unsigned char *data)
-{
-    HASH_BLOCK_DATA_ORDER(c, data, 1);
 }
 
 void HASH_FINAL(HASH_CTX *c, unsigned char *md)

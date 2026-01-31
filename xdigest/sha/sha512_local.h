@@ -226,15 +226,6 @@ void xdig_sha512_ctx_update(xdig_sha512_ctx_t *c, const void *_data, size_t len)
         memcpy(p, data, len), c->num = (int)len;
 }
 
-void xdig_sha512_ctx_transform(xdig_sha512_ctx_t *c, const unsigned char *data)
-{
-#ifndef SHA512_BLOCK_CAN_MANAGE_UNALIGNED_DATA
-    if ((size_t)data % sizeof(c->u.d[0]) != 0)
-        memcpy(c->u.p, data, sizeof(c->u.p)), data = c->u.p;
-#endif
-    sha512_block_data_order(c, data, 1);
-}
-
 #if !defined(SHA512_ASM) || defined(INCLUDE_C_SHA512)
 static const XDIG_SHA_LONG64 K512[80] = {
     U64(0x428a2f98d728ae22), U64(0x7137449123ef65cd),

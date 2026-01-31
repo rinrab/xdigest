@@ -29,7 +29,6 @@
         } while (0)
 
 #define HASH_UPDATE                     xdig_sha1_ctx_update
-#define HASH_TRANSFORM                  xdig_sha1_ctx_transform
 #define HASH_FINAL                      xdig_sha1_ctx_final
 #define HASH_INIT                       xdig_sha1_ctx_init
 #define HASH_BLOCK_DATA_ORDER           sha1_block_data_order

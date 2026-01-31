@@ -52,7 +52,6 @@ void xdig_md4_ctx_update(xdig_md4_ctx_t *c, const void *data, size_t len);
 void xdig_md4_ctx_final(xdig_md4_ctx_t *c, unsigned char *md);
 unsigned char *xdig_md4(const unsigned char *d, size_t n,
                                          unsigned char *md);
-void xdig_md4_ctx_transform(xdig_md4_ctx_t *c, const unsigned char *b);
 #  endif
 
 #  ifdef  __cplusplus
