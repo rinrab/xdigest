@@ -20,6 +20,7 @@
 
 # ifndef xdig_NO_MD5
 #include "internal/e_os2.h"
+#include "xdigest_md5.h"
 #  include <stddef.h>
 #  ifdef  __cplusplus
 extern "C" {
@@ -38,19 +39,13 @@ extern "C" {
 #   define XDIG_MD5_CBLOCK      64
 #   define XDIG_MD5_LBLOCK      (XDIG_MD5_CBLOCK/4)
 
-typedef struct MD5state_st {
+struct xdig_md5_ctx_t {
     XDIG_MD5_LONG A, B, C, D;
     XDIG_MD5_LONG Nl, Nh;
     XDIG_MD5_LONG data[XDIG_MD5_LBLOCK];
     unsigned int num;
-} xdig_md5_ctx_t;
-#  endif
-#  ifndef xdig_NO_DEPRECATED_3_0
-void xdig_md5_ctx_init(xdig_md5_ctx_t *c);
-void xdig_md5_ctx_update(xdig_md5_ctx_t *c, const void *data, size_t len);
-void xdig_md5_ctx_final(xdig_md5_ctx_t *c, unsigned char *md);
-unsigned char *xdig_md5(const unsigned char *d, size_t n,
-                                         unsigned char *md);
+};
+
 #  endif
 
 #  ifdef  __cplusplus
