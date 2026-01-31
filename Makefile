@@ -17,6 +17,9 @@ all:
 clean:
 	"$(MAKE)" -C xdigest $@ $(MAKE_FLAGS)
 	@find . -name '*.rej' | xargs $(RM)
+	@find . -name '*.o' | xargs $(RM)
+	@find . -name '*.so*' | xargs $(RM)
+	$(RM) test_xdigest example
 
 install:
 	"$(MAKE)" -C xdigest $@ $(MAKE_FLAGS)
