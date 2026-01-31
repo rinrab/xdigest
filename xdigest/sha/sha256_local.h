@@ -52,7 +52,6 @@
     } while (0)
 
 #define HASH_UPDATE             xdig_sha256_ctx_update
-#define HASH_TRANSFORM          xdig_sha256_ctx_transform
 #define HASH_FINAL              xdig_sha256_ctx_final
 #define HASH_BLOCK_DATA_ORDER   sha256_block_data_order
 

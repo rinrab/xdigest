@@ -20,7 +20,6 @@ void md4_block_data_order(xdig_md4_ctx_t *c, const void *p, size_t num);
 #define HASH_CTX                xdig_md4_ctx_t
 #define HASH_CBLOCK             XDIG_MD4_CBLOCK
 #define HASH_UPDATE             xdig_md4_ctx_update
-#define HASH_TRANSFORM          xdig_md4_ctx_transform
 #define HASH_FINAL              xdig_md4_ctx_final
 #define HASH_MAKE_STRING(c,s)   do {    \
         unsigned long ll;               \
