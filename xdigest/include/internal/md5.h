@@ -48,7 +48,7 @@ typedef struct MD5state_st {
 #  ifndef xdig_NO_DEPRECATED_3_0
 void xdig_md5_ctx_init(xdig_md5_ctx_t *c);
 void xdig_md5_ctx_update(xdig_md5_ctx_t *c, const void *data, size_t len);
-void xdig_md5_ctx_final(unsigned char *md, xdig_md5_ctx_t *c);
+void xdig_md5_ctx_final(xdig_md5_ctx_t *c, unsigned char *md);
 unsigned char *xdig_md5(const unsigned char *d, size_t n,
                                          unsigned char *md);
 void xdig_md5_ctx_transform(xdig_md5_ctx_t *c, const unsigned char *b);

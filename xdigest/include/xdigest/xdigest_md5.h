@@ -47,8 +47,8 @@ void xdig_md5_ctx_update(xdig_md5_ctx_t *ctx,
                          const void *data,
                          size_t len);
 
-void xdig_md5_ctx_final(unsigned char *digest,
-                        xdig_md5_ctx_t *ctx);
+void xdig_md5_ctx_final(xdig_md5_ctx_t *ctx,
+                        unsigned char *digest);
 
 unsigned char *
 xdig_md5(const void *data,

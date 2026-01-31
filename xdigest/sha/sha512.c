@@ -132,7 +132,7 @@ unsigned char *xdig_sha384(const unsigned char *d, size_t n, unsigned char *md)
 
     xdig_sha384_ctx_init(&ctx);
     xdig_sha384_ctx_update(&ctx, d, n);
-    xdig_sha384_ctx_final(md, &ctx);
+    xdig_sha384_ctx_final(&ctx, md);
 
     return md;
 }
@@ -160,7 +160,7 @@ unsigned char *xdig_sha512(const unsigned char *d, size_t n, unsigned char *md)
 
     xdig_sha512_ctx_init(&ctx);
     xdig_sha512_ctx_update(&ctx, d, n);
-    xdig_sha512_ctx_final(md, &ctx);
+    xdig_sha512_ctx_final(&ctx, md);
 
     return md;
 }
@@ -184,7 +184,7 @@ void sha512_block_data_order_c(xdig_sha512_ctx_t *ctx, const void *in, size_t nu
 #endif
 void sha512_block_data_order(xdig_sha512_ctx_t *ctx, const void *in, size_t num);
 
-void xdig_sha512_ctx_final(unsigned char *md, xdig_sha512_ctx_t *c)
+void xdig_sha512_ctx_final(xdig_sha512_ctx_t *c, unsigned char *md)
 {
     unsigned char *p = (unsigned char *)c->u.p;
     size_t n = c->num;
@@ -298,9 +298,9 @@ void xdig_sha512_ctx_final(unsigned char *md, xdig_sha512_ctx_t *c)
     }
 }
 
-void xdig_sha384_ctx_final(unsigned char *md, xdig_sha512_ctx_t *c)
+void xdig_sha384_ctx_final(xdig_sha512_ctx_t *c, unsigned char *md)
 {
-    xdig_sha512_ctx_final(md, c);
+    xdig_sha512_ctx_final(c, md);
 }
 
 void xdig_sha512_ctx_update(xdig_sha512_ctx_t *c, const void *_data, size_t len)
