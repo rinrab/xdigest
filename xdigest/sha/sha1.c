@@ -2,7 +2,7 @@
 
 #include "sha_local.h"
 
-unsigned char *xdig_sha1(const void *data, size_t len, unsigned char *digest)
+unsigned char *xdig_sha1(const unsigned char *data, size_t len, unsigned char *digest)
 {
     xdig_sha1_ctx_t ctx;
 
