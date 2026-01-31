@@ -25,52 +25,12 @@ def mkdir(path):
     except:
         pass
 
-crypto = "openssl/crypto"
-openssl_include = "openssl/include"
-
-asm = "asm"
-xdigest = "xdigest"
-
-mkdir(os.path.join(xdigest, "sha"))
-mkdir(os.path.join(xdigest, "md5"))
-mkdir(os.path.join(xdigest, "md4"))
-mkdir(os.path.join(xdigest, "md2"))
-mkdir(os.path.join(xdigest, "core"))
-
-include_path = "xdigest/include"
-mkdir(include_path)
-mkdir(os.path.join(include_path, "xdigest"))
-mkdir(os.path.join(include_path, "internal"))
-mkdir(os.path.join(include_path, "crypto"))
-
 def copy_fixup(input, output):
     with open(input, 'r') as file:
         data = file.read()
 
         data = data.replace("OPENSSL_", "xdig_")
         data = data.replace("CRYPTO_", "xdig_")
-
-        remove_includes = [
-            "openssl/crypto.h",
-            "openssl/configuration.h",
-            "openssl/opensslconf.h",
-            "openssl/opensslv.h",
-            "openssl/macros.h",
-            "openssl/ebcdic.h",
-            "crypto/cryptlib.h",
-            "internal/cryptlib.h",
-            "internal/nelem.h",
-            "internal/deprecated.h",
-        ]
-
-        hidden_includes = [
-            "openssl/e_os2.h",
-            "openssl/sha.h",
-            "openssl/md2.h",
-            "openssl/md4.h",
-            "openssl/md5.h",
-            "openssl/sha.h",
-        ]
 
         # SHA1_Update -> xdig_sha1_ctx_update
         def convert_func_name(name):
@@ -90,40 +50,8 @@ def copy_fixup(input, output):
             name = name.lower()
             return f"xdig_{name}_t"
 
-        for inc in remove_includes:
-            inc = re.escape(inc)
-
-            data = re.sub(rf"^#\s*include [<\"]({inc})[>\"]$",
-                          r"/* ignored include '\1' */",
-                          data, flags=re.MULTILINE)
-
-        for inc in hidden_includes:
-            inc = re.escape(inc)
-
-            data = re.sub(rf"^#\s*include [<\"]({inc})[>\"]$",
-                          lambda match: f"#include \"{match[1].replace("openssl", "internal")}\"",
-                          data, flags=re.MULTILINE)
-
-        data = re.sub(r"include <openssl\/([^>]*)>",
-                      r"include <xdig/\1>",
-                      data, flags=re.MULTILINE)
-
-        data = re.sub(r"((SHA|MD)\d+_?\w*\()",
-                      lambda match: convert_func_name(match[1]),
-                      data, flags=re.MULTILINE)
-
-        data = re.sub(r"OSSL_DEPRECATEDIN_3_0\s*", "",
-                      data, flags=re.MULTILINE)
-
-        data = re.sub(r"((SHA|MD)\d*_CTX)", convert_ctx_name,
-                      data, flags=re.MULTILINE)
-
         data = re.sub(r"((SHA|MD)([\w_]*)_(DIGEST_LENGTH|LBLOCK|CBLOCK|LONG|LAST_BLOCK))",
                       r"XDIG_\1",
-                      data, flags=re.MULTILINE)
-
-        data = re.sub(r"^(#define HASH_\w+\s+)((SHA|MD)(\d*)_(Update|Final|Transform|Init))$",
-                      lambda match: f"{match[1]}{convert_func_name(match[2])}",
                       data, flags=re.MULTILINE)
 
     output.replace("openssl", "xdigest")
@@ -148,30 +76,12 @@ def perlasm(configs, file, outputname = None):
  
         os.environ["CC"] = compiler
 
-        input = os.path.join(crypto, file + ".pl")
+        input = os.path.join("openssl/crypto", file + ".pl")
 
         mkdir(os.path.dirname(output))
 
         subprocess.call(["perl", input, config, output])
         copy_fixup(output, output)
-
-def source(path, outdir = ""):
-    input = os.path.join(crypto, path)
-    output = os.path.join(xdigest, outdir, path)
-
-    copy_fixup(input, output)
-
-def include(path, outname = None):
-    input = os.path.join(openssl_include, path)
-
-    if (outname == None):
-        output = os.path.join(include_path, path)
-    else:
-        output = os.path.join(include_path, outname)
-
-    output = output.replace("openssl", "xdigest")
-
-    copy_fixup(input, output)
 
 def patch(patchfile):
     print(f"Patching {patchfile}")
@@ -207,61 +117,3 @@ perlasm(configs_aarch64, "arm64cpuid", "core/asm/arm64cpuid")
 perlasm(configs_x86_64, "md5/asm/md5-x86_64")
 perlasm(configs_x86, "md5/asm/md5-586")
 perlasm(configs_aarch64, "md5/asm/md5-aarch64")
-
-source("arm_arch.h", "core")
-source("armcap.c", "core")
-source("cpuid.c", "core")
-source("mem_clr.c", "core")
-
-source("sha/sha_local.h")
-source("sha/sha256.c")
-source("sha/sha512.c")
-
-source("md5/md5_dgst.c")
-source("md5/md5_local.h")
-source("md5/md5_one.c")
-
-source("md4/md4_dgst.c")
-source("md4/md4_local.h")
-source("md4/md4_one.c")
-
-source("md2/md2_dgst.c")
-source("md2/md2_one.c")
-
-include("openssl/sha.h", "internal/sha.h")
-include("openssl/md5.h", "internal/md5.h")
-include("openssl/md4.h", "internal/md4.h")
-include("openssl/md2.h", "internal/md2.h")
-
-include("openssl/e_os2.h", "internal/e_os2.h")
-
-include("internal/endian.h")
-include("internal/common.h")
-include("internal/e_os.h")
-include("internal/numbers.h")
-
-include("crypto/md32_common.h")
-include("crypto/sha.h")
-
-patch("patches/xdig_cleanse.patch")
-patch("patches/OPENSSL_IA32CAP_P_MAX_INDEXES.patch")
-patch("patches/sha256_hash_data.patch")
-patch("patches/sha512_hash_data.patch")
-patch("patches/md2_hash_data.patch")
-patch("patches/md4_hash_data.patch")
-patch("patches/md5_hash_data.patch")
-patch("patches/die_and_assert.patch")
-
-patch("patches/ctx_size_funcs.patch")
-
-patch("patches/mem_clr_remove_callback.patch")
-patch("patches/mem_clr_ifdef.patch")
-
-patch("patches/export_init_func.patch")
-
-# patch("patches/include_stdlib_for_getenv.patch")
-patch("patches/remove_getenv.patch")
-patch("patches/armcap_ifdef.patch")
-
-patch("patches/void_returning_context_operations.patch")
-patch("patches/fixup_armcap_win32_capability_detection.patch")

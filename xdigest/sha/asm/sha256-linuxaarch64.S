@@ -19,7 +19,7 @@
 // Performance in cycles per processed byte and improvement coefficient
 // over code generated with "default" compiler:
 //
-//		SHA256-hw	xdig_sha256(*)	SHA512
+//		SHA256-hw	SHA256(*)	SHA512
 // Apple A7	1.97		10.5 (+33%)	6.73 (-1%(**))
 // Cortex-A53	2.38		15.5 (+115%)	10.0 (+150%(***))
 // Cortex-A57	2.31		11.6 (+86%)	7.51 (+260%(***))
