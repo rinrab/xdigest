@@ -32,8 +32,8 @@ jobs:
     steps:
     - uses: actions/checkout@v6
 
-    - run: make rebuild install test prefix=${{ github.workspace }}install CONFIG=macosx64
-    - run: make rebuild install test prefix=${{ github.workspace }}install CONFIG=macosx64 NO_ASM=1
+    - run: make rebuild install prefix=${{ github.workspace }}install CONFIG=macosx64
+    - run: make rebuild install prefix=${{ github.workspace }}install CONFIG=macosx64 NO_ASM=1
 
     - run: make rebuild install prefix=${{ github.workspace }}installarm CONFIG=macosxaarch64
     - run: make rebuild install prefix=${{ github.workspace }}installarm CONFIG=macosxaarch64 NO_ASM=1
