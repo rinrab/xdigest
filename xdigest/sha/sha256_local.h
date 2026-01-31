@@ -56,12 +56,12 @@
 #define HASH_FINAL              xdig_sha256_ctx_final
 #define HASH_BLOCK_DATA_ORDER   sha256_block_data_order
 
-#ifndef SHA256_ASM
-static void sha256_block_data_order(xdig_sha256_ctx_t *ctx, const void *in,
-                                    size_t num);
-#else
+#ifdef SHA256_ASM
 void sha256_block_data_order(xdig_sha256_ctx_t *ctx, const void *in,
                              size_t num);
+#else
+static void sha256_block_data_order(xdig_sha256_ctx_t *ctx, const void *in,
+                                    size_t num);
 #endif
 
 #include "crypto/md32_common.h"
