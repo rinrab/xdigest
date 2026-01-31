@@ -44,7 +44,7 @@ else ifeq ($(CONFIG), macosx64)
     LINK_PROGRAM = $(GCC) $(ARCH) -o
 else ifeq ($(CONFIG), macosxaarch64)
     ARCH = -arch arm64
-    GCC = aarch64-linux-gnu-gcc
+    GCC = cc
     CC = $(GCC) -c $(CFLAGS) $(ARCH) -o
     ASSEMBLER = $(GCC) -c $(ASMFLAGS) $(ARCH) -o
     LINK_SHARED = $(GCC) -shared $(ARCH) -o
