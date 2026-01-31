@@ -47,7 +47,7 @@ jobs:
         sudo apt-get install qemu-user qemu-user-static gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu binutils-aarch64-linux-gnu-dbg build-essential
 
     - run: make rebuild install prefix=${{ github.workspace }}installaarch64 CONFIG=linuxaarch64
-    - run: qemu-aarch64 -L /usr/aarch64-linux-gnu ./test_xdigest
+    - run: qemu-aarch64 -L /usr/aarch64-linux-gnu "make test CONFIG=linuxaarch64"
 
     - run: make rebuild install prefix=${{ github.workspace }}installaarch64 CONFIG=linuxaarch64 NO_ASM=1
-    - run: qemu-aarch64 -L /usr/aarch64-linux-gnu ./test_xdigest
+    - run: qemu-aarch64 -L /usr/aarch64-linux-gnu "make test CONFIG=linuxaarch64 NO_ASM=1"
