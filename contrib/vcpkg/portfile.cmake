@@ -22,6 +22,7 @@ vcpkg_cmake_configure(
     OPTIONS
         -DENABLE_TESTS=OFF
         ${FEATURE_OPTIONS}
+        ${OPTIONS}
 )
 vcpkg_cmake_install()
 vcpkg_copy_pdbs()
