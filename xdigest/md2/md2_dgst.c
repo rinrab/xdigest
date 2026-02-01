@@ -83,9 +83,10 @@ void xdig_md2_ctx_init(xdig_md2_ctx_t *c)
     memset(c->data, 0, sizeof(c->data));
 }
 
-void xdig_md2_ctx_update(xdig_md2_ctx_t *c, const void *data, size_t len)
+void xdig_md2_ctx_update(xdig_md2_ctx_t *c, const void *data_, size_t len)
 {
     register UCHAR *p;
+    const unsigned char *data = data_;
 
     p = c->data;
     if (c->num != 0) {
