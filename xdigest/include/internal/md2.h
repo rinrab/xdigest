@@ -17,6 +17,7 @@
 # endif
 
 /* ignored include 'openssl/opensslconf.h' */
+#include "xdigest_md2.h"
 
 # ifndef xdig_NO_MD2
 #  include <stddef.h>
@@ -32,21 +33,15 @@ typedef unsigned char MD2_INT;
 
 #   define MD2_BLOCK               16
 
-typedef struct MD2state_st {
+struct xdig_md2_ctx_t {
     unsigned int num;
     unsigned char data[MD2_BLOCK];
     MD2_INT cksm[MD2_BLOCK];
     MD2_INT state[MD2_BLOCK];
-} xdig_md2_ctx_t;
+};
 #  endif
 #  ifndef xdig_NO_DEPRECATED_3_0
-const char *xdig_md2_ctx_options(void);
-void xdig_md2_ctx_init(xdig_md2_ctx_t *c);
-void xdig_md2_ctx_update(xdig_md2_ctx_t *c, const unsigned char *data,
-                                     size_t len);
-void xdig_md2_ctx_final(xdig_md2_ctx_t *c, unsigned char *md);
-unsigned char *xdig_md2(const unsigned char *d, size_t n,
-                                         unsigned char *md);
+
 #  endif
 
 #  ifdef  __cplusplus
