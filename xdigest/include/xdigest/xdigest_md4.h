@@ -41,14 +41,14 @@ size_t xdig_md4_ctx_size(void);
 
 #define XDIG_MD4_DIGEST_LENGTH 16
 
-int xdig_md4_ctx_init(xdig_md4_ctx_t *ctx);
+void xdig_md4_ctx_init(xdig_md4_ctx_t *ctx);
 
-int xdig_md4_ctx_update(xdig_md4_ctx_t *ctx,
-                        const void *data,
-                        size_t len);
+void xdig_md4_ctx_update(xdig_md4_ctx_t *ctx,
+                         const void *data,
+                         size_t len);
 
-int xdig_md4_ctx_final(xdig_md4_ctx_t *ctx,
-                       unsigned char *digest);
+void xdig_md4_ctx_final(xdig_md4_ctx_t *ctx,
+                        unsigned char *digest);
 
 unsigned char *
 xdig_md4(unsigned char *digest,
