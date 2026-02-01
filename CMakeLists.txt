@@ -62,6 +62,11 @@ add_library(xdigest
     xdigest/md2/md2_one.c
 )
 
+set_target_properties(xdigest PROPERTIES
+    VERSION "${XDIG_VERSION}"
+    SOVERSION "${XDIG_VERSION_MAJOR}"
+)
+
 if (USE_ASM)
     target_sources(xdigest PRIVATE
         xdigest/core/asm/cpuid-${CONFIG}.${ASMEXT}
