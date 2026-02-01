@@ -24,7 +24,7 @@
  */
 
 unsigned char *
-xdig_md2(const unsigned char *data, size_t len, unsigned char *digest)
+xdig_md2(const void *data, size_t len, unsigned char *digest)
 {
     xdig_md2_ctx_t ctx;
 
