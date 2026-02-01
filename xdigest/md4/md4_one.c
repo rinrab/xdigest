@@ -24,7 +24,7 @@
 #endif
 
 unsigned char *
-xdig_md4(const unsigned char *data, size_t len, unsigned char *digest)
+xdig_md4(const void *data, size_t len, unsigned char *digest)
 {
     xdig_md4_ctx_t ctx;
 
