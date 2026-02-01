@@ -2,6 +2,142 @@
 
 All notable changes should be documented here.
 
+## 0.3.0
+
+In this vesrion, the ABI of the library is broken. We didn't promise it at this
+stage anyways. This release is focused on improving overall experience of
+consuming the library.
+
+### API improvements
+
+The public API has been canonicalised. Now each function follows the following
+convention:
+
+```c
+<type> xdig_<namespace>_<verb>(<self> <output parameter...> <options...>);
+```
+
+Here self is a structure pointer to the state of itself. It's like obj.method()
+in object oriented languages. Ouput paramters must be before every other option
+but after self. The rest are considered options and should be at the end of the
+declaration.
+
+In the follwing methods self has been moved to the first argument (r6455):
+
+```
+-xdig_sha1_ctx_final(unsigned char *digest, xdig_sha1_ctx_t *ctx)
++xdig_sha1_ctx_final(xdig_sha1_ctx_t *ctx, unsigned char *digest)
+
+-xdig_sha224_ctx_final(unsigned char *digest, xdig_sha224_ctx_t *ctx)
++xdig_sha224_ctx_final(xdig_sha224_ctx_t *ctx, unsigned char *digest)
+
+-xdig_sha256_ctx_final(unsigned char *digest, xdig_sha256_ctx_t *ctx)
++xdig_sha256_ctx_final(xdig_sha256_ctx_t *ctx, unsigned char *digest)
+
+-xdig_sha384_ctx_final(unsigned char *digest, xdig_sha384_ctx_t *ctx)
++xdig_sha384_ctx_final(xdig_sha384_ctx_t *ctx, unsigned char *digest)
+
+-xdig_sha512_ctx_final(unsigned char *digest, xdig_sha512_ctx_t *ctx)
++xdig_sha512_ctx_final(xdig_sha512_ctx_t *ctx, unsigned char *digest)
+
+-xdig_md2_ctx_final(unsigned char *digest, xdig_md2_ctx_t *ctx)
++xdig_md2_ctx_final(xdig_md2_ctx_t *ctx, unsigned char *digest)
+
+-xdig_md4_ctx_final(unsigned char *digest, xdig_md4_ctx_t *ctx)
++xdig_md4_ctx_final(xdig_md4_ctx_t *ctx, unsigned char *digest)
+
+-xdig_md5_ctx_final(unsigned char *digest, xdig_md5_ctx_t *ctx)
++xdig_md5_ctx_final(xdig_md5_ctx_t *ctx, unsigned char *digest)
+```
+
+In the following functions output parameters were moved to the begining of the
+function (r6477):
+
+```
+-unsigned char *xdig_md2(const void *data, size_t len, unsigned char *digest);
++unsigned char *xdig_md2(unsigned char *digest, const void *data, size_t len);
+
+-unsigned char *xdig_md4(const void *data, size_t len, unsigned char *digest);
++unsigned char *xdig_md4(unsigned char *digest, const void *data, size_t len);
+
+-unsigned char *xdig_md5(const void *data, size_t len, unsigned char *digest);
++unsigned char *xdig_md5(unsigned char *digest, const void *data, size_t len);
+
+-unsigned char *xdig_sha1(const void *data, size_t len, unsigned char *digest);
++unsigned char *xdig_sha1(unsigned char *digest, const void *data, size_t len);
+
+-unsigned char *xdig_sha224(const void *data, size_t len, unsigned char *digest);
++unsigned char *xdig_sha224(unsigned char *digest, const void *data, size_t len);
+
+-unsigned char *xdig_sha256(const void *data, size_t len, unsigned char *digest);
++unsigned char *xdig_sha256(unsigned char *digest, const void *data, size_t len);
+
+-unsigned char *xdig_sha384(const void *data, size_t len, unsigned char *digest);
++unsigned char *xdig_sha384(unsigned char *digest, const void *data, size_t len);
+
+-unsigned char *xdig_sha512(const void *data, size_t len, unsigned char *digest);
++unsigned char *xdig_sha512(unsigned char *digest, const void *data, size_t len);
+```
+
+Also some cosmetic work has been made in the header and source files towards
+naming argument in a predictable and meaningfull way.
+
+### Codebase changes
+
+In this release, a decision was made to stop generation source files of C
+implementation (and some wrappers) via a script. Instead, now we maintain them
+as a fork (r6454). Below is the motivation for that from the log message:
+
+[[[
+What this means? Basically, we no longer want to "derive" openssl but to fully
+"fork" it. It's anoying to maintain those patches as their amount grows to the
+moon.
+
+There are plenty of changes we could make in the way openssl is coded. Because
+this is currently trash.
+]]]
+
+This way it would be much more convenient to add new features and improve
+internal source code. It makes refactoring much easier. Which is one of the
+points and aims of this project in general. We produce simple for use library
+that doesn't do anything crazy or that user didn't ask about.
+
+We are now including public headers into implementations of each digest
+algorithm. Before we used to dublicate them. We had the public header which was
+hand-written from blank and an internal one which was generated directly from
+OpenSSL sources. The symbols were defined twice in both of these headers. While
+the public header only provided struct-typdef for the contexts, internally they
+were represented in a full structure. By now, the definitions are droped from
+the internal headers, and included directly from the public one. This allowed
+to prevent duplication and find a few missmatches between the declarations and
+the implementations.
+
+Some code was factored out from sha256.c and sha512.c into separate
+sha256_local.h and sha512_local.h header files. This mostly included low-level
+block updates. This is a common practice in OpenSSL itself, but wasn't applied
+to these two files.
+
+Single block transform functions were droped from the code base (r6468). We
+weren't exporting them apart of the public API anyway. No-one should use them.
+Please refer to full updates and specify length explicty. If it turned out that
+exactly one block was passed, we're lucky. If not, it still works in a pretty
+much the same way. Users should not expect any performance throw-aways by not
+aligning block perfectly. On the other hand, it's much more convenient for us
+to provide a single method for everything. Let's keep things simple.
+
+### Minor fixes and improvements
+
+- Added SOVERSION to cmake build (r6470). Now it produces the following shared
+objects:
+
+```
+libxdigest.so
+libxdigest.so.0
+libxdigest.so.0.3.0
+```
+
+- The ARM GitHub action workflow is dropped because it was never run (r6480).
+
 ## 0.2.0
 
 The 0.2.x release is more like a follow-up to 0.1.x. It mostly carries fixes to
