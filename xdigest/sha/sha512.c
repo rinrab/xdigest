@@ -53,94 +53,96 @@ struct xdig_sha384_ctx_t {
     xdig_sha512_ctx_t state;
 };
 
-void sha512_224_init(xdig_sha512_ctx_t *c)
+void sha512_224_init(xdig_sha512_ctx_t *ctx)
 {
-    c->h[0] = U64(0x8c3d37c819544da2);
-    c->h[1] = U64(0x73e1996689dcd4d6);
-    c->h[2] = U64(0x1dfab7ae32ff9c82);
-    c->h[3] = U64(0x679dd514582f9fcf);
-    c->h[4] = U64(0x0f6d2b697bd44da8);
-    c->h[5] = U64(0x77e36f7304c48942);
-    c->h[6] = U64(0x3f9d85a86a1d36c8);
-    c->h[7] = U64(0x1112e6ad91d692a1);
+    ctx->h[0] = U64(0x8c3d37c819544da2);
+    ctx->h[1] = U64(0x73e1996689dcd4d6);
+    ctx->h[2] = U64(0x1dfab7ae32ff9c82);
+    ctx->h[3] = U64(0x679dd514582f9fcf);
+    ctx->h[4] = U64(0x0f6d2b697bd44da8);
+    ctx->h[5] = U64(0x77e36f7304c48942);
+    ctx->h[6] = U64(0x3f9d85a86a1d36c8);
+    ctx->h[7] = U64(0x1112e6ad91d692a1);
 
-    c->Nl = 0;
-    c->Nh = 0;
-    c->num = 0;
-    c->md_len = XDIG_SHA224_DIGEST_LENGTH;
+    ctx->Nl = 0;
+    ctx->Nh = 0;
+    ctx->num = 0;
+    ctx->md_len = XDIG_SHA224_DIGEST_LENGTH;
 }
 
-void sha512_256_init(xdig_sha512_ctx_t *c)
+void sha512_256_init(xdig_sha512_ctx_t *ctx)
 {
-    c->h[0] = U64(0x22312194fc2bf72c);
-    c->h[1] = U64(0x9f555fa3c84c64c2);
-    c->h[2] = U64(0x2393b86b6f53b151);
-    c->h[3] = U64(0x963877195940eabd);
-    c->h[4] = U64(0x96283ee2a88effe3);
-    c->h[5] = U64(0xbe5e1e2553863992);
-    c->h[6] = U64(0x2b0199fc2c85b8aa);
-    c->h[7] = U64(0x0eb72ddc81c52ca2);
+    ctx->h[0] = U64(0x22312194fc2bf72c);
+    ctx->h[1] = U64(0x9f555fa3c84c64c2);
+    ctx->h[2] = U64(0x2393b86b6f53b151);
+    ctx->h[3] = U64(0x963877195940eabd);
+    ctx->h[4] = U64(0x96283ee2a88effe3);
+    ctx->h[5] = U64(0xbe5e1e2553863992);
+    ctx->h[6] = U64(0x2b0199fc2c85b8aa);
+    ctx->h[7] = U64(0x0eb72ddc81c52ca2);
 
-    c->Nl = 0;
-    c->Nh = 0;
-    c->num = 0;
-    c->md_len = XDIG_SHA256_DIGEST_LENGTH;
+    ctx->Nl = 0;
+    ctx->Nh = 0;
+    ctx->num = 0;
+    ctx->md_len = XDIG_SHA256_DIGEST_LENGTH;
 }
 
-void xdig_sha384_ctx_init(xdig_sha384_ctx_t *c)
+void xdig_sha384_ctx_init(xdig_sha384_ctx_t *ctx)
 {
-    c->state.h[0] = U64(0xcbbb9d5dc1059ed8);
-    c->state.h[1] = U64(0x629a292a367cd507);
-    c->state.h[2] = U64(0x9159015a3070dd17);
-    c->state.h[3] = U64(0x152fecd8f70e5939);
-    c->state.h[4] = U64(0x67332667ffc00b31);
-    c->state.h[5] = U64(0x8eb44a8768581511);
-    c->state.h[6] = U64(0xdb0c2e0d64f98fa7);
-    c->state.h[7] = U64(0x47b5481dbefa4fa4);
+    ctx->state.h[0] = U64(0xcbbb9d5dc1059ed8);
+    ctx->state.h[1] = U64(0x629a292a367cd507);
+    ctx->state.h[2] = U64(0x9159015a3070dd17);
+    ctx->state.h[3] = U64(0x152fecd8f70e5939);
+    ctx->state.h[4] = U64(0x67332667ffc00b31);
+    ctx->state.h[5] = U64(0x8eb44a8768581511);
+    ctx->state.h[6] = U64(0xdb0c2e0d64f98fa7);
+    ctx->state.h[7] = U64(0x47b5481dbefa4fa4);
 
-    c->state.Nl = 0;
-    c->state.Nh = 0;
-    c->state.num = 0;
-    c->state.md_len = XDIG_SHA384_DIGEST_LENGTH;
+    ctx->state.Nl = 0;
+    ctx->state.Nh = 0;
+    ctx->state.num = 0;
+    ctx->state.md_len = XDIG_SHA384_DIGEST_LENGTH;
 }
 
-unsigned char *xdig_sha384(const void *d, size_t n, unsigned char *md)
+unsigned char *xdig_sha384(const void *data, size_t len,
+                           unsigned char *digest)
 {
     xdig_sha384_ctx_t ctx;
 
     xdig_sha384_ctx_init(&ctx);
-    xdig_sha384_ctx_update(&ctx, d, n);
-    xdig_sha384_ctx_final(&ctx, md);
+    xdig_sha384_ctx_update(&ctx, data, len);
+    xdig_sha384_ctx_final(&ctx, digest);
 
-    return md;
+    return digest;
 }
 
-void xdig_sha512_ctx_init(xdig_sha512_ctx_t *c)
+void xdig_sha512_ctx_init(xdig_sha512_ctx_t *ctx)
 {
-    c->h[0] = U64(0x6a09e667f3bcc908);
-    c->h[1] = U64(0xbb67ae8584caa73b);
-    c->h[2] = U64(0x3c6ef372fe94f82b);
-    c->h[3] = U64(0xa54ff53a5f1d36f1);
-    c->h[4] = U64(0x510e527fade682d1);
-    c->h[5] = U64(0x9b05688c2b3e6c1f);
-    c->h[6] = U64(0x1f83d9abfb41bd6b);
-    c->h[7] = U64(0x5be0cd19137e2179);
+    ctx->h[0] = U64(0x6a09e667f3bcc908);
+    ctx->h[1] = U64(0xbb67ae8584caa73b);
+    ctx->h[2] = U64(0x3c6ef372fe94f82b);
+    ctx->h[3] = U64(0xa54ff53a5f1d36f1);
+    ctx->h[4] = U64(0x510e527fade682d1);
+    ctx->h[5] = U64(0x9b05688c2b3e6c1f);
+    ctx->h[6] = U64(0x1f83d9abfb41bd6b);
+    ctx->h[7] = U64(0x5be0cd19137e2179);
 
-    c->Nl = 0;
-    c->Nh = 0;
-    c->num = 0;
-    c->md_len = XDIG_SHA512_DIGEST_LENGTH;
+    ctx->Nl = 0;
+    ctx->Nh = 0;
+    ctx->num = 0;
+    ctx->md_len = XDIG_SHA512_DIGEST_LENGTH;
 }
 
-unsigned char *xdig_sha512(const void *d, size_t n, unsigned char *md)
+unsigned char *xdig_sha512(const void *data, size_t len,
+                           unsigned char *digest)
 {
     xdig_sha512_ctx_t ctx;
 
     xdig_sha512_ctx_init(&ctx);
-    xdig_sha512_ctx_update(&ctx, d, n);
-    xdig_sha512_ctx_final(&ctx, md);
+    xdig_sha512_ctx_update(&ctx, data, len);
+    xdig_sha512_ctx_final(&ctx, digest);
 
-    return md;
+    return digest;
 }
 
 size_t xdig_sha512_ctx_size(void)
@@ -153,13 +155,13 @@ size_t xdig_sha384_ctx_size(void)
     return xdig_sha512_ctx_size();
 }
 
-void xdig_sha384_ctx_final(xdig_sha384_ctx_t *c, unsigned char *md)
+void xdig_sha384_ctx_final(xdig_sha384_ctx_t *ctx, unsigned char *digest)
 {
-    xdig_sha512_ctx_final(&c->state, md);
+    xdig_sha512_ctx_final(&ctx->state, digest);
 }
 
-void xdig_sha384_ctx_update(xdig_sha384_ctx_t *c, const void *data, size_t len)
+void xdig_sha384_ctx_update(xdig_sha384_ctx_t *ctx, const void *data, size_t len)
 {
-    xdig_sha512_ctx_update(&c->state, data, len);
+    xdig_sha512_ctx_update(&ctx->state, data, len);
 }
 
