@@ -51,9 +51,9 @@ void xdig_sha224_ctx_final(xdig_sha224_ctx_t *ctx,
                           unsigned char *digest);
 
 unsigned char *
-xdig_sha224(const void *data,
-            size_t len,
-            unsigned char *digest);
+xdig_sha224(unsigned char *digest,
+            const void *data,
+            size_t len);
 
 /*
  * SHA256
@@ -74,9 +74,9 @@ void xdig_sha256_ctx_final(xdig_sha256_ctx_t *ctx,
                           unsigned char *digest);
 
 unsigned char *
-xdig_sha256(const void *data,
-            size_t len,
-            unsigned char *digest);
+xdig_sha256(unsigned char *digest,
+            const void *data,
+            size_t len);
 
 #define XDIG_SHA256_192_DIGEST_LENGTH 24
 
@@ -99,9 +99,9 @@ void xdig_sha384_ctx_final(xdig_sha384_ctx_t *ctx,
                           unsigned char *digest);
 
 unsigned char *
-xdig_sha384(const void *data,
-            size_t len,
-            unsigned char *digest);
+xdig_sha384(unsigned char *digest,
+            const void *data,
+            size_t len);
 
 /*
  * SHA512
@@ -122,9 +122,9 @@ void xdig_sha512_ctx_final(xdig_sha512_ctx_t *ctx,
                           unsigned char *digest);
 
 unsigned char *
-xdig_sha512(const void *data,
-            size_t len,
-            unsigned char *digest);
+xdig_sha512(unsigned char *digest,
+            const void *data,
+            size_t len);
 
 #ifdef __cplusplus
 }

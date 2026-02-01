@@ -51,9 +51,9 @@ void xdig_sha1_ctx_final(xdig_sha1_ctx_t *ctx,
                          unsigned char *digest);
 
 unsigned char *
-xdig_sha1(const void *data,
-          size_t len,
-          unsigned char *digest);
+xdig_sha1(unsigned char *digest,
+          const void *data,
+          size_t len);
 
 #ifdef __cplusplus
 }
