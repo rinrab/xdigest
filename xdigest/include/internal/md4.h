@@ -17,6 +17,7 @@
 # endif
 
 /* ignored include 'openssl/opensslconf.h' */
+#include "xdigest_md4.h"
 
 # ifndef xdig_NO_MD4
 #include "internal/e_os2.h"
@@ -39,19 +40,15 @@ extern "C" {
 #   define XDIG_MD4_CBLOCK      64
 #   define XDIG_MD4_LBLOCK      (XDIG_MD4_CBLOCK/4)
 
-typedef struct MD4state_st {
+struct xdig_md4_ctx_t {
     XDIG_MD4_LONG A, B, C, D;
     XDIG_MD4_LONG Nl, Nh;
     XDIG_MD4_LONG data[XDIG_MD4_LBLOCK];
     unsigned int num;
-} xdig_md4_ctx_t;
+};
+
 #  endif
 #  ifndef xdig_NO_DEPRECATED_3_0
-void xdig_md4_ctx_init(xdig_md4_ctx_t *c);
-void xdig_md4_ctx_update(xdig_md4_ctx_t *c, const void *data, size_t len);
-void xdig_md4_ctx_final(xdig_md4_ctx_t *c, unsigned char *md);
-unsigned char *xdig_md4(const unsigned char *d, size_t n,
-                                         unsigned char *md);
 #  endif
 
 #  ifdef  __cplusplus
