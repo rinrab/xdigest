@@ -7,21 +7,10 @@
  * https://www.openssl.org/source/license.html
  */
 
-/*
- * MD5 low level APIs are deprecated for public use, but still ok for
- * internal use.
- */
-/* ignored include 'internal/deprecated.h' */
-
 #include <stdio.h>
 #include <string.h>
 #include "internal/md5.h"
-/* ignored include 'openssl/crypto.h' */
 #include "internal/common.h"
-
-#ifdef CHARSET_EBCDIC
-/* ignored include 'openssl/ebcdic.h' */
-#endif
 
 unsigned char *
 xdig_md5(const void *data, size_t len, unsigned char *digest)
