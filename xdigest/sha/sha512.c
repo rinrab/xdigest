@@ -104,8 +104,8 @@ void xdig_sha384_ctx_init(xdig_sha384_ctx_t *ctx)
     ctx->state.md_len = XDIG_SHA384_DIGEST_LENGTH;
 }
 
-unsigned char *xdig_sha384(const void *data, size_t len,
-                           unsigned char *digest)
+unsigned char *xdig_sha384(unsigned char *digest, const void *data,
+                           size_t len)
 {
     xdig_sha384_ctx_t ctx;
 
@@ -133,8 +133,8 @@ void xdig_sha512_ctx_init(xdig_sha512_ctx_t *ctx)
     ctx->md_len = XDIG_SHA512_DIGEST_LENGTH;
 }
 
-unsigned char *xdig_sha512(const void *data, size_t len,
-                           unsigned char *digest)
+unsigned char *xdig_sha512(unsigned char *digest, const void *data,
+                           size_t len)
 {
     xdig_sha512_ctx_t ctx;
 

@@ -40,7 +40,7 @@ static int test_static_sha1(void)
     };
     unsigned char actual[sizeof(expected)];
 
-    xdig_sha1((unsigned char *)"abc", 3, actual);
+    xdig_sha1(actual, (unsigned char *)"abc", 3);
     TEST_ASSERT(memcmp(expected, actual, sizeof(expected)) == 0);
 
     return 1;
@@ -56,7 +56,7 @@ static int test_static_sha224(void)
     };
     unsigned char actual[sizeof(expected)];
 
-    xdig_sha224((unsigned char *)"abc", 3, actual);
+    xdig_sha224(actual, (unsigned char *)"abc", 3);
     TEST_ASSERT(memcmp(expected, actual, sizeof(expected)) == 0);
 
     return 1;
@@ -72,7 +72,7 @@ static int test_static_sha256(void)
     };
     unsigned char actual[sizeof(expected)];
 
-    xdig_sha256((unsigned char *)"abc", 3, actual);
+    xdig_sha256(actual, (unsigned char *)"abc", 3);
     TEST_ASSERT(memcmp(expected, actual, sizeof(expected)) == 0);
 
     return 1;
@@ -90,7 +90,7 @@ static int test_static_sha384(void)
     };
     unsigned char actual[sizeof(expected)];
 
-    xdig_sha384((unsigned char *)"abc", 3, actual);
+    xdig_sha384(actual, (unsigned char *)"abc", 3);
     TEST_ASSERT(memcmp(expected, actual, sizeof(expected)) == 0);
 
     return 1;
@@ -111,7 +111,7 @@ static int test_static_sha512(void)
 
     unsigned char actual[sizeof(expected)];
 
-    xdig_sha512((unsigned char *)"abc", 3, actual);
+    xdig_sha512(actual, (unsigned char *)"abc", 3);
     TEST_ASSERT(memcmp(expected, actual, sizeof(expected)) == 0);
 
     return 1;

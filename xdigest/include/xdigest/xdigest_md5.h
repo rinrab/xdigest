@@ -51,9 +51,9 @@ void xdig_md5_ctx_final(xdig_md5_ctx_t *ctx,
                         unsigned char *digest);
 
 unsigned char *
-xdig_md5(const void *data,
-         size_t len,
-         unsigned char *digest);
+xdig_md5(unsigned char *digest,
+         const void *data,
+         size_t len);
 
 #ifdef __cplusplus
 }

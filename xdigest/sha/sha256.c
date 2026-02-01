@@ -30,8 +30,8 @@ void xdig_sha256_ctx_init(xdig_sha256_ctx_t *ctx)
     ctx->md_len = XDIG_SHA256_DIGEST_LENGTH;
 }
 
-unsigned char *xdig_sha256(const void *data, size_t len,
-                           unsigned char *digest)
+unsigned char *xdig_sha256(unsigned char *digest, const void *data,
+                           size_t len)
 {
     xdig_sha256_ctx_t ctx;
 
@@ -78,8 +78,8 @@ void xdig_sha224_ctx_final(xdig_sha224_ctx_t *ctx, unsigned char *digest)
     xdig_sha256_ctx_final(&ctx->state, digest);
 }
 
-unsigned char *xdig_sha224(const void *data, size_t len,
-                           unsigned char *digesdt)
+unsigned char *xdig_sha224(unsigned char *digesdt, const void *data,
+                           size_t len)
 {
     xdig_sha224_ctx_t ctx;
 
