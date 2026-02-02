@@ -79,7 +79,7 @@ generate: openssl
 
 # release management
 URL_STABLE = "^/xdigest/branches/$(VERSION_MAJOR).$(VERSION_MINOR).x"
-URL_TAG = "^/xdigest/tag/$(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_PATCH)"
+URL_TAG = "^/xdigest/tags/$(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_PATCH)"
 
 release-stable: clean test
 	svn copy "^/xdigest/trunk" $(URL_STABLE)
