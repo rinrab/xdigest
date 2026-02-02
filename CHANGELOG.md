@@ -4,7 +4,7 @@ All notable changes should be documented here.
 
 ## 0.3.0
 
-In this vesrion, the ABI of the library is broken. We didn't promise it at this
+In this version, the ABI of the library is broken. We didn't promise it at this
 stage anyways. This release is focused on improving overall experience of
 consuming the library.
 
