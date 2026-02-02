@@ -1,8 +1,8 @@
 # Download xdigest
 
-Here is the index of every single official xdigest release. Please validate of
-downloaded archves with the ones presented in the table. Make sure that this
-file was downloaded from a trusted sources.
+Here is the index of every single official xdigest release. Please validate
+checksumes of downloaded archves with the ones presented in the table. Make
+sure that this file was downloaded from a trusted sources.
 
 | version | tar-ball | sha256 | sha512 |
 | --- | --- | --- | --- |
