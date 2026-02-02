@@ -76,3 +76,16 @@ openssl-clean:
 
 generate: openssl
 	python3 generate.py
+
+# release management
+URL_STABLE = "^/xdigest/branches/$(VERSION_MAJOR).$(VERSION_MINOR).x"
+URL_TAG = "^/xdigest/tag/$(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_PATCH)"
+
+release-stable: clean test
+	svn copy "^/xdigest/trunk" $(URL_STABLE)
+
+switch-stable:
+	svn switch $(URL_STABLE)
+
+release-tag: switch-stable clean test
+	svn copy $(URL_STABLE) $(URL_TAG)
