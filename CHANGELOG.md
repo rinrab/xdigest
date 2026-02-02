@@ -88,14 +88,14 @@ In this release, a decision was made to stop generation source files of C
 implementation (and some wrappers) via a script. Instead, now we maintain them
 as a fork (r6454). Below is the motivation for that from the log message:
 
-[[[
+```
 What this means? Basically, we no longer want to "derive" openssl but to fully
 "fork" it. It's anoying to maintain those patches as their amount grows to the
 moon.
 
 There are plenty of changes we could make in the way openssl is coded. Because
 this is currently trash.
-]]]
+```
 
 This way it would be much more convenient to add new features and improve
 internal source code. It makes refactoring much easier. Which is one of the
