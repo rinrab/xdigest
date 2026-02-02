@@ -83,6 +83,7 @@ URL_TAG = "^/xdigest/tags/$(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_PATCH)"
 
 release-stable: clean test
 	svn copy "^/xdigest/trunk" $(URL_STABLE)
+	svn switch $(URL_STABLE)
 
 switch-stable:
 	svn switch $(URL_STABLE)
