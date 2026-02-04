@@ -28,13 +28,6 @@
 
 #include <stdio.h>
 
-void static
-xdig_die(const char *message, const char *file, int line)
-{
-    fprintf(stderr, "%s:%d: OpenSSL internal error: %s\n", file, line, message);
-    abort();
-}
-
 void xdig_cleanse(void *ptr, size_t len);
 
 /* Check if |pre|, which must be a string literal, is a prefix of |str| */
