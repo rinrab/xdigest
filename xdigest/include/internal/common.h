@@ -26,17 +26,6 @@
 #  define ossl_unlikely(x)   (x)
 # endif
 
-# if defined(__GNUC__) || defined(__clang__)
-#  define ALIGN32       __attribute((aligned(32)))
-#  define ALIGN64       __attribute((aligned(64)))
-# elif defined(_MSC_VER)
-#  define ALIGN32       __declspec(align(32))
-#  define ALIGN64       __declspec(align(64))
-# else
-#  define ALIGN32
-#  define ALIGN64
-# endif
-
 # ifdef NDEBUG
 #  define ossl_assert(x) ossl_likely((x) != 0)
 # else
