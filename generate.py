@@ -54,6 +54,11 @@ def copy_fixup(input, output):
                       r"XDIG_\1",
                       data, flags=re.MULTILINE)
 
+        data = re.sub(r"((sha|md)([0-9]*)_block_data_order(_(a-z0-9)*)?)",
+                      r"xdig_\1", data, flags=re.MULTILINE)
+        data = data.replace("ossl_md5_block_asm_data_order",
+                            "xdig_md5_block_data_order")
+
     output.replace("openssl", "xdigest")
 
     with open(output, 'w') as file:

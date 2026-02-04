@@ -1,10 +1,10 @@
 .text	
 
 
-.globl	sha1_block_data_order
-.type	sha1_block_data_order,@function
+.globl	xdig_sha1_block_data_order
+.type	xdig_sha1_block_data_order,@function
 .align	16
-sha1_block_data_order:
+xdig_sha1_block_data_order:
 .cfi_startproc	
 	movl	xdig_ia32cap_P+0(%rip),%r9d
 	movl	xdig_ia32cap_P+4(%rip),%r8d
@@ -1254,10 +1254,10 @@ sha1_block_data_order:
 .Lepilogue:
 	.byte	0xf3,0xc3
 .cfi_endproc	
-.size	sha1_block_data_order,.-sha1_block_data_order
-.type	sha1_block_data_order_shaext,@function
+.size	xdig_sha1_block_data_order,.-xdig_sha1_block_data_order
+.type	xdig_sha1_block_data_order_shaext,@function
 .align	32
-sha1_block_data_order_shaext:
+xdig_sha1_block_data_order_shaext:
 _shaext_shortcut:
 .cfi_startproc	
 	movdqu	(%rdi),%xmm0
@@ -1423,10 +1423,10 @@ _shaext_shortcut:
 	movd	%xmm1,16(%rdi)
 	.byte	0xf3,0xc3
 .cfi_endproc	
-.size	sha1_block_data_order_shaext,.-sha1_block_data_order_shaext
-.type	sha1_block_data_order_ssse3,@function
+.size	xdig_sha1_block_data_order_shaext,.-xdig_sha1_block_data_order_shaext
+.type	xdig_sha1_block_data_order_ssse3,@function
 .align	16
-sha1_block_data_order_ssse3:
+xdig_sha1_block_data_order_ssse3:
 _ssse3_shortcut:
 .cfi_startproc	
 	movq	%rsp,%r11
@@ -2611,10 +2611,10 @@ _ssse3_shortcut:
 .Lepilogue_ssse3:
 	.byte	0xf3,0xc3
 .cfi_endproc	
-.size	sha1_block_data_order_ssse3,.-sha1_block_data_order_ssse3
-.type	sha1_block_data_order_avx,@function
+.size	xdig_sha1_block_data_order_ssse3,.-xdig_sha1_block_data_order_ssse3
+.type	xdig_sha1_block_data_order_avx,@function
 .align	16
-sha1_block_data_order_avx:
+xdig_sha1_block_data_order_avx:
 _avx_shortcut:
 .cfi_startproc	
 	movq	%rsp,%r11
@@ -3739,10 +3739,10 @@ _avx_shortcut:
 .Lepilogue_avx:
 	.byte	0xf3,0xc3
 .cfi_endproc	
-.size	sha1_block_data_order_avx,.-sha1_block_data_order_avx
-.type	sha1_block_data_order_avx2,@function
+.size	xdig_sha1_block_data_order_avx,.-xdig_sha1_block_data_order_avx
+.type	xdig_sha1_block_data_order_avx2,@function
 .align	16
-sha1_block_data_order_avx2:
+xdig_sha1_block_data_order_avx2:
 _avx2_shortcut:
 .cfi_startproc	
 	movq	%rsp,%r11
@@ -5432,7 +5432,7 @@ _avx2_shortcut:
 .Lepilogue_avx2:
 	.byte	0xf3,0xc3
 .cfi_endproc	
-.size	sha1_block_data_order_avx2,.-sha1_block_data_order_avx2
+.size	xdig_sha1_block_data_order_avx2,.-xdig_sha1_block_data_order_avx2
 .section	.rodata
 .align	64
 K_XX_XX:

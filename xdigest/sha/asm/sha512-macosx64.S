@@ -1,10 +1,10 @@
 .text	
 
 
-.globl	_sha512_block_data_order
+.globl	_xdig_sha512_block_data_order
 
 .p2align	4
-_sha512_block_data_order:
+_xdig_sha512_block_data_order:
 
 	leaq	_xdig_ia32cap_P(%rip),%r10
 	movq	0(%r10),%r9
@@ -1867,7 +1867,7 @@ K512_single:
 .text
 
 .p2align	6
-sha512_block_data_order_xop:
+xdig_sha512_block_data_order_xop:
 
 L$xop_shortcut:
 	movq	%rsp,%rax
@@ -2968,7 +2968,7 @@ L$epilogue_xop:
 
 
 .p2align	6
-sha512_block_data_order_avx:
+xdig_sha512_block_data_order_avx:
 
 L$avx_shortcut:
 	movq	%rsp,%rax
@@ -4133,7 +4133,7 @@ L$epilogue_avx:
 
 
 .p2align	6
-sha512_block_data_order_avx2:
+xdig_sha512_block_data_order_avx2:
 
 L$avx2_shortcut:
 	movq	%rsp,%rax
@@ -5513,7 +5513,7 @@ L$epilogue_avx2:
 
 
 .p2align	6
-sha512_block_data_order_sha512ext:
+xdig_sha512_block_data_order_sha512ext:
 
 .byte	243,15,30,250
 L$sha512ext_shortcut:

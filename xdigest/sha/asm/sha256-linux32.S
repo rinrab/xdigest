@@ -1,9 +1,9 @@
 .text
-.globl	sha256_block_data_order
-.type	sha256_block_data_order,@function
+.globl	xdig_sha256_block_data_order
+.type	xdig_sha256_block_data_order,@function
 .align	16
-sha256_block_data_order:
-.L_sha256_block_data_order_begin:
+xdig_sha256_block_data_order:
+.L_xdig_sha256_block_data_order_begin:
 	#ifdef __CET__
 
 .byte	243,15,30,251
@@ -3348,7 +3348,7 @@ sha256_block_data_order:
 	popl	%ebx
 	popl	%ebp
 	ret
-.size	sha256_block_data_order,.-.L_sha256_block_data_order_begin
+.size	xdig_sha256_block_data_order,.-.L_xdig_sha256_block_data_order_begin
 
 	.section ".note.gnu.property", "a"
 	.p2align 2

@@ -1,8 +1,8 @@
 .text
-.globl	_sha512_block_data_order
+.globl	_xdig_sha512_block_data_order
 .align	4
-_sha512_block_data_order:
-L_sha512_block_data_order_begin:
+_xdig_sha512_block_data_order:
+L_xdig_sha512_block_data_order_begin:
 	#ifdef __CET__
 
 .byte	243,15,30,251

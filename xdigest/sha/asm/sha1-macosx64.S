@@ -1,10 +1,10 @@
 .text	
 
 
-.globl	_sha1_block_data_order
+.globl	_xdig_sha1_block_data_order
 
 .p2align	4
-_sha1_block_data_order:
+_xdig_sha1_block_data_order:
 
 	movl	_xdig_ia32cap_P+0(%rip),%r9d
 	movl	_xdig_ia32cap_P+4(%rip),%r8d
@@ -1257,7 +1257,7 @@ L$epilogue:
 
 
 .p2align	5
-sha1_block_data_order_shaext:
+xdig_sha1_block_data_order_shaext:
 _shaext_shortcut:
 
 	movdqu	(%rdi),%xmm0
@@ -1426,7 +1426,7 @@ L$oop_shaext:
 
 
 .p2align	4
-sha1_block_data_order_ssse3:
+xdig_sha1_block_data_order_ssse3:
 _ssse3_shortcut:
 
 	movq	%rsp,%r11
@@ -2614,7 +2614,7 @@ L$epilogue_ssse3:
 
 
 .p2align	4
-sha1_block_data_order_avx:
+xdig_sha1_block_data_order_avx:
 _avx_shortcut:
 
 	movq	%rsp,%r11
@@ -3742,7 +3742,7 @@ L$epilogue_avx:
 
 
 .p2align	4
-sha1_block_data_order_avx2:
+xdig_sha1_block_data_order_avx2:
 _avx2_shortcut:
 
 	movq	%rsp,%r11

@@ -53,14 +53,14 @@
 
 #define HASH_UPDATE             xdig_sha256_ctx_update
 #define HASH_FINAL              xdig_sha256_ctx_final
-#define HASH_BLOCK_DATA_ORDER   sha256_block_data_order
+#define HASH_BLOCK_DATA_ORDER   xdig_sha256_block_data_order
 
 #ifdef SHA256_ASM
-void sha256_block_data_order(xdig_sha256_ctx_t *ctx, const void *in,
-                             size_t num);
+void xdig_sha256_block_data_order(xdig_sha256_ctx_t *ctx, const void *in,
+                                  size_t num);
 #else
-static void sha256_block_data_order(xdig_sha256_ctx_t *ctx, const void *in,
-                                    size_t num);
+static void xdig_sha256_block_data_order(xdig_sha256_ctx_t *ctx, const void *in,
+                                         size_t num);
 #endif
 
 #include "crypto/md32_common.h"
@@ -145,8 +145,8 @@ static const XDIG_SHA_LONG K256[64] = {
 
 # ifdef xdig_SMALL_FOOTPRINT
 
-static void sha256_block_data_order(xdig_sha256_ctx_t *ctx, const void *in,
-                                    size_t num)
+static void xdig_sha256_block_data_order(xdig_sha256_ctx_t *ctx, const void *in,
+                                         size_t num)
 {
     unsigned MD32_REG_T a, b, c, d, e, f, g, h, s0, s1, T1, T2;
     XDIG_SHA_LONG X[16], l;
@@ -223,8 +223,8 @@ static void sha256_block_data_order(xdig_sha256_ctx_t *ctx, const void *in,
         T1 = X[(i)&0x0f] += s0 + s1 + X[(i+9)&0x0f];    \
         ROUND_00_15(i,a,b,c,d,e,f,g,h);         } while (0)
 
-static void sha256_block_data_order(xdig_sha256_ctx_t *ctx, const void *in,
-                                    size_t num)
+static void xdig_sha256_block_data_order(xdig_sha256_ctx_t *ctx, const void *in,
+                                         size_t num)
 {
     unsigned MD32_REG_T a, b, c, d, e, f, g, h, s0, s1, T1;
     XDIG_SHA_LONG X[16];

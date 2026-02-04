@@ -64,10 +64,12 @@
 static
 #else
 # ifdef INCLUDE_C_SHA512
-void sha512_block_data_order_c(xdig_sha512_ctx_t *ctx, const void *in, size_t num);
+void xdig_sha512_block_data_order_c(xdig_sha512_ctx_t *ctx, const void *in,
+                                    size_t num);
 # endif
 #endif
-void sha512_block_data_order(xdig_sha512_ctx_t *ctx, const void *in, size_t num);
+void xdig_sha512_block_data_order(xdig_sha512_ctx_t *ctx, const void *in,
+                                  size_t num);
 
 void xdig_sha512_ctx_final(xdig_sha512_ctx_t *c, unsigned char *md)
 {
@@ -79,7 +81,7 @@ void xdig_sha512_ctx_final(xdig_sha512_ctx_t *c, unsigned char *md)
     if (n > (sizeof(c->u) - 16)) {
         memset(p + n, 0, sizeof(c->u) - n);
         n = 0;
-        sha512_block_data_order(c, p, 1);
+        xdig_sha512_block_data_order(c, p, 1);
     }
 
     memset(p + n, 0, sizeof(c->u) - 16 - n);
@@ -105,7 +107,7 @@ void xdig_sha512_ctx_final(xdig_sha512_ctx_t *c, unsigned char *md)
     p[sizeof(c->u) - 16] = (unsigned char)(c->Nh >> 56);
 #endif
 
-    sha512_block_data_order(c, p, 1);
+    xdig_sha512_block_data_order(c, p, 1);
 
     switch (c->md_len) {
     /* Let compiler decide if it's appropriate to unroll... */
@@ -205,7 +207,7 @@ void xdig_sha512_ctx_update(xdig_sha512_ctx_t *c, const void *_data, size_t len)
         } else {
             memcpy(p + c->num, data, n), c->num = 0;
             len -= n, data += n;
-            sha512_block_data_order(c, p, 1);
+            xdig_sha512_block_data_order(c, p, 1);
         }
     }
 
@@ -214,11 +216,11 @@ void xdig_sha512_ctx_update(xdig_sha512_ctx_t *c, const void *_data, size_t len)
         if ((size_t)data % sizeof(c->u.d[0]) != 0)
             while (len >= sizeof(c->u))
                 memcpy(p, data, sizeof(c->u)),
-                sha512_block_data_order(c, p, 1),
+                xdig_sha512_block_data_order(c, p, 1),
                 len -= sizeof(c->u), data += sizeof(c->u);
         else
 #endif
-            sha512_block_data_order(c, data, len / sizeof(c->u)),
+            xdig_sha512_block_data_order(c, data, len / sizeof(c->u)),
             data += len, len %= sizeof(c->u), data -= len;
     }
 
@@ -482,8 +484,8 @@ static XDIG_SHA_LONG64 __fastcall __pull64be(const void *x)
  * ~24 registers, both size and performance wise...
  */
 
-static void sha512_block_data_order(xdig_sha512_ctx_t *ctx, const void *in,
-                                    size_t num)
+static void xdig_sha512_block_data_order(xdig_sha512_ctx_t *ctx, const void *in,
+                                         size_t num)
 {
     const XDIG_SHA_LONG64 *W = in;
     XDIG_SHA_LONG64 A, E, T;
@@ -544,8 +546,8 @@ static void sha512_block_data_order(xdig_sha512_ctx_t *ctx, const void *in,
 
 # elif defined(xdig_SMALL_FOOTPRINT)
 
-static void sha512_block_data_order(xdig_sha512_ctx_t *ctx, const void *in,
-                                    size_t num)
+static void xdig_sha512_block_data_order(xdig_sha512_ctx_t *ctx, const void *in,
+                                         size_t num)
 {
     const XDIG_SHA_LONG64 *W = in;
     XDIG_SHA_LONG64 a, b, c, d, e, f, g, h, s0, s1, T1, T2;
@@ -626,10 +628,11 @@ static void sha512_block_data_order(xdig_sha512_ctx_t *ctx, const void *in,
         ROUND_00_15(i+j,a,b,c,d,e,f,g,h);               } while (0)
 
 #ifdef INCLUDE_C_SHA512
-void sha512_block_data_order_c(xdig_sha512_ctx_t *ctx, const void *in, size_t num)
-#else
-static void sha512_block_data_order(xdig_sha512_ctx_t *ctx, const void *in,
+void xdig_sha512_block_data_order_c(xdig_sha512_ctx_t *ctx, const void *in,
                                     size_t num)
+#else
+static void xdig_sha512_block_data_order(xdig_sha512_ctx_t *ctx, const void *in,
+                                         size_t num)
 #endif
 {
     const XDIG_SHA_LONG64 *W = in;

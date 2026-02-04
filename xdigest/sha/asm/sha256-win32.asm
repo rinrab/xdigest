@@ -7,10 +7,10 @@ section	.text	code align=64
 section	.text	code
 %endif
 ;extern	_xdig_ia32cap_P
-global	_sha256_block_data_order
+global	_xdig_sha256_block_data_order
 align	16
-_sha256_block_data_order:
-L$_sha256_block_data_order_begin:
+_xdig_sha256_block_data_order:
+L$_xdig_sha256_block_data_order_begin:
 	push	ebp
 	push	ebx
 	push	esi

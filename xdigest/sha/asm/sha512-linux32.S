@@ -1,9 +1,9 @@
 .text
-.globl	sha512_block_data_order
-.type	sha512_block_data_order,@function
+.globl	xdig_sha512_block_data_order
+.type	xdig_sha512_block_data_order,@function
 .align	16
-sha512_block_data_order:
-.L_sha512_block_data_order_begin:
+xdig_sha512_block_data_order:
+.L_xdig_sha512_block_data_order_begin:
 	#ifdef __CET__
 
 .byte	243,15,30,251
@@ -561,7 +561,7 @@ sha512_block_data_order:
 .long	1246189591,1816402316
 .long	67438087,66051
 .long	202182159,134810123
-.size	sha512_block_data_order,.-.L_sha512_block_data_order_begin
+.size	xdig_sha512_block_data_order,.-.L_xdig_sha512_block_data_order_begin
 .byte	83,72,65,53,49,50,32,98,108,111,99,107,32,116,114,97
 .byte	110,115,102,111,114,109,32,102,111,114,32,120,56,54,44,32
 .byte	67,82,89,80,84,79,71,65,77,83,32,98,121,32,60,104

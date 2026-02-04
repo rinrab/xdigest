@@ -1,9 +1,9 @@
 .text	
 .p2align	4
 
-.globl	_ossl_md5_block_asm_data_order
+.globl	_xdig_md5_block_data_order
 
-_ossl_md5_block_asm_data_order:
+_xdig_md5_block_data_order:
 
 	pushq	%rbp
 

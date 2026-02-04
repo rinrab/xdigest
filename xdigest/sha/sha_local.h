@@ -31,15 +31,15 @@
 #define HASH_UPDATE                     xdig_sha1_ctx_update
 #define HASH_FINAL                      xdig_sha1_ctx_final
 #define HASH_INIT                       xdig_sha1_ctx_init
-#define HASH_BLOCK_DATA_ORDER           sha1_block_data_order
+#define HASH_BLOCK_DATA_ORDER           xdig_sha1_block_data_order
 #define Xupdate(a,ix,ia,ib,ic,id)       ( (a)=(ia^ib^ic^id),    \
                                           ix=(a)=ROTATE((a),1)  \
                                         )
 
 #ifndef SHA1_ASM
-static void sha1_block_data_order(xdig_sha1_ctx_t *c, const void *p, size_t num);
+static void xdig_sha1_block_data_order(xdig_sha1_ctx_t *c, const void *p, size_t num);
 #else
-void sha1_block_data_order(xdig_sha1_ctx_t *c, const void *p, size_t num);
+void xdig_sha1_block_data_order(xdig_sha1_ctx_t *c, const void *p, size_t num);
 #endif
 
 #include "crypto/md32_common.h"
