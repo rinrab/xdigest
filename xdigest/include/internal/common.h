@@ -15,11 +15,11 @@
 # include <string.h>
 
 # if defined(__GNUC__) || defined(__clang__)
-#  define ossl_likely(x)     __builtin_expect(!!(x), 1)
-#  define ossl_unlikely(x)   __builtin_expect(!!(x), 0)
+#  define xdig_likely(x)     __builtin_expect(!!(x), 1)
+#  define xdig_unlikely(x)   __builtin_expect(!!(x), 0)
 # else
-#  define ossl_likely(x)     (x)
-#  define ossl_unlikely(x)   (x)
+#  define xdig_likely(x)     (x)
+#  define xdig_unlikely(x)   (x)
 # endif
 
 #include <stdio.h>
