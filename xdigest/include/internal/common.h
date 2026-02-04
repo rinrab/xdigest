@@ -30,30 +30,6 @@
 
 void xdig_cleanse(void *ptr, size_t len);
 
-/* Check if |pre|, which must be a string literal, is a prefix of |str| */
-#define HAS_PREFIX(str, pre) (strncmp(str, pre "", sizeof(pre) - 1) == 0)
-/* As before, and if check succeeds, advance |str| past the prefix |pre| */
-#define CHECK_AND_SKIP_PREFIX(str, pre) \
-    (HAS_PREFIX(str, pre) ? ((str) += sizeof(pre) - 1, 1) : 0)
-/* Check if the string literal |p| is a case-insensitive prefix of |s| */
-#define HAS_CASE_PREFIX(s, p) (xdig_strncasecmp(s, p "", sizeof(p) - 1) == 0)
-/* As before, and if check succeeds, advance |str| past the prefix |pre| */
-#define CHECK_AND_SKIP_CASE_PREFIX(str, pre) \
-    (HAS_CASE_PREFIX(str, pre) ? ((str) += sizeof(pre) - 1, 1) : 0)
-/* Check if the string literal |suffix| is a case-insensitive suffix of |str| */
-#define HAS_CASE_SUFFIX(str, suffix) (strlen(str) < sizeof(suffix) - 1 ? 0 : \
-    xdig_strcasecmp(str + strlen(str) - sizeof(suffix) + 1, suffix "") == 0)
-
-/*
- * Use this inside a union with the field that needs to be aligned to a
- * reasonable boundary for the platform.  The most pessimistic alignment
- * of the listed types will be used by the compiler.
- */
-# define OSSL_UNION_ALIGN       \
-    double align;               \
-    ossl_uintmax_t align_int;   \
-    void *align_ptr
-
 # define xdig_CONF             "openssl.cnf"
 
 # ifndef xdig_SYS_VMS
