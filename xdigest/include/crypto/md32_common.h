@@ -66,7 +66,7 @@
 
 /* ignored include 'openssl/crypto.h' */
 /*
- * For ossl_(un)likely
+ * For xdig_unlikely() and xdig_likely()
  */
 # include <internal/common.h>
 
@@ -156,18 +156,18 @@ void HASH_UPDATE(HASH_CTX *c, const void *data_, size_t len)
     HASH_LONG l;
     size_t n;
 
-    if (ossl_unlikely(len == 0))
+    if (xdig_unlikely(len == 0))
         return;
 
     l = (c->Nl + (((HASH_LONG) len) << 3)) & 0xffffffffUL;
-    if (ossl_unlikely(l < c->Nl))              /* overflow */
+    if (xdig_unlikely(l < c->Nl))              /* overflow */
         c->Nh++;
     c->Nh += (HASH_LONG) (len >> 29); /* might cause compiler warning on
                                        * 16-bit */
     c->Nl = l;
 
     n = c->num;
-    if (ossl_likely(n != 0)) {
+    if (xdig_likely(n != 0)) {
         p = (unsigned char *)c->data;
 
         if (len >= HASH_CBLOCK || len + n >= HASH_CBLOCK) {
