@@ -35,7 +35,7 @@ void xdig_md4_ctx_init(xdig_md4_ctx_t *c)
     c->D = INIT_DATA_D;
 }
 
-void md4_block_data_order(xdig_md4_ctx_t *c, const void *data_, size_t num)
+static void md4_block_data_order(xdig_md4_ctx_t *c, const void *data_, size_t num)
 {
     const unsigned char *data = data_;
     register unsigned MD32_REG_T A, B, C, D, l;

@@ -12,7 +12,7 @@
 /* ignored include 'openssl/opensslconf.h' */
 #include "internal/md4.h"
 
-void md4_block_data_order(xdig_md4_ctx_t *c, const void *p, size_t num);
+static void md4_block_data_order(xdig_md4_ctx_t *c, const void *p, size_t num);
 
 #define DATA_ORDER_IS_LITTLE_ENDIAN
 
