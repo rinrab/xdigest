@@ -21,7 +21,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v6
-    - run: sudo apt-get install gcc-multilib
+
+    - run: |
+        sudo apt-get update
+        sudo apt-get install gcc-multilib
 
     - run: make rebuild install test prefix=${{ github.workspace }}install CONFIG=linux32
     - run: make rebuild install test prefix=${{ github.workspace }}install CONFIG=linux32 NO_ASM=1
@@ -44,6 +47,7 @@ jobs:
     - uses: actions/checkout@v6
 
     - run: |
+        sudo apt-get update
         sudo apt-get install gcc-aarch64-linux-gnu
 
     - run: make rebuild install prefix=${{ github.workspace }}installaarch64 CONFIG=linuxaarch64
