@@ -7,8 +7,8 @@
  * https://www.openssl.org/source/license.html
  */
 
-#ifndef OSSL_INTERNAL_COMMON_H
-# define OSSL_INTERNAL_COMMON_H
+#ifndef XDIG_INTERNAL_COMMON_H
+# define XDIG_INTERNAL_COMMON_H
 # pragma once
 
 # include <stdlib.h>
