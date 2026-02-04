@@ -27,7 +27,7 @@
 
 #define UCHAR   unsigned char
 
-static void md2_block(xdig_md2_ctx_t *c, const unsigned char *d);
+static void xdig_md2_block(xdig_md2_ctx_t *c, const unsigned char *d);
 /*
  * The magic S table - I have converted it to hex since it is basically just
  * a random byte string.
@@ -92,7 +92,7 @@ void xdig_md2_ctx_update(xdig_md2_ctx_t *c, const void *data_, size_t len)
     if (c->num != 0) {
         if ((c->num + len) >= MD2_BLOCK) {
             memcpy(&(p[c->num]), data, MD2_BLOCK - c->num);
-            md2_block(c, c->data);
+            xdig_md2_block(c, c->data);
             data += (MD2_BLOCK - c->num);
             len -= (MD2_BLOCK - c->num);
             c->num = 0;
@@ -109,7 +109,7 @@ void xdig_md2_ctx_update(xdig_md2_ctx_t *c, const void *data_, size_t len)
      * save the leftovers to c->data.
      */
     while (len >= MD2_BLOCK) {
-        md2_block(c, data);
+        xdig_md2_block(c, data);
         data += MD2_BLOCK;
         len -= MD2_BLOCK;
     }
@@ -117,7 +117,7 @@ void xdig_md2_ctx_update(xdig_md2_ctx_t *c, const void *data_, size_t len)
     c->num = (int)len;
 }
 
-static void md2_block(xdig_md2_ctx_t *c, const unsigned char *d)
+static void xdig_md2_block(xdig_md2_ctx_t *c, const unsigned char *d)
 {
     register MD2_INT t, *sp1, *sp2;
     register int i, j;
@@ -163,11 +163,11 @@ void xdig_md2_ctx_final(xdig_md2_ctx_t *c, unsigned char *md)
     for (i = c->num; i < MD2_BLOCK; i++)
         cp[i] = (UCHAR) v;
 
-    md2_block(c, cp);
+    xdig_md2_block(c, cp);
 
     for (i = 0; i < MD2_BLOCK; i++)
         cp[i] = (UCHAR) p2[i];
-    md2_block(c, cp);
+    xdig_md2_block(c, cp);
 
     for (i = 0; i < 16; i++)
         md[i] = (UCHAR) (p1[i] & 0xff);

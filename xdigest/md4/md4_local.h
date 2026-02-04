@@ -12,7 +12,8 @@
 /* ignored include 'openssl/opensslconf.h' */
 #include "internal/md4.h"
 
-static void md4_block_data_order(xdig_md4_ctx_t *c, const void *p, size_t num);
+static void xdig_md4_block_data_order(xdig_md4_ctx_t *c, const void *p,
+                                      size_t num);
 
 #define DATA_ORDER_IS_LITTLE_ENDIAN
 
@@ -28,7 +29,7 @@ static void md4_block_data_order(xdig_md4_ctx_t *c, const void *p, size_t num);
         ll=(c)->C; (void)HOST_l2c(ll,(s));      \
         ll=(c)->D; (void)HOST_l2c(ll,(s));      \
         } while (0)
-#define HASH_BLOCK_DATA_ORDER   md4_block_data_order
+#define HASH_BLOCK_DATA_ORDER   xdig_md4_block_data_order
 
 #include "crypto/md32_common.h"
 
