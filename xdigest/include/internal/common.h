@@ -26,9 +26,6 @@
 #  define ossl_unlikely(x)   (x)
 # endif
 
-# ifdef NDEBUG
-#  define ossl_assert(x) ossl_likely((x) != 0)
-# else
 #include <stdio.h>
 
 void static
@@ -37,8 +34,6 @@ xdig_die(const char *message, const char *file, int line)
     fprintf(stderr, "%s:%d: OpenSSL internal error: %s\n", file, line, message);
     abort();
 }
-
-# endif
 
 void xdig_cleanse(void *ptr, size_t len);
 
