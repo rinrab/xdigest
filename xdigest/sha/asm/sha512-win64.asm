@@ -6,14 +6,14 @@ section	.text code align=64
 
 
 EXTERN	xdig_ia32cap_P
-global	sha512_block_data_order
+global	xdig_sha512_block_data_order
 
 ALIGN	16
-sha512_block_data_order:
+xdig_sha512_block_data_order:
 	mov	QWORD[8+rsp],rdi	;WIN64 prologue
 	mov	QWORD[16+rsp],rsi
 	mov	rax,rsp
-$L$SEH_begin_sha512_block_data_order:
+$L$SEH_begin_xdig_sha512_block_data_order:
 	mov	rdi,rcx
 	mov	rsi,rdx
 	mov	rdx,r8
@@ -1745,7 +1745,7 @@ $L$epilogue:
 	mov	rsi,QWORD[16+rsp]
 	DB	0F3h,0C3h		;repret
 
-$L$SEH_end_sha512_block_data_order:
+$L$SEH_end_xdig_sha512_block_data_order:
 section	.rdata rdata align=64
 ALIGN	64
 
@@ -1887,11 +1887,11 @@ K512_single:
 section .text
 
 ALIGN	64
-sha512_block_data_order_xop:
+xdig_sha512_block_data_order_xop:
 	mov	QWORD[8+rsp],rdi	;WIN64 prologue
 	mov	QWORD[16+rsp],rsi
 	mov	rax,rsp
-$L$SEH_begin_sha512_block_data_order_xop:
+$L$SEH_begin_xdig_sha512_block_data_order_xop:
 	mov	rdi,rcx
 	mov	rsi,rdx
 	mov	rdx,r8
@@ -3008,14 +3008,14 @@ $L$epilogue_xop:
 	mov	rsi,QWORD[16+rsp]
 	DB	0F3h,0C3h		;repret
 
-$L$SEH_end_sha512_block_data_order_xop:
+$L$SEH_end_xdig_sha512_block_data_order_xop:
 
 ALIGN	64
-sha512_block_data_order_avx:
+xdig_sha512_block_data_order_avx:
 	mov	QWORD[8+rsp],rdi	;WIN64 prologue
 	mov	QWORD[16+rsp],rsi
 	mov	rax,rsp
-$L$SEH_begin_sha512_block_data_order_avx:
+$L$SEH_begin_xdig_sha512_block_data_order_avx:
 	mov	rdi,rcx
 	mov	rsi,rdx
 	mov	rdx,r8
@@ -4196,14 +4196,14 @@ $L$epilogue_avx:
 	mov	rsi,QWORD[16+rsp]
 	DB	0F3h,0C3h		;repret
 
-$L$SEH_end_sha512_block_data_order_avx:
+$L$SEH_end_xdig_sha512_block_data_order_avx:
 
 ALIGN	64
-sha512_block_data_order_avx2:
+xdig_sha512_block_data_order_avx2:
 	mov	QWORD[8+rsp],rdi	;WIN64 prologue
 	mov	QWORD[16+rsp],rsi
 	mov	rax,rsp
-$L$SEH_begin_sha512_block_data_order_avx2:
+$L$SEH_begin_xdig_sha512_block_data_order_avx2:
 	mov	rdi,rcx
 	mov	rsi,rdx
 	mov	rdx,r8
@@ -5579,14 +5579,14 @@ $L$epilogue_avx2:
 	mov	rsi,QWORD[16+rsp]
 	DB	0F3h,0C3h		;repret
 
-$L$SEH_end_sha512_block_data_order_avx2:
+$L$SEH_end_xdig_sha512_block_data_order_avx2:
 
 ALIGN	64
-sha512_block_data_order_sha512ext:
+xdig_sha512_block_data_order_sha512ext:
 	mov	QWORD[8+rsp],rdi	;WIN64 prologue
 	mov	QWORD[16+rsp],rsi
 	mov	rax,rsp
-$L$SEH_begin_sha512_block_data_order_sha512ext:
+$L$SEH_begin_xdig_sha512_block_data_order_sha512ext:
 	mov	rdi,rcx
 	mov	rsi,rdx
 	mov	rdx,r8
@@ -5887,7 +5887,7 @@ $L$sha512ext_done:
 	mov	rsi,QWORD[16+rsp]
 	DB	0F3h,0C3h		;repret
 
-$L$SEH_end_sha512_block_data_order_sha512ext:
+$L$SEH_end_xdig_sha512_block_data_order_sha512ext:
 EXTERN	__imp_RtlVirtualUnwind
 
 ALIGN	16
@@ -5993,33 +5993,33 @@ $L$in_prologue:
 
 section	.pdata rdata align=4
 ALIGN	4
-	DD	$L$SEH_begin_sha512_block_data_order wrt ..imagebase
-	DD	$L$SEH_end_sha512_block_data_order wrt ..imagebase
-	DD	$L$SEH_info_sha512_block_data_order wrt ..imagebase
-	DD	$L$SEH_begin_sha512_block_data_order_xop wrt ..imagebase
-	DD	$L$SEH_end_sha512_block_data_order_xop wrt ..imagebase
-	DD	$L$SEH_info_sha512_block_data_order_xop wrt ..imagebase
-	DD	$L$SEH_begin_sha512_block_data_order_avx wrt ..imagebase
-	DD	$L$SEH_end_sha512_block_data_order_avx wrt ..imagebase
-	DD	$L$SEH_info_sha512_block_data_order_avx wrt ..imagebase
-	DD	$L$SEH_begin_sha512_block_data_order_avx2 wrt ..imagebase
-	DD	$L$SEH_end_sha512_block_data_order_avx2 wrt ..imagebase
-	DD	$L$SEH_info_sha512_block_data_order_avx2 wrt ..imagebase
+	DD	$L$SEH_begin_xdig_sha512_block_data_order wrt ..imagebase
+	DD	$L$SEH_end_xdig_sha512_block_data_order wrt ..imagebase
+	DD	$L$SEH_info_xdig_sha512_block_data_order wrt ..imagebase
+	DD	$L$SEH_begin_xdig_sha512_block_data_order_xop wrt ..imagebase
+	DD	$L$SEH_end_xdig_sha512_block_data_order_xop wrt ..imagebase
+	DD	$L$SEH_info_xdig_sha512_block_data_order_xop wrt ..imagebase
+	DD	$L$SEH_begin_xdig_sha512_block_data_order_avx wrt ..imagebase
+	DD	$L$SEH_end_xdig_sha512_block_data_order_avx wrt ..imagebase
+	DD	$L$SEH_info_xdig_sha512_block_data_order_avx wrt ..imagebase
+	DD	$L$SEH_begin_xdig_sha512_block_data_order_avx2 wrt ..imagebase
+	DD	$L$SEH_end_xdig_sha512_block_data_order_avx2 wrt ..imagebase
+	DD	$L$SEH_info_xdig_sha512_block_data_order_avx2 wrt ..imagebase
 section	.xdata rdata align=8
 ALIGN	8
-$L$SEH_info_sha512_block_data_order:
+$L$SEH_info_xdig_sha512_block_data_order:
 DB	9,0,0,0
 	DD	se_handler wrt ..imagebase
 	DD	$L$prologue wrt ..imagebase,$L$epilogue wrt ..imagebase
-$L$SEH_info_sha512_block_data_order_xop:
+$L$SEH_info_xdig_sha512_block_data_order_xop:
 DB	9,0,0,0
 	DD	se_handler wrt ..imagebase
 	DD	$L$prologue_xop wrt ..imagebase,$L$epilogue_xop wrt ..imagebase
-$L$SEH_info_sha512_block_data_order_avx:
+$L$SEH_info_xdig_sha512_block_data_order_avx:
 DB	9,0,0,0
 	DD	se_handler wrt ..imagebase
 	DD	$L$prologue_avx wrt ..imagebase,$L$epilogue_avx wrt ..imagebase
-$L$SEH_info_sha512_block_data_order_avx2:
+$L$SEH_info_xdig_sha512_block_data_order_avx2:
 DB	9,0,0,0
 	DD	se_handler wrt ..imagebase
 	DD	$L$prologue_avx2 wrt ..imagebase,$L$epilogue_avx2 wrt ..imagebase

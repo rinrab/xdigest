@@ -1,10 +1,10 @@
 .text	
 
 
-.globl	sha256_block_data_order
-.type	sha256_block_data_order,@function
+.globl	xdig_sha256_block_data_order
+.type	xdig_sha256_block_data_order,@function
 .align	16
-sha256_block_data_order:
+xdig_sha256_block_data_order:
 .cfi_startproc	
 	leaq	xdig_ia32cap_P(%rip),%r10
 	movq	0(%r10),%r9
@@ -1726,7 +1726,7 @@ sha256_block_data_order:
 .Lepilogue:
 	.byte	0xf3,0xc3
 .cfi_endproc	
-.size	sha256_block_data_order,.-sha256_block_data_order
+.size	xdig_sha256_block_data_order,.-xdig_sha256_block_data_order
 .section	.rodata
 .align	64
 .type	K256,@object
@@ -1772,9 +1772,9 @@ K256:
 .long	0xffffffff,0xffffffff,0x03020100,0x0b0a0908
 .byte	83,72,65,50,53,54,32,98,108,111,99,107,32,116,114,97,110,115,102,111,114,109,32,102,111,114,32,120,56,54,95,54,52,44,32,67,82,89,80,84,79,71,65,77,83,32,98,121,32,60,104,116,116,112,115,58,47,47,103,105,116,104,117,98,46,99,111,109,47,100,111,116,45,97,115,109,62,0
 .previous	
-.type	sha256_block_data_order_shaext,@function
+.type	xdig_sha256_block_data_order_shaext,@function
 .align	64
-sha256_block_data_order_shaext:
+xdig_sha256_block_data_order_shaext:
 _shaext_shortcut:
 .cfi_startproc	
 	leaq	K256+128(%rip),%rcx
@@ -1980,10 +1980,10 @@ _shaext_shortcut:
 	movdqu	%xmm2,16(%rdi)
 	.byte	0xf3,0xc3
 .cfi_endproc	
-.size	sha256_block_data_order_shaext,.-sha256_block_data_order_shaext
-.type	sha256_block_data_order_ssse3,@function
+.size	xdig_sha256_block_data_order_shaext,.-xdig_sha256_block_data_order_shaext
+.type	xdig_sha256_block_data_order_ssse3,@function
 .align	64
-sha256_block_data_order_ssse3:
+xdig_sha256_block_data_order_ssse3:
 .cfi_startproc	
 .Lssse3_shortcut:
 	movq	%rsp,%rax
@@ -3093,10 +3093,10 @@ sha256_block_data_order_ssse3:
 .Lepilogue_ssse3:
 	.byte	0xf3,0xc3
 .cfi_endproc	
-.size	sha256_block_data_order_ssse3,.-sha256_block_data_order_ssse3
-.type	sha256_block_data_order_avx,@function
+.size	xdig_sha256_block_data_order_ssse3,.-xdig_sha256_block_data_order_ssse3
+.type	xdig_sha256_block_data_order_avx,@function
 .align	64
-sha256_block_data_order_avx:
+xdig_sha256_block_data_order_avx:
 .cfi_startproc	
 .Lavx_shortcut:
 	movq	%rsp,%rax
@@ -4168,10 +4168,10 @@ sha256_block_data_order_avx:
 .Lepilogue_avx:
 	.byte	0xf3,0xc3
 .cfi_endproc	
-.size	sha256_block_data_order_avx,.-sha256_block_data_order_avx
-.type	sha256_block_data_order_avx2,@function
+.size	xdig_sha256_block_data_order_avx,.-xdig_sha256_block_data_order_avx
+.type	xdig_sha256_block_data_order_avx2,@function
 .align	64
-sha256_block_data_order_avx2:
+xdig_sha256_block_data_order_avx2:
 .cfi_startproc	
 .Lavx2_shortcut:
 	movq	%rsp,%rax
@@ -5454,7 +5454,7 @@ sha256_block_data_order_avx2:
 .Lepilogue_avx2:
 	.byte	0xf3,0xc3
 .cfi_endproc	
-.size	sha256_block_data_order_avx2,.-sha256_block_data_order_avx2
+.size	xdig_sha256_block_data_order_avx2,.-xdig_sha256_block_data_order_avx2
 	.section ".note.gnu.property", "a"
 	.p2align 3
 	.long 1f - 0f

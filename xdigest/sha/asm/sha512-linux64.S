@@ -1,10 +1,10 @@
 .text	
 
 
-.globl	sha512_block_data_order
-.type	sha512_block_data_order,@function
+.globl	xdig_sha512_block_data_order
+.type	xdig_sha512_block_data_order,@function
 .align	16
-sha512_block_data_order:
+xdig_sha512_block_data_order:
 .cfi_startproc	
 	leaq	xdig_ia32cap_P(%rip),%r10
 	movq	0(%r10),%r9
@@ -1729,7 +1729,7 @@ sha512_block_data_order:
 .Lepilogue:
 	.byte	0xf3,0xc3
 .cfi_endproc	
-.size	sha512_block_data_order,.-sha512_block_data_order
+.size	xdig_sha512_block_data_order,.-xdig_sha512_block_data_order
 .section	.rodata
 .align	64
 .type	K512,@object
@@ -1865,9 +1865,9 @@ K512_single:
 .quad	0x4cc5d4becb3e42b6, 0x597f299cfc657e2a
 .quad	0x5fcb6fab3ad6faec, 0x6c44198c4a475817
 .previous	
-.type	sha512_block_data_order_xop,@function
+.type	xdig_sha512_block_data_order_xop,@function
 .align	64
-sha512_block_data_order_xop:
+xdig_sha512_block_data_order_xop:
 .cfi_startproc	
 .Lxop_shortcut:
 	movq	%rsp,%rax
@@ -2965,10 +2965,10 @@ sha512_block_data_order_xop:
 .Lepilogue_xop:
 	.byte	0xf3,0xc3
 .cfi_endproc	
-.size	sha512_block_data_order_xop,.-sha512_block_data_order_xop
-.type	sha512_block_data_order_avx,@function
+.size	xdig_sha512_block_data_order_xop,.-xdig_sha512_block_data_order_xop
+.type	xdig_sha512_block_data_order_avx,@function
 .align	64
-sha512_block_data_order_avx:
+xdig_sha512_block_data_order_avx:
 .cfi_startproc	
 .Lavx_shortcut:
 	movq	%rsp,%rax
@@ -4130,10 +4130,10 @@ sha512_block_data_order_avx:
 .Lepilogue_avx:
 	.byte	0xf3,0xc3
 .cfi_endproc	
-.size	sha512_block_data_order_avx,.-sha512_block_data_order_avx
-.type	sha512_block_data_order_avx2,@function
+.size	xdig_sha512_block_data_order_avx,.-xdig_sha512_block_data_order_avx
+.type	xdig_sha512_block_data_order_avx2,@function
 .align	64
-sha512_block_data_order_avx2:
+xdig_sha512_block_data_order_avx2:
 .cfi_startproc	
 .Lavx2_shortcut:
 	movq	%rsp,%rax
@@ -5510,10 +5510,10 @@ sha512_block_data_order_avx2:
 .Lepilogue_avx2:
 	.byte	0xf3,0xc3
 .cfi_endproc	
-.size	sha512_block_data_order_avx2,.-sha512_block_data_order_avx2
-.type	sha512_block_data_order_sha512ext,@function
+.size	xdig_sha512_block_data_order_avx2,.-xdig_sha512_block_data_order_avx2
+.type	xdig_sha512_block_data_order_sha512ext,@function
 .align	64
-sha512_block_data_order_sha512ext:
+xdig_sha512_block_data_order_sha512ext:
 .cfi_startproc	
 .byte	243,15,30,250
 .Lsha512ext_shortcut:
@@ -5781,7 +5781,7 @@ sha512_block_data_order_sha512ext:
 .Lsha512ext_done:
 	.byte	0xf3,0xc3
 .cfi_endproc	
-.size	sha512_block_data_order_sha512ext,.-sha512_block_data_order_sha512ext
+.size	xdig_sha512_block_data_order_sha512ext,.-xdig_sha512_block_data_order_sha512ext
 	.section ".note.gnu.property", "a"
 	.p2align 3
 	.long 1f - 0f

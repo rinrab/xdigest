@@ -6,10 +6,10 @@
 
 .text
 
-.globl	sha1_block_data_order
+.globl	xdig_sha1_block_data_order
 
 .align	6
-sha1_block_data_order:
+xdig_sha1_block_data_order:
 	AARCH64_VALID_CALL_TARGET
 	adrp	x16,xdig_armcap_P
 	ldr	w16,[x16,#:lo12:xdig_armcap_P]

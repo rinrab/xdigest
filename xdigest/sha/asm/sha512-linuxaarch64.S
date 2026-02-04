@@ -63,10 +63,10 @@
 
 .text
 
-.globl	sha512_block_data_order
+.globl	xdig_sha512_block_data_order
 
 .align	6
-sha512_block_data_order:
+xdig_sha512_block_data_order:
 	AARCH64_VALID_CALL_TARGET
 #ifndef	__KERNEL__
 	adrp	x16,xdig_armcap_P

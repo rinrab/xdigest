@@ -1,10 +1,10 @@
 .text	
 
 
-.globl	_sha256_block_data_order
+.globl	_xdig_sha256_block_data_order
 
 .p2align	4
-_sha256_block_data_order:
+_xdig_sha256_block_data_order:
 
 	leaq	_xdig_ia32cap_P(%rip),%r10
 	movq	0(%r10),%r9
@@ -1774,7 +1774,7 @@ K256:
 .text
 
 .p2align	6
-sha256_block_data_order_shaext:
+xdig_sha256_block_data_order_shaext:
 _shaext_shortcut:
 
 	leaq	K256+128(%rip),%rcx
@@ -1983,7 +1983,7 @@ L$oop_shaext:
 
 
 .p2align	6
-sha256_block_data_order_ssse3:
+xdig_sha256_block_data_order_ssse3:
 
 L$ssse3_shortcut:
 	movq	%rsp,%rax
@@ -3096,7 +3096,7 @@ L$epilogue_ssse3:
 
 
 .p2align	6
-sha256_block_data_order_avx:
+xdig_sha256_block_data_order_avx:
 
 L$avx_shortcut:
 	movq	%rsp,%rax
@@ -4171,7 +4171,7 @@ L$epilogue_avx:
 
 
 .p2align	6
-sha256_block_data_order_avx2:
+xdig_sha256_block_data_order_avx2:
 
 L$avx2_shortcut:
 	movq	%rsp,%rax

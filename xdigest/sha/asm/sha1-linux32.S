@@ -1,9 +1,9 @@
 .text
-.globl	sha1_block_data_order
-.type	sha1_block_data_order,@function
+.globl	xdig_sha1_block_data_order
+.type	xdig_sha1_block_data_order,@function
 .align	16
-sha1_block_data_order:
-.L_sha1_block_data_order_begin:
+xdig_sha1_block_data_order:
+.L_xdig_sha1_block_data_order_begin:
 	#ifdef __CET__
 
 .byte	243,15,30,251
@@ -1377,7 +1377,7 @@ sha1_block_data_order:
 	popl	%ebx
 	popl	%ebp
 	ret
-.size	sha1_block_data_order,.-.L_sha1_block_data_order_begin
+.size	xdig_sha1_block_data_order,.-.L_xdig_sha1_block_data_order_begin
 .byte	83,72,65,49,32,98,108,111,99,107,32,116,114,97,110,115
 .byte	102,111,114,109,32,102,111,114,32,120,56,54,44,32,67,82
 .byte	89,80,84,79,71,65,77,83,32,98,121,32,60,104,116,116

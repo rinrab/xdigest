@@ -1,9 +1,9 @@
 #include "arm_arch.h"
 
 .text
-.globl	_ossl_md5_block_asm_data_order
+.globl	_xdig_md5_block_data_order
 
-_ossl_md5_block_asm_data_order:
+_xdig_md5_block_data_order:
 	AARCH64_VALID_CALL_TARGET
         // Save all callee-saved registers
 	stp	x19,x20,[sp,#-80]!

@@ -6,10 +6,10 @@ section	.text	code align=64
 %else
 section	.text	code
 %endif
-global	_sha512_block_data_order
+global	_xdig_sha512_block_data_order
 align	16
-_sha512_block_data_order:
-L$_sha512_block_data_order_begin:
+_xdig_sha512_block_data_order:
+L$_xdig_sha512_block_data_order_begin:
 	push	ebp
 	push	ebx
 	push	esi
