@@ -43,19 +43,6 @@
 #  define MSDOS
 # endif
 
-# ifdef WIN32
-#  undef get_last_sys_error
-#  undef clear_sys_error
-#  undef set_sys_error
-#  define get_last_sys_error()    GetLastError()
-#  define clear_sys_error()       SetLastError(0)
-#  define set_sys_error(e)        SetLastError(e)
-#  if !defined(WINNT)
-#   define WIN_CONSOLE_BUG
-#  endif
-# else
-# endif
-
 # if (defined(WINDOWS) || defined(MSDOS))
 
 #  ifdef __DJGPP__
