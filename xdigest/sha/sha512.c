@@ -45,7 +45,6 @@
 #include <string.h>
 
 #include "xdigest_sha2.h"
-#include "crypto/sha.h"
 
 #include "sha512_local.h"
 
@@ -53,6 +52,7 @@ struct xdig_sha384_ctx_t {
     xdig_sha512_ctx_t state;
 };
 
+#if 0
 void sha512_224_init(xdig_sha512_ctx_t *ctx)
 {
     ctx->h[0] = U64(0x8c3d37c819544da2);
@@ -86,6 +86,7 @@ void sha512_256_init(xdig_sha512_ctx_t *ctx)
     ctx->num = 0;
     ctx->md_len = XDIG_SHA256_DIGEST_LENGTH;
 }
+#endif
 
 void xdig_sha384_ctx_init(xdig_sha384_ctx_t *ctx)
 {

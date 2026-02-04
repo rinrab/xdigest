@@ -11,7 +11,6 @@
 #include <string.h>
 
 #include <xdigest/xdigest_sha2.h>
-#include "crypto/sha.h"
 
 #include "sha256_local.h"
 
@@ -96,8 +95,11 @@ size_t xdig_sha224_ctx_size(void)
 }
 
 /* SHA256_192 */
+
+#if 0
 void ossl_sha256_192_init(xdig_sha256_ctx_t *ctx)
 {
     xdig_sha256_ctx_init(ctx);
     ctx->md_len = XDIG_SHA256_192_DIGEST_LENGTH;
 }
+#endif
