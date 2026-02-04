@@ -35,10 +35,6 @@ void xdig_md4_ctx_init(xdig_md4_ctx_t *c)
     c->D = INIT_DATA_D;
 }
 
-#ifndef md4_block_data_order
-# ifdef X
-#  undef X
-# endif
 void md4_block_data_order(xdig_md4_ctx_t *c, const void *data_, size_t num)
 {
     const unsigned char *data = data_;
@@ -149,4 +145,3 @@ void md4_block_data_order(xdig_md4_ctx_t *c, const void *data_, size_t num)
         D = c->D += D;
     }
 }
-#endif
