@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v6
 
-    - run: sudo apt-get install gcc-multilib lib32stdc++6
+    - run: sudo apt-get install gcc-multilib
 
     - run: cmake -B out-x64 -G Ninja -DCMAKE_INSTALL_PREFIX=install/x64
     - run: ninja -C out-x64
