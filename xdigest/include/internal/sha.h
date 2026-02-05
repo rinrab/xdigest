@@ -11,15 +11,10 @@
 # define xdig_SHA_H
 # pragma once
 
-/* ignored include 'openssl/macros.h' */
-# ifndef xdig_NO_DEPRECATED_3_0
-#  define HEADER_SHA_H
-# endif
-
 #include "internal/e_os2.h"
 #include "xdigest/xdigest_sha1.h"
 #include "xdigest/xdigest_sha2.h"
-# include <stddef.h>
+#include <stddef.h>
 
 # ifdef  __cplusplus
 extern "C" {
@@ -27,19 +22,20 @@ extern "C" {
 
 # define XDIG_SHA_DIGEST_LENGTH 20
 
-# ifndef xdig_NO_DEPRECATED_3_0
 /*-
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
- * ! XDIG_SHA_LONG has to be at least 32 bits wide.                    !
+ * ! XDIG_SHA_LONG has to be at least 32 bits wide.               !
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  */
-#  define XDIG_SHA_LONG unsigned int
+# define XDIG_SHA_LONG unsigned int
 
-#  define XDIG_SHA_LBLOCK      16
-#  define XDIG_SHA_CBLOCK      (XDIG_SHA_LBLOCK*4)/* SHA treats input data as a
-                                         * contiguous array of 32 bit wide
-                                         * big-endian values. */
-#  define XDIG_SHA_LAST_BLOCK  (XDIG_SHA_CBLOCK-8)
+/*
+ * SHA treats input data as a contiguous array of 32 bit wide big-endian
+ * values.
+ */
+# define XDIG_SHA_LBLOCK      16
+# define XDIG_SHA_CBLOCK      (XDIG_SHA_LBLOCK*4)
+# define XDIG_SHA_LAST_BLOCK  (XDIG_SHA_CBLOCK-8)
 
 struct xdig_sha1_ctx_t {
     XDIG_SHA_LONG h0, h1, h2, h3, h4;
@@ -47,12 +43,12 @@ struct xdig_sha1_ctx_t {
     XDIG_SHA_LONG data[XDIG_SHA_LBLOCK];
     unsigned int num;
 };
-# endif
 
-# ifndef xdig_NO_DEPRECATED_3_0
-#  define XDIG_SHA256_CBLOCK   (XDIG_SHA_LBLOCK*4)/* SHA-256 treats input data as a
-                                        * contiguous array of 32 bit wide
-                                        * big-endian values. */
+/*
+ * SHA-256 treats input data as a contiguous array of 32 bit wide big-endian
+ * values.
+ */
+# define XDIG_SHA256_CBLOCK   (XDIG_SHA_LBLOCK*4)
 
 struct xdig_sha256_ctx_t {
     XDIG_SHA_LONG h[8];
@@ -61,9 +57,6 @@ struct xdig_sha256_ctx_t {
     unsigned int num, md_len;
 };
 
-# endif
-
-# ifndef xdig_NO_DEPRECATED_3_0
 /*
  * Unlike 32-bit digest algorithms, SHA-512 *relies* on XDIG_SHA_LONG64
  * being exactly 64-bit wide. See Implementation Notes in sha512.c
@@ -74,14 +67,14 @@ struct xdig_sha256_ctx_t {
  * contiguous array of 64 bit
  * wide big-endian values.
  */
-#  define XDIG_SHA512_CBLOCK   (XDIG_SHA_LBLOCK*8)
-#  if (defined(_WIN32) || defined(_WIN64)) && !defined(__MINGW32__)
-#   define XDIG_SHA_LONG64 unsigned __int64
-#  elif defined(__arch64__)
-#   define XDIG_SHA_LONG64 unsigned long
-#  else
-#   define XDIG_SHA_LONG64 unsigned long long
-#  endif
+# define XDIG_SHA512_CBLOCK   (XDIG_SHA_LBLOCK*8)
+# if (defined(_WIN32) || defined(_WIN64)) && !defined(__MINGW32__)
+#  define XDIG_SHA_LONG64 unsigned __int64
+# elif defined(__arch64__)
+#  define XDIG_SHA_LONG64 unsigned long
+# else
+#  define XDIG_SHA_LONG64 unsigned long long
+# endif
 
 struct xdig_sha512_ctx_t {
     XDIG_SHA_LONG64 h[8];
@@ -92,10 +85,9 @@ struct xdig_sha512_ctx_t {
     } u;
     unsigned int num, md_len;
 };
-# endif
 
 # ifdef  __cplusplus
 }
 # endif
 
-#endif
+#endif /* ! xdig_SHA_H */
