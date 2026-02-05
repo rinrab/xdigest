@@ -7,7 +7,7 @@
  * https://www.openssl.org/source/license.html
  */
 
-#include "internal/e_os.h"
+#include "internal/e_os2.h"
 /* ignored include 'crypto/cryptlib.h' */
 #include "xdigest/xdigest.h"
 
