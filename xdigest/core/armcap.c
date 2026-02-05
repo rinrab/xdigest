@@ -165,38 +165,6 @@ uint32_t xdig_rdtsc(void)
         return 0;
 }
 
-# ifdef __aarch64__
-size_t xdig_rndr_asm(unsigned char *buf, size_t len);
-size_t xdig_rndrrs_asm(unsigned char *buf, size_t len);
-
-size_t xdig_rndr_bytes(unsigned char *buf, size_t len);
-size_t xdig_rndrrs_bytes(unsigned char *buf, size_t len);
-
-static size_t xdig_rndr_wrapper(size_t (*func)(unsigned char *, size_t), unsigned char *buf, size_t len)
-{
-    size_t buffer_size = 0;
-    int i;
-
-    for (i = 0; i < 8; i++) {
-        buffer_size = func(buf, len);
-        if (buffer_size == len)
-            break;
-        usleep(5000);  /* 5000 microseconds (5 milliseconds) */
-    }
-    return buffer_size;
-}
-
-size_t xdig_rndr_bytes(unsigned char *buf, size_t len)
-{
-    return xdig_rndr_wrapper(xdig_rndr_asm, buf, len);
-}
-
-size_t xdig_rndrrs_bytes(unsigned char *buf, size_t len)
-{
-    return xdig_rndr_wrapper(xdig_rndrrs_asm, buf, len);
-}
-# endif
-
 # if !defined(__APPLE__) && !defined(OSSL_IMPLEMENT_GETAUXVAL)
 static sigset_t all_masked;
 
