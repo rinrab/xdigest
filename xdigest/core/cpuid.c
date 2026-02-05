@@ -10,6 +10,7 @@
 #include "internal/e_os2.h"
 /* ignored include 'crypto/cryptlib.h' */
 #include "xdigest/xdigest.h"
+#include <stddef.h>
 
 #if     defined(__i386)   || defined(__i386__)   || defined(_M_IX86) || \
         defined(__x86_64) || defined(__x86_64__) || \
