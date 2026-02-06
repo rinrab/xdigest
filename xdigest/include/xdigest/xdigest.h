@@ -35,7 +35,7 @@ extern "C" {
 void xdig_init(void);
 
 #define XDIG_VERSION_MAJOR 0
-#define XDIG_VERSION_MINOR 3
+#define XDIG_VERSION_MINOR 4
 #define XDIG_VERSION_PATCH 0
 
 typedef struct xdig_version_t
