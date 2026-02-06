@@ -233,6 +233,24 @@ it has to be first initialized. Use `xdig_init()` function in `xdigest/xdigest.h
 header in order to do that. It is important that it's called once per process.
 Otherwise, something might missbehave.
 
+## Copyright
+
+This product is published under Apache-2.0 license. Please refer to LICENSE and
+NOTICE for more information. Many source files have been derived from OpenSSL.
+Those files must retain copyright header in each source file.
+
+Every file must begin with a comment with Apache-2.0 apendix and copyright of
+original source, if any. The first line should include a filename and short
+description. Multiple licenses should be separated with a bunch of '=' acting
+as a separator (and enclose their contents). Feel free to yank to from
+elsewhere in the codebase.
+
+Everyone who contributed to a source file should include their name into
+license header. This is more like a recommendation, not a requirement. After a
+change in a source file, year should be updated. Don't bother doing those
+modification if a change was obvious or minor. Use your own judgement and
+preferences.
+
 ## TODO checklist
 
 - [ ] Platforms
