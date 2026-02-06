@@ -1,6 +1,20 @@
-# Changelog
+# Changelog 
 
 All notable changes should be documented here.
+
+## 0.4.0
+
+This release focuses on tidying up the source code. Nothing really meaningfull
+should change for you as a user. 
+
+- Cleanup symbols. This includes removing some functions which were never used
+  but yoinked from OpenSSL and renaming the rest to begin with `xdig` prefix.
+  Also cleanup similar nonsence from the headers.
+
+- Add copyright headers to the source files.
+
+Some issue have been adressed in my pull-request to the vcpkg registry
+<https://github.com/microsoft/vcpkg/pull/49708>.
 
 ## 0.3.0
 
