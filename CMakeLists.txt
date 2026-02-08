@@ -52,6 +52,7 @@ if (USE_ASM)
     else()
         enable_language(ASM)
         set(ASMEXT S)
+        set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -Wa,--noexecstack")
     endif()
 endif()
 
