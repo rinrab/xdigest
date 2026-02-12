@@ -21,12 +21,37 @@
 out = out
 
 include build/Version.inc
-include build/rules.arch
 include build/rules.unix
 
+CONFIG ?= linux64
+
+ifeq ($(CONFIG), linux64)
+    ARCH = -m64
+else ifeq ($(CONFIG), linux32)
+    ARCH = -m32
+else ifeq ($(CONFIG), linuxaarch64)
+    ARCH = -march=armv8-a+crypto
+else ifeq ($(CONFIG), macosx64)
+    ARCH = -arch x86_64
+else ifeq ($(CONFIG), macosxaarch64)
+    ARCH = -arch arm64
+else
+    $(error invalid architecute: "$(CONFIG)")
+endif
+
+ASMFLAGS += -Wa,--noexecstack
+CFLAGS += -O3 -Wall
+CC = $(CROSS_COMPILE)gcc
+
+COMPILE = $(CC) -c $(CFLAGS) $(ARCH) -o
+ASSEMBLER = $(CC) -c $(ASMFLAGS) $(ARCH) -o
+
+LINK_SHARED = $(CC) -shared $(ARCH) -o
+LINK_PROGRAM = $(CC) $(ARCH) -o
+
 MAKE_FLAGS = \
-	 "CC=$(CC)" \
 	 "ASSEMBLER=$(ASSEMBLER)" \
+	 "COMPILE=$(COMPILE)" \
 	 "LINK_SHARED=$(LINK_SHARED)" \
 	 "CONFIG=$(CONFIG)" \
 	 "prefix=$(prefix)"
@@ -50,7 +75,7 @@ xdigest/libxdigest.so: all
 
 %.o: %.c
 	mkdir -p $(@D)
-	$(CC) $@ $^ -DXDIG -Ixdigest/include/xdigest
+	$(COMPILE) $@ $^ -DXDIG -Ixdigest/include/xdigest
 
 test_xdigest: tests/test_xdigest.o tests/sha_test.o xdigest/libxdigest.so
 	$(MKDIR) $(@D)

@@ -12,8 +12,8 @@ else
     DEFS += -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM
 endif
 
-include Makefile.inc
 include ../build/rules.unix
+include Makefile.inc
 
 INCS += -Iinclude -Iinclude/xdigest -I. -Icore
 
@@ -51,7 +51,7 @@ $(asm_objects): %.o: %.S
 	mkdir -p $(@D) && $(ASSEMBLER) $@ $^ $(DEFS) $(INCS)
 
 $(c_objects): %.o: %.c
-	mkdir -p $(@D) && $(CC) $@ $^ $(DEFS) $(INCS)
+	mkdir -p $(@D) && $(COMPILE) $@ $^ $(DEFS) $(INCS)
 
 install-shared: $(sofiles)
 	install -d $(prefix)/lib/
