@@ -49,6 +49,73 @@ ASSEMBLER = $(CC) -c $(ASMFLAGS) $(ARCH) -o
 LINK_SHARED = $(CC) -shared $(ARCH) -o
 LINK_PROGRAM = $(CC) $(ARCH) -o
 
+ifdef NO_ASM
+    DEFS += -DNO_ASM
+else
+    DEFS += -Dxdig_CPUID_OBJ
+    DEFS += -DMD5_ASM
+    DEFS += -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM
+endif
+
+INCS += -Ixdigest/include -Ixdigest/include/xdigest -Ixdigest -Ixdigest/core
+
+c_objects = \
+    xdigest/core/cpuid$(OBJEXT) \
+    xdigest/core/armcap$(OBJEXT) \
+    xdigest/core/version$(OBJEXT) \
+    xdigest/core/mem_clr$(OBJEXT) \
+    xdigest/sha/sha1$(OBJEXT) \
+    xdigest/sha/sha256$(OBJEXT) \
+    xdigest/sha/sha512$(OBJEXT) \
+    xdigest/md5/md5_dgst$(OBJEXT) \
+    xdigest/md5/md5_one$(OBJEXT) \
+    xdigest/md4/md4_dgst$(OBJEXT) \
+    xdigest/md4/md4_one$(OBJEXT) \
+    xdigest/md2/md2_dgst$(OBJEXT) \
+    xdigest/md2/md2_one$(OBJEXT)
+
+asm_objects = \
+    xdigest/core/asm/cpuid-$(CONFIG)$(OBJEXT) \
+    xdigest/sha/asm/sha256-$(CONFIG)$(OBJEXT) \
+    xdigest/sha/asm/sha512-$(CONFIG)$(OBJEXT) \
+    xdigest/sha/asm/sha1-$(CONFIG)$(OBJEXT) \
+    xdigest/md5/asm/md5-$(CONFIG)$(OBJEXT)
+objects = $(c_objects)
+
+ifndef NO_ASM
+    objects += $(asm_objects)
+endif
+
+sofiles = \
+	xdigest/libxdigest.so.$(VERSION) \
+	xdigest/libxdigest.so.$(SONAME) \
+	xdigest/libxdigest.so
+
+xdigest/libxdigest.so.$(VERSION): $(objects)
+	$(MKDIR) $(@D)
+	$(LINK_SHARED) $@ $^
+
+xdigest/libxdigest.so.$(SONAME): xdigest/libxdigest.so.$(VERSION)
+	$(LN) $^ $@
+
+xdigest/libxdigest.so: xdigest/libxdigest.so.$(SONAME)
+	$(LN) $^ $@
+
+$(asm_objects): %.o: %.S
+	mkdir -p $(@D) && $(ASSEMBLER) $@ $^ $(DEFS) $(INCS)
+
+$(c_objects): %.o: %.c
+	mkdir -p $(@D) && $(COMPILE) $@ $^ $(DEFS) $(INCS)
+
+install-shared: $(sofiles)
+	install -d $(prefix)/lib/
+	install -m 644 $(sofiles) $(prefix)/lib/
+
+install-headers:
+	install -d $(prefix)/include/
+	install -d $(prefix)/include/xdigest
+	install -m 644 include/xdigest/*.h $(prefix)/include/xdigest
+
 MAKE_FLAGS = \
 	 "ASSEMBLER=$(ASSEMBLER)" \
 	 "COMPILE=$(COMPILE)" \
@@ -56,22 +123,19 @@ MAKE_FLAGS = \
 	 "CONFIG=$(CONFIG)" \
 	 "prefix=$(prefix)"
 
-all:
-	"$(MAKE)" -C xdigest $@ $(MAKE_FLAGS)
+all: $(sofiles)
 
 clean:
-	"$(MAKE)" -C xdigest $@ $(MAKE_FLAGS)
 	@find . -name '*.rej' | xargs $(RM)
 	@find . -name '*.o' | xargs $(RM)
 	@find . -name '*.so*' | xargs $(RM)
 	$(RM) test_xdigest example
+	$(RM) $(sofiles)
+	$(RM) $(objects)
 
-install:
-	"$(MAKE)" -C xdigest $@ $(MAKE_FLAGS)
+install: install-shared install-headers
 
 rebuild: clean all
-
-xdigest/libxdigest.so: all
 
 %.o: %.c
 	mkdir -p $(@D)
