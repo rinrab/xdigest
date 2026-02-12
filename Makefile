@@ -31,6 +31,7 @@ else ifeq ($(CONFIG), linux32)
     ARCH = -m32
 else ifeq ($(CONFIG), linuxaarch64)
     ARCH = -march=armv8-a+crypto
+    CROSS_COMPILE ?= aarch64-linux-gnu-
 else ifeq ($(CONFIG), macosx64)
     ARCH = -arch x86_64
 else ifeq ($(CONFIG), macosxaarch64)
