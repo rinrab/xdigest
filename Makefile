@@ -238,7 +238,7 @@ dist-publish: dist-test \
 		put dist/xdigest-$(DIST_VERSION).tar.gz.asc xdigest-$(DIST_VERSION).tar.gz.asc
 
 dist/xdigest-$(DIST_VERSION).tar.gz: dist-checkout
-	tar -cf dist/xdigest-$(DIST_VERSION).tar.gz dist/build
+	tar -cf - dist/build | gzip -9 - > dist/xdigest-$(DIST_VERSION).tar.gz 
 
 dist/xdigest-$(DIST_VERSION).tar.gz.asc: dist/xdigest-$(DIST_VERSION).tar.gz
 	gpg --detach-sign --default-key $(KEY) --yes --armour --output $@ $^
