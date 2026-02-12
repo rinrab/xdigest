@@ -97,10 +97,10 @@ xdigest/libxdigest.so.$(VERSION): $(objects)
 	$(LINK_SHARED) $@ $^
 
 xdigest/libxdigest.so.$(SONAME): xdigest/libxdigest.so.$(VERSION)
-	$(LN) $^ $@
+	$(LN) libxdigest.so.$(VERSION) $@
 
 xdigest/libxdigest.so: xdigest/libxdigest.so.$(SONAME)
-	$(LN) $^ $@
+	$(LN) libxdigest.so.$(SONAME) $@
 
 $(asm_objects): %.o: %.S
 	mkdir -p $(@D) && $(ASSEMBLER) $@ $^ $(DEFS) $(INCS)
