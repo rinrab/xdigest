@@ -200,3 +200,40 @@ switch-stable:
 
 release-tag: switch-stable clean test
 	svn copy $(URL_STABLE) $(URL_TAG)
+
+# release management
+DIST_TAG = tags/$(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_PATCH)
+DIST_VERSION = $(subst tags/,,$(DIST_TAG))
+KEY = 4734E1FDB2FAF97058D3141257E9B12AFBBE92B8
+
+.PHONY: dist
+dist: dist-test \
+	dist/xdigest-$(DIST_VERSION).tar.gz \
+	dist/xdigest-$(DIST_VERSION).tar.gz.sha256 \
+	dist/xdigest-$(DIST_VERSION).tar.gz.sha512
+
+.PHONY: dist-sign
+dist-sign: dist dist/xdigest-$(DIST_VERSION).tar.gz.asc
+
+.PHONY: dist-checkout
+dist-checkout: 
+	$(RMDIR) dist/build
+	svn checkout https://svn.rinrab.com/rinrab/xdigest/$(DIST_TAG) dist/build
+
+dist-test: dist-checkout
+	svn export dist/build dist/test
+	make test -C dist/test
+	$(RMDIR) dist/test
+
+dist/xdigest-$(DIST_VERSION).tar.gz: dist-checkout
+	tar -cf dist/xdigest-$(DIST_VERSION).tar.gz dist/build
+
+dist/xdigest-$(DIST_VERSION).tar.gz.asc: dist/xdigest-$(DIST_VERSION).tar.gz
+	gpg --detach-sign --default-key $(KEY) --yes --armour --output $@ $^
+
+dist/xdigest-$(DIST_VERSION).tar.gz.sha256: dist/xdigest-$(DIST_VERSION).tar.gz
+	sha256sum $^ > $@
+
+dist/xdigest-$(DIST_VERSION).tar.gz.sha512: dist/xdigest-$(DIST_VERSION).tar.gz
+	sha512sum $^ > $@
+
