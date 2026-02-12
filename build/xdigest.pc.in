@@ -4,7 +4,7 @@ includedir=${prefix}/@CMAKE_INSTALL_INCLUDEDIR@/xdigest
 
 Name: libxdigest
 Description: Extremly fast digest algorithms
-Version: @XDIGEST_VERSION@
+Version: @XDIG_VERSION@
 Requires:
 Libs: -L${libdir} -lxdigest
 Cflags: -I${includedir}
