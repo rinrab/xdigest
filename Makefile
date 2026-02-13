@@ -216,16 +216,15 @@ dist: dist-test \
 dist-sign: dist dist/xdigest-$(DIST_VERSION).tar.gz.asc
 
 .PHONY: dist-checkout
-dist-checkout: dist-clean
+dist-checkout:
+	$(RMDIR) dist/build
 	svn checkout https://svn.rinrab.com/rinrab/xdigest/$(DIST_TAG) dist/build
-	svn export dist/build dist/xdigest-$(DIST_VERSION)
-	svn export dist/build dist/test
-
-dist-clean: 
-	$(RMDIR) dist/build dist/xdigest-$(DIST_VERSION) dist/test
 
 dist-test: dist-checkout
+	$(RMDIR) dist/test
+	svn export dist/build dist/test
 	make test -C dist/test
+	$(RMDIR) dist/test
 
 dist-publish: dist-test \
 	dist/xdigest-$(DIST_VERSION).tar.gz \
@@ -240,7 +239,10 @@ dist-publish: dist-test \
 		put dist/xdigest-$(DIST_VERSION).tar.gz.asc xdigest-$(DIST_VERSION).tar.gz.asc
 
 dist/xdigest-$(DIST_VERSION).tar.gz: dist-checkout
+	$(RMDIR) dist/xdigest-$(DIST_VERSION)
+	svn export dist/build dist/xdigest-$(DIST_VERSION)
 	cd dist && tar -cf - xdigest-$(DIST_VERSION) | gzip -9 - > xdigest-$(DIST_VERSION).tar.gz 
+	$(RMDIR) dist/xdigest-$(DIST_VERSION)
 
 dist/xdigest-$(DIST_VERSION).tar.gz.asc: dist/xdigest-$(DIST_VERSION).tar.gz
 	gpg --detach-sign --default-key $(KEY) --yes --armour --output $@ $^
