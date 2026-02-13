@@ -241,7 +241,7 @@ dist-publish: dist-test \
 	dist/xdigest-$(DIST_VERSION).zip.sha512 \
 	dist/xdigest-$(DIST_VERSION).zip.asc
 	svnmucc -U https://svn.rinrab.com/files/xdigest/  \
-		--message "upload $(DIST_VERSION) realease files" \
+		--message "upload $(DIST_VERSION) release files" \
 		put dist/xdigest-$(DIST_VERSION).tar.gz xdigest-$(DIST_VERSION).tar.gz   \
 		put dist/xdigest-$(DIST_VERSION).tar.gz.sha256 xdigest-$(DIST_VERSION).tar.gz.sha256 \
 		put dist/xdigest-$(DIST_VERSION).tar.gz.sha512 xdigest-$(DIST_VERSION).tar.gz.sha512 \
