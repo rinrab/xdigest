@@ -71,7 +71,7 @@ cd xdigest
 yay -S xdigest
 ```
 
-#### vcpkg (in progress)
+#### vcpkg
 
 ```
 vcpkg install xdigest
