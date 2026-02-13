@@ -210,10 +210,15 @@ KEY = 4734E1FDB2FAF97058D3141257E9B12AFBBE92B8
 dist: dist-test \
 	dist/xdigest-$(DIST_VERSION).tar.gz \
 	dist/xdigest-$(DIST_VERSION).tar.gz.sha256 \
-	dist/xdigest-$(DIST_VERSION).tar.gz.sha512
+	dist/xdigest-$(DIST_VERSION).tar.gz.sha512 \
+	dist/xdigest-$(DIST_VERSION).zip \
+	dist/xdigest-$(DIST_VERSION).zip.sha256 \
+	dist/xdigest-$(DIST_VERSION).zip.sha512
 
 .PHONY: dist-sign
-dist-sign: dist dist/xdigest-$(DIST_VERSION).tar.gz.asc
+dist-sign: dist \
+	dist/xdigest-$(DIST_VERSION).tar.gz.asc \
+	dist/xdigest-$(DIST_VERSION).zip.asc
 
 .PHONY: dist-checkout
 dist-checkout:
@@ -230,13 +235,21 @@ dist-publish: dist-test \
 	dist/xdigest-$(DIST_VERSION).tar.gz \
 	dist/xdigest-$(DIST_VERSION).tar.gz.sha256 \
 	dist/xdigest-$(DIST_VERSION).tar.gz.sha512 \
-	dist/xdigest-$(DIST_VERSION).tar.gz.asc
+	dist/xdigest-$(DIST_VERSION).tar.gz.asc \
+	dist/xdigest-$(DIST_VERSION).zip \
+	dist/xdigest-$(DIST_VERSION).zip.sha256 \
+	dist/xdigest-$(DIST_VERSION).zip.sha512 \
+	dist/xdigest-$(DIST_VERSION).zip.asc
 	svnmucc -U https://svn.rinrab.com/files/xdigest/  \
 		--message "upload $(DIST_VERSION) realease files" \
 		put dist/xdigest-$(DIST_VERSION).tar.gz xdigest-$(DIST_VERSION).tar.gz   \
 		put dist/xdigest-$(DIST_VERSION).tar.gz.sha256 xdigest-$(DIST_VERSION).tar.gz.sha256 \
 		put dist/xdigest-$(DIST_VERSION).tar.gz.sha512 xdigest-$(DIST_VERSION).tar.gz.sha512 \
-		put dist/xdigest-$(DIST_VERSION).tar.gz.asc xdigest-$(DIST_VERSION).tar.gz.asc
+		put dist/xdigest-$(DIST_VERSION).tar.gz.asc xdigest-$(DIST_VERSION).tar.gz.asc \
+		put dist/xdigest-$(DIST_VERSION).zip xdigest-$(DIST_VERSION).zip   \
+		put dist/xdigest-$(DIST_VERSION).zip.sha256 xdigest-$(DIST_VERSION).zip.sha256 \
+		put dist/xdigest-$(DIST_VERSION).zip.sha512 xdigest-$(DIST_VERSION).zip.sha512 \
+		put dist/xdigest-$(DIST_VERSION).zip.asc xdigest-$(DIST_VERSION).zip.asc
 
 dist/xdigest-$(DIST_VERSION).tar.gz: dist-checkout
 	$(RMDIR) dist/xdigest-$(DIST_VERSION)
@@ -244,12 +257,23 @@ dist/xdigest-$(DIST_VERSION).tar.gz: dist-checkout
 	cd dist && tar -cf - xdigest-$(DIST_VERSION) | gzip -9 - > xdigest-$(DIST_VERSION).tar.gz 
 	$(RMDIR) dist/xdigest-$(DIST_VERSION)
 
+dist/xdigest-$(DIST_VERSION).zip: dist-checkout
+	$(RMDIR) dist/xdigest-$(DIST_VERSION)
+	svn export dist/build dist/xdigest-$(DIST_VERSION) --native-eol CRLF
+	cd dist && zip -r -9 xdigest-$(DIST_VERSION).zip xdigest-$(DIST_VERSION)
+	$(RMDIR) dist/xdigest-$(DIST_VERSION)
+
 dist/xdigest-$(DIST_VERSION).tar.gz.asc: dist/xdigest-$(DIST_VERSION).tar.gz
 	gpg --detach-sign --default-key $(KEY) --yes --armour --output $@ $^
-
 dist/xdigest-$(DIST_VERSION).tar.gz.sha256: dist/xdigest-$(DIST_VERSION).tar.gz
 	sha256sum $^ > $@
-
 dist/xdigest-$(DIST_VERSION).tar.gz.sha512: dist/xdigest-$(DIST_VERSION).tar.gz
+	sha512sum $^ > $@
+
+dist/xdigest-$(DIST_VERSION).zip.asc: dist/xdigest-$(DIST_VERSION).zip
+	gpg --detach-sign --default-key $(KEY) --yes --armour --output $@ $^
+dist/xdigest-$(DIST_VERSION).zip.sha256: dist/xdigest-$(DIST_VERSION).zip
+	sha256sum $^ > $@
+dist/xdigest-$(DIST_VERSION).zip.sha512: dist/xdigest-$(DIST_VERSION).zip
 	sha512sum $^ > $@
 
