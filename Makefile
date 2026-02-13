@@ -231,15 +231,7 @@ dist-test: dist-checkout
 	make test -C dist/test
 	$(RMDIR) dist/test
 
-dist-publish: dist-test \
-	dist/xdigest-$(DIST_VERSION).tar.gz \
-	dist/xdigest-$(DIST_VERSION).tar.gz.sha256 \
-	dist/xdigest-$(DIST_VERSION).tar.gz.sha512 \
-	dist/xdigest-$(DIST_VERSION).tar.gz.asc \
-	dist/xdigest-$(DIST_VERSION).zip \
-	dist/xdigest-$(DIST_VERSION).zip.sha256 \
-	dist/xdigest-$(DIST_VERSION).zip.sha512 \
-	dist/xdigest-$(DIST_VERSION).zip.asc
+dist-publish: dist-test dist dist-sign
 	svnmucc -U https://svn.rinrab.com/files/xdigest/  \
 		--message "upload $(DIST_VERSION) release files" \
 		put dist/xdigest-$(DIST_VERSION).tar.gz xdigest-$(DIST_VERSION).tar.gz   \
