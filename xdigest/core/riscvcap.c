@@ -114,3 +114,9 @@ void xdig_cpuid_setup(void)
         vlen = riscv_vlen_asm();
     }
 }
+
+/* public interface */
+void xdig_init()
+{
+    xdig_cpuid_setup();
+}
