@@ -27,14 +27,13 @@
 
 #ifdef __riscv
 
-#include <openssl/opensslconf.h>
-#include <openssl/md5.h>
+#include "xdigest/xdigest_md5.h"
 #include "crypto/riscv_arch.h"
 
-void ossl_md5_block_asm_data_order(MD5_CTX *c, const void *p, size_t num);
-void ossl_md5_block_asm_data_order_zbb(MD5_CTX *c, const void *p, size_t num);
-void ossl_md5_block_asm_data_order_riscv64(MD5_CTX *c, const void *p, size_t num);
-void ossl_md5_block_asm_data_order(MD5_CTX *c, const void *p, size_t num)
+void ossl_md5_block_asm_data_order(xdig_md5_ctx_t *c, const void *p, size_t num);
+void ossl_md5_block_asm_data_order_zbb(xdig_md5_ctx_t *c, const void *p, size_t num);
+void ossl_md5_block_asm_data_order_riscv64(xdig_md5_ctx_t *c, const void *p, size_t num);
+void ossl_md5_block_asm_data_order(xdig_md5_ctx_t *c, const void *p, size_t num)
 {
     if (RISCV_HAS_ZBB()) {
         ossl_md5_block_asm_data_order_zbb(c, p, num);
