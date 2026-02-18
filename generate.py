@@ -7,6 +7,8 @@ import subprocess
 linux64 = ("elf", ".S", "gcc", "linux64")
 linux32 = ("elf", ".S", "gcc", "linux32")
 linuxaarch64 = ("aarch64", ".S", "gcc", "linuxaarch64")
+linuxppc64 = ("ppc64", ".S", "gcc", "ppc64")
+linuxppc32 = ("ppc32", ".S", "gcc", "ppc32")
 
 win32 = ("win32n", ".asm", "cl", "win32")
 win64 = ("nasm", ".asm", "cl", "win64")
@@ -18,6 +20,7 @@ macosxaarch64 = ("ios64", ".S", "gcc", "macosxaarch64")
 configs_x86_64 = [linux64, win64, macosx64]
 configs_x86 = [linux32, win32, macosx32]
 configs_aarch64 = [linuxaarch64, macosxaarch64]
+configs_ppc= [linuxppc64, linuxppc32]
 
 def mkdir(path):
     try:
@@ -74,7 +77,7 @@ def perlasm(configs, file, outputname = None):
             output = os.path.join("xdigest", outputname)
 
         # sha1-x86_64 -> sha1-linux-x86-64.S
-        output = re.sub(r"-?(x86_64|586|x86|armv8|armv4|aarch64|arm64)", "", output)
+        output = re.sub(r"-?(x86_64|586|x86|armv8|armv4|aarch64|arm64|ppc)", "", output)
         output = f"{output}-{name}{ext}"
 
         print(f"Building {file}.pl -> {output} ({config}, {compiler})")
@@ -97,6 +100,7 @@ def patch(patchfile):
 perlasm(configs_x86_64, "sha/asm/sha1-x86_64")
 perlasm(configs_x86, "sha/asm/sha1-586")
 perlasm(configs_aarch64, "sha/asm/sha1-armv8")
+perlasm(configs_ppc, "sha/asm/sha1-ppc")
 
 # perlasm("sha/asm/sha256-586")
 # perlasm("sha/asm/sha256-armv4")
@@ -107,10 +111,12 @@ perlasm(configs_aarch64, "sha/asm/sha1-armv8")
 perlasm(configs_x86_64, "sha/asm/sha512-x86_64")
 perlasm(configs_x86_64, "sha/asm/sha512-x86_64", "sha/asm/sha256-x86_64")
 perlasm(configs_aarch64, "sha/asm/sha512-armv8")
+perlasm(configs_ppc, "sha/asm/sha512-ppc")
 
 perlasm(configs_x86, "sha/asm/sha512-586")
 perlasm(configs_x86, "sha/asm/sha256-586")
 perlasm(configs_aarch64, "sha/asm/sha512-armv8", "sha/asm/sha256-armv8")
+perlasm(configs_ppc, "sha/asm/sha512-ppc", "sha/asm/sha256-ppc")
 # perlasm("sha/asm/sha512-armv4")
 # perlasm("sha/asm/sha512-ia64")
 # perlasm("sha/asm/sha512-ia64", "sha/sha256-ia64")
@@ -118,6 +124,7 @@ perlasm(configs_aarch64, "sha/asm/sha512-armv8", "sha/asm/sha256-armv8")
 perlasm(configs_x86_64, "x86_64cpuid", "core/asm/x86_64cpuid")
 perlasm(configs_x86, "x86cpuid", "core/asm/x86cpuid")
 perlasm(configs_aarch64, "arm64cpuid", "core/asm/arm64cpuid")
+perlasm(configs_ppc, "ppccpuid", "core/asm/ppccpuid")
 
 perlasm(configs_x86_64, "md5/asm/md5-x86_64")
 perlasm(configs_x86, "md5/asm/md5-586")
