@@ -7,9 +7,9 @@ import subprocess
 linux64 = ("elf", ".S", "gcc", "linux64")
 linux32 = ("elf", ".S", "gcc", "linux32")
 linuxaarch64 = ("aarch64", ".S", "gcc", "linuxaarch64")
-linuxppc64 = ("ppc64", ".S", "gcc", "ppc64")
-linuxppc32 = ("ppc32", ".S", "gcc", "ppc32")
-linuxriscv64 = ("riscv64", ".S", "gcc", "riscv64")
+linuxppc64 = ("ppc64", ".S", "gcc", "linuxppc64")
+linuxppc32 = ("ppc32", ".S", "gcc", "linuxppc32")
+linuxriscv64 = ("riscv64", ".S", "gcc", "linuxriscv64")
 
 win32 = ("win32n", ".asm", "cl", "win32")
 win64 = ("nasm", ".asm", "cl", "win64")
