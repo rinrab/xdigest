@@ -73,17 +73,27 @@
 #define HASH_FINAL              xdig_sha256_ctx_final
 #define HASH_BLOCK_DATA_ORDER   xdig_sha256_block_data_order
 
-#if SHA256_ASM && defined(__riscv)
-#define HASH_BLOCK_DATA_ORDER_IMPL xdig_sha256_block_data_order_c
+#ifdef SHA256_ASM
 #define HASH_BLOCK_DATA_ORDER_MAYBE_STATIC
 #else
-#define HASH_BLOCK_DATA_ORDER_IMPL xdig_sha256_block_data_order
 #define HASH_BLOCK_DATA_ORDER_MAYBE_STATIC static
 #endif
 
+#if SHA256_ASM && defined(__riscv)
+#define HASH_BLOCK_DATA_ORDER_IMPL xdig_sha256_block_data_order_c
+#define HASH_BLOCK_DATA_ORDER_IMPL_MAYBE_STATIC
+#else
+#define HASH_BLOCK_DATA_ORDER_IMPL xdig_sha256_block_data_order
+#define HASH_BLOCK_DATA_ORDER_IMPL_MAYBE_STATIC static
+#endif
+
+HASH_BLOCK_DATA_ORDER_IMPL_MAYBE_STATIC void
+HASH_BLOCK_DATA_ORDER_IMPL(xdig_sha256_ctx_t *ctx,
+                           const void *in, size_t num);
+
 HASH_BLOCK_DATA_ORDER_MAYBE_STATIC void
-xdig_sha256_block_data_order(xdig_sha256_ctx_t *ctx,
-                             const void *in, size_t num);
+HASH_BLOCK_DATA_ORDER(xdig_sha256_ctx_t *ctx,
+                      const void *in, size_t num);
 
 #include "crypto/md32_common.h"
 
