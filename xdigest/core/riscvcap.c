@@ -25,7 +25,7 @@
  * ====================================================================
  */
 
-#if defined(__riscv) && defined(__riscv32) && defined(__riscv__) && defined(_riscv)
+#if defined(__riscv) || defined(__riscv32) || defined(__riscv__) || defined(_riscv)
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
