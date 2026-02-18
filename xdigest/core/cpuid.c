@@ -25,14 +25,14 @@
  * ====================================================================
  */
 
+#if     defined(__i386)   || defined(__i386__)   || defined(_M_IX86) || \
+        defined(__x86_64) || defined(__x86_64__) || \
+        defined(_M_AMD64) || defined(_M_X64)
+
 #include "internal/e_os2.h"
 /* ignored include 'crypto/cryptlib.h' */
 #include "xdigest/xdigest.h"
 #include <stddef.h>
-
-#if     defined(__i386)   || defined(__i386__)   || defined(_M_IX86) || \
-        defined(__x86_64) || defined(__x86_64__) || \
-        defined(_M_AMD64) || defined(_M_X64)
 
 #define xdig_IA32CAP_P_MAX_INDEXES 10
 
