@@ -73,9 +73,9 @@
 #define HASH_FINAL              xdig_sha256_ctx_final
 
 #if SHA256_ASM && defined(__riscv)
-#define HASH_BLOCK_DATA_ORDER   xdig_sha256_block_data_order
-#else
 #define HASH_BLOCK_DATA_ORDER   xdig_sha256_block_data_order_c
+#else
+#define HASH_BLOCK_DATA_ORDER   xdig_sha256_block_data_order
 #endif
 
 #if SHA256_ASM || defined(__riscv)
