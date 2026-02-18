@@ -36,6 +36,9 @@ else ifeq ($(CONFIG), macosx64)
     ARCH = -arch x86_64
 else ifeq ($(CONFIG), macosxaarch64)
     ARCH = -arch arm64
+else ifeq ($(CONFIG), linuxriscv64)
+    ARCH =
+    CROSS_COMPILE ?= riscv64-linux-gnu-
 else
     $(error invalid architecute: "$(CONFIG)")
 endif
@@ -63,6 +66,7 @@ INCS += -Ixdigest/include -Ixdigest/include/xdigest -Ixdigest -Ixdigest/core
 c_objects = \
     xdigest/core/cpuid$(OBJEXT) \
     xdigest/core/armcap$(OBJEXT) \
+    xdigest/core/riscvcap$(OBJEXT) \
     xdigest/core/version$(OBJEXT) \
     xdigest/core/mem_clr$(OBJEXT) \
     xdigest/sha/sha1$(OBJEXT) \
