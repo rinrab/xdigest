@@ -78,14 +78,15 @@
 # define U64(C)     C##ULL
 #endif
 
-#ifndef SHA512_ASM
-static
+
+#if SHA512_ASM && defined(__riscv)
+#define HASH_BLOCK_DATA_ORDER xdig_sha512_block_data_order_c 
+#define HASH_BLOCK_DATA_ORDER_MAYBE_STATIC
 #else
-# ifdef INCLUDE_C_SHA512
-void xdig_sha512_block_data_order_c(xdig_sha512_ctx_t *ctx, const void *in,
-                                    size_t num);
-# endif
+#define HASH_BLOCK_DATA_ORDER xdig_sha512_block_data_order
+#define HASH_BLOCK_DATA_ORDER_MAYBE_STATIC static
 #endif
+
 void xdig_sha512_block_data_order(xdig_sha512_ctx_t *ctx, const void *in,
                                   size_t num);
 
@@ -502,8 +503,9 @@ static XDIG_SHA_LONG64 __fastcall __pull64be(const void *x)
  * ~24 registers, both size and performance wise...
  */
 
-static void xdig_sha512_block_data_order(xdig_sha512_ctx_t *ctx, const void *in,
-                                         size_t num)
+HASH_BLOCK_DATA_ORDER_MAYBE_STATIC void
+HASH_BLOCK_DATA_ORDER(xdig_sha512_ctx_t *ctx,
+                      const void *in, size_t num)
 {
     const XDIG_SHA_LONG64 *W = in;
     XDIG_SHA_LONG64 A, E, T;
@@ -564,8 +566,9 @@ static void xdig_sha512_block_data_order(xdig_sha512_ctx_t *ctx, const void *in,
 
 # elif defined(xdig_SMALL_FOOTPRINT)
 
-static void xdig_sha512_block_data_order(xdig_sha512_ctx_t *ctx, const void *in,
-                                         size_t num)
+HASH_BLOCK_DATA_ORDER_MAYBE_STATIC void
+HASH_BLOCK_DATA_ORDER(xdig_sha512_ctx_t *ctx,
+                      const void *in, size_t num)
 {
     const XDIG_SHA_LONG64 *W = in;
     XDIG_SHA_LONG64 a, b, c, d, e, f, g, h, s0, s1, T1, T2;
@@ -645,13 +648,9 @@ static void xdig_sha512_block_data_order(xdig_sha512_ctx_t *ctx, const void *in,
         T1 = X[(j)&0x0f] += s0 + s1 + X[(j+9)&0x0f];    \
         ROUND_00_15(i+j,a,b,c,d,e,f,g,h);               } while (0)
 
-#ifdef INCLUDE_C_SHA512
-void xdig_sha512_block_data_order_c(xdig_sha512_ctx_t *ctx, const void *in,
-                                    size_t num)
-#else
-static void xdig_sha512_block_data_order(xdig_sha512_ctx_t *ctx, const void *in,
-                                         size_t num)
-#endif
+HASH_BLOCK_DATA_ORDER_MAYBE_STATIC void
+HASH_BLOCK_DATA_ORDER(xdig_sha512_ctx_t *ctx,
+                      const void *in, size_t num)
 {
     const XDIG_SHA_LONG64 *W = in;
     XDIG_SHA_LONG64 a, b, c, d, e, f, g, h, s0, s1, T1;
