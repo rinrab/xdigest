@@ -76,8 +76,10 @@ add_library(xdigest
     xdigest/sha/sha1.c
     xdigest/sha/sha256.c
     xdigest/sha/sha512.c
+    xdigest/sha/sha_riscv.c
     xdigest/md5/md5_dgst.c
     xdigest/md5/md5_one.c
+    xdigest/md5/md5_riscv.c
     xdigest/md4/md4_dgst.c
     xdigest/md4/md4_one.c
     xdigest/md2/md2_dgst.c
