@@ -1,5 +1,5 @@
 /*
- * crypto/riscv_arch.c: riscv utils
+ * crypto/riscv_arch.h: riscv utils
  *
  * ====================================================================
  * Copyright 2022-2025 The OpenSSL Project Authors. All Rights Reserved.
