@@ -81,8 +81,9 @@
 #define HASH_BLOCK_DATA_ORDER_MAYBE_STATIC static
 #endif
 
-void xdig_sha256_block_data_order(xdig_sha256_ctx_t *ctx,
-                                  const void *in, size_t num);
+HASH_BLOCK_DATA_ORDER_MAYBE_STATIC void
+xdig_sha256_block_data_order(xdig_sha256_ctx_t *ctx,
+                             const void *in, size_t num);
 
 #include "crypto/md32_common.h"
 

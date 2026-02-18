@@ -87,8 +87,9 @@
 #define HASH_BLOCK_DATA_ORDER_MAYBE_STATIC static
 #endif
 
-void xdig_sha512_block_data_order(xdig_sha512_ctx_t *ctx, const void *in,
-                                  size_t num);
+HASH_BLOCK_DATA_ORDER_MAYBE_STATIC void
+xdig_sha512_block_data_order(xdig_sha512_ctx_t *ctx, const void *in,
+                             size_t num);
 
 void xdig_sha512_ctx_final(xdig_sha512_ctx_t *c, unsigned char *md)
 {
