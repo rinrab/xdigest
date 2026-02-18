@@ -30,7 +30,7 @@
 #include <ctype.h>
 #include <stdint.h>
 
-#define OPENSSL_RISCVCAP_IMPL
+#define xdig_RISCVCAP_IMPL
 #include "crypto/riscv_arch.h"
 
 #ifdef OSSL_RISCV_HWPROBE
@@ -48,20 +48,20 @@ static void strtoupper(char *str);
 static size_t vlen = 0;
 
 #ifdef OSSL_RISCV_HWPROBE
-unsigned int OPENSSL_riscv_hwcap_P = 0;
+unsigned int xdig_riscv_hwcap_P = 0;
 #endif
 
-uint32_t OPENSSL_rdtsc(void)
+uint32_t xdig_rdtsc(void)
 {
     return 0;
 }
 
-size_t OPENSSL_instrument_bus(unsigned int *out, size_t cnt)
+size_t xdig_instrument_bus(unsigned int *out, size_t cnt)
 {
     return 0;
 }
 
-size_t OPENSSL_instrument_bus2(unsigned int *out, size_t cnt, size_t max)
+size_t xdig_instrument_bus2(unsigned int *out, size_t cnt, size_t max)
 {
     return 0;
 }
@@ -84,15 +84,15 @@ static void parse_env(const char *envstr)
     char buf[BUFLEN];
 
     /* Convert env str to all uppercase */
-    OPENSSL_strlcpy(envstrupper, envstr, sizeof(envstrupper));
+    xdig_strlcpy(envstrupper, envstr, sizeof(envstrupper));
     strtoupper(envstrupper);
 
     for (size_t i = 0; i < kRISCVNumCaps; ++i) {
         /* Prefix capability with underscore in preparation for search */
         BIO_snprintf(buf, BUFLEN, "_%s", RISCV_capabilities[i].name);
         if (strstr(envstrupper, buf) != NULL) {
-            /* Match, set relevant bit in OPENSSL_riscvcap_P[] */
-            OPENSSL_riscvcap_P[RISCV_capabilities[i].index] |= (1 << RISCV_capabilities[i].bit_offset);
+            /* Match, set relevant bit in xdig_riscvcap_P[] */
+            xdig_riscvcap_P[RISCV_capabilities[i].index] |= (1 << RISCV_capabilities[i].bit_offset);
         }
     }
 }
@@ -121,8 +121,8 @@ static void hwprobe_to_cap(void)
                     && (pairs[j].value & RISCV_capabilities[i].hwprobe_value)
                         != 0)
                     if (!IS_IN_DEPEND_VECTOR(RISCV_capabilities[i].bit_offset) || VECTOR_CAPABLE)
-                        /* Match, set relevant bit in OPENSSL_riscvcap_P[] */
-                        OPENSSL_riscvcap_P[RISCV_capabilities[i].index] |= (1 << RISCV_capabilities[i].bit_offset);
+                        /* Match, set relevant bit in xdig_riscvcap_P[] */
+                        xdig_riscvcap_P[RISCV_capabilities[i].index] |= (1 << RISCV_capabilities[i].bit_offset);
             }
         }
     }
@@ -134,7 +134,7 @@ size_t riscv_vlen(void)
     return vlen;
 }
 
-void OPENSSL_cpuid_setup(void)
+void xdig_cpuid_setup(void)
 {
     char *e;
     static int trigger = 0;
@@ -143,12 +143,12 @@ void OPENSSL_cpuid_setup(void)
         return;
     trigger = 1;
 
-    if ((e = getenv("OPENSSL_riscvcap"))) {
+    if ((e = getenv("xdig_riscvcap"))) {
         parse_env(e);
     }
 #ifdef OSSL_RISCV_HWPROBE
     else {
-        OPENSSL_riscv_hwcap_P = getauxval(AT_HWCAP);
+        xdig_riscv_hwcap_P = getauxval(AT_HWCAP);
         hwprobe_to_cap();
     }
 #endif

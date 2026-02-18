@@ -32,7 +32,7 @@
 #include <ctype.h>
 #include <stdint.h>
 
-#if defined(OPENSSL_SYS_LINUX)
+#if defined(xdig_SYS_LINUX)
 #if __has_include(<asm/hwprobe.h>)
 #include <sys/syscall.h>
 #/*
@@ -42,8 +42,8 @@
 #ifdef __NR_riscv_hwprobe
 #define OSSL_RISCV_HWPROBE
 #include <asm/hwcap.h>
-extern unsigned int OPENSSL_riscv_hwcap_P;
-#define VECTOR_CAPABLE (OPENSSL_riscv_hwcap_P & COMPAT_HWCAP_ISA_V)
+extern unsigned int xdig_riscv_hwcap_P;
+#define VECTOR_CAPABLE (xdig_riscv_hwcap_P & COMPAT_HWCAP_ISA_V)
 #define ZVX_MIN 15
 #define ZVX_MAX 23
 #define IS_IN_DEPEND_VECTOR(offset) ((ZVX_MIN >= offset) && (offset <= ZVX_MAX))
@@ -53,16 +53,16 @@ extern unsigned int OPENSSL_riscv_hwcap_P;
 
 #define RISCV_DEFINE_CAP(NAME, INDEX, BIT_INDEX, \
     HWPROBE_KEY, HWPROBE_VALUE) +1
-extern uint32_t OPENSSL_riscvcap_P[((
+extern uint32_t xdig_riscvcap_P[((
 #include "riscv_arch.def"
                                         )
                                        + sizeof(uint32_t) - 1)
     / sizeof(uint32_t)];
 
-#ifdef OPENSSL_RISCVCAP_IMPL
+#ifdef xdig_RISCVCAP_IMPL
 #define RISCV_DEFINE_CAP(NAME, INDEX, BIT_INDEX, \
     HWPROBE_KEY, HWPROBE_VALUE) +1
-uint32_t OPENSSL_riscvcap_P[((
+uint32_t xxdig_riscvcap_P[((
 #include "riscv_arch.def"
                                  )
                                 + sizeof(uint32_t) - 1)
@@ -73,7 +73,7 @@ uint32_t OPENSSL_riscvcap_P[((
     HWPROBE_KEY, HWPROBE_VALUE)                                     \
     static inline int RISCV_HAS_##NAME(void)                        \
     {                                                               \
-        return (OPENSSL_riscvcap_P[INDEX] & (1 << BIT_INDEX)) != 0; \
+        return (xdig_riscvcap_P[INDEX] & (1 << BIT_INDEX)) != 0; \
     }
 #include "riscv_arch.def"
 
@@ -93,7 +93,7 @@ extern const struct RISCV_capability_s RISCV_capabilities[
 #include "riscv_arch.def"
 ];
 
-#ifdef OPENSSL_RISCVCAP_IMPL
+#ifdef xdig_RISCVCAP_IMPL
 #ifdef OSSL_RISCV_HWPROBE
 #define RISCV_DEFINE_CAP(NAME, INDEX, BIT_INDEX, \
     HWPROBE_KEY, HWPROBE_VALUE)                  \
