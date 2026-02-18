@@ -26,6 +26,8 @@
  */
 
 #if defined(__riscv) || defined(__riscv32) || defined(__riscv__) || defined(_riscv)
+#if defined(xdig_CPUID_OBJ)
+
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
@@ -121,4 +123,15 @@ void xdig_init()
 {
     xdig_cpuid_setup();
 }
-#endif
+
+#else /* xdig_CPUID_OBJ */
+
+/* public interface */
+void xdig_init()
+{
+    /* no-op */
+}
+
+#endif /* ! xdig_CPUID_OBJ */
+
+#endif /* riscv */
