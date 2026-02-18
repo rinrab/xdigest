@@ -30,7 +30,6 @@
         defined(_M_AMD64) || defined(_M_X64)
 
 #include "internal/e_os2.h"
-/* ignored include 'crypto/cryptlib.h' */
 #include "xdigest/xdigest.h"
 #include <stddef.h>
 
