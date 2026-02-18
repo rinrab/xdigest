@@ -252,7 +252,7 @@ dist/xdigest-$(DIST_VERSION).tar.gz: dist-checkout
 dist/xdigest-$(DIST_VERSION).zip: dist-checkout
 	$(RMDIR) dist/xdigest-$(DIST_VERSION)
 	svn export dist/build dist/xdigest-$(DIST_VERSION) --native-eol CRLF
-	cd dist && zip -r -9 xdigest-$(DIST_VERSION).zip xdigest-$(DIST_VERSION)
+	zip -r -9 xdigest-$(DIST_VERSION).zip dist/xdigest-$(DIST_VERSION)
 	$(RMDIR) dist/xdigest-$(DIST_VERSION)
 
 dist/xdigest-$(DIST_VERSION).tar.gz.asc: dist/xdigest-$(DIST_VERSION).tar.gz
