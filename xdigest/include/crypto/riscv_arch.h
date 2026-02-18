@@ -32,7 +32,7 @@
 #include <ctype.h>
 #include <stdint.h>
 
-#if defined(OPENSSL_SYS_LINUX) && !defined(FIPS_MODULE)
+#if defined(OPENSSL_SYS_LINUX)
 #if __has_include(<asm/hwprobe.h>)
 #include <sys/syscall.h>
 #/*
