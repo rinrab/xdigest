@@ -26,6 +26,14 @@
 # error "DETECTED: linux32"
 #elif defined(__aarch64__) || defined(_M_ARM64)
 # error "DETECTED: linuxaarch64"
+#elif __riscv  
+# if __riscv_xlen == 64  
+#  error "DETECTED: linuxriscv64"
+# else  
+#  error "DETECTED: unsupported"
+# endif  
+#else
+#  error "DETECTED: unsupported"
 #endif
 
 #elif defined(__APPLE__)

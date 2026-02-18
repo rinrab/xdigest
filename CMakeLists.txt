@@ -90,21 +90,39 @@ set_target_properties(xdigest PROPERTIES
 )
 
 if (USE_ASM)
-    target_sources(xdigest PRIVATE
-        xdigest/core/asm/cpuid-${CONFIG}.${ASMEXT}
-        xdigest/sha/asm/sha256-${CONFIG}.${ASMEXT}
-        xdigest/sha/asm/sha512-${CONFIG}.${ASMEXT}
-        xdigest/sha/asm/sha1-${CONFIG}.${ASMEXT}
-        xdigest/md5/asm/md5-${CONFIG}.${ASMEXT}
-    )
+    if (CONFIG MATCHES "riscv")
+        target_sources(xdigest PRIVATE
+            xdigest/core/asm/cpuid-${CONFIG}.${ASMEXT}
+            xdigest/sha/asm/sha512-zbb-${CONFIG}.${ASMEXT}
+            xdigest/sha/asm/sha512-zvkb-zvknhb-${CONFIG}.${ASMEXT}
+            xdigest/sha/asm/sha256-zbb-${CONFIG}.${ASMEXT}
+            xdigest/sha/asm/sha256-zvkb-zvknha_or_zvknhb-${CONFIG}.${ASMEXT}
+            xdigest/md5/asm/md5-zbb-${CONFIG}.${ASMEXT}
+        )
 
-    target_compile_definitions(xdigest PRIVATE
-        SHA1_ASM
-        SHA256_ASM
-        SHA512_ASM
-        MD5_ASM
-        xdig_CPUID_OBJ
-    )
+        target_compile_definitions(xdigest PRIVATE
+            SHA256_ASM
+            SHA512_ASM
+            MD5_ASM
+            xdig_CPUID_OBJ
+        )
+    else()
+        target_sources(xdigest PRIVATE
+            xdigest/core/asm/cpuid-${CONFIG}.${ASMEXT}
+            xdigest/sha/asm/sha256-${CONFIG}.${ASMEXT}
+            xdigest/sha/asm/sha512-${CONFIG}.${ASMEXT}
+            xdigest/sha/asm/sha1-${CONFIG}.${ASMEXT}
+            xdigest/md5/asm/md5-${CONFIG}.${ASMEXT}
+        )
+
+        target_compile_definitions(xdigest PRIVATE
+            SHA1_ASM
+            SHA256_ASM
+            SHA512_ASM
+            MD5_ASM
+            xdig_CPUID_OBJ
+        )
+    endif()
 else()
     target_compile_definitions(xdigest PRIVATE NO_ASM)
 endif()
