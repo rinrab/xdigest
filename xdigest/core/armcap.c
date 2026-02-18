@@ -26,7 +26,17 @@
  */
 
 /* This feature is only available on ARM architecture. */
-#if defined(__aarch64__) || defined(_M_ARM64)
+#if \
+    defined(__ARM_ARCH) || defined(__TARGET_ARCH_ARM) || \
+    defined(__TARGET_ARCH_THUMB) || defined(_M_ARM) || \
+    defined(__arm__) || defined(__arm64) || defined(__thumb__) || \
+    defined(_M_ARM64) || defined(__aarch64__) || defined(__AARCH64EL__) || \
+    defined(__ARM_ARCH_7__) || defined(__ARM_ARCH_7A__) || \
+    defined(__ARM_ARCH_7R__) || defined(__ARM_ARCH_7M__) || \
+    defined(__ARM_ARCH_6K__) || defined(__ARM_ARCH_6Z__) || \
+    defined(__ARM_ARCH_6KZ__) || defined(__ARM_ARCH_6T2__) || \
+    defined(__ARM_ARCH_5TE__) || defined(__ARM_ARCH_5TEJ__) || \
+    defined(__ARM_ARCH_4T__) || defined(__ARM_ARCH_4__)
 
 /*
  * We must provide dummy implementation of xdig_init() function if ASM is
