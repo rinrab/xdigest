@@ -25,6 +25,8 @@
  * ====================================================================
  */
 
+#ifdef __riscv
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -64,3 +66,5 @@ void sha512_block_data_order(SHA512_CTX *ctx, const void *in, size_t num)
         sha512_block_data_order_c(ctx, in, num);
     }
 }
+
+#endif /* __riscv */
