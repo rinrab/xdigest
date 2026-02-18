@@ -27,7 +27,6 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 #include <stdint.h>
 
 #define xdig_RISCVCAP_IMPL
@@ -42,19 +41,11 @@
 
 extern size_t riscv_vlen_asm(void);
 
-static void parse_env(const char *envstr);
-static void strtoupper(char *str);
-
 static size_t vlen = 0;
 
 #ifdef OSSL_RISCV_HWPROBE
 unsigned int xdig_riscv_hwcap_P = 0;
 #endif
-
-uint32_t xdig_rdtsc(void)
-{
-    return 0;
-}
 
 size_t xdig_instrument_bus(unsigned int *out, size_t cnt)
 {
@@ -64,37 +55,6 @@ size_t xdig_instrument_bus(unsigned int *out, size_t cnt)
 size_t xdig_instrument_bus2(unsigned int *out, size_t cnt, size_t max)
 {
     return 0;
-}
-
-static void strtoupper(char *str)
-{
-    for (char *x = str; *x; ++x)
-        *x = toupper((unsigned char)*x);
-}
-
-/* parse_env() parses a RISC-V architecture string. An example of such a string
- * is "rv64gc_zba_zbb_zbc_zbs". Currently, the rv64gc part is ignored
- * and we simply search for "_[extension]" in the arch string to see if we
- * should enable a given extension.
- */
-#define BUFLEN 256
-static void parse_env(const char *envstr)
-{
-    char envstrupper[BUFLEN];
-    char buf[BUFLEN];
-
-    /* Convert env str to all uppercase */
-    xdig_strlcpy(envstrupper, envstr, sizeof(envstrupper));
-    strtoupper(envstrupper);
-
-    for (size_t i = 0; i < kRISCVNumCaps; ++i) {
-        /* Prefix capability with underscore in preparation for search */
-        BIO_snprintf(buf, BUFLEN, "_%s", RISCV_capabilities[i].name);
-        if (strstr(envstrupper, buf) != NULL) {
-            /* Match, set relevant bit in xdig_riscvcap_P[] */
-            xdig_riscvcap_P[RISCV_capabilities[i].index] |= (1 << RISCV_capabilities[i].bit_offset);
-        }
-    }
 }
 
 #ifdef OSSL_RISCV_HWPROBE
@@ -143,9 +103,6 @@ void xdig_cpuid_setup(void)
         return;
     trigger = 1;
 
-    if ((e = getenv("xdig_riscvcap"))) {
-        parse_env(e);
-    }
 #ifdef OSSL_RISCV_HWPROBE
     else {
         xdig_riscv_hwcap_P = getauxval(AT_HWCAP);
