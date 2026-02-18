@@ -30,7 +30,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "xdigest/xdigest_sha2.h""
+#include "xdigest/xdigest_sha2.h"
 #include "crypto/riscv_arch.h"
 
 void xdig_sha256_block_data_order_zvkb_zvknha_or_zvknhb(void *ctx, const void *in,
