@@ -29,8 +29,6 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdint.h>
-#include <openssl/crypto.h>
-#include "internal/cryptlib.h"
 
 #define OPENSSL_RISCVCAP_IMPL
 #include "crypto/riscv_arch.h"
