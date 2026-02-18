@@ -70,6 +70,7 @@ set(XDIG_VERSION "${XDIG_VERSION_MAJOR}.${XDIG_VERSION_MINOR}.${XDIG_VERSION_PAT
 add_library(xdigest
     xdigest/core/cpuid.c
     xdigest/core/armcap.c
+    xdigest/core/riscvcap.c
     xdigest/core/version.c
     xdigest/core/mem_clr.c
     xdigest/sha/sha1.c
