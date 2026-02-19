@@ -7,4 +7,4 @@ categories = ["algorithms", "cryptography", "no-std", "no-std::no-alloc"]
 edition = "2018"
 
 [dependencies]
-xdigest-sys = { version = "0.5.0", path = "../xdigest-sys" } 
+xdigest-sys.workspace = true
