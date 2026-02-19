@@ -3,3 +3,6 @@ members = [
     "xdigest-src",
     "xdigest-sys",
 ]
+
+[workspace.package]
+version = "0.5.0"
