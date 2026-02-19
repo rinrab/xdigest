@@ -78,18 +78,24 @@
 # define U64(C)     C##ULL
 #endif
 
-
-#if SHA512_ASM && defined(__riscv)
-#define HASH_BLOCK_DATA_ORDER xdig_sha512_block_data_order_c 
+#define HASH_BLOCK_DATA_ORDER xdig_sha512_block_data_order
+#if SHA512_ASM
 #define HASH_BLOCK_DATA_ORDER_MAYBE_STATIC
 #else
-#define HASH_BLOCK_DATA_ORDER xdig_sha512_block_data_order
 #define HASH_BLOCK_DATA_ORDER_MAYBE_STATIC static
 #endif
 
+#if SHA512_ASM && defined(__riscv)
+#define HASH_BLOCK_DATA_ORDER_IMPL xdig_sha512_block_data_order_c 
+#define HASH_BLOCK_DATA_ORDER_IMPL_MAYBE_STATIC
+#else
+#define HASH_BLOCK_DATA_ORDER_IMPL xdig_sha512_block_data_order
+#define HASH_BLOCK_DATA_ORDER_IMPL_MAYBE_STATIC static
+#endif
+
 HASH_BLOCK_DATA_ORDER_MAYBE_STATIC void
-xdig_sha512_block_data_order(xdig_sha512_ctx_t *ctx, const void *in,
-                             size_t num);
+HASH_BLOCK_DATA_ORDER(xdig_sha512_ctx_t *ctx,
+                      const void *in, size_t num);
 
 void xdig_sha512_ctx_final(xdig_sha512_ctx_t *c, unsigned char *md)
 {
@@ -101,7 +107,7 @@ void xdig_sha512_ctx_final(xdig_sha512_ctx_t *c, unsigned char *md)
     if (n > (sizeof(c->u) - 16)) {
         memset(p + n, 0, sizeof(c->u) - n);
         n = 0;
-        xdig_sha512_block_data_order(c, p, 1);
+        HASH_BLOCK_DATA_ORDER(c, p, 1);
     }
 
     memset(p + n, 0, sizeof(c->u) - 16 - n);
@@ -127,7 +133,7 @@ void xdig_sha512_ctx_final(xdig_sha512_ctx_t *c, unsigned char *md)
     p[sizeof(c->u) - 16] = (unsigned char)(c->Nh >> 56);
 #endif
 
-    xdig_sha512_block_data_order(c, p, 1);
+    HASH_BLOCK_DATA_ORDER(c, p, 1);
 
     switch (c->md_len) {
     /* Let compiler decide if it's appropriate to unroll... */
@@ -227,7 +233,7 @@ void xdig_sha512_ctx_update(xdig_sha512_ctx_t *c, const void *_data, size_t len)
         } else {
             memcpy(p + c->num, data, n), c->num = 0;
             len -= n, data += n;
-            xdig_sha512_block_data_order(c, p, 1);
+            HASH_BLOCK_DATA_ORDER(c, p, 1);
         }
     }
 
@@ -236,11 +242,11 @@ void xdig_sha512_ctx_update(xdig_sha512_ctx_t *c, const void *_data, size_t len)
         if ((size_t)data % sizeof(c->u.d[0]) != 0)
             while (len >= sizeof(c->u))
                 memcpy(p, data, sizeof(c->u)),
-                xdig_sha512_block_data_order(c, p, 1),
+                HASH_BLOCK_DATA_ORDER(c, p, 1),
                 len -= sizeof(c->u), data += sizeof(c->u);
         else
 #endif
-            xdig_sha512_block_data_order(c, data, len / sizeof(c->u)),
+            HASH_BLOCK_DATA_ORDER(c, data, len / sizeof(c->u)),
             data += len, len %= sizeof(c->u), data -= len;
     }
 
