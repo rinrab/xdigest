@@ -164,11 +164,6 @@ void xdig_cpuid_setup(void)
         return;
     trigger = 1;
 
-    if ((e = getenv("xdig_ppccap"))) {
-        xdig_ppccap_P = strtoul(e, NULL, 0);
-        return;
-    }
-
     xdig_ppccap_P = 0;
 
 #if defined(_AIX)
