@@ -275,14 +275,14 @@ dist/xdigest-$(DIST_VERSION).zip.sha512: dist/xdigest-$(DIST_VERSION).zip
 
 rust-copydist: dist-checkout
 	$(RMDIR) contrib/xdigest-src/dist
-	svn export dist/build contrib/xdigest-src/dist
+	svn export dist/build contrib/rust/xdigest-src/dist
 
 rust-build:
-	cd contrib/xdigest-sys && cargo build
+	cd contrib/rust/xdigest-sys && cargo build
 
 rust-package: rust-copydist
-	cd contrib/xdigest-src && cargo package
-	cd contrib/xdigest-sys && cargo package
+	cd contrib/rust/xdigest-src && cargo package
+	cd contrib/rust/xdigest-sys && cargo package
 
 rust-publish: 
 	todo
