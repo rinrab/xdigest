@@ -97,7 +97,7 @@ HASH_BLOCK_DATA_ORDER(xdig_sha256_ctx_t *ctx,
 
 #include "crypto/md32_common.h"
 
-#if !defined(SHA256_ASM)
+#if !defined(SHA256_ASM) || defined(__riscv)
 static const XDIG_SHA_LONG K256[64] = {
     0x428a2f98UL, 0x71374491UL, 0xb5c0fbcfUL, 0xe9b5dba5UL,
     0x3956c25bUL, 0x59f111f1UL, 0x923f82a4UL, 0xab1c5ed5UL,
