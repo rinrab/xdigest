@@ -20,7 +20,13 @@
 
 out = out
 
-include build/Version.inc
+VERSION_MAJOR := $(shell grep XDIG_VERSION_MAJOR xdigest/include/xdigest/xdigest.h | awk '{print $$3}')
+VERSION_MINOR := $(shell grep XDIG_VERSION_MINOR xdigest/include/xdigest/xdigest.h | awk '{print $$3}')
+VERSION_PATCH := $(shell grep XDIG_VERSION_PATCH xdigest/include/xdigest/xdigest.h | awk '{print $$3}')
+
+VERSION = $(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_PATCH)
+SONAME = $(VERSION_MAJOR)
+
 include build/rules.unix
 
 CONFIG ?= linux64
