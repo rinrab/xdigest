@@ -284,7 +284,7 @@ rust-copydist: dist-checkout
 	svn export dist/build contrib/rust/xdigest-src/dist
 
 rust-build:
-	cd contrib/rust/xdigest-sys && cargo build
+	cd contrib/rust && cargo build
 
 rust-package: rust-copydist
 	cd contrib/rust/xdigest-src && cargo package
