@@ -30,6 +30,7 @@
   defined(__POWERPC__) || defined(__ppc__) || defined(__PPC__) || \
   defined(__PPC64__) || defined(__ppc64__) || defined(_ARCH_PPC64)
 
+#ifdef xdig_CPUID_OBJ 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -338,4 +339,8 @@ void xdig_cpuid_setup(void)
     sigaction(SIGILL, &ill_oact, NULL);
     sigprocmask(SIG_SETMASK, &oset, NULL);
 }
-#endif
+
+#else /* xdig_CPUID_OBJ */
+
+#endif /* ! xdig_CPUID_OBJ */
+#endif /* ppc */
