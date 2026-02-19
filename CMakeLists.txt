@@ -25,11 +25,6 @@ project(xdigest LANGUAGES C)
 include(GNUInstallDirs)
 include(build/target_exports.cmake)
 
-# options
-option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
-option(USE_ASM "Enable assembly implementation." ON)
-option(ENABLE_TESTS "Compile test-suite" ON)
-
 # Detect architecture
 try_compile(
     DETECT_PLATFORM_RESULT
@@ -40,6 +35,19 @@ try_compile(
 
 string(REGEX MATCH "DETECTED: ([a-z0-9]+)" _ ${DETECT_PLATFORM_OUTPUT})
 set(CONFIG ${CMAKE_MATCH_1})
+
+if ("${CONFIG}" STREQUAL "unsupported")
+    set(ASM_SUPPORTED OFF)
+else()
+    set(ASM_SUPPORTED ON)
+endif()
+
+# options
+include(CMakeDependentOption)
+
+option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
+cmake_dependent_option(USE_ASM "Enable assembly implementation." ON ASM_SUPPORTED OFF)
+option(ENABLE_TESTS "Compile test-suite" ON)
 
 if ("${CONFIG}" STREQUAL "unsupported")
     message(ERROR "Could not detect assembly architecture or one is not supported.")
