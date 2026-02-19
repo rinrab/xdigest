@@ -1,0 +1,10 @@
+[package]
+name = "xdigest"
+license = "Apache-2.0"
+repository = "https://github.com/rinrab/xdigest"
+description = "Extremely fast digest algorithm implementations packaged into a lightweight library (high-level API)."
+categories = ["algorithms", "cryptography", "no-std", "no-std::no-alloc"]
+edition = "2018"
+
+[dependencies]
+xdigest-sys = { version = "0.5.0", path = "../xdigest-sys" } 
