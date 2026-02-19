@@ -340,7 +340,19 @@ void xdig_cpuid_setup(void)
     sigprocmask(SIG_SETMASK, &oset, NULL);
 }
 
+/* public interface */
+void xdig_init()
+{
+    xdig_cpuid_setup();
+}
+
 #else /* xdig_CPUID_OBJ */
+
+/* public interface */
+void xdig_init()
+{
+    /* no-op */
+}
 
 #endif /* ! xdig_CPUID_OBJ */
 #endif /* ppc */
