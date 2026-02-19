@@ -2,6 +2,37 @@
 
 All notable changes should be documented here.
 
+## 0.5.0
+
+### Tar-ball Distributions
+
+Starting from 0.5.0, we distribute signed tar-balls with source code for both,
+Unix and Windows. It's recommended for Unix consumers to use .tar.gz and
+Windows users should use .zip archives.
+
+### Build Improvements
+
+Compilation for Risc-V and PowerPC architectures and non-canonical ARM versions
+has been fixed. We now provide assembly implementation for Risc-V platform.
+However, those platforms have not been tested enough and might not work as
+expected.
+
+PowerPC and ARM v4-v7 assemblies are still to be done.
+
+### Rust Bindings
+
+An experiemntal version of bindings for rust was added to the project. Its
+sources can be found in contrib/rust/ directory of the source tree. Those
+include a source code distribution for the package manager and a system package
+that compiles those sources.
+
+There are plenty of things to be done to make it production ready yet. Those
+include the following:
+
+- High-level wrapper.
+- Use of system-installed library if available.
+- Perform some testing.
+
 ## 0.4.0
 
 This release focuses on tidying up the source code. Nothing really meaningfull
