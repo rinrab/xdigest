@@ -62,6 +62,10 @@ git clone https://github.com/rinrab/xdigest.git
 cd xdigest
 ```
 
+Or you might browse for the latest release at
+https://github.com/rinrab/xdigest/releases. There are tar-balls that are signed
+via PGP key with this ID: `4734E1FDB2FAF97058D3141257E9B12AFBBE92B8`.
+
 ### Install library via a package manager
 
 #### Arch Linux
