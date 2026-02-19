@@ -2,6 +2,7 @@
 members = [
     "xdigest-src",
     "xdigest-sys",
+    "xdigest",
 ]
 
 [workspace.package]
