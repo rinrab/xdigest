@@ -291,5 +291,6 @@ rust-package: rust-copydist
 	cd contrib/rust/xdigest-sys && cargo package
 
 rust-publish: 
-	todo
+	cd contrib/rust/xdigest-src && cargo publish
+	cd contrib/rust/xdigest-sys && cargo publish
 
