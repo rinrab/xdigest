@@ -19,6 +19,10 @@ expected.
 
 PowerPC and ARM v4-v7 assemblies are still to be done.
 
+CMake's USE_ASM option can now automatically detect whether assembly is
+supported or not. If target implementation does not support it, it will will be
+disabled.
+
 ### Rust Bindings
 
 An experiemntal version of bindings for rust was added to the project. Its
