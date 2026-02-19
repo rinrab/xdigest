@@ -48,7 +48,7 @@
 #include "internal/cryptlib.h"
 #include "crypto/ppc_arch.h"
 
-unsigned int OPENSSL_ppccap_P = 0;
+unsigned int xdig_ppccap_P = 0;
 
 static sigset_t all_masked;
 
@@ -58,48 +58,48 @@ static void ill_handler(int sig)
     siglongjmp(ill_jmp, sig);
 }
 
-void OPENSSL_fpu_probe(void);
-void OPENSSL_ppc64_probe(void);
-void OPENSSL_altivec_probe(void);
-void OPENSSL_crypto207_probe(void);
-void OPENSSL_madd300_probe(void);
-void OPENSSL_brd31_probe(void);
+void xdig_fpu_probe(void);
+void xdig_ppc64_probe(void);
+void xdig_altivec_probe(void);
+void xdig_crypto207_probe(void);
+void xdig_madd300_probe(void);
+void xdig_brd31_probe(void);
 
-long OPENSSL_rdtsc_mftb(void);
-long OPENSSL_rdtsc_mfspr268(void);
+long xdig_rdtsc_mftb(void);
+long xdig_rdtsc_mfspr268(void);
 
-uint32_t OPENSSL_rdtsc(void)
+uint32_t xdig_rdtsc(void)
 {
-    if (OPENSSL_ppccap_P & PPC_MFTB)
-        return OPENSSL_rdtsc_mftb();
-    else if (OPENSSL_ppccap_P & PPC_MFSPR268)
-        return OPENSSL_rdtsc_mfspr268();
+    if (xdig_ppccap_P & PPC_MFTB)
+        return xdig_rdtsc_mftb();
+    else if (xdig_ppccap_P & PPC_MFSPR268)
+        return xdig_rdtsc_mfspr268();
     else
         return 0;
 }
 
-size_t OPENSSL_instrument_bus_mftb(unsigned int *, size_t);
-size_t OPENSSL_instrument_bus_mfspr268(unsigned int *, size_t);
+size_t xdig_instrument_bus_mftb(unsigned int *, size_t);
+size_t xdig_instrument_bus_mfspr268(unsigned int *, size_t);
 
-size_t OPENSSL_instrument_bus(unsigned int *out, size_t cnt)
+size_t xdig_instrument_bus(unsigned int *out, size_t cnt)
 {
-    if (OPENSSL_ppccap_P & PPC_MFTB)
-        return OPENSSL_instrument_bus_mftb(out, cnt);
-    else if (OPENSSL_ppccap_P & PPC_MFSPR268)
-        return OPENSSL_instrument_bus_mfspr268(out, cnt);
+    if (xdig_ppccap_P & PPC_MFTB)
+        return xdig_instrument_bus_mftb(out, cnt);
+    else if (xdig_ppccap_P & PPC_MFSPR268)
+        return xdig_instrument_bus_mfspr268(out, cnt);
     else
         return 0;
 }
 
-size_t OPENSSL_instrument_bus2_mftb(unsigned int *, size_t, size_t);
-size_t OPENSSL_instrument_bus2_mfspr268(unsigned int *, size_t, size_t);
+size_t xdig_instrument_bus2_mftb(unsigned int *, size_t, size_t);
+size_t xdig_instrument_bus2_mfspr268(unsigned int *, size_t, size_t);
 
-size_t OPENSSL_instrument_bus2(unsigned int *out, size_t cnt, size_t max)
+size_t xdig_instrument_bus2(unsigned int *out, size_t cnt, size_t max)
 {
-    if (OPENSSL_ppccap_P & PPC_MFTB)
-        return OPENSSL_instrument_bus2_mftb(out, cnt, max);
-    else if (OPENSSL_ppccap_P & PPC_MFSPR268)
-        return OPENSSL_instrument_bus2_mfspr268(out, cnt, max);
+    if (xdig_ppccap_P & PPC_MFTB)
+        return xdig_instrument_bus2_mftb(out, cnt, max);
+    else if (xdig_ppccap_P & PPC_MFSPR268)
+        return xdig_instrument_bus2_mfspr268(out, cnt, max);
     else
         return 0;
 }
@@ -153,7 +153,7 @@ static unsigned long getauxval(unsigned long key)
 #define HWCAP_ARCH_3_00         (1U << 23)
 #define HWCAP_ARCH_3_1          (1U << 18)
 
-void OPENSSL_cpuid_setup(void)
+void xdig_cpuid_setup(void)
 {
     char *e;
     struct sigaction ill_oact, ill_act;
@@ -164,15 +164,15 @@ void OPENSSL_cpuid_setup(void)
         return;
     trigger = 1;
 
-    if ((e = getenv("OPENSSL_ppccap"))) {
-        OPENSSL_ppccap_P = strtoul(e, NULL, 0);
+    if ((e = getenv("xdig_ppccap"))) {
+        xdig_ppccap_P = strtoul(e, NULL, 0);
         return;
     }
 
-    OPENSSL_ppccap_P = 0;
+    xdig_ppccap_P = 0;
 
 #if defined(_AIX)
-    OPENSSL_ppccap_P |= PPC_FPU;
+    xdig_ppccap_P |= PPC_FPU;
 
     if (sizeof(size_t) == 4) {
         struct utsname uts;
@@ -193,31 +193,31 @@ void OPENSSL_cpuid_setup(void)
     if (sizeof(size_t) == 4) {
         /* In 32-bit case PPC_FPU64 is always fastest [if option] */
         if (__power_set(0xffffffffU<<13))       /* POWER5 and later */
-            OPENSSL_ppccap_P |= PPC_FPU64;
+            xdig_ppccap_P |= PPC_FPU64;
     } else {
         /* In 64-bit case PPC_FPU64 is fastest only on POWER6 */
         if (__power_set(0x1U<<14))              /* POWER6 */
-            OPENSSL_ppccap_P |= PPC_FPU64;
+            xdig_ppccap_P |= PPC_FPU64;
     }
 
     if (__power_set(0xffffffffU<<14))           /* POWER6 and later */
-        OPENSSL_ppccap_P |= PPC_ALTIVEC;
+        xdig_ppccap_P |= PPC_ALTIVEC;
 
     if (__power_set(0xffffffffU<<16))           /* POWER8 and later */
-        OPENSSL_ppccap_P |= PPC_CRYPTO207;
+        xdig_ppccap_P |= PPC_CRYPTO207;
 
     if (__power_set(0xffffffffU<<17))           /* POWER9 and later */
-        OPENSSL_ppccap_P |= PPC_MADD300;
+        xdig_ppccap_P |= PPC_MADD300;
 
     if (__power_set(0xffffffffU<<18))           /* POWER10 and later */
-        OPENSSL_ppccap_P |= PPC_BRD31;
+        xdig_ppccap_P |= PPC_BRD31;
 
     return;
 # endif
 #endif
 
 #if defined(__APPLE__) && defined(__MACH__)
-    OPENSSL_ppccap_P |= PPC_FPU;
+    xdig_ppccap_P |= PPC_FPU;
 
     {
         int val;
@@ -225,13 +225,13 @@ void OPENSSL_cpuid_setup(void)
 
         if (sysctlbyname("hw.optional.64bitops", &val, &len, NULL, 0) == 0) {
             if (val)
-                OPENSSL_ppccap_P |= PPC_FPU64;
+                xdig_ppccap_P |= PPC_FPU64;
         }
 
         len = sizeof(val);
         if (sysctlbyname("hw.optional.altivec", &val, &len, NULL, 0) == 0) {
             if (val)
-                OPENSSL_ppccap_P |= PPC_ALTIVEC;
+                xdig_ppccap_P |= PPC_ALTIVEC;
         }
 
         return;
@@ -244,32 +244,32 @@ void OPENSSL_cpuid_setup(void)
         unsigned long hwcap2 = getauxval(AT_HWCAP2);
 
         if (hwcap & HWCAP_FPU) {
-            OPENSSL_ppccap_P |= PPC_FPU;
+            xdig_ppccap_P |= PPC_FPU;
 
             if (sizeof(size_t) == 4) {
                 /* In 32-bit case PPC_FPU64 is always fastest [if option] */
                 if (hwcap & HWCAP_PPC64)
-                    OPENSSL_ppccap_P |= PPC_FPU64;
+                    xdig_ppccap_P |= PPC_FPU64;
             } else {
                 /* In 64-bit case PPC_FPU64 is fastest only on POWER6 */
                 if (hwcap & HWCAP_POWER6_EXT)
-                    OPENSSL_ppccap_P |= PPC_FPU64;
+                    xdig_ppccap_P |= PPC_FPU64;
             }
         }
 
         if (hwcap & HWCAP_ALTIVEC) {
-            OPENSSL_ppccap_P |= PPC_ALTIVEC;
+            xdig_ppccap_P |= PPC_ALTIVEC;
 
             if ((hwcap & HWCAP_VSX) && (hwcap2 & HWCAP_VEC_CRYPTO))
-                OPENSSL_ppccap_P |= PPC_CRYPTO207;
+                xdig_ppccap_P |= PPC_CRYPTO207;
         }
 
         if (hwcap2 & HWCAP_ARCH_3_00) {
-            OPENSSL_ppccap_P |= PPC_MADD300;
+            xdig_ppccap_P |= PPC_MADD300;
         }
 
         if (hwcap2 & HWCAP_ARCH_3_1) {
-            OPENSSL_ppccap_P |= PPC_BRD31;
+            xdig_ppccap_P |= PPC_BRD31;
         }
     }
 #endif
@@ -293,8 +293,8 @@ void OPENSSL_cpuid_setup(void)
 
 #ifndef OSSL_IMPLEMENT_GETAUXVAL
     if (sigsetjmp(ill_jmp, 1) == 0) {
-        OPENSSL_fpu_probe();
-        OPENSSL_ppccap_P |= PPC_FPU;
+        xdig_fpu_probe();
+        xdig_ppccap_P |= PPC_FPU;
 
         if (sizeof(size_t) == 4) {
 # ifdef __linux
@@ -302,8 +302,8 @@ void OPENSSL_cpuid_setup(void)
             if (uname(&uts) == 0 && strcmp(uts.machine, "ppc64") == 0)
 # endif
                 if (sigsetjmp(ill_jmp, 1) == 0) {
-                    OPENSSL_ppc64_probe();
-                    OPENSSL_ppccap_P |= PPC_FPU64;
+                    xdig_ppc64_probe();
+                    xdig_ppccap_P |= PPC_FPU64;
                 }
         } else {
             /*
@@ -313,26 +313,26 @@ void OPENSSL_cpuid_setup(void)
     }
 
     if (sigsetjmp(ill_jmp, 1) == 0) {
-        OPENSSL_altivec_probe();
-        OPENSSL_ppccap_P |= PPC_ALTIVEC;
+        xdig_altivec_probe();
+        xdig_ppccap_P |= PPC_ALTIVEC;
         if (sigsetjmp(ill_jmp, 1) == 0) {
-            OPENSSL_crypto207_probe();
-            OPENSSL_ppccap_P |= PPC_CRYPTO207;
+            xdig_crypto207_probe();
+            xdig_ppccap_P |= PPC_CRYPTO207;
         }
     }
 
     if (sigsetjmp(ill_jmp, 1) == 0) {
-        OPENSSL_madd300_probe();
-        OPENSSL_ppccap_P |= PPC_MADD300;
+        xdig_madd300_probe();
+        xdig_ppccap_P |= PPC_MADD300;
     }
 #endif
 
     if (sigsetjmp(ill_jmp, 1) == 0) {
-        OPENSSL_rdtsc_mftb();
-        OPENSSL_ppccap_P |= PPC_MFTB;
+        xdig_rdtsc_mftb();
+        xdig_ppccap_P |= PPC_MFTB;
     } else if (sigsetjmp(ill_jmp, 1) == 0) {
-        OPENSSL_rdtsc_mfspr268();
-        OPENSSL_ppccap_P |= PPC_MFSPR268;
+        xdig_rdtsc_mfspr268();
+        xdig_ppccap_P |= PPC_MFSPR268;
     }
 
     sigaction(SIGILL, &ill_oact, NULL);
