@@ -1,0 +1,17 @@
+[package]
+name = "xdigest-sys"
+version = "0.4.1"
+license = "Apache-2.0"
+repository = "https://github.com/rinrab/xdigest"
+description = "Extremely fast digest algorithm implementations packaged into a lightweight library."
+categories = ["digest", "sha"]
+edition = "2018"
+
+build = "build.rs"
+
+[dependencies]
+libc = "0.2"
+
+[build-dependencies]
+cmake = "0.1"
+bindgen = ">=0.60"
