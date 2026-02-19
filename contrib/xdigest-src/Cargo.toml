@@ -1,0 +1,8 @@
+[package]
+name = "xdigest-src"
+version = "0.4.1"
+license = "Apache-2.0"
+repository = "https://github.com/rinrab/xdigest"
+description = "Extremely fast digest algorithm implementations packaged into a lightweight library (source code)."
+categories = ["digest", "sha"]
+edition = "2018"
