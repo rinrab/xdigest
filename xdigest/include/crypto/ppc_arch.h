@@ -28,7 +28,7 @@
 #ifndef OSSL_CRYPTO_PPC_ARCH_H
 # define OSSL_CRYPTO_PPC_ARCH_H
 
-extern unsigned int OPENSSL_ppccap_P;
+extern unsigned int xdig_ppccap_P;
 
 /*
  * Flags' usage can appear ambiguous, because they are set rather
