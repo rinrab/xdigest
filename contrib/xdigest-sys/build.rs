@@ -32,9 +32,11 @@ fn main() {
     
     let bindings = bindgen::Builder::default() 
         .header(includedir.join("xdigest/xdigest.h").to_str().unwrap())
+        .header(includedir.join("xdigest/xdigest_md2.h").to_str().unwrap())
+        .header(includedir.join("xdigest/xdigest_md4.h").to_str().unwrap())
+        .header(includedir.join("xdigest/xdigest_md5.h").to_str().unwrap())
         .header(includedir.join("xdigest/xdigest_sha1.h").to_str().unwrap())
         .header(includedir.join("xdigest/xdigest_sha2.h").to_str().unwrap())
-        .header(includedir.join("xdigest/xdigest_md5.h").to_str().unwrap())
         .generate()
         .expect("Failed to generate bindings");
 
