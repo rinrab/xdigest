@@ -87,10 +87,6 @@
 #define HASH_BLOCK_DATA_ORDER_IMPL_MAYBE_STATIC static
 #endif
 
-HASH_BLOCK_DATA_ORDER_IMPL_MAYBE_STATIC void
-HASH_BLOCK_DATA_ORDER_IMPL(xdig_sha256_ctx_t *ctx,
-                           const void *in, size_t num);
-
 HASH_BLOCK_DATA_ORDER_MAYBE_STATIC void
 HASH_BLOCK_DATA_ORDER(xdig_sha256_ctx_t *ctx,
                       const void *in, size_t num);
