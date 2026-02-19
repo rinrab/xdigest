@@ -5,7 +5,7 @@ use std::path::PathBuf;
 fn main() {
     let target = env::var("TARGET").unwrap();
 
-    let mut cmake = cmake::Config::new("../..");
+    let mut cmake = cmake::Config::new(PathBuf::from(xdigest_src::SRC_DIR).join("dist"));
     cmake.define("BUILD_SHARED_LIBS", "OFF");
 
     if target == "i686-pc-windows-msvc" {

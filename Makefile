@@ -273,3 +273,10 @@ dist/xdigest-$(DIST_VERSION).zip.sha256: dist/xdigest-$(DIST_VERSION).zip
 dist/xdigest-$(DIST_VERSION).zip.sha512: dist/xdigest-$(DIST_VERSION).zip
 	sha512sum $^ > $@
 
+rust-copydist: dist-checkout
+	$(RMDIR) contrib/xdigest-src/dist
+	svn export dist/build contrib/xdigest-src/dist
+
+rust-build:
+	cd contrib/xdigest-sys && cargo build
+
