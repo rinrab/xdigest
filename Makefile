@@ -280,3 +280,10 @@ rust-copydist: dist-checkout
 rust-build:
 	cd contrib/xdigest-sys && cargo build
 
+rust-package: rust-copydist
+	cd contrib/xdigest-src && cargo package
+	cd contrib/xdigest-sys && cargo package
+
+rust-publish: 
+	todo
+
