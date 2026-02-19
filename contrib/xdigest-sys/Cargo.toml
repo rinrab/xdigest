@@ -15,4 +15,4 @@ libc = "0.2"
 [build-dependencies]
 cmake = "0.1"
 bindgen = ">=0.60"
-xdigest-src = { path = "../xdigest-src" }
+xdigest-src = { version = "0.4.1", path = "../xdigest-src" } 
