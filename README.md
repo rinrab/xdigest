@@ -55,8 +55,7 @@ straightforward as possible.
 ### Getting source code
 
 The sources are officially published here at GitHub. But it's important to know
-that the GitHub repository is actually a mirror of a Subversion repository
-because svn is the GOAT.
+that the GitHub repository is actually a mirror of a Subversion repository.
 
 ```bash
 git clone https://github.com/rinrab/xdigest.git
