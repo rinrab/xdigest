@@ -4,7 +4,7 @@ version = "0.5.0"
 license = "Apache-2.0"
 repository = "https://github.com/rinrab/xdigest"
 description = "Extremely fast digest algorithm implementations packaged into a lightweight library."
-categories = ["algorithms", "no-std", "no-std::no-alloc"]
+categories = ["algorithms", "cryptography", "no-std", "no-std::no-alloc"]
 edition = "2018"
 
 build = "build.rs"
