@@ -5,6 +5,7 @@ repository = "https://github.com/rinrab/xdigest"
 description = "Extremely fast digest algorithm implementations packaged into a lightweight library."
 categories = ["algorithms", "cryptography", "no-std", "no-std::no-alloc"]
 edition = "2018"
+version.workspace = true
 
 build = "build.rs"
 
