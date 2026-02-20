@@ -2,6 +2,12 @@ use std::{mem::MaybeUninit};
 
 use xdigest_sys::*;
 
+pub fn init() {
+    unsafe {
+        xdig_init();
+    }
+}
+
 pub trait XDigest<const DIGEST_SIZE: usize> {
     fn new() -> Self;
 
