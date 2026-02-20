@@ -287,7 +287,7 @@ rust-build:
 	cd contrib/rust && cargo build
 
 rust-test:
-	cd contrib/rust && cargo test
+	cd contrib/rust && cargo test && cargo bench 
 
 rust-package: rust-copydist
 	cd contrib/rust/xdigest-src && cargo package
