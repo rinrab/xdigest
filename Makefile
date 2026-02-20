@@ -286,6 +286,9 @@ rust-copydist: dist-checkout
 rust-build:
 	cd contrib/rust && cargo build
 
+rust-test:
+	cd contrib/rust && cargo test
+
 rust-package: rust-copydist
 	cd contrib/rust/xdigest-src && cargo package
 	cd contrib/rust/xdigest-sys && cargo package
