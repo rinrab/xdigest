@@ -26,6 +26,8 @@ macro_rules! bench_update {
     ) => {
         #[bench]
         fn $name(b: &mut test::Bencher) {
+            xdigest::init();
+
             let mut buf = [0u8; 1024 * 1024];
             let mut i = 0;
             let mut ctx = $init;
