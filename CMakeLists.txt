@@ -65,7 +65,7 @@ if (USE_ASM)
 endif()
 
 file(
-  STRINGS "xdigest/include/xdigest/xdigest.h" VERSION_STRINGS
+  STRINGS "includes/xdigest.h" VERSION_STRINGS
   REGEX "#define (XDIG_VERSION_MAJOR|XDIG_VERSION_MINOR|XDIG_VERSION_PATCH)"
 )
 
@@ -153,7 +153,7 @@ if (ENABLE_TESTS)
 endif()
 
 target_include_directories(xdigest PUBLIC
-    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/xdigest/include/xdigest>"
+    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/includes>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/xdigest>"
 )
 
@@ -187,7 +187,7 @@ install(
     DESTINATION "lib/cmake/xdigest"
 )
 
-file(GLOB public_headers "xdigest/include/xdigest/*.h")
+file(GLOB public_headers "includes/*.h")
 install(FILES
     ${public_headers}
     DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/xdigest"
