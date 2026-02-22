@@ -20,9 +20,9 @@
 
 out = out
 
-VERSION_MAJOR := $(shell grep XDIG_VERSION_MAJOR xdigest/include/xdigest/xdigest.h | awk '{print $$3}')
-VERSION_MINOR := $(shell grep XDIG_VERSION_MINOR xdigest/include/xdigest/xdigest.h | awk '{print $$3}')
-VERSION_PATCH := $(shell grep XDIG_VERSION_PATCH xdigest/include/xdigest/xdigest.h | awk '{print $$3}')
+VERSION_MAJOR := $(shell grep XDIG_VERSION_MAJOR includes/xdigest.h | awk '{print $$3}')
+VERSION_MINOR := $(shell grep XDIG_VERSION_MINOR includes/xdigest.h | awk '{print $$3}')
+VERSION_PATCH := $(shell grep XDIG_VERSION_PATCH includes/xdigest.h | awk '{print $$3}')
 
 VERSION = $(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_PATCH)
 SONAME = $(VERSION_MAJOR)
@@ -67,7 +67,7 @@ else
     DEFS += -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM
 endif
 
-INCS += -Ixdigest/include -Ixdigest/include/xdigest -Ixdigest -Ixdigest/core
+INCS += -Ixdigest/include -Iincludes -Ixdigest -Ixdigest/core
 
 c_objects = \
     xdigest/core/cpuid$(OBJEXT) \
@@ -125,7 +125,7 @@ install-shared: $(sofiles)
 install-headers:
 	install -d $(prefix)/include/
 	install -d $(prefix)/include/xdigest
-	install -m 644 xdigest/include/xdigest/*.h $(prefix)/include/xdigest
+	install -m 644 includes/*.h $(prefix)/include/xdigest
 
 MAKE_FLAGS = \
 	 "ASSEMBLER=$(ASSEMBLER)" \
