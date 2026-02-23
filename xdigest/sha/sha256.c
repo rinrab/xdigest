@@ -28,7 +28,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <xdigest/xdigest_sha2.h>
+#include <xdigest_sha2.h>
 
 #include "sha256_local.h"
 
