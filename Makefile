@@ -116,7 +116,7 @@ $(asm_objects): %.o: %.S
 	mkdir -p $(@D) && $(ASSEMBLER) $@ $^ $(DEFS) $(INCS)
 
 $(c_objects): %.o: %.c
-	mkdir -p $(@D) && $(COMPILE) $@ $^ $(DEFS) $(INCS)
+	mkdir -p $(@D) && $(COMPILE) $@ $^ $(DEFS) $(INCS) 
 
 install-shared: $(sofiles)
 	install -d $(prefix)/lib/
@@ -150,7 +150,7 @@ rebuild: clean all
 
 %.o: %.c
 	mkdir -p $(@D)
-	$(COMPILE) $@ $^ -DXDIG -Ixdigest/include/xdigest
+	$(COMPILE) $@ $^ -DXDIG $(INCS)
 
 test_xdigest: tests/test_xdigest.o tests/sha_test.o xdigest/libxdigest.so
 	$(MKDIR) $(@D)
