@@ -41,6 +41,23 @@ I also made an interesting observation that I was getting around 1.50 GB/s
 could get on Linux was 2.50 GB/s but I will probably have to figure out how TLP
 works to get those measurements again. Average Linux desktop experience...
 
+Also there is a comparasion of our Rust bindings against a popular Rust library
+(https://github.com/RustCrypto/hashes). This is also a cool project and you
+should check it out as well if you are interested. The measurements were
+obtained with AVX instruction set enabled which explains the same performance
+in those two samples. xdigest still is going to perform better on older
+hardware, CPUs without AVX module, or unusual architectures. Also in this
+example, Rust's native benchmarking module was used which gives slightly
+different measures than in the table above. A one-megabyte (1024 * 1024 bytes)
+blocks of random data were used.
+
+| algorithm | xdigest | RustCrypto/hashes |
+|---|---|---|
+|   sha1 | 2062 MB/s | 2024 MB/s |
+| sha256 | 1844 MB/s | 1849 MB/s |
+| sha512 |  725 MB/s |  580 MB/s |
+|    md5 |  746 MB/s |  661 MB/s |
+
 ## Getting started
 
 This section describes how this library can be used in your projects.
