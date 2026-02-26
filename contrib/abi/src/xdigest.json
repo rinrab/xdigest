@@ -1,0 +1,8 @@
+{
+  "Name":           "xdigest",
+  "SourceUrl":      "https://svn.rinrab.com/rinrab/xdigest/tags",
+  "Svn":            "https://svn.rinrab.com/rinrab/xdigest/trunk",
+  "Maintainer":	    "xdigest",
+  "MaintainerUrl":  "https://github.com/rinrab/xdigest",
+  "BuildScript":    "../src/install.sh"
+}

@@ -297,3 +297,6 @@ rust-publish:
 	cd contrib/rust/xdigest-src && cargo publish
 	cd contrib/rust/xdigest-sys && cargo publish
 
+abi:
+	cd contrib/abi/work && abi-monitor -get -build -output ./xdigest.json ../src/xdigest.json
+	cd contrib/abi/work && abi-tracker -build ./xdigest.json -deploy ../../../www/abi
