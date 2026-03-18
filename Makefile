@@ -143,6 +143,8 @@ clean:
 	$(RM) test_xdigest example
 	$(RM) $(sofiles)
 	$(RM) $(objects)
+	$(RMDIR) contrib/xdigest-src/dist
+	$(RMDIR) dist
 
 install: install-shared install-headers
 
