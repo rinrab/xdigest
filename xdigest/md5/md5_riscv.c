@@ -27,7 +27,7 @@
 
 #ifdef __riscv
 
-#include "xdigest/xdigest_md5.h"
+#include "xdigest_md5.h"
 #include "crypto/riscv_arch.h"
 
 void ossl_md5_block_asm_data_order(xdig_md5_ctx_t *c, const void *p, size_t num);

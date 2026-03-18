@@ -30,7 +30,7 @@
         defined(_M_AMD64) || defined(_M_X64)
 
 #include "internal/e_os2.h"
-#include "xdigest/xdigest.h"
+#include "xdigest.h"
 #include <stddef.h>
 
 #define xdig_IA32CAP_P_MAX_INDEXES 10

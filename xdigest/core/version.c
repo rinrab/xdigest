@@ -18,7 +18,7 @@
  * ====================================================================
  */
 
-#include "xdigest/xdigest.h"
+#include "xdigest.h"
 
 void
 xdig_version(xdig_version_t *p_version)

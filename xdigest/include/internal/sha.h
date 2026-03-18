@@ -30,8 +30,8 @@
 # pragma once
 
 #include "internal/e_os2.h"
-#include "xdigest/xdigest_sha1.h"
-#include "xdigest/xdigest_sha2.h"
+#include "xdigest_sha1.h"
+#include "xdigest_sha2.h"
 #include <stddef.h>
 
 # ifdef  __cplusplus
